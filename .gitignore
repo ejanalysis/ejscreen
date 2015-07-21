@@ -1,0 +1,9 @@
+.Rproj.user
+.Rhistory
+.RData
+
+*.Rproj
+
+man/hello.Rd
+
+R/hello.R
