@@ -7,11 +7,13 @@
 #' @param x Data.frame of indicators, one row per block group, one column per indicator.
 #' @param weights Weights for percentiles -- Default is population count to provide population percentiles.
 #' @param folder Default is getwd() - specifies where to save the csv files.
+#' @param zone NOT IMPLEMENTED HERE - HELPER FUNCTIONS ASSUME STATES AND REGIONS ARE ZONES NEEDED
+#' @param missingcode Leave this unspecified if missing values are set to NA in the input data. Default is -9999999 (but if already NA then do not specify anything for this). The number or value in the input data that designates a missing value.
 #' @return Creates lookup tables saved as csv files to specified folder.
 #' @examples
 #'  # (no examples yet)
 #' @export
-ejscreen.lookuptables <- function(x, weights, zone, folder=getwd()) {
+ejscreen.lookuptables <- function(x, weights, zone, folder=getwd(), missingcode=-9999999) {
 
   ############################################################
   #
@@ -28,14 +30,13 @@ ejscreen.lookuptables <- function(x, weights, zone, folder=getwd()) {
 
   # NOTE: THIS IS WRITTEN ASSUMING THE DATA.FRAME CALLED places IS ALREADY IN MEMORY
   # As of 5/8/2014, -9999999  is the missing value indicator the contractor & EPA agreed to use.
-
-  default.MISSING.VALUE.SYMBOL <- -9999999
+  # default missingcode <- -9999999
 
   places <- x
 
   if (exists('places')) {
     cat('Started creating NA values for missing data... ') ; print(Sys.time())
-    places[places==default.MISSING.VALUE.SYMBOL] <- NA
+    places[places==missingcode] <- NA
     cat('Finished creating NA values for missing data... '); print(Sys.time())
   } else {stop('Must have the data.frame called places already in memory. See instructions in How to run EJSCREEN R... ')}
 
@@ -85,13 +86,13 @@ ejscreen.lookuptables <- function(x, weights, zone, folder=getwd()) {
   #	TO WRITE (unweighted) CSV FILE WITH PERCENTILES AND MEAN, AND MAYBE STD DEVIATION (not used in EJSCREEN)
   #################################################################################################
 
-  write.pctiles = function(column.names, folder=getwd(), filename, MISSING.VALUE.SYMBOL=NA) {
+  write.pctiles = function(column.names, folder=getwd(), filename, missingcode=NA) {
 
     rawcols <- places[, column.names ] # wastes some RAM to make a copy, but easier
 
     # if special missing value symbol used, convert to NA for the calculations
-    if (!is.na(MISSING.VALUE.SYMBOL)) {
-      rawcols[rawcols==MISSING.VALUE.SYMBOL] <- NA
+    if (!is.na(missingcode)) {
+      rawcols[rawcols==missingcode] <- NA
     }
 
     r = data.frame(sapply(rawcols, function(x) pctiles.unrounded(x) ) )
@@ -99,8 +100,8 @@ ejscreen.lookuptables <- function(x, weights, zone, folder=getwd()) {
     r = rbind(r, t(data.frame(std.dev=sapply(rawcols, function(x) sd(x, na.rm=TRUE) ) ) ))
 
     # replace NA in tables with missing value symbol if necessary
-    if (!is.na(MISSING.VALUE.SYMBOL)) {
-      r[is.na(r)] <- MISSING.VALUE.SYMBOL
+    if (!is.na(missingcode)) {
+      r[is.na(r)] <- missingcode
     }
 
     write.csv(r, file=file.path(folder, paste(filename, ".csv", sep="")))
@@ -112,13 +113,13 @@ ejscreen.lookuptables <- function(x, weights, zone, folder=getwd()) {
   #	SAVING A FILE OF STATS FOR EACH REGION OR STATE
   #####################################
 
-  write.pctiles.by.zone = function(column.names, folder=getwd(), filename, zone.vector, MISSING.VALUE.SYMBOL=NA) {
+  write.pctiles.by.zone = function(column.names, folder=getwd(), filename, zone.vector, missingcode=NA) {
 
     rawcols <- places[, column.names ] # wastes some RAM to make a copy, but easier
 
     # if special missing value symbol used, convert to NA for the calculations
-    if (!is.na(MISSING.VALUE.SYMBOL)) {
-      rawcols[rawcols==MISSING.VALUE.SYMBOL] <- NA
+    if (!is.na(missingcode)) {
+      rawcols[rawcols==missingcode] <- NA
     }
 
     for (z in unique(zone.vector)) {
@@ -127,8 +128,8 @@ ejscreen.lookuptables <- function(x, weights, zone, folder=getwd()) {
       r = rbind(r, t(data.frame(std.dev=sapply(rawcols[zone.vector==z, ], function(x) sd(x, na.rm=TRUE) ) ) ))
 
       # replace NA in tables with missing value symbol if necessary
-      if (!is.na(MISSING.VALUE.SYMBOL)) {
-        r[is.na(r)] <- MISSING.VALUE.SYMBOL
+      if (!is.na(missingcode)) {
+        r[is.na(r)] <- missingcode
       }
 
       write.csv(r, file=file.path(folder, paste(filename, "-notpopwtd-for zone ", z, ".csv", sep="")))
@@ -142,16 +143,16 @@ ejscreen.lookuptables <- function(x, weights, zone, folder=getwd()) {
 
   # NOTE na.rm=TRUE is done in table.pop.pctile, so needn't do that below as well.
 
-  write.wtd.pctiles = function(column.names, wts, folder=getwd(), filename, MISSING.VALUE.SYMBOL=NA) {
+  write.wtd.pctiles = function(column.names, wts, folder=getwd(), filename, missingcode=NA) {
 
     # as.numeric() is to avoid integer overflow if integer and wts huge
     rawcols <- as.data.frame(lapply(places[, column.names ], as.numeric)) # to be more generic, column.names would be cols, replacing places[,column.names]
     wts <- as.numeric(wts)
 
     # if special missing value symbol used, convert to NA for the calculations
-    if (!is.na(MISSING.VALUE.SYMBOL)) {
-      rawcols[rawcols==MISSING.VALUE.SYMBOL] <- NA
-      wts[wts==MISSING.VALUE.SYMBOL] <- NA
+    if (!is.na(missingcode)) {
+      rawcols[rawcols==missingcode] <- NA
+      wts[wts==missingcode] <- NA
     }
 
     # If every element of a column is NA, these all fail: wtd.mean, wtd.var, table.pop.pctile that uses wtd.quantile
@@ -167,8 +168,8 @@ ejscreen.lookuptables <- function(x, weights, zone, folder=getwd()) {
     r[ , rawcol.is.all.na] <- NA
 
     # replace NA in tables with missing value symbol if necessary
-    if (!is.na(MISSING.VALUE.SYMBOL)) {
-      r[is.na(r)] <- MISSING.VALUE.SYMBOL
+    if (!is.na(missingcode)) {
+      r[is.na(r)] <- missingcode
     }
 
     write.csv(r, file=file.path(folder, paste(filename, ".csv", sep="")))
@@ -180,16 +181,16 @@ ejscreen.lookuptables <- function(x, weights, zone, folder=getwd()) {
   #	SAVING A FILE OF STATS FOR EACH REGION OR STATE
   #####################################
 
-  write.wtd.pctiles.by.zone = function(column.names, wts, folder=getwd(), filename, zone.vector, MISSING.VALUE.SYMBOL=NA) {
+  write.wtd.pctiles.by.zone = function(column.names, wts, folder=getwd(), filename, zone.vector, missingcode=NA) {
 
     # as.numeric() is to avoid integer overflow if integer and wts huge
     rawcols <- as.data.frame(lapply(places[, column.names ], as.numeric)) # to be more generic, column.names would be cols, replacing places[,column.names]
     wts <- as.numeric(wts)
 
     # if special missing value symbol used, convert to NA for the calculations
-    if (!is.na(MISSING.VALUE.SYMBOL)) {
-      rawcols[rawcols==MISSING.VALUE.SYMBOL] <- NA
-      wts[wts==MISSING.VALUE.SYMBOL] <- NA
+    if (!is.na(missingcode)) {
+      rawcols[rawcols==missingcode] <- NA
+      wts[wts==missingcode] <- NA
     }
 
     # r <- list(1:length(unique(zone.vector))) # if we wanted to save all the tables, one per zone, in a list, could say r[[z]] <- .... below
@@ -210,8 +211,8 @@ ejscreen.lookuptables <- function(x, weights, zone, folder=getwd()) {
       r[ , rawcol.is.all.na] <- NA
 
       # replace NA in tables with missing value symbol if necessary
-      if (!is.na(MISSING.VALUE.SYMBOL)) {
-        r[is.na(r)] <- MISSING.VALUE.SYMBOL
+      if (!is.na(missingcode)) {
+        r[is.na(r)] <- missingcode
       }
 
       write.csv(r, file=file.path(folder, paste(filename, "-popwtd-for zone ", z, ".csv", sep="")))
@@ -249,11 +250,11 @@ ejscreen.lookuptables <- function(x, weights, zone, folder=getwd()) {
   # these need to be updated to use new Rfieldnames: ******
   colNames <- change.fieldnames(colNames, oldnames = ejscreenformulas$gdbfieldname, newnames = ejscreenformulas$Rfieldname)
 
-  x <- write.wtd.pctiles(colNames, places$pop, 'output', MISSING.VALUE.SYMBOL=default.MISSING.VALUE.SYMBOL)
+  x <- write.wtd.pctiles(colNames, places$pop, 'output', missingcode=missingcode)
 
-  x <- write.wtd.pctiles.by.zone(colNames, places$pop, 'out_rgn', places$REGION, MISSING.VALUE.SYMBOL=default.MISSING.VALUE.SYMBOL)
+  x <- write.wtd.pctiles.by.zone(colNames, places$pop, 'out_rgn', places$REGION, missingcode=missingcode)
 
-  x <- write.wtd.pctiles.by.zone(colNames, places$pop, 'out_state', places$ST, MISSING.VALUE.SYMBOL=default.MISSING.VALUE.SYMBOL)
+  x <- write.wtd.pctiles.by.zone(colNames, places$pop, 'out_state', places$ST, missingcode=missingcode)
 
   ######################
   if (1==0) {

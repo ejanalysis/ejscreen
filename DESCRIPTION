@@ -5,7 +5,10 @@ Version: 0.1
 Date: 2015-07-19
 Author: info@ejanalysis.com
 Maintainer: ejanalyst <info@ejanalysis.com>
-Description: Data and tools related to the United States Environmental Protection Agency's
-  screening and mapping tool for environmental justice, EJSCREEN
-License: None
+Description: Data and tools related to the United States Environmental Protection Agency's screening and mapping tool for environmental justice, EJSCREEN
+License: MIT + file LICENSE
 LazyData: TRUE
+URL:
+  http://ejanalysis.github.io
+  http://www.ejanalysis.com/
+  http://www.epa.gov/ejscreen

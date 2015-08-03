@@ -24,10 +24,14 @@ ejscreen.acs.calc <- function(bg, folder=getwd(), keep.old, keep.new, formulafil
 
   # in data folder, lazy loads:
   # mapfile <- 'EJSCREEN_FIELDNAMES_AND_FORMULAS_20150505.csv'
-  if (missing(file.path(folder, formulafile))) {
-    x <- ejscreenformulas  # lazy loads as data?
+  if (!missing(formulafile)) {
+    if (!file.exists(file.path(folder, formulafile))) {
+      x <- ejscreenformulas  # lazy loads as data?
+    } else {
+      x <- read.csv(file = formulafile, stringsAsFactors = FALSE)
+    }
   } else {
-    x <- read.csv(file = formulafile, stringsAsFactors = FALSE)
+    x <- ejscreenformulas  # lazy loads as data?
   }
   myformulas <- x$formula
 
@@ -61,6 +65,9 @@ ejscreen.acs.calc <- function(bg, folder=getwd(), keep.old, keep.new, formulafil
       'nhmulti'
     )
   }
+  # but don't try to keep fields not supplied in bg
+  keep.old <- keep.old[ keep.old %in% names(bg)]
+
 
   if (missing(keep.new)) {
     keep.new <- c(
@@ -89,12 +96,18 @@ ejscreen.acs.calc <- function(bg, folder=getwd(), keep.old, keep.new, formulafil
       'pctnhmulti'
     )
   }
-
-  # calc.fields() may not work using full list of myformulas from ejscreenformulas??
+  # if any of these are not successfully created by calc.fields(), they just won't be returned by that function.
 
   new.fields <- analyze.stuff::calc.fields(bg, formulas=myformulas, keep=keep.new)
+print(names(new.fields))
+  # don't try to keep fields not successfully created
+  keep.new <- keep.new[ keep.new %in% names(new.fields)]
+
+print('keep.new: '); print(keep.new)
+print('keep.old: '); print(keep.old)
+print('names of bg'); print(names(bg))
+
   bg <- cbind( bg[ , keep.old], new.fields )
-  rm(new.fields)
 
   return(bg)
 }
