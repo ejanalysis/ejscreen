@@ -10,13 +10,12 @@
 #' @return Returns a data.frame with full ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
 #'   as raw values, US percentiles, and text for popups. Output has one row per block group.
 #' @examples
-#'  # ejscreen.create(envirodata) # downloads ACS demographics and combines with user provided envirodata
 #'  \dontrun{
-#'  ejscreen.create(
-#'   FIPS=analyze.stuff::lead.zeroes(1:1000, 12),
-#'   bg.e=data.frame(air=rlnorm(1000), water=rlnorm(1000)*5),
-#'   acsraw=data.frame(pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500))
-#'   )
+#'  mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+#'  x=ejscreen.create(envirodata) # downloads ACS demographics and combines with user provided envirodata
+#'  # does not work like this since needs more Demog vars:
+#'  # myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+#'  # y=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
 #'  }
 #' @export
 ejscreen.create <- function(bg.e, acsraw, folder=getwd()) {
@@ -92,8 +91,9 @@ ejscreen.create <- function(bg.e, acsraw, folder=getwd()) {
   # Create and save in folder a file called "variables needed.csv" specific to EJSCREEN
 
   if (missing(acsraw)) {
-    out <- ACSdownload::get.acs(tables = 'ejscreen', end.year = '2013', askneeded = TRUE)
-    acsraw  <- out$bg
+    acsraw <- ACSdownload::get.acs(tables = 'ejscreen', end.year = '2013', askneeded = TRUE)
+    acsraw  <- acsraw$bg
+    # NOTE THIS DOES NOT PRESERVE tracts data downloaded
   }
 
   if (1==0) {

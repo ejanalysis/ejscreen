@@ -22,13 +22,12 @@ Start with raw environmental indicator data, and create full EJSCREEN dataset.
   This code also contains an outline of steps involved.
 }
 \examples{
-# ejscreen.create(envirodata) # downloads ACS demographics and combines with user provided envirodata
- \dontrun{
- ejscreen.create(
-  FIPS=analyze.stuff::lead.zeroes(1:1000, 12),
-  bg.e=data.frame(air=rlnorm(1000), water=rlnorm(1000)*5),
-  acsraw=data.frame(pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500))
-  )
+\dontrun{
+ mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+ x=ejscreen.create(envirodata) # downloads ACS demographics and combines with user provided envirodata
+ # does not work like this since needs more Demog vars:
+ # myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+ # y=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
  }
 }
 
