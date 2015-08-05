@@ -11,9 +11,9 @@ ejscreen.acs.calc(bg, folder = getwd(), keep.old, keep.new, formulafile)
 
 \item{folder}{Default is getwd(). Specifies path for where to read from (if formulafile specified) and write to.}
 
-\item{keep.old}{Vector of variables names indicating which to return (retain, not drop). Default is to keep all.}
+\item{keep.old}{Vector of variables names from names(bg), indicating which to return (retain, not drop). Default is to keep only the ones that match the list of default names in this code.}
 
-\item{keep.new}{Vector of variables names}
+\item{keep.new}{Vector of variables names of new created variables, indicating which to return (retain, not drop). Default is to keep all.}
 
 \item{formulafile}{Name of optional csv file with column called formula, providing formulas as character fields.
 If not specified, function loads this as data(ejscreenformulas).}
@@ -23,8 +23,13 @@ Returns a data.frame with some or all of input fields, plus calculated new field
 }
 \description{
 Use specified formulas to create calculated, derived variables such as percent low income.
+  Relies upon \code{\link[analyze.stuff]{calc.fields}} from \pkg{analyze.stuff} package.
 }
 \examples{
-# (no examples yet)
+set.seed(99)
+ envirodata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+ demogdata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), num2pov=runif(1000, 0,500), stringsAsFactors=FALSE)
+ demogdata$povknownratio <- demogdata$pop
+ x=ejscreen.acs.calc(bg=demogdata)
 }
 

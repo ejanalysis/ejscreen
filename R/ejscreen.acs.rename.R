@@ -17,9 +17,9 @@ ejscreen.acs.rename <- function(acsraw, folder=getwd(), formulafile) {
   # RENAME FIELDS FROM CENSUS NAMES TO EPA'S EJSCREEN FIELDNAMES
   if (missing(formulafile)) {
     # get formulafile via data()...?
-    names(acsraw) <- analyze.stuff::change.fieldnames(names(acsraw),  oldnames = ejscreenformulas$acsfieldname, newnames = ejscreenformulas$Rfieldname )
+    names(acsraw) <- suppressWarnings(analyze.stuff::change.fieldnames(names(acsraw),  oldnames = ejscreenformulas$acsfieldname, newnames = ejscreenformulas$Rfieldname ) )
   } else {
-    names(acsraw) <- analyze.stuff::change.fieldnames(names(acsraw), file=file.path(folder, formulafile))
+    names(acsraw) <- suppressWarnings(analyze.stuff::change.fieldnames(names(acsraw), file=file.path(folder, formulafile)) )
     # Note old versions:
     # 'EJSCREEN_FIELDNAMES_AND_FORMULAS_20150505.csv'
     # 'MAP OF CENSUS VS EJSCREEN-EPA FIELDNAMES.CSV' was for demographics only, and a different fieldnames map was available for EJ/envt/etc.:

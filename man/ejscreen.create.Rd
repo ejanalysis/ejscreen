@@ -4,14 +4,20 @@
 \alias{ejscreen.create}
 \title{Create EJSCREEN Dataset from Environmental Indicators}
 \usage{
-ejscreen.create(bg.e, acsraw, folder = getwd())
+ejscreen.create(e, acsraw, folder = getwd(), keep.old, ...)
 }
 \arguments{
-\item{bg.e}{Data.frame of raw data for environmental indicators, one row per block group, one column per indicator.}
+\item{e}{Data.frame of raw data for environmental indicators, one row per block group, one column per indicator.}
 
-\item{acsraw}{Data.frame of raw demographic indicators.}
+\item{acsraw}{Optional data.frame of raw demographic indicators. Downloaded if not provided as parameter.}
 
-\item{folder}{Where to save results. Default is getwd()}
+\item{folder}{Optional, default is getwd(). Passed to \code{\link[ACSdownload]{get.acs}} if demog data must be downloaded.
+Passed to but not currently used by ejscreen.acs.rename which uses \code{\link[analyze.stuff]{change.fieldnames}} in \pkg{analyze.stuff} package.
+Not currently passed to ejscreen.acs.calc which uses \code{\link[analyze.stuff]{calc.fields}} in \pkg{analyze.stuff} package.}
+
+\item{keep.old}{optional vector of colnames from e that are to be used/returned. For nondefault colnames, this must be used.}
+
+\item{...}{additional optional parameters to pass to \code{\link[ACSdownload]{get.acs}} (such as end.year='2013' -- otherwise uses default year used by \code{\link{get.acs}})}
 }
 \value{
 Returns a data.frame with full ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
@@ -21,13 +27,19 @@ Returns a data.frame with full ejscreen dataset of environmental and demographic
 Start with raw environmental indicator data, and create full EJSCREEN dataset.
   This code also contains an outline of steps involved.
 }
+\details{
+**Note that if non-default fieldnames are used in e and/or acsraw, those will cause problems in ejscreen.acs.calc which assumes the standard fields are to be returned! That can be handled using parameter keep.old
+}
 \examples{
 \dontrun{
- mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
- x=ejscreen.create(envirodata) # downloads ACS demographics and combines with user provided envirodata
- # does not work like this since needs more Demog vars:
- # myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
- # y=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+ set.seed(99)
+ envirodata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+ demogdata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), num2pov=runif(1000, 0,500), stringsAsFactors=FALSE)
+ demogdata$povknownratio <- demogdata$pop
+ # bg1=ejscreen.create(envirodata, mystates=c('de','dc')) # downloads ACS demographics and combines with user provided envirodata
+ # currently does not work for nonstandard colnames unless keep.old used as follows:
+ y=ejscreen.create(e=envirodata, acsraw=demogdata,
+  keep.old = c(names(envirodata), names(demogdata)))
  }
 }
 

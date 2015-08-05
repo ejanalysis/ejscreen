@@ -2,16 +2,20 @@
 #'
 #' @description
 #'   Use specified formulas to create calculated, derived variables such as percent low income.
-#'
+#'   Relies upon \code{\link[analyze.stuff]{calc.fields}} from \pkg{analyze.stuff} package.
 #' @param bg Data.frame of raw demographic data counts, and environmental indicators, for each block group, such as population or number of Hispanics.
 #' @param folder Default is getwd(). Specifies path for where to read from (if formulafile specified) and write to.
 #' @param formulafile Name of optional csv file with column called formula, providing formulas as character fields.
 #'  If not specified, function loads this as data(ejscreenformulas).
-#' @param keep.old Vector of variables names indicating which to return (retain, not drop). Default is to keep all.
-#' @param keep.new Vector of variables names
+#' @param keep.old Vector of variables names from names(bg), indicating which to return (retain, not drop). Default is to keep only the ones that match the list of default names in this code.
+#' @param keep.new Vector of variables names of new created variables, indicating which to return (retain, not drop). Default is to keep all.
 #' @return Returns a data.frame with some or all of input fields, plus calculated new fields.
 #' @examples
-#'  # (no examples yet)
+#'  set.seed(99)
+#'  envirodata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+#'  demogdata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), num2pov=runif(1000, 0,500), stringsAsFactors=FALSE)
+#'  demogdata$povknownratio <- demogdata$pop
+#'  x=ejscreen.acs.calc(bg=demogdata)
 #' @export
 ejscreen.acs.calc <- function(bg, folder=getwd(), keep.old, keep.new, formulafile) {
 
@@ -28,10 +32,10 @@ ejscreen.acs.calc <- function(bg, folder=getwd(), keep.old, keep.new, formulafil
     if (!file.exists(file.path(folder, formulafile))) {
       x <- ejscreenformulas  # lazy loads as data?
     } else {
-      x <- read.csv(file = formulafile, stringsAsFactors = FALSE)
+      x <- read.csv(file = file.path(folder, formulafile), stringsAsFactors = FALSE)
     }
   } else {
-    x <- ejscreenformulas  # lazy loads as data?
+    x <- ejscreenformulas  # lazy loads as data
   }
   myformulas <- x$formula
 
@@ -99,13 +103,14 @@ ejscreen.acs.calc <- function(bg, folder=getwd(), keep.old, keep.new, formulafil
   # if any of these are not successfully created by calc.fields(), they just won't be returned by that function.
 
   new.fields <- analyze.stuff::calc.fields(bg, formulas=myformulas, keep=keep.new)
-print(names(new.fields))
+#print('keep.new: '); print(keep.new)
+#print(names(new.fields))
   # don't try to keep fields not successfully created
   keep.new <- keep.new[ keep.new %in% names(new.fields)]
 
-print('keep.new: '); print(keep.new)
-print('keep.old: '); print(keep.old)
-print('names of bg'); print(names(bg))
+#print('keep.new: '); print(keep.new)
+#print('keep.old: '); print(keep.old)
+#print('names of bg'); print(names(bg))
 
   bg <- cbind( bg[ , keep.old], new.fields )
 
