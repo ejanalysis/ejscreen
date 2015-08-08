@@ -164,14 +164,16 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, ...) {
 #   Warning - Did not specify us.demog= fraction of US population that is in the given demographic group
 #   Using calculated us.demog= NaN , based on all locations with valid demographics (which may be a bit different than those with valid envt scores)
 
-  EJ.basic.eo   <- data.frame(ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg$VSI.eo),   stringsAsFactors=FALSE) # note this calculates overall VSI.eo.US   on the fly
+  EJ.basic.eo   <- data.frame(ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg$VSI.eo, weights = bg$pop),   stringsAsFactors=FALSE) # note this calculates overall VSI.eo.US   on the fly
   # basic.eo already has names created by ej.indexes() function.
-  EJ.basic.svi6 <- data.frame(ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg$VSI.svi6), stringsAsFactors=FALSE) # note this calculates overall VSI.svi6.US on the fly
+  EJ.basic.svi6 <- data.frame(ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg$VSI.svi6, weights = bg$pop), stringsAsFactors=FALSE) # note this calculates overall VSI.svi6.US on the fly
   names(EJ.basic.svi6) <- paste('EJ.DISPARITY', mynames.e, 'svi6', sep='.')
+
   # add raw EJ cols to bg
   bg <- data.frame(bg, EJ.basic.eo, EJ.basic.svi6, stringsAsFactors = FALSE )
+
   # add EJ bin/percentile cols to bg
-  bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , c(names(EJ.basic.eo), names(EJ.basic.svi6) ) ], bg$pop), stringsAsFactors=FALSE)
+  bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , c(names(EJ.basic.eo), names(EJ.basic.svi6) ) ], weights = bg$pop), stringsAsFactors=FALSE)
   rm(EJ.basic.eo, EJ.basic.svi6)
 
   # if supplementary/ alt1 ej indexes are desired:
@@ -192,9 +194,11 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, ...) {
 
   # add raw EJ cols to bg
   bg <- data.frame(bg, EJ.alt1.eo, EJ.alt1.svi6, EJ.alt2.eo, EJ.alt2.svi6, stringsAsFactors = FALSE)
+
   # add EJ bin/percentile cols to bg
   bg <- data.frame(bg, make.bin.pctile.cols(bg[ , c(names(EJ.alt1.eo), names(EJ.alt1.svi6) ) ], bg$pop), stringsAsFactors=FALSE)
   bg <- data.frame(bg, make.bin.pctile.cols(bg[ , c(names(EJ.alt2.eo), names(EJ.alt2.svi6) ) ], bg$pop), stringsAsFactors=FALSE)
+
   rm(             EJ.alt1.eo, EJ.alt1.svi6, EJ.alt2.eo, EJ.alt2.svi6)
 
   ##########################################################################################################
