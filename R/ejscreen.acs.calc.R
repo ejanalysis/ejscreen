@@ -12,8 +12,11 @@
 #' @return Returns a data.frame with some or all of input fields, plus calculated new fields.
 #' @examples
 #'  set.seed(99)
-#'  envirodata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
-#'  demogdata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), num2pov=runif(1000, 0,500), stringsAsFactors=FALSE)
+#'  envirodata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12),
+#'    air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+#'  demogdata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12),
+#'    pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800),
+#'    num2pov=runif(1000, 0,500), stringsAsFactors=FALSE)
 #'  demogdata$povknownratio <- demogdata$pop
 #'  x=ejscreen.acs.calc(bg=demogdata)
 #' @export

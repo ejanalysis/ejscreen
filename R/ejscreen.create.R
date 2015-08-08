@@ -16,11 +16,15 @@
 #' @examples
 #'  \dontrun{
 #'  set.seed(99)
-#'  envirodata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
-#'  demogdata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), num2pov=runif(1000, 0,500), stringsAsFactors=FALSE)
+#'  envirodata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12),
+#'    air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+#'  demogdata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12),
+#'    pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800),
+#'    num2pov=runif(1000, 0,500), stringsAsFactors=FALSE)
 #'  demogdata$povknownratio <- demogdata$pop
-#'  # bg1=ejscreen.create(envirodata, mystates=c('de','dc')) # downloads ACS demographics and combines with user provided envirodata
-#'  # currently does not work for nonstandard colnames unless keep.old used as follows:
+#'  # downloads ACS demographics and combines with user provided envirodata:
+#'  # bg1=ejscreen.create(envirodata, mystates=c('de','dc'))
+#'  # currently does not work for nonstandard colnames unless keep.old used as follows (work in progress):
 #'  y=ejscreen.create(e=envirodata, acsraw=demogdata,
 #'   keep.old = c(names(envirodata), names(demogdata)))
 #'  }
