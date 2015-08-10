@@ -2,9 +2,8 @@
 #' @docType data
 #' @title EJSCREEN 2015 Formulas and Fieldnames
 #' @description This provides fieldnames and formulas required by the \pkg{ejscreen} package.
+#'  Formulas can be viewed this way: sort(ejscreenformulas$formula)
 #' @usage data('ejscreenformulas')
-#' @examples
-#'  sort(ejscreenformulas$formula)
 #' @source See related Technical Documentation at \url{http://www.epa.gov/ejscreen}
 #' @keywords EJ, environmental justice, datasets, demographic
 #' @format A data.frame: \cr\cr
