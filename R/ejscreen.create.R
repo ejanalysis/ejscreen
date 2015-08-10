@@ -3,7 +3,7 @@
 #' @description
 #'   Start with raw environmental indicator data, and create full EJSCREEN dataset.
 #'   This code also contains an outline of steps involved.
-#' @details **Note that if non-default fieldnames are used in e and/or acsraw, those will cause problems in ejscreen.acs.calc which assumes the standard fields are to be returned! That can be handled using parameter keep.old
+#' @details **Note that if non-default fieldnames are used in e and/or acsraw, those must be specified in parameters including demogvarname0, demogvarname1, wtsvarname, keep.old (and could be reflected in prefix and suffix params as well).
 #' @param e Data.frame of raw data for environmental indicators, one row per block group, one column per indicator.
 #' @param acsraw Optional data.frame of raw demographic indicators. Downloaded if not provided as parameter.
 #' @param folder Optional, default is getwd(). Passed to \code{\link[ACSdownload]{get.acs}} if demog data must be downloaded.
@@ -34,8 +34,7 @@
 #'  # downloads ACS demographics and combines with user provided envirodata:
 #'  # bg1=ejscreen.create(envirodata, mystates=c('de','dc'))
 #'  # currently does not work for nonstandard colnames unless keep.old used as follows (work in progress):
-#'  y=ejscreen.create(e=envirodata, acsraw=demogdata,
-#'   keep.old = c(names(envirodata), names(demogdata)))
+#'  y=ejscreen.create(e=envirodata, acsraw=demogdata, keep.old = c(names(envirodata), names(demogdata)), demogvarname0 = 'pctmin', demogvarname1 = 'pctlowinc', wtsvarname = 'pop' )
 #'  }
 #' @export
 ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
@@ -219,8 +218,8 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   bg <- data.frame(bg, EJ.alt1.eo, EJ.alt1.svi6, EJ.alt2.eo, EJ.alt2.svi6, stringsAsFactors = FALSE)
 
   # EJ alt bin/percentile cols
-  bg <- data.frame(bg, make.bin.pctile.cols(bg[ , c(names(EJ.alt1.eo), names(EJ.alt1.svi6) ) ], bg[ , wtsvarname]), stringsAsFactors=FALSE)
-  bg <- data.frame(bg, make.bin.pctile.cols(bg[ , c(names(EJ.alt2.eo), names(EJ.alt2.svi6) ) ], bg[ , wtsvarname]), stringsAsFactors=FALSE)
+  bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , c(names(EJ.alt1.eo), names(EJ.alt1.svi6) ) ], bg[ , wtsvarname]), stringsAsFactors=FALSE)
+  bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , c(names(EJ.alt2.eo), names(EJ.alt2.svi6) ) ], bg[ , wtsvarname]), stringsAsFactors=FALSE)
 
   rm(             EJ.alt1.eo, EJ.alt1.svi6, EJ.alt2.eo, EJ.alt2.svi6)
 

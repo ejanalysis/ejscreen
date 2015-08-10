@@ -50,7 +50,7 @@ Start with raw environmental indicator data, and create full EJSCREEN dataset.
   This code also contains an outline of steps involved.
 }
 \details{
-**Note that if non-default fieldnames are used in e and/or acsraw, those will cause problems in ejscreen.acs.calc which assumes the standard fields are to be returned! That can be handled using parameter keep.old
+**Note that if non-default fieldnames are used in e and/or acsraw, those must be specified in parameters including demogvarname0, demogvarname1, wtsvarname, keep.old (and could be reflected in prefix and suffix params as well).
 }
 \examples{
 \dontrun{
@@ -64,8 +64,7 @@ Start with raw environmental indicator data, and create full EJSCREEN dataset.
  # downloads ACS demographics and combines with user provided envirodata:
  # bg1=ejscreen.create(envirodata, mystates=c('de','dc'))
  # currently does not work for nonstandard colnames unless keep.old used as follows (work in progress):
- y=ejscreen.create(e=envirodata, acsraw=demogdata,
-  keep.old = c(names(envirodata), names(demogdata)))
+ y=ejscreen.create(e=envirodata, acsraw=demogdata, keep.old = c(names(envirodata), names(demogdata)), demogvarname0 = 'pctmin', demogvarname1 = 'pctlowinc', wtsvarname = 'pop' )
  }
 }
 
