@@ -4,7 +4,11 @@
 \alias{ejscreen.create}
 \title{Create EJSCREEN Dataset from Environmental Indicators}
 \usage{
-ejscreen.create(e, acsraw, folder = getwd(), keep.old, ...)
+ejscreen.create(e, acsraw, folder = getwd(), keep.old, formulas,
+  demogvarname0 = "VSI.eo", demogvarname1 = "VSI.svi6",
+  wtsvarname = "pop", EJprefix0 = "EJ.DISPARITY", EJprefix1 = "EJ.BURDEN",
+  EJprefix2 = "EJ.PCT", demogvarname0suffix = "eo",
+  demogvarname1suffix = "svi6", end.year)
 }
 \arguments{
 \item{e}{Data.frame of raw data for environmental indicators, one row per block group, one column per indicator.}
@@ -17,7 +21,25 @@ Not currently passed to ejscreen.acs.calc which uses \code{\link[analyze.stuff]{
 
 \item{keep.old}{optional vector of colnames from e that are to be used/returned. For nondefault colnames, this must be used.}
 
-\item{...}{additional optional parameters to pass to \code{\link[ACSdownload]{get.acs}} (such as end.year='2013' -- otherwise uses default year used by \code{\link{get.acs}})}
+\item{formulas}{optional, see \code{\link{ejscreen.acs.calc}} for details. Defaults are in ejscreenformulas$formula}
+
+\item{demogvarname0}{optional, default is 'VSI.eo' used as demographic indicator for EJ Indexes. Must be a colname in acsraw or created and kept by formulas.}
+
+\item{demogvarname1}{optional, default is 'VSI.svi6' used for alternative EJ Indexes. Must be a colname in acsraw or created and kept by formulas.}
+
+\item{wtsvarname}{optional, default is 'pop' used for weighted percentiles, etc. Must be a colname in acsraw or created and kept by formulas.}
+
+\item{EJprefix0}{optional, default is 'EJ.DISPARITY' - specifies prefix for colnames of main EJ Indexes, with a period separating prefix from body of colname}
+
+\item{EJprefix1}{optional, default is 'EJ.BURDEN' - specifies prefix for colnames of Alternative 1 version of EJ Indexes, with a period separating prefix from body of colname}
+
+\item{EJprefix2}{optional, default is 'EJ.PCT' - specifies prefix for colnames of Alternative 2 version of EJ Indexes, with a period separating prefix from body of colname}
+
+\item{demogvarname0suffix}{optional, default is 'eo' - specifies suffix for colnames of EJ Indexes based on demogvarname0, with a period separating body of colname from suffix}
+
+\item{demogvarname1suffix}{optional, default is 'svi6' - specifies suffix for colnames of EJ Indexes based on demogvarname1, with a period separating body of colname from suffix}
+
+\item{end.year}{optional to pass to \code{\link[ACSdownload]{get.acs}} (such as end.year='2013' -- otherwise uses default year used by \code{\link{get.acs}})}
 }
 \value{
 Returns a data.frame with full ejscreen dataset of environmental and demographics indicators, and EJ Indexes,

@@ -10,7 +10,16 @@
 #'   Passed to but not currently used by ejscreen.acs.rename which uses \code{\link[analyze.stuff]{change.fieldnames}} in \pkg{analyze.stuff} package.
 #'   Not currently passed to ejscreen.acs.calc which uses \code{\link[analyze.stuff]{calc.fields}} in \pkg{analyze.stuff} package.
 #' @param keep.old optional vector of colnames from e that are to be used/returned. For nondefault colnames, this must be used.
-#' @param ... additional optional parameters to pass to \code{\link[ACSdownload]{get.acs}} (such as end.year='2013' -- otherwise uses default year used by \code{\link{get.acs}})
+#' @param end.year optional to pass to \code{\link[ACSdownload]{get.acs}} (such as end.year='2013' -- otherwise uses default year used by \code{\link{get.acs}})
+#' @param demogvarname0 optional, default is 'VSI.eo' used as demographic indicator for EJ Indexes. Must be a colname in acsraw or created and kept by formulas.
+#' @param demogvarname1 optional, default is 'VSI.svi6' used for alternative EJ Indexes. Must be a colname in acsraw or created and kept by formulas.
+#' @param wtsvarname optional, default is 'pop' used for weighted percentiles, etc. Must be a colname in acsraw or created and kept by formulas.
+#' @param demogvarname0suffix optional, default is 'eo' - specifies suffix for colnames of EJ Indexes based on demogvarname0, with a period separating body of colname from suffix
+#' @param demogvarname1suffix optional, default is 'svi6' - specifies suffix for colnames of EJ Indexes based on demogvarname1, with a period separating body of colname from suffix
+#' @param EJprefix0 optional, default is 'EJ.DISPARITY' - specifies prefix for colnames of main EJ Indexes, with a period separating prefix from body of colname
+#' @param EJprefix1 optional, default is 'EJ.BURDEN' - specifies prefix for colnames of Alternative 1 version of EJ Indexes, with a period separating prefix from body of colname
+#' @param EJprefix2 optional, default is 'EJ.PCT' - specifies prefix for colnames of Alternative 2 version of EJ Indexes, with a period separating prefix from body of colname
+#' @param formulas optional, see \code{\link{ejscreen.acs.calc}} for details. Defaults are in ejscreenformulas$formula
 #' @return Returns a data.frame with full ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
 #'   as raw values, US percentiles, and text for popups. Output has one row per block group.
 #' @examples
@@ -29,7 +38,10 @@
 #'   keep.old = c(names(envirodata), names(demogdata)))
 #'  }
 #' @export
-ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, ...) {
+ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
+                            demogvarname0='VSI.eo', demogvarname1='VSI.svi6', wtsvarname='pop',
+                            EJprefix0='EJ.DISPARITY', EJprefix1='EJ.BURDEN', EJprefix2='EJ.PCT',
+                            demogvarname0suffix='eo', demogvarname1suffix='svi6', end.year) {
 
   ######################################################################################
   # Create EJSCREEN dataset in R (given Demographic and Environmental Indicators):
@@ -92,17 +104,21 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, ...) {
   #   require(UScensus2010blocks)
   #   require(countyhealthrankings)
 
-  require(ejanalysis)
-  data(names.evars); data(names.dvars); data(names.ejvars)
+  #require(ejanalysis)
+  #data(names.evars); data(names.dvars); data(names.ejvars)
 
   ##########################################################################################################
   #  GET DEMOGRAPHICS
   ##########################################################################################################
 
-  # Create and save in folder a file called "variables needed.csv" specific to EJSCREEN
-  # note this gets data(vars.ejscreen.acs) from ejscreen package as default list of acs variables like 'B01001.001'
+  # Created file called "variables needed.csv" specific to EJSCREEN
+  # and now that is in  data(vars.ejscreen.acs) from ejscreen package as default list of acs variables like 'B01001.001'
   if (missing(acsraw)) {
-    acsraw <- ACSdownload::get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, folder=folder, ...)
+    if (!missing(end.year)) {
+      acsraw <- ACSdownload::get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, folder=folder, end.year=end.year)
+    } else {
+      acsraw <- ACSdownload::get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, folder=folder)
+    }
     acsraw  <- acsraw$bg
     # NOTE THIS DOES NOT PRESERVE tracts data downloaded
   }
@@ -136,15 +152,15 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, ...) {
   if (any(mynames.d %in% mynames.e) | any(mynames.e %in% mynames.d) ) {stop('fieldnames in environmental and demographic data must not overlap except for FIPS field')}
   # this was already available as names.d or names.e for EJSCREEN2014, but this is now more generic
 
-
   bg <- data.frame(bg.d, e[ , mynames.e], stringsAsFactors=TRUE)
   rm(bg.d) # rm(e); gc() # need e later
   ##########################################################################################################
 
-  # Create derived demographic fields (D) (but not EJ fields since formulas not there)
-  # must check that keep.old missing will work as intended
-  bg <- ejscreen.acs.calc(bg, keep.old = keep.old)
-
+  ##########################################################################################################
+  # CALCULATE DEMOGRAPHIC derived fields (D) (but not EJ fields, since formulas not there, at least currently)
+  # (Check that keep.old missing will work as intended)
+  ##########################################################################################################
+  bg <- ejscreen.acs.calc(bg, keep.old = keep.old, formulas=formulas)
 
   ##########################################################################################################
   # BINS AND PERCENTILES:
@@ -154,12 +170,13 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, ...) {
 # print('mynames.e');print(mynames.e)
 # print('names(bg)');print(names(bg))
 #	DEMOG
-  bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , mynames.d], bg$pop), stringsAsFactors=FALSE)
+  bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , mynames.d], bg[ , wtsvarname]), stringsAsFactors=FALSE)
 
   #	ENVT
-  bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , mynames.e], bg$pop), stringsAsFactors=FALSE)
+  bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , mynames.e], bg[ , wtsvarname]), stringsAsFactors=FALSE)
+
   ##########################################################################################################
-  # EJ INDEXES:
+  # CALCULATE EJ INDEXES:
   #  CALCULATE and name the EJ INDEXES & add those cols to bg
   # and the bin and percentile cols
   ##########################################################################################################
@@ -168,49 +185,54 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, ...) {
 #   Warning - Did not specify us.demog= fraction of US population that is in the given demographic group
 #   Using calculated us.demog= NaN , based on all locations with valid demographics (which may be a bit different than those with valid envt scores)
 
-  EJ.basic.eo   <- data.frame(ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg$VSI.eo, weights = bg$pop),   stringsAsFactors=FALSE) # note this calculates overall VSI.eo.US   on the fly
-  # basic.eo already has names created by ej.indexes() function.
-  EJ.basic.svi6 <- data.frame(ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg$VSI.svi6, weights = bg$pop), stringsAsFactors=FALSE) # note this calculates overall VSI.svi6.US on the fly
-  names(EJ.basic.svi6) <- paste('EJ.DISPARITY', mynames.e, 'svi6', sep='.')
-
-  # add raw EJ cols to bg
+  # EJ Index raw values cols
+  EJ.basic.eo   <- data.frame(ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname0], weights = bg[ , wtsvarname]),   stringsAsFactors=FALSE) # note this calculates overall VSI.eo.US   on the fly
+  # basic.eo already has names created by ej.indexes() function. WOULD USE demogvarname0suffix
+  EJ.basic.svi6 <- data.frame(ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname1], weights = bg[ , wtsvarname]), stringsAsFactors=FALSE) # note this calculates overall VSI.svi6.US on the fly
+  names(EJ.basic.svi6) <- paste(EJprefix0, mynames.e, demogvarname1suffix, sep='.')
+  # add to bg
   bg <- data.frame(bg, EJ.basic.eo, EJ.basic.svi6, stringsAsFactors = FALSE )
 
-  # add EJ bin/percentile cols to bg
-  bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , c(names(EJ.basic.eo), names(EJ.basic.svi6) ) ], weights = bg$pop), stringsAsFactors=FALSE)
+  # EJ bin/percentile cols
+  bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , c(names(EJ.basic.eo), names(EJ.basic.svi6) ) ], weights = bg[ , wtsvarname]), stringsAsFactors=FALSE)
   rm(EJ.basic.eo, EJ.basic.svi6)
 
-  # if supplementary/ alt1 ej indexes are desired:
-  #EJ.alt1.eo   <- sapply(bg[ , mynames.e], function(x) {x * bg$pop * bg$VSI.eo  })
-  EJ.alt1.eo   <- ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg$VSI.eo, weights=bg$pop, type=5)
-  names(EJ.alt1.eo) <- paste('EJ.BURDEN', mynames.e, 'eo', sep='.')
-  #EJ.alt1.svi6 <- sapply(bg[ , mynames.e], function(x) {x * bg$pop * bg$VSI.svi6})
-  EJ.alt1.svi6 <- ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg$VSI.svi6, weights=bg$pop, type=5)
-  names(EJ.alt1.svi6) <- paste('EJ.BURDEN', mynames.e, 'svi6', sep='.')
+  ###
 
-  # if supplementary/ alt2 ej indexes are desired:
-  #EJ.alt2.eo   <- sapply(bg[ , mynames.e], function(x) {x * bg$VSI.eo  })
-  EJ.alt2.eo   <- ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg$VSI.eo, type=6)
-  names(EJ.alt2.eo) <- paste('EJ.PCT', mynames.e, 'eo', sep='.')
-  #EJ.alt2.svi6 <- sapply(bg[ , mynames.e], function(x) {x * bg$VSI.svi6})
-  EJ.alt2.svi6 <-  ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg$VSI.svi6, type=6)
-  names(EJ.alt2.svi6) <- paste('EJ.PCT', mynames.e, 'svi6', sep='.')
+  # Supplementary/ alt1 EJ Indexes raw values cols
+  #EJ.alt1.eo   <- sapply(bg[ , mynames.e], function(x) {x * bg[ , wtsvarname] * bg[,demogvarname0]  })
+  EJ.alt1.eo   <- ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname0], weights=bg[ , wtsvarname], type=5)
+  names(EJ.alt1.eo) <- paste(EJprefix1, mynames.e, demogvarname0suffix, sep='.')
+  #EJ.alt1.svi6 <- sapply(bg[ , mynames.e], function(x) {x * bg[ , wtsvarname] * bg[ , demogvarname1]})
+  EJ.alt1.svi6 <- ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname1], weights=bg[ , wtsvarname], type=5)
+  names(EJ.alt1.svi6) <- paste(EJprefix1, mynames.e, demogvarname1suffix, sep='.')
 
-  # add raw EJ cols to bg
+  # Supplementary/ alt2 EJ Indexes raw values cols
+  #EJ.alt2.eo   <- sapply(bg[ , mynames.e], function(x) {x * bg[ , demogvarname0]  })
+  EJ.alt2.eo   <- ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname0], type=6)
+  names(EJ.alt2.eo) <- paste(EJprefix2, mynames.e, demogvarname0suffix, sep='.')
+  #EJ.alt2.svi6 <- sapply(bg[ , mynames.e], function(x) {x * bg[ , demogvarname1]})
+  EJ.alt2.svi6 <-  ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname1], type=6)
+  names(EJ.alt2.svi6) <- paste(EJprefix2, mynames.e, demogvarname1suffix, sep='.')
+
+  # add alt raw EJ cols to bg
   bg <- data.frame(bg, EJ.alt1.eo, EJ.alt1.svi6, EJ.alt2.eo, EJ.alt2.svi6, stringsAsFactors = FALSE)
 
-  # add EJ bin/percentile cols to bg
-  bg <- data.frame(bg, make.bin.pctile.cols(bg[ , c(names(EJ.alt1.eo), names(EJ.alt1.svi6) ) ], bg$pop), stringsAsFactors=FALSE)
-  bg <- data.frame(bg, make.bin.pctile.cols(bg[ , c(names(EJ.alt2.eo), names(EJ.alt2.svi6) ) ], bg$pop), stringsAsFactors=FALSE)
+  # EJ alt bin/percentile cols
+  bg <- data.frame(bg, make.bin.pctile.cols(bg[ , c(names(EJ.alt1.eo), names(EJ.alt1.svi6) ) ], bg[ , wtsvarname]), stringsAsFactors=FALSE)
+  bg <- data.frame(bg, make.bin.pctile.cols(bg[ , c(names(EJ.alt2.eo), names(EJ.alt2.svi6) ) ], bg[ , wtsvarname]), stringsAsFactors=FALSE)
 
   rm(             EJ.alt1.eo, EJ.alt1.svi6, EJ.alt2.eo, EJ.alt2.svi6)
 
   ##########################################################################################################
-  #  Possibly add interim threshold flag if needed, and FIPS fields
+  #  Possibly add interim threshold flag if needed
   ##########################################################################################################
-
   # assumes valid colnames are all in names.ej.pctile
-  bg$flag <- ejanalysis::flagged(bg[ , names.ej.pctile] / 100)
+#  bg$flag <- ejanalysis::flagged(bg[ , names.ej.pctile] / 100)
+
+  ##########################################################################################################
+  # Add FIPS fields
+  ##########################################################################################################
 
   bg <- data.frame(bg,
                    FIPS.tract=ejanalysis::get.fips.tract(bg$FIPS),
@@ -218,11 +240,14 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, ...) {
                    FIPS.ST=ejanalysis::get.fips.st(bg$FIPS),
                    REGION=ejanalysis::get.epa.region(bg$FIPS),
                    stringsAsFactors=FALSE)
+  bg <- analyze.stuff::put.first(bg, c('FIPS', 'FIPS.tract', 'FIPS.county', 'FIPS.ST', 'REGION'))
+
 
   ##########################################################################################################
   # Still need to do the following here or separately
   ##########################################################################################################
 
+  warning('Popup text fields are not implemented yet')
   # POPUP TEXT ****
   # - Create text popup versions of all raw scores and percentiles for display:
   #     -limited significant digits for environmental indicators

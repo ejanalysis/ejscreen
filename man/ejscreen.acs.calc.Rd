@@ -4,7 +4,8 @@
 \alias{ejscreen.acs.calc}
 \title{Create Calculated EJSCREEN Variables}
 \usage{
-ejscreen.acs.calc(bg, folder = getwd(), keep.old, keep.new, formulafile)
+ejscreen.acs.calc(bg, folder = getwd(), keep.old, keep.new, formulafile,
+  formulas)
 }
 \arguments{
 \item{bg}{Data.frame of raw demographic data counts, and environmental indicators, for each block group, such as population or number of Hispanics.}
@@ -16,7 +17,16 @@ ejscreen.acs.calc(bg, folder = getwd(), keep.old, keep.new, formulafile)
 \item{keep.new}{Vector of variables names of new created variables, indicating which to return (retain, not drop). Default is to keep all.}
 
 \item{formulafile}{Name of optional csv file with column called formula, providing formulas as character fields.
-If not specified, function loads this as data(ejscreenformulas).}
+If not specified, function loads this as data(ejscreenformulas).
+Example of one formula: 'pctunder5 <- ifelse( pop==0,0, under5/pop)'
+ Use a result of zero in cases where the denominator is zero, to avoid division by zero.
+ For example, the formula “pctmin <- ifelse(pop==0,0, as.numeric(mins ) / pop)”
+ indicates that percent minority is calculated as the ratio of number of minorities
+ over total population of a block group, but is set to zero if the population is zero.}
+
+\item{formulas}{Options vector of formulas as character strings that contain R statements in the form "var1 <- var2 + var3" for example.
+Either formulafile or formulas can be specified (or neither) but not both (error).
+Formulas should be in the same format as a formulafile field or the contents of ejscreenformulas (via data(ejscreenformulas) or lazy loading like x <- ejscreenformulas).}
 }
 \value{
 Returns a data.frame with some or all of input fields, plus calculated new fields.
