@@ -25,6 +25,7 @@ data('ejscreenformulas')
 }
 \description{
 This provides fieldnames and formulas required by the \pkg{ejscreen} package.
+ Formulas can be viewed this way: sort(ejscreenformulas$formula)
 }
 \keyword{EJ,}
 \keyword{datasets,}
