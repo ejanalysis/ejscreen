@@ -1,0 +1,20 @@
+{
+    "data" : [
+        "\nR version 3.2.1 (2015-06-18) -- \"World-Famous Astronaut\"\nCopyright (C) 2015 The R Foundation for Statistical Computing\nPlatform: x86_64-w64-mingw32/x64 (64-bit)\n\nR is free software and comes with ABSOLUTELY NO WARRANTY.\nYou are welcome to redistribute it under certain conditions.\nType 'license()' or 'licence()' for distribution details.\n\nR is a collaborative project with many contributors.\nType 'contributors()' for more information and\n'citation()' on how to cite R or R packages in publications.\n\nType 'demo()' for some demos, 'help()' for on-line help, or\n'help.start()' for an HTML browser interface to help.\nType 'q()' to quit R.\n\n",
+        "\nAs for the question of the bug in `is', ... it depends what your definition of\n`is' is.\n   -- Douglas Bates (referring to Bill Clinton after a tortuous discussion of\n      the behavior of is(7, \"integer\"))\n      R-help (September 2008)\n\n\nRestarting R session...\n\n",
+        "> ",
+        "library(ejscreen)",
+        "> ",
+        "?\"ejscreenformulas\"",
+        "\nRestarting R session...\n\n"
+    ],
+    "type" : [
+        2,
+        2,
+        0,
+        1,
+        0,
+        1,
+        2
+    ]
+}

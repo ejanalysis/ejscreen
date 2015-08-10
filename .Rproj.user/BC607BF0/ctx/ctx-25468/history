@@ -1,0 +1,454 @@
+library(ejscreen)
+x = ejscreen.create(
+FIPS=analyze.stuff::lead.zeroes(1:1000, 12),
+bg.e=data.frame(air=rlnorm(1000), water=rlnorm(1000)*5),
+acsraw=data.frame(pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500))
+)
+?"ejscreen.create"
+x = ejscreen.create(
+bg.e=data.frame(air=rlnorm(1000), water=rlnorm(1000)*5),
+acsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500))
+)
+x = ejscreen.create(
+bg.e=data.frame(air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE),
+acsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+)
+bg.e=data.frame(air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+acsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+head(bg.e)
+head(acsraw)
+bg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+acsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=bg.e, acsraw=acsraw)
+?file.exists
+library(ejscreen)
+bg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+acsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=bg.e, acsraw=acsraw)
+library(ejscreen)
+bg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+acsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=bg.e, acsraw=acsraw)
+eval(parse(text = 'hello'))
+try
+?try
+a+b
+a=b+1
+try(a=b+1)
+(eval(parse(text='a=b+1')))
+try(eval(parse(text='a=b+1')))
+try(eval(parse(text='a=b+1')),silent = TRUE)
+tryCatch(eval(parse(text='a=b+1')), silent = TRUE, error=function() cat('error here'))
+tryCatch(eval(parse(text='a=b+1')), silent = TRUE, error=function() {cat('error here')})
+tryCatch(eval(parse(text='a=b+1')), error=function() {cat('error here')})
+tryCatch(eval(parse(text='a=b+1')), error=function(f) {cat('error here')})
+tryCatch(eval(parse(text='a=b+1')), error=function(x) {cat('error here')})
+tryCatch(eval(parse(z<-text='a=b+1')), error=function(x) {cat('cannot use formula:', z)})
+tryCatch(eval(z<-parse(text='a=b+1')), error=function(x) {cat('cannot use formula:', z)})
+tryCatch(eval(z<-parse(text='a=b+1')), error=function(x) {cat('cannot use formula:', z)})
+z <- parse(text = "a=b+1")
+z
+eval(z)
+print(z)
+cat(z)
+tryCatch(eval(z<-parse(text='a=b+1')), error=function(x) {cat('cannot use formula:');print(z))})
+tryCatch(eval(z<-parse(text='a=b+1')), error=function(x) {cat('cannot use formula:');print(z)})
+tryCatch(eval(z<-parse(text='a=b+1')), error=function(x) {cat('cannot use formula: ');print(z)})
+library(ejscreen)
+bg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+acsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=bg.e, acsraw=acsraw)
+tryCatch(eval(z<-parse(text='a=b+1')), error=function(x) {cat('cannot use formula: ');print(z)})
+tryCatch(eval(parse(text='a=b+1')), error=function(x) {cat('cannot use formula: ');print('whoa')})
+library(ejscreen)
+x=ejscreen.create(bg.e=bg.e, acsraw=acsraw)
+ls()
+rm(z, bg.e, acsraw)
+ls()
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+?silent
+?suppressMessages
+try(eval(parse(text='a=b+1')))
+try(eval(parse(text='a=b+1')), silent = TRUE)
+?try
+library(ejscreen)
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+debug(calc.fields)
+?debug
+ls()
+require(ejscreen)
+require(ejanalysis)
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+search()
+detach(mydf)
+detach(mydf)
+detach(mydf)
+detach(mydf)
+detach(mydf)
+detach(mydf)
+detach(mydf)
+detach(mydf)
+detach(mydf)
+detach(mydf)
+search()
+library(ejscreen)
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+search()
+detach(mydf)
+search()
+x
+x=ejscreenformulas$formula
+head(x)
+x
+?try
+tryCatch(1, finally=print('h'))
+tryCatch(stop(e), error = function(e) e, finally = print("Hello"))
+tryCatch(stop(e), error = function(x) print('hi'), finally = print("Hello"))
+tryCatch(stop(e), error = function(x) print('hi'), finally = print("Hello")); print('then')
+demo(error.catching)
+library(ejscreen)
+ls()
+search()
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+undebug()
+undebug(ejscreen.create)
+undebug(calc.fields)
+search()
+undebug( )
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+search()
+rm(mydf)
+library(ejscreen)
+detach(mydf)
+detach(mydf)
+detach(mydf)
+search()
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+search()
+detach(mydf)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+search()
+detach(mydf)
+search()
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+search()
+library(analyze.stuff)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+calc.fields
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+library(ejscreen)
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+x=ejscreenformulas
+head(x)
+x[ 30:40,]
+x[ 130:140,]
+x[ 60:90,]
+x[ , c('Rfieldname', 'formula')]
+x[60:70 , c('Rfieldname', 'formula')]
+x$formula[!is.na(x$formula)] <- paste(Rfieldname[!is.na(x$formula)], ' <- ', x$formula[!is.na(x$formula)], sep='')
+x$formula[!is.na(x$formula)] <- paste(x$Rfieldname[!is.na(x$formula)], ' <- ', x$formula[!is.na(x$formula)], sep='')
+x[60:70 , c('Rfieldname', 'formula')]
+ejscreenformulas <- x
+save(ejscreenformulas, file='ejscreenformulas.RData')
+library(ejscreen)
+search()
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+?mget()
+exists('a')
+a=43
+exists('a')
+b=234
+exists(c('a','b'))
+sapply(c('a','b'), FUN=exists)
+which(sapply(c('a','b'), FUN=exists))
+str(sapply(c('a','b'), FUN=exists))
+library(ejscreen)
+library(ejscreen)
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+library(ejscreen)
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+library(ejscreen)
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw, keep.new='mins')
+library(ejscreen)
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+calc.fields(mybg.e, formulas=ejscreenformulas, keep=c('mins'))
+analyze.stuff::calc.fields(mybg.e, formulas=ejscreenformulas, keep=c('mins'))
+x=analyze.stuff::calc.fields(mybg.e, formulas=ejscreenformulas, keep=c('mins'))
+str(x)
+x=analyze.stuff::calc.fields(mybg.e, formulas=myform, keep=c('mins'))
+myform=ejscreenformulas
+head(myform)
+x=analyze.stuff::calc.fields(mybg.e, formulas=myform, keep=c('mins'))
+x=analyze.stuff::calc.fields(mybg.e, formulas=myform, keep.net=c('mins'))
+x=analyze.stuff::calc.fields(mybg.e, formulas=myform, keep.new=c('mins'))
+require(analyze.stuff)
+?calc.fields
+calc.fields()
+calc.fields
+x=analyze.stuff::calc.fields(mybg.e, formulas=myform, keep=c('mins', 'pop'))
+str(x)
+library(ejscreen)
+#'  mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+#'  myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+#'  x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+myacsraw=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), nhwa=runif(1000, 0, 800), num2pov=runif(1000, 0,500), povknownratio=1000, stringsAsFactors=FALSE)
+x=ejscreen.create(bg.e=mybg.e, acsraw=myacsraw)
+search()
+ls()
+#out <- ACSdownload::get.acs(tables = 'ejscreen', end.year = '2013', askneeded = TRUE, states=c('de','dc'))
+#acsraw <- ACSdownload::get.acs(tables = 'ejscreen', end.year = '2013', askneeded = TRUE, states=c('de','dc'))
+require(ACSdownload)
+#acsraw <- ACSdownload::get.acs(tables = 'ejscreen', end.year = '2013', askneeded = TRUE, mystates=c('de','dc'))
+acsraw <- ACSdownload::get.acs(tables = 'ejscreen', end.year = '2013', askneeded = TRUE, mystates=c('de','dc'))
+getwd(
+)
+#acsraw <- ACSdownload::get.acs(tables = 'ejscreen', end.year = '2013', base.dir='C:/Users/MCorrale/Documents/GitHub', askneeded = TRUE, mystates=c('de','dc'))
+library(ejscreen)
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+x=ejscreen.create(envirodata) # downloads ACS demographics and combines with user provided envirodata
+require(ejscreen)
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+x=ejscreen.create(envirodata) # downloads ACS demographics and combines with user provided envirodata
+getwd()
+names.ejscreen.acs <- read.csv(file.path(get.wd(), '/data/names.ejscreen.acs'))
+names.ejscreen.acs <- read.csv(file.path(getwd(), '/data/names.ejscreen.acs'))
+names.ejscreen.acs <- read.csv(file.path(getwd(), 'data/names.ejscreen.acs'))
+names.ejscreen.acs <- read.csv(file.path(getwd(), 'data/variables needed.csv'))
+str(names.ejscreen.acs)
+names.ejscreen.acs <- read.csv(file.path(getwd(), 'data/variables needed.csv'), stringsAsFactors = FALSE)
+str(names.ejscreen.acs)
+needed.ejscreen.acs <- names.ejscreen.acs$table.var[names.ejscreen.acs$keep=='Y']
+needed.ejscreen.acs
+vars.ejscreen.acs <- names.ejscreen.acs$table.var[names.ejscreen.acs$keep=='Y']
+needed.ejscreen.acs <- names.ejscreen.acs
+rm(names.ejscreen.acs)
+ls()
+needed.ejscreen.acs
+vars.ejscreen.acs
+save(vars.ejscreen.acs, file='vars.ejscreen.acs.RData')
+save(needed.ejscreen.acs, file='needed.ejscreen.acs.RData')
+?get.acs
+ls()
+rm(vars.ejscreen.acs)
+x=vars.ejscreen.acs
+library(ejscreen)
+mybg.e=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+rm(mybg.e)
+envirodata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+#  bg1=ejscreen.create(envirodata) # downloads ACS demographics and combines with user provided envirodata
+# does not work like this since needs more Demog vars:
+# demogdata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+# y=ejscreen.create(bg.e=envirodata, acsraw=demogdata)
+str(envirodata)
+envirodata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+#  bg1=ejscreen.create(envirodata) # downloads ACS demographics and combines with user provided envirodata
+# does not work like this since needs more Demog vars:
+demogdata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+# y=ejscreen.create(bg.e=envirodata, acsraw=demogdata)
+y=ejscreen.create(bg.e=envirodata, acsraw=demogdata)
+analyze.stuff::calc.fields
+library(ejscreen)
+y=ejscreen.create(bg.e=envirodata, acsraw=demogdata)
+?suppressWarnings
+library(ejscreen)
+library(ejscreen)
+envirodata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+demogdata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+x=ejscreen.acs.calc(bg=data.frame(demogdata, stringsAsFactors=FALSE) )
+str(x)
+str(demogdata)
+set.seed(99)
+envirodata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+demogdata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), lowinc=runif(1000, 0,500), stringsAsFactors=FALSE)
+demogdata$povknownratio <- demogdata$pop
+x=ejscreen.acs.calc(bg=data.frame(demogdata, stringsAsFactors=FALSE) )
+head(x)
+set.seed(99)
+envirodata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+demogdata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), num2pov=runif(1000, 0,500), stringsAsFactors=FALSE)
+demogdata$povknownratio <- demogdata$pop
+x=ejscreen.acs.calc(bg=data.frame(demogdata, stringsAsFactors=FALSE) )
+head(x)
+cbind(x$pctmin, x$mins/x$pop)
+cbind(x$pctlowinc, x$lowinc/x$povknownratio)
+set.seed(99)
+envirodata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+demogdata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), num2pov=runif(1000, 0,500), stringsAsFactors=FALSE)
+demogdata$povknownratio <- demogdata$pop
+y=ejscreen.create(bg.e=envirodata, acsraw=demogdata)
+?change.fieldnames
+?calc.fields
+x=ejscreen.acs.rename(data.frame(a=1:10, b=1:10, stringsAsFactors=FALSE))
+x
+x[order(x$FIPS)]
+x[order(x$FIPS),]
+library(ejscreen)
+y=ejscreen.create(bg.e=envirodata, acsraw=demogdata)
+y=ejscreen.create(e=envirodata, acsraw=demogdata)
+library(ejscreen)
+y=ejscreen.create(e=envirodata, acsraw=demogdata)
+library(ejscreen)
+head(envirodata)
+head(demogdata)
+y=ejscreen.create(e=envirodata, acsraw=demogdata)
+library(ejscreen)
+y=ejscreen.create(e=envirodata, acsraw=demogdata)
+y=ejscreen.create(e=envirodata, acsraw=demogdata, keep.old = names(e))
+y=ejscreen.create(e=envirodata, acsraw=demogdata, keep.old = names(envirodata))
+y=ejscreen.create(e=envirodata, acsraw=demogdata, keep.old = c(names(envirodata), names(demogdata)))
+search()
+?assign.pctiles
+#'  set.seed(99)
+#'  envirodata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+#'  demogdata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), num2pov=runif(1000, 0,500), stringsAsFactors=FALSE)
+#'  demogdata$povknownratio <- demogdata$pop
+set.seed(99)
+envirodata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
+demogdata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12), pop=rnorm(n=1000, mean=1400, sd=200), mins=runif(1000, 0, 800), num2pov=runif(1000, 0,500), stringsAsFactors=FALSE)
+demogdata$povknownratio <- demogdata$pop
+y=ejscreen.create(e=envirodata, acsraw=demogdata,
+keep.old = c(names(envirodata), names(demogdata)))
+require(ejscreen)
+y=ejscreen.create(e=envirodata, acsraw=demogdata,
+keep.old = c(names(envirodata), names(demogdata)))
+?ej.indexes
+library(ejscreen)
+y=ejscreen.create(e=envirodata, acsraw=demogdata,
+y=ejscreen.create(e=envirodata, acsraw=demogdata, keep.old = c(names(envirodata), names(demogdata)))
+library(ejscreen)
+acsraw <- get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs)
+require(ejscreen)
+require(ACSdownload)
+getwd()
+acsraw <- get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, folder="C:/Users/MCorrale/Desktop")
+?get.acs
+acsraw <- get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, base.path="C:/Users/MCorrale/Desktop")
+search()
+ls()
+vars.ejscreen.acs
+ls()
+load("~/GitHub/ACSdownload/data/lookup.acs.RData")
+load("~/GitHub/ACSdownload/data/lookup.acs2009.RData")
+getwd()
+setwd("C:/Users/MCorrale/Documents/GitHub")
+load("~/GitHub/ACSdownload/data/lookup.acs.RData")
+load('C:/Users/MCorrale/Documents/GitHub/ACSdownload/data/lookup.acs.RData')
+load('C:/Users/MCorrale/Documents/GitHub/ACSdownload/data/lookup.acs2009.RData')
+load('C:/Users/MCorrale/Documents/GitHub/ACSdownload/data/lookup.acs2010.RData')
+load('C:/Users/MCorrale/Documents/GitHub/ACSdownload/data/lookup.acs2011.RData')
+load('C:/Users/MCorrale/Documents/GitHub/ACSdownload/data/lookup.acs2012.RData')
+load('C:/Users/MCorrale/Documents/GitHub/ACSdownload/data/lookup.acs2013.RData')
+load('C:/Users/MCorrale/Documents/GitHub/ACSdownload/data/lookup.acs2014.RData')
+ls()
+names(lookup.acs)
+cbind(names(lookup.acs), names(lookup.acs2009)
+)
+cbind(names(lookup.acs), names(lookup.acs2009), names(lookup.acs2010), names(lookup.acs2011),names(lookup.acs2012))
+cbind(names(lookup.acs), names(lookup.acs2009), names(lookup.acs2010), names(lookup.acs2011),names(lookup.acs2012), names(lookup.acs2013))
+lookup.acs$Sequence.Number
+table(nchar(lookup.acs$Sequence.Number))
+table(nchar(lookup.acs2009$Sequence.Number))
+table(nchar(lookup.acs2010$Sequence.Number))
+table(nchar(lookup.acs2011$Sequence.Number))
+table(nchar(lookup.acs2012$Sequence.Number))
+table(nchar(lookup.acs2013$Sequence.Number))
+lookup.acs2011$Subject.Area
+table(is.na(lookup.acs2011$Subject.Area))
+table(is.na(lookup.acs2010$Subject.Area))
+table(is.na(lookup.acs2013$Subject.Area))
+table(is.na(lookup.acs2012$Subject.Area))
+table(is.na(lookup.acs20009$Subject.Area))
+table(is.na(lookup.acs2009$Subject.Area))
+table(is.na(lookup.acs2009$Start.Position))
+table((lookup.acs2009$Start.Position))
+table((lookup.acs2012$Start.Position))
+str((lookup.acs2012))
+str((lookup.acs2009))
+library(ejscreen)
+library(ejscreen)
+x=ejscreenformulas
+require(ejscreen)
+x=ejscreenformulas
+head(x)
+ls()
+data("ejscreenformulas")
+ls()
+all.equal(x, ejscreenformulas)
+x
+x
+head(x)
+head(x[,1:5])
+head(x[,1:6])
+x[,1:6]
+x[,5:6]
+x[,6]
+substr(x[,6],1,60)
+substr(x[,6],1,40)
+cbind( substr(x[,6],1,40) )
+cbind( substr(x[!is.na(x[,6]),6],1,70) )
+cbind( substr(x[!is.na(x[,6]),6],1,80) )
+cbind( substr(x[!is.na(x[,6]),6],1,330) )
+( substr(x[!is.na(x[,6]),6],1,330) )
+(x[!is.na(x[,6]),6])
+x[!is.na(x[,6]),6]
+x[!is.na(x[,6]), 5:6]
+x[!is.na(x[,6]), c('Rfieldname', 'formula')]
+( substr(x[!is.na(x[,6]), c('Rfieldname', 'formula')],1,330) )
+cbind( substr(x[!is.na(x[,6]), c('Rfieldname', 'formula')],1,330) )
+x[!is.na(x[,'formula']), c('Rfieldname', 'formula') ]
+cbind( x[!is.na(x[,'formula']), c('Rfieldname', 'formula') ] )
+x[!is.na(x[,'formula']), c('Rfieldname', 'formula') ]
+z=x[!is.na(x[,'formula']), c('Rfieldname', 'formula') ]
+cbind(z$Rfieldname, substr(z$formula, 1, 50))
+cbind(z$Rfieldname, substr(z$formula, 1, 70))
+cbind(z$Rfieldname, substr(z$formula, 1, 80))
+cbind(z$Rfieldname, substr(z$formula, 1, 90))
+cbind(z$Rfieldname, substr(z$formula, 1, 80))
+cbind(z$Rfieldname, substr(z$formula, 1, 80))
+x[!is.na(x[,'formula']), 'formula' ]
+x[!is.na(x[,'formula']), 'formula' ]
+cbind(z$Rfieldname, substr(z$formula, 1, 80))
+x[!is.na(x[,'formula']), 'formula' ]
+x[!is.na(x[,'formula']), 'formula' ]
+x=ejscreenformulas
+x[!is.na(x[,'formula']), 'formula' ]
+sort(ejscreenformulas$formula)
+sort(ejscreenformulas$formula)
+library(ejscreen)
+library(ejscreen)
+?"ejscreenformulas"
