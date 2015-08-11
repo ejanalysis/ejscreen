@@ -16,11 +16,10 @@
 #'
 #' @details
 #' Key functions include
-#' \cr
 #' \itemize{
 #' \item \code{\link{ejscreen.create}}
 #' \item \code{\link{ejscreen.lookuptables}}
-#' \item Various functions from the \pkg{ejanalysis} package.
+#' \item Various functions from the \pkg{ejanalysis} package are also relevant.
 #' }
 #' @references
 #'
