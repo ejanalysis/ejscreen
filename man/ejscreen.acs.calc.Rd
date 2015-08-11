@@ -12,15 +12,15 @@ ejscreen.acs.calc(bg, folder = getwd(), keep.old, keep.new, formulafile,
 
 \item{folder}{Default is getwd(). Specifies path for where to read from (if formulafile specified) and write to.}
 
-\item{keep.old}{Vector of variables names from names(bg), indicating which to return (retain, not drop). Default is to keep only the ones that match the list of default names in this code.}
+\item{keep.old}{Vector of variables names from names(bg), indicating which to return (retain, not drop). Default is to keep only the ones that match the list of default names in this code. Or this can be simply 'all' which means keep all input fields.}
 
-\item{keep.new}{Vector of variables names of new created variables, indicating which to return (retain, not drop). Default is to keep all.}
+\item{keep.new}{Vector of variables names of new created variables, indicating which to return (retain, not drop). Default is to keep a specific list of fields (see source code). Or this can be simply 'all' which means keep all new fields.}
 
 \item{formulafile}{Name of optional csv file with column called formula, providing formulas as character fields.
 If not specified, function loads this as data(ejscreenformulas).
 Example of one formula: 'pctunder5 <- ifelse( pop==0,0, under5/pop)'
  Use a result of zero in cases where the denominator is zero, to avoid division by zero.
- For example, the formula “pctmin <- ifelse(pop==0,0, as.numeric(mins ) / pop)”
+ For example, the formula \code{'pctmin <- ifelse(pop==0,0, as.numeric(mins ) / pop)'}
  indicates that percent minority is calculated as the ratio of number of minorities
  over total population of a block group, but is set to zero if the population is zero.}
 
@@ -29,7 +29,7 @@ Either formulafile or formulas can be specified (or neither) but not both (error
 Formulas should be in the same format as a formulafile field or the contents of ejscreenformulas (via data(ejscreenformulas) or lazy loading like x <- ejscreenformulas).}
 }
 \value{
-Returns a data.frame with some or all of input fields, plus calculated new fields.
+Returns a data.frame with some or all of input fields (those in keep.old), plus calculated new fields (those in keep.new).
 }
 \description{
 Use specified formulas to create calculated, derived variables such as percent low income.

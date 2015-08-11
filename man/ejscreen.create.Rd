@@ -8,7 +8,7 @@ ejscreen.create(e, acsraw, folder = getwd(), keep.old, formulas,
   demogvarname0 = "VSI.eo", demogvarname1 = "VSI.svi6",
   wtsvarname = "pop", EJprefix0 = "EJ.DISPARITY", EJprefix1 = "EJ.BURDEN",
   EJprefix2 = "EJ.PCT", demogvarname0suffix = "eo",
-  demogvarname1suffix = "svi6", end.year)
+  demogvarname1suffix = "svi6", end.year, threshold = FALSE, cutoff = 0.8)
 }
 \arguments{
 \item{e}{Data.frame of raw data for environmental indicators, one row per block group, one column per indicator.}
@@ -40,6 +40,10 @@ Not currently passed to ejscreen.acs.calc which uses \code{\link[analyze.stuff]{
 \item{demogvarname1suffix}{optional, default is 'svi6' - specifies suffix for colnames of EJ Indexes based on demogvarname1, with a period separating body of colname from suffix}
 
 \item{end.year}{optional to pass to \code{\link[ACSdownload]{get.acs}} (such as end.year='2013' -- otherwise uses default year used by \code{\link{get.acs}})}
+
+\item{threshold}{optional, default is FALSE. Set to TRUE to add a column (called 'flag') to results that is TRUE when one or more of certain percentiles (US EJ Index) in a block group (row) exceed cutoff.}
+
+\item{cutoff}{optional, default is 0.80 (80th percentile). If threshold=TRUE, then cutoff defines the threshold against which percentiles are compared.}
 }
 \value{
 Returns a data.frame with full ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
