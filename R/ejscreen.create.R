@@ -151,7 +151,7 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   if (any(mynames.d %in% mynames.e) | any(mynames.e %in% mynames.d) ) {stop('fieldnames in environmental and demographic data must not overlap except for FIPS field')}
   # this was already available as names.d or names.e for EJSCREEN2014, but this is now more generic
 
-  bg <- data.frame(bg.d, e[ , mynames.e], stringsAsFactors=TRUE)
+  bg <- bg.d
   rm(bg.d) # rm(e); gc() # need e later
   ##########################################################################################################
 
@@ -159,17 +159,25 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   # CALCULATE DEMOGRAPHIC derived fields (D) (but not EJ fields, since formulas not there, at least currently)
   # (Check that keep.old missing will work as intended)
   ##########################################################################################################
+#print('names(bg)');print(names(bg))
+
   bg <- ejscreen.acs.calc(bg, keep.old = keep.old, formulas=formulas)
+  bg <- data.frame(bg, e[ , mynames.e], stringsAsFactors=FALSE)
+
+  # now focus on just those colnames that have been retained, not all the raw acs fields, etc.
+  mynames.d <- names(bg)[!(names(bg) %in% mynames.e)]
 
   ##########################################################################################################
   # BINS AND PERCENTILES:
   #  add US percentile and map color bin cols
   ##########################################################################################################
-# print('mynames.d');print(mynames.d)
-# print('mynames.e');print(mynames.e)
-# print('names(bg)');print(names(bg))
-#	DEMOG
-  bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , mynames.d], bg[ , wtsvarname]), stringsAsFactors=FALSE)
+# cat('\n')
+# print('mynames.d');print(mynames.d);cat('\n')
+# print('mynames.e');print(mynames.e);cat('\n')
+print('names(bg)');print(names(bg));cat('\n')
+
+  #	DEMOG
+  bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , gsub('FIPS','',mynames.d)], bg[ , wtsvarname]), stringsAsFactors=FALSE)
 
   #	ENVT
   bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , mynames.e], bg[ , wtsvarname]), stringsAsFactors=FALSE)
