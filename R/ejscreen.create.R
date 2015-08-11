@@ -243,7 +243,7 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
                    FIPS.county=ejanalysis::get.fips.county(bg$FIPS),
                    FIPS.ST=ejanalysis::get.fips.st(bg$FIPS),
                    stringsAsFactors=FALSE)
-  bg$ST <- ejanalysis::get.state.info(query=bg$FIPS.ST, fields='ST')
+  bg$ST <- ejanalysis::get.state.info(query=bg$FIPS.ST, fields='ST')$ST
   bg$REGION <- ejanalysis::get.epa.region(bg$ST)
   bg <- analyze.stuff::put.first(bg, c('FIPS', 'FIPS.tract', 'FIPS.county', 'FIPS.ST', 'ST', 'REGION'))
 
