@@ -20,7 +20,7 @@ ejscreen.acs.calc(bg, folder = getwd(), keep.old, keep.new, formulafile,
 If not specified, function loads this as data(ejscreenformulas).
 Example of one formula: 'pctunder5 <- ifelse( pop==0,0, under5/pop)'
  Use a result of zero in cases where the denominator is zero, to avoid division by zero.
- For example, the formula “pctmin <- ifelse(pop==0,0, as.numeric(mins ) / pop)”
+ For example, the formula \code{'pctmin <- ifelse(pop==0,0, as.numeric(mins ) / pop)'}
  indicates that percent minority is calculated as the ratio of number of minorities
  over total population of a block group, but is set to zero if the population is zero.}
 
