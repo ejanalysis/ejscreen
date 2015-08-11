@@ -15,9 +15,9 @@
 #' @param formulas Options vector of formulas as character strings that contain R statements in the form "var1 <- var2 + var3" for example.
 #'   Either formulafile or formulas can be specified (or neither) but not both (error).
 #'   Formulas should be in the same format as a formulafile field or the contents of ejscreenformulas (via data(ejscreenformulas) or lazy loading like x <- ejscreenformulas).
-#' @param keep.old Vector of variables names from names(bg), indicating which to return (retain, not drop). Default is to keep only the ones that match the list of default names in this code.
-#' @param keep.new Vector of variables names of new created variables, indicating which to return (retain, not drop). Default is to keep all.
-#' @return Returns a data.frame with some or all of input fields, plus calculated new fields.
+#' @param keep.old Vector of variables names from names(bg), indicating which to return (retain, not drop). Default is to keep only the ones that match the list of default names in this code. Or this can be simply 'all' which means keep all input fields.
+#' @param keep.new Vector of variables names of new created variables, indicating which to return (retain, not drop). Default is to keep a specific list of fields (see source code). Or this can be simply 'all' which means keep all new fields.
+#' @return Returns a data.frame with some or all of input fields (those in keep.old), plus calculated new fields (those in keep.new).
 #' @examples
 #'  set.seed(99)
 #'  envirodata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12),
@@ -49,7 +49,7 @@ ejscreen.acs.calc <- function(bg, folder=getwd(), keep.old, keep.new, formulafil
   }
 
   if (missing(formulafile) & !missing(formulas)) {
-    myformulas <- x
+    myformulas <- formulas
     # could add error checking here
   }
 
@@ -84,11 +84,13 @@ ejscreen.acs.calc <- function(bg, folder=getwd(), keep.old, keep.new, formulafil
       'nhmulti'
     )
   }
-  # but don't try to keep fields not supplied in bg
+  if (keep.old[1]=='all') {keep.old <- names(bg)}
+  # don't try to keep fields not supplied in bg
   keep.old <- keep.old[ keep.old %in% names(bg)]
 
   if (missing(keep.new)) {
     keep.new <- c(
+      'VSI.eo', 'VSI.svi6',
      'pctpre1960',
        'pctlowinc',
        'pctmin',
@@ -115,18 +117,28 @@ ejscreen.acs.calc <- function(bg, folder=getwd(), keep.old, keep.new, formulafil
     )
   }
   # if any of these are not successfully created by calc.fields(), they just won't be returned by that function.
+  if (keep.new[1]=='all') {
+    # all the new ones (calc.fields returns all new and none of old by default)
+    newfieldsonly <- analyze.stuff::calc.fields(bg, formulas=myformulas)
+    bg <- data.frame(bg[ , keep.old], newfieldsonly, stringsAsFactors = FALSE)
+  } else {
+    # just some of the new ones
+    bg <- analyze.stuff::calc.fields(bg, formulas=myformulas, keep=c(keep.old, keep.new))
+  }
 
-  new.fields <- analyze.stuff::calc.fields(bg, formulas=myformulas, keep=keep.new)
+  #new.fields <- analyze.stuff::calc.fields(bg, formulas=myformulas, keep=keep.new)
   #print('keep.new: '); print(keep.new)
   #print(names(new.fields))
   # don't try to keep fields not successfully created
-  keep.new <- keep.new[ keep.new %in% names(new.fields)]
+  #keep.new <- keep.new[ keep.new %in% names(new.fields)]
 
   #print('keep.new: '); print(keep.new)
   #print('keep.old: '); print(keep.old)
   #print('names of bg'); print(names(bg))
 
-  bg <- cbind( bg[ , keep.old], new.fields )
+  #bg <- cbind( bg[ , keep.old], new.fields[ , keep.new] )
+  # new.fields would only have cols that were in keep.new
+  #bg <- cbind( bg[ , keep.old], new.fields )
 
   return(bg)
 }

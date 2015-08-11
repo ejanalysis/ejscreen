@@ -151,7 +151,7 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   if (any(mynames.d %in% mynames.e) | any(mynames.e %in% mynames.d) ) {stop('fieldnames in environmental and demographic data must not overlap except for FIPS field')}
   # this was already available as names.d or names.e for EJSCREEN2014, but this is now more generic
 
-  bg <- data.frame(bg.d, e[ , mynames.e], stringsAsFactors=TRUE)
+  bg <- data.frame(bg.d, e[ , mynames.e], stringsAsFactors=FALSE)
   rm(bg.d) # rm(e); gc() # need e later
   ##########################################################################################################
 
@@ -160,14 +160,19 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   # (Check that keep.old missing will work as intended)
   ##########################################################################################################
   bg <- ejscreen.acs.calc(bg, keep.old = keep.old, formulas=formulas)
+  # FOR NOW JUST ADD e AGAIN, SINCE ADDED IN CASE WANTED IN FORMULAS BUT NOT RETAINED BY DEFAULT keep.old
+  # can fix that later to optimize this
+  bg <- data.frame(bg, e[ , mynames.e], stringsAsFactors = FALSE)
+
+  mynames.d <- mynames.d[mynames.d %in% names(bg) ]
 
   ##########################################################################################################
   # BINS AND PERCENTILES:
   #  add US percentile and map color bin cols
   ##########################################################################################################
-# print('mynames.d');print(mynames.d)
-# print('mynames.e');print(mynames.e)
-# print('names(bg)');print(names(bg))
+ print('mynames.d');print(mynames.d)
+ print('mynames.e');print(mynames.e)
+ print('names(bg)');print(names(bg))
 #	DEMOG
   bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , mynames.d], bg[ , wtsvarname]), stringsAsFactors=FALSE)
 
@@ -230,16 +235,17 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
 #  bg$flag <- ejanalysis::flagged(bg[ , names.ej.pctile] / 100)
 
   ##########################################################################################################
-  # Add FIPS fields
+  # Add FIPS fields and ST and REGION
   ##########################################################################################################
 
   bg <- data.frame(bg,
                    FIPS.tract=ejanalysis::get.fips.tract(bg$FIPS),
                    FIPS.county=ejanalysis::get.fips.county(bg$FIPS),
                    FIPS.ST=ejanalysis::get.fips.st(bg$FIPS),
-                   REGION=ejanalysis::get.epa.region(bg$FIPS),
                    stringsAsFactors=FALSE)
-  bg <- analyze.stuff::put.first(bg, c('FIPS', 'FIPS.tract', 'FIPS.county', 'FIPS.ST', 'REGION'))
+  bg$ST <- ejanalysis::get.state.info(query=bg$FIPS.ST, fields='ST')
+  bg$REGION <- ejanalysis::get.epa.region(bg$ST)
+  bg <- analyze.stuff::put.first(bg, c('FIPS', 'FIPS.tract', 'FIPS.county', 'FIPS.ST', 'ST', 'REGION'))
 
 
   ##########################################################################################################
