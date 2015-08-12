@@ -76,7 +76,7 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   # calc.fields(), etc.
   #
   # EJ INDEXES
-  # - Calculate EJ indexes given D and E using ej.indexes()
+  # - Calculate EJ indexes given D and E using ej.indexes() OR ejscreenformulas
   #
   # PERCENTILES AND BINS
   #  make.bin.pctile.cols already creates them all:
@@ -122,9 +122,9 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   # and now that is in  data(vars.ejscreen.acs) from ejscreen package as default list of acs variables like 'B01001.001'
   if (missing(acsraw)) {
     if (!missing(end.year)) {
-      acsraw <- ACSdownload::get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, folder=folder, end.year=end.year)
+      acsraw <- ACSdownload::get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, base.path=folder, end.year=end.year)
     } else {
-      acsraw <- ACSdownload::get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, folder=folder)
+      acsraw <- ACSdownload::get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, base.path=folder)
     }
     acsraw  <- acsraw$bg
     # NOTE THIS DOES NOT PRESERVE tracts data downloaded

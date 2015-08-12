@@ -5,7 +5,7 @@
 
 #  These are now built into ejscreenformulas which is available as data() in this package
 
-# Calculates
+# Calculate
 #   USA overall total counts and then
 #   USA overall percents
 #
