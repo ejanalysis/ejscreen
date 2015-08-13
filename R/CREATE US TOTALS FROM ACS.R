@@ -3,8 +3,24 @@
 #########################################################
 #
 
-#  These are now built into ejscreenformulas which is available as data() in this package
+#  The essential parts of these are now built into ejscreenformulas which is available as data() in this package
+# > require(ejscreen)
+# Loading required package: ejscreen
+# > x=ejscreenformulas
+# > x$formula[grepl('US', x$formula)]
+# [1] "VSI.eo.US <- ( sum(mins) / sum(pop)  +  sum(lowinc) / sum(povknownratio) ) / 2"
+# [2] "VSI.svi6.US <- (sum(mins) / sum(pop) + sum(lowinc) / sum(povknownratio) + sum(lths) / sum(age25up) + sum(lingiso) / sum(hhlds) + sum(over64) / sum(pop) + sum(under5) / sum(pop) ) / 6"
+# [3] "VDI.eo <- (VSI.eo - VSI.eo.US) * pop"
+# [4] "VDI.svi6 <- (VSI.svi6 - VSI.svi6.US) * pop"
 
+
+
+
+if (1==0) {
+
+#########################################################
+# SCRIPTS TO CREATE NATIONAL PERSON-LEVEL SUMMARY STATS BASED ON ONLY TRACTS OR ONLY BLOCKGROUPS:
+#
 # Calculate
 #   USA overall total counts and then
 #   USA overall percents
@@ -20,8 +36,6 @@
 #	  For example, LOWINC.US HERE CORRECTLY INCLUDES ONLY THOSE FOR WHOM POVERTY STATUS IS KNOWN, for example,
 #	  AND IS NOT quite THE SAME AS THE NATIONAL AVG % LOWINC TIMES TOTAL US POPULATION
 #########################################################
-
-if (1==0) {
 
   POP.US		= sum(bg$pop)
 
