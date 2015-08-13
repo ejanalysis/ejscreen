@@ -23,6 +23,9 @@
 #' @param checkfips optional, default is TRUE. If TRUE, verifies all FIPS are valid. To use something other than actual US FIPS codes, set this to FALSE.
 #' @param threshold optional, default is FALSE. Set to TRUE to add a column (called 'flag') to results that is TRUE when one or more of certain percentiles (US EJ Index) in a block group (row) exceed cutoff.
 #' @param cutoff optional, default is 0.80 (80th percentile). If threshold=TRUE, then cutoff defines the threshold against which percentiles are compared.
+#' @param thresholdfieldnames optional, default is standard EJSCREEN EJ Indexes built into code. Otherwise, vector of character class fieldnames, specifying which fields to compare to cutoff if threshold=TRUE.
+#' @param ejformulasfromcode optional, default is FALSE. If TRUE, use EJ Index formulas built into this function instead of those in ejscreenformulas (or specified by user?). The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE.
+#' @param checkfips optional, default is TRUE. If TRUE, function checks to verify all FIPS codes appear to be valid US FIPS (correct number of characters, adding any leading zero needed, and checking the first five to ensure valid county)
 #' @return Returns a data.frame with full ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
 #'   as raw values, US percentiles, and text for popups. Output has one row per block group.
 #' @examples
@@ -36,14 +39,18 @@
 #'  demogdata$povknownratio <- demogdata$pop
 #'  # downloads ACS demographics and combines with user provided envirodata:
 #'  # bg1=ejscreen.create(envirodata, mystates=c('de','dc'))
-#'  # currently does not work for nonstandard colnames unless keep.old used as follows (work in progress):
-#'  y=ejscreen.create(e=envirodata, acsraw=demogdata, keep.old = c(names(envirodata), names(demogdata)), demogvarname0 = 'pctmin', demogvarname1 = 'pctlowinc', wtsvarname = 'pop' )
+#'  # currently does not work for nonstandard colnames
+#'  #  unless keep.old used as follows (work in progress):
+#'  y=ejscreen.create(e=envirodata, acsraw=demogdata,
+#'    keep.old = c(names(envirodata), names(demogdata)),
+#'    demogvarname0 = 'pctmin', demogvarname1 = 'pctlowinc', wtsvarname = 'pop' )
 #'  }
 #' @export
 ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
-                            demogvarname0='VSI.eo', demogvarname1='VSI.svi6', wtsvarname='pop',
-                            EJprefix0='EJ.DISPARITY', EJprefix1='EJ.BURDEN', EJprefix2='EJ.PCT',
-                            demogvarname0suffix='eo', demogvarname1suffix='svi6', end.year, threshold=FALSE, cutoff=0.80, checkfips=TRUE) {
+
+                            demogvarname0='VSI.eo', demogvarname1='VSI.svi6', wtsvarname='pop', checkfips=TRUE,
+                            EJprefix0='EJ.DISPARITY', EJprefix1='EJ.BURDEN', EJprefix2='EJ.PCT', ejformulasfromcode=FALSE,
+                            demogvarname0suffix='eo', demogvarname1suffix='svi6', end.year, threshold=FALSE, cutoff=0.80, thresholdfieldnames) {
 
   ######################################################################################
   # Create EJSCREEN dataset in R (given Demographic and Environmental Indicators):
@@ -71,7 +78,7 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   # calc.fields(), etc.
   #
   # EJ INDEXES
-  # - Calculate EJ indexes given D and E using ej.indexes()
+  # - Calculate EJ indexes given D and E using ej.indexes() OR ejscreenformulas
   #
   # PERCENTILES AND BINS
   #  make.bin.pctile.cols already creates them all:
@@ -117,10 +124,12 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   # and now that is in  data(vars.ejscreen.acs) from ejscreen package as default list of acs variables like 'B01001.001'
   if (missing(acsraw)) {
     if (!missing(end.year)) {
+
       data(vars.ejscreen.acs, package = "ejanalysis", envir = environment())
-      acsraw <- ACSdownload::get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, folder=folder, end.year=end.year)
+      acsraw <- ACSdownload::get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, base.path=folder, end.year=end.year)
+
     } else {
-      acsraw <- ACSdownload::get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, folder=folder)
+      acsraw <- ACSdownload::get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, base.path=folder)
     }
     acsraw  <- acsraw$bg
     # NOTE THIS DOES NOT PRESERVE tracts data downloaded
@@ -149,6 +158,7 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   if (checkfips) {
     # clean up adding leading zero and saving as character in case 11 digit numeric missing leading zero for example
     # but note that will not allow use of simple ordinal numbers in lieu of FIPS, since clean.fips requires fips to be valid state, county, etc., not just any number or string
+
     e$FIPS <- ejanalysis::clean.fips(e$FIPS)
     bg.d$FIPS <- ejanalysis::clean.fips(bg.d$FIPS)
   }
@@ -186,78 +196,97 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   #mynames.d <- mynames.d[mynames.d %in% names(bg) ]     # but that leaves out the new d fields
 
   ##########################################################################################################
-  # BINS AND PERCENTILES:
+  # BINS AND PERCENTILES for DEMOG AND ENVT (and EJ -- if created by formulas not code below):
   #  add US percentile and map color bin cols
   ##########################################################################################################
 
- cat('\n')
- print('mynames.d');print(mynames.d);cat('\n')
- print('mynames.e');print(mynames.e);cat('\n')
- print('names(bg)');print(names(bg));cat('\n')
- print('(wtsvarname)');print((wtsvarname));cat('\n')
-
   #	DEMOG
   bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , gsub('FIPS', '', mynames.d)], bg[ , wtsvarname]), stringsAsFactors=FALSE)
+  
+  # cat('\n')
+  # print('mynames.d');print(mynames.d);cat('\n')
+  # print('mynames.e');print(mynames.e);cat('\n')
+  # print('names(bg)');print(names(bg));cat('\n')
+
+  #	DEMOG
+  # (if EJ Index formulas were in ejscreenformulas variable lazy loaded from data, or specified by user formulas,
+  # then they will be here as well!)
+  bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , gsub('FIPS','',mynames.d)], bg[ , wtsvarname]), stringsAsFactors=FALSE)
 
   #	ENVT
   bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , mynames.e], bg[ , wtsvarname]), stringsAsFactors=FALSE)
 
-  ##########################################################################################################
-  # CALCULATE EJ INDEXES:
-  #  CALCULATE and name the EJ INDEXES & add those cols to bg
-  # and the bin and percentile cols
-  ##########################################################################################################
+  if (ejformulasfromcode) {
 
-#   Warning - Did not specify us.demog= fraction of US population that is in the given demographic group
-#   Using calculated us.demog= NaN , based on all locations with valid demographics (which may be a bit different than those with valid envt scores)
+    ##########################################################################################################
+    # CALCULATE EJ INDEXES:
+    #  CALCULATE and name the EJ INDEXES & add those cols to bg
+    # and the bin and percentile cols
+    ##########################################################################################################
 
-  # EJ Index raw values cols
-  EJ.basic.eo   <- data.frame(ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname0], weights = bg[ , wtsvarname]),   stringsAsFactors=FALSE) # note this calculates overall VSI.eo.US   on the fly
-  # basic.eo already has names created by ej.indexes() function. WOULD USE demogvarname0suffix
-  EJ.basic.svi6 <- data.frame(ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname1], weights = bg[ , wtsvarname]), stringsAsFactors=FALSE) # note this calculates overall VSI.svi6.US on the fly
-  names(EJ.basic.svi6) <- paste(EJprefix0, mynames.e, demogvarname1suffix, sep='.')
-  # add to bg
-  bg <- data.frame(bg, EJ.basic.eo, EJ.basic.svi6, stringsAsFactors = FALSE )
+    #   Warning - Did not specify us.demog= fraction of US population that is in the given demographic group
+    #   Using calculated us.demog= NaN , based on all locations with valid demographics (which may be a bit different than those with valid envt scores)
+    # and using bg[ , wtsvarname] (default is pop) as denominator, which is not exactly right for pctlowinc, pctlths, pctlingiso, (&pctpre1960).
+    #   (bg$povknownratio)
+    #   (bg$age25up)
+    #   (bg$hhlds)
+    #   (bg$builtunits)
 
-  # EJ bin/percentile cols
-  bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , c(names(EJ.basic.eo), names(EJ.basic.svi6) ) ], weights = bg[ , wtsvarname]), stringsAsFactors=FALSE)
-  rm(EJ.basic.eo, EJ.basic.svi6)
+    # EJ Index raw values cols
+    EJ.basic.eo   <- data.frame(ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname0], weights = bg[ , wtsvarname]),   stringsAsFactors=FALSE) # note this calculates overall VSI.eo.US   on the fly
+    # basic.eo already has names created by ej.indexes() function. WOULD USE demogvarname0suffix
+    EJ.basic.svi6 <- data.frame(ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname1], weights = bg[ , wtsvarname]), stringsAsFactors=FALSE) # note this calculates overall VSI.svi6.US on the fly
+    names(EJ.basic.svi6) <- paste(EJprefix0, mynames.e, demogvarname1suffix, sep='.')
+    # add to bg
+    bg <- data.frame(bg, EJ.basic.eo, EJ.basic.svi6, stringsAsFactors = FALSE )
 
-  ###
+    # EJ bin/percentile cols
+    bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , c(names(EJ.basic.eo), names(EJ.basic.svi6) ) ], weights = bg[ , wtsvarname]), stringsAsFactors=FALSE)
+    rm(EJ.basic.eo, EJ.basic.svi6)
 
-  # Supplementary/ alt1 EJ Indexes raw values cols
-  #EJ.alt1.eo   <- sapply(bg[ , mynames.e], function(x) {x * bg[ , wtsvarname] * bg[,demogvarname0]  })
-  EJ.alt1.eo   <- ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname0], weights=bg[ , wtsvarname], type=5)
-  names(EJ.alt1.eo) <- paste(EJprefix1, mynames.e, demogvarname0suffix, sep='.')
-  #EJ.alt1.svi6 <- sapply(bg[ , mynames.e], function(x) {x * bg[ , wtsvarname] * bg[ , demogvarname1]})
-  EJ.alt1.svi6 <- ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname1], weights=bg[ , wtsvarname], type=5)
-  names(EJ.alt1.svi6) <- paste(EJprefix1, mynames.e, demogvarname1suffix, sep='.')
+    ###
 
-  # Supplementary/ alt2 EJ Indexes raw values cols
-  #EJ.alt2.eo   <- sapply(bg[ , mynames.e], function(x) {x * bg[ , demogvarname0]  })
-  EJ.alt2.eo   <- ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname0], type=6)
-  names(EJ.alt2.eo) <- paste(EJprefix2, mynames.e, demogvarname0suffix, sep='.')
-  #EJ.alt2.svi6 <- sapply(bg[ , mynames.e], function(x) {x * bg[ , demogvarname1]})
-  EJ.alt2.svi6 <-  ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname1], type=6)
-  names(EJ.alt2.svi6) <- paste(EJprefix2, mynames.e, demogvarname1suffix, sep='.')
+    # Supplementary/ alt1 EJ Indexes raw values cols
+    #EJ.alt1.eo   <- sapply(bg[ , mynames.e], function(x) {x * bg[ , wtsvarname] * bg[,demogvarname0]  })
+    EJ.alt1.eo   <- ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname0], weights=bg[ , wtsvarname], type=5)
+    names(EJ.alt1.eo) <- paste(EJprefix1, mynames.e, demogvarname0suffix, sep='.')
+    #EJ.alt1.svi6 <- sapply(bg[ , mynames.e], function(x) {x * bg[ , wtsvarname] * bg[ , demogvarname1]})
+    EJ.alt1.svi6 <- ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname1], weights=bg[ , wtsvarname], type=5)
+    names(EJ.alt1.svi6) <- paste(EJprefix1, mynames.e, demogvarname1suffix, sep='.')
 
-  # add alt raw EJ cols to bg
-  bg <- data.frame(bg, EJ.alt1.eo, EJ.alt1.svi6, EJ.alt2.eo, EJ.alt2.svi6, stringsAsFactors = FALSE)
+    # Supplementary/ alt2 EJ Indexes raw values cols
+    #EJ.alt2.eo   <- sapply(bg[ , mynames.e], function(x) {x * bg[ , demogvarname0]  })
+    EJ.alt2.eo   <- ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname0], type=6)
+    names(EJ.alt2.eo) <- paste(EJprefix2, mynames.e, demogvarname0suffix, sep='.')
+    #EJ.alt2.svi6 <- sapply(bg[ , mynames.e], function(x) {x * bg[ , demogvarname1]})
+    EJ.alt2.svi6 <-  ejanalysis::ej.indexes(env.df=bg[ , mynames.e], demog=bg[ , demogvarname1], type=6)
+    names(EJ.alt2.svi6) <- paste(EJprefix2, mynames.e, demogvarname1suffix, sep='.')
 
-  # EJ alt bin/percentile cols
-  bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , c(names(EJ.alt1.eo), names(EJ.alt1.svi6) ) ], bg[ , wtsvarname]), stringsAsFactors=FALSE)
-  bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , c(names(EJ.alt2.eo), names(EJ.alt2.svi6) ) ], bg[ , wtsvarname]), stringsAsFactors=FALSE)
+    # add alt raw EJ cols to bg
+    bg <- data.frame(bg, EJ.alt1.eo, EJ.alt1.svi6, EJ.alt2.eo, EJ.alt2.svi6, stringsAsFactors = FALSE)
 
-  rm(             EJ.alt1.eo, EJ.alt1.svi6, EJ.alt2.eo, EJ.alt2.svi6)
+    # EJ alt bin/percentile cols
+    bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , c(names(EJ.alt1.eo), names(EJ.alt1.svi6) ) ], bg[ , wtsvarname]), stringsAsFactors=FALSE)
+    bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , c(names(EJ.alt2.eo), names(EJ.alt2.svi6) ) ], bg[ , wtsvarname]), stringsAsFactors=FALSE)
+
+    rm(             EJ.alt1.eo, EJ.alt1.svi6, EJ.alt2.eo, EJ.alt2.svi6)
+
+  }
 
   if (threshold) {
+  
     #  add threshold flag if requested
     # later could allow user specified fields to be applied to threshold cutoff
-    data(names.ejvars, package = 'ejanalysis', envir = environment())
-    if (all(names.ej.pctile %in% names(bg))) {
-      bg$flag <- ejanalysis::flagged(bg[ , names.ej.pctile] / 100, cutoff=cutoff)
+
+    if (missing(thresholdfieldnames)) {
+          data(names.ejvars, package = 'ejanalysis', envir = environment())
+          thresholdfieldnames <- names.ej.pctile 
+    }
+
+    if (all(thresholdfieldnames %in% names(bg))) {
+      bg$flag <- ejanalysis::flagged(bg[ , thresholdfieldnames] / 100, cutoff=cutoff)
     } else {
-      warning('threshold field requested but default fieldnames needed are not all found in the dataset')
+      warning('threshold field requested but thresholdfieldnames are not all found in the dataset')
     }
   }
 
