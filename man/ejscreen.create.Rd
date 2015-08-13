@@ -6,10 +6,11 @@
 \usage{
 ejscreen.create(e, acsraw, folder = getwd(), keep.old, formulas,
   demogvarname0 = "VSI.eo", demogvarname1 = "VSI.svi6",
-  wtsvarname = "pop", EJprefix0 = "EJ.DISPARITY", EJprefix1 = "EJ.BURDEN",
-  EJprefix2 = "EJ.PCT", demogvarname0suffix = "eo",
+  wtsvarname = "pop", checkfips = TRUE, EJprefix0 = "EJ.DISPARITY",
+  EJprefix1 = "EJ.BURDEN", EJprefix2 = "EJ.PCT",
+  ejformulasfromcode = FALSE, demogvarname0suffix = "eo",
   demogvarname1suffix = "svi6", end.year, threshold = FALSE, cutoff = 0.8,
-  checkfips = TRUE)
+  thresholdfieldnames)
 }
 \arguments{
 \item{e}{Data.frame of raw data for environmental indicators, one row per block group, one column per indicator.}
@@ -30,11 +31,15 @@ Not currently passed to ejscreen.acs.calc which uses \code{\link[analyze.stuff]{
 
 \item{wtsvarname}{optional, default is 'pop' used for weighted percentiles, etc. Must be a colname in acsraw or created and kept by formulas.}
 
+\item{checkfips}{optional, default is TRUE. If TRUE, verifies all FIPS are valid. To use something other than actual US FIPS codes, set this to FALSE.}
+
 \item{EJprefix0}{optional, default is 'EJ.DISPARITY' - specifies prefix for colnames of main EJ Indexes, with a period separating prefix from body of colname}
 
 \item{EJprefix1}{optional, default is 'EJ.BURDEN' - specifies prefix for colnames of Alternative 1 version of EJ Indexes, with a period separating prefix from body of colname}
 
 \item{EJprefix2}{optional, default is 'EJ.PCT' - specifies prefix for colnames of Alternative 2 version of EJ Indexes, with a period separating prefix from body of colname}
+
+\item{ejformulasfromcode}{optional, default is FALSE. If TRUE, use EJ Index formulas built into this function instead of those in ejscreenformulas (or specified by user?). The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE.}
 
 \item{demogvarname0suffix}{optional, default is 'eo' - specifies suffix for colnames of EJ Indexes based on demogvarname0, with a period separating body of colname from suffix}
 
@@ -46,7 +51,9 @@ Not currently passed to ejscreen.acs.calc which uses \code{\link[analyze.stuff]{
 
 \item{cutoff}{optional, default is 0.80 (80th percentile). If threshold=TRUE, then cutoff defines the threshold against which percentiles are compared.}
 
-\item{checkfips}{optional, default is TRUE. If TRUE, verifies all FIPS are valid. To use something other than actual US FIPS codes, set this to FALSE.}
+\item{thresholdfieldnames}{optional, default is standard EJSCREEN EJ Indexes built into code. Otherwise, vector of character class fieldnames, specifying which fields to compare to cutoff if threshold=TRUE.}
+
+\item{checkfips}{optional, default is TRUE. If TRUE, function checks to verify all FIPS codes appear to be valid US FIPS (correct number of characters, adding any leading zero needed, and checking the first five to ensure valid county)}
 }
 \value{
 Returns a data.frame with full ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
@@ -70,8 +77,11 @@ Start with raw environmental indicator data, and create full EJSCREEN dataset.
  demogdata$povknownratio <- demogdata$pop
  # downloads ACS demographics and combines with user provided envirodata:
  # bg1=ejscreen.create(envirodata, mystates=c('de','dc'))
- # currently does not work for nonstandard colnames unless keep.old used as follows (work in progress):
- y=ejscreen.create(e=envirodata, acsraw=demogdata, keep.old = c(names(envirodata), names(demogdata)), demogvarname0 = 'pctmin', demogvarname1 = 'pctlowinc', wtsvarname = 'pop' )
+ # currently does not work for nonstandard colnames
+ #  unless keep.old used as follows (work in progress):
+ y=ejscreen.create(e=envirodata, acsraw=demogdata,
+   keep.old = c(names(envirodata), names(demogdata)),
+   demogvarname0 = 'pctmin', demogvarname1 = 'pctlowinc', wtsvarname = 'pop' )
  }
 }
 
