@@ -8,7 +8,8 @@ ejscreen.create(e, acsraw, folder = getwd(), keep.old, formulas,
   demogvarname0 = "VSI.eo", demogvarname1 = "VSI.svi6",
   wtsvarname = "pop", EJprefix0 = "EJ.DISPARITY", EJprefix1 = "EJ.BURDEN",
   EJprefix2 = "EJ.PCT", demogvarname0suffix = "eo",
-  demogvarname1suffix = "svi6", end.year, threshold = FALSE, cutoff = 0.8)
+  demogvarname1suffix = "svi6", end.year, threshold = FALSE, cutoff = 0.8,
+  checkfips = TRUE)
 }
 \arguments{
 \item{e}{Data.frame of raw data for environmental indicators, one row per block group, one column per indicator.}
@@ -44,6 +45,8 @@ Not currently passed to ejscreen.acs.calc which uses \code{\link[analyze.stuff]{
 \item{threshold}{optional, default is FALSE. Set to TRUE to add a column (called 'flag') to results that is TRUE when one or more of certain percentiles (US EJ Index) in a block group (row) exceed cutoff.}
 
 \item{cutoff}{optional, default is 0.80 (80th percentile). If threshold=TRUE, then cutoff defines the threshold against which percentiles are compared.}
+
+\item{checkfips}{optional, default is TRUE. If TRUE, verifies all FIPS are valid. To use something other than actual US FIPS codes, set this to FALSE.}
 }
 \value{
 Returns a data.frame with full ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
