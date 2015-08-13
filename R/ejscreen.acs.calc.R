@@ -91,6 +91,7 @@ ejscreen.acs.calc <- function(bg, folder=getwd(), keep.old, keep.new, formulafil
   if (missing(keep.new)) {
     keep.new <- c(
       'VSI.eo', 'VSI.svi6',
+      "VNI.eo", "VNI.svi6", "VDI.eo", "VDI.svi6",
      'pctpre1960',
        'pctlowinc',
        'pctmin',

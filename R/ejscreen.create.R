@@ -20,11 +20,13 @@
 #' @param EJprefix1 optional, default is 'EJ.BURDEN' - specifies prefix for colnames of Alternative 1 version of EJ Indexes, with a period separating prefix from body of colname
 #' @param EJprefix2 optional, default is 'EJ.PCT' - specifies prefix for colnames of Alternative 2 version of EJ Indexes, with a period separating prefix from body of colname
 #' @param formulas optional, see \code{\link{ejscreen.acs.calc}} for details. Defaults are in ejscreenformulas$formula
+#'   Note that if formulas is specified, ejformulasfromcode is ignored.
 #' @param checkfips optional, default is TRUE. If TRUE, verifies all FIPS are valid. To use something other than actual US FIPS codes, set this to FALSE.
 #' @param threshold optional, default is FALSE. Set to TRUE to add a column (called 'flag') to results that is TRUE when one or more of certain percentiles (US EJ Index) in a block group (row) exceed cutoff.
 #' @param cutoff optional, default is 0.80 (80th percentile). If threshold=TRUE, then cutoff defines the threshold against which percentiles are compared.
 #' @param thresholdfieldnames optional, default is standard EJSCREEN EJ Indexes built into code. Otherwise, vector of character class fieldnames, specifying which fields to compare to cutoff if threshold=TRUE.
-#' @param ejformulasfromcode optional, default is FALSE. If TRUE, use EJ Index formulas built into this function instead of those in ejscreenformulas (or specified by user?). The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE.
+#' @param ejformulasfromcode optional, default is FALSE. If TRUE, use EJ Index formulas built into this function instead of the EJ Index formulas in ejscreenformulas.
+#'   The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE. Note that if formulas is specified, ejformulasfromcode is ignored.
 #' @param checkfips optional, default is TRUE. If TRUE, function checks to verify all FIPS codes appear to be valid US FIPS (correct number of characters, adding any leading zero needed, and checking the first five to ensure valid county)
 #' @return Returns a data.frame with full ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
 #'   as raw values, US percentiles, and text for popups. Output has one row per block group.
@@ -124,10 +126,8 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   # and now that is in  data(vars.ejscreen.acs) from ejscreen package as default list of acs variables like 'B01001.001'
   if (missing(acsraw)) {
     if (!missing(end.year)) {
-
       data(vars.ejscreen.acs, package = "ejanalysis", envir = environment())
       acsraw <- ACSdownload::get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, base.path=folder, end.year=end.year)
-
     } else {
       acsraw <- ACSdownload::get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, base.path=folder)
     }
@@ -175,7 +175,7 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   # NOTE: pctpre1960 is in environmental dataset but also demographic since obtained from ejscreen.acs.calc below, so it will be duplicated below.
 
   ##########################################################################################################
-  # CALCULATE DEMOGRAPHIC derived fields (D) (but not EJ fields, since formulas not there, at least currently)
+  # CALCULATE DEMOGRAPHIC derived fields (D) (and EJ Index fields if ejformulasfromcode=FALSE )
   # (Check that keep.old missing will work as intended)
   ##########################################################################################################
 
@@ -183,13 +183,21 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   bg <- data.frame(bg.d, e[ , mynames.e], stringsAsFactors=FALSE)
   rm(bg.d) # rm(e); gc() # need e later
 
-  # keep.old default is to be missing here, and default in ejscreen.acs.calc should be the hardwired ejscreen-specific fields including FIPS and key raw demographics
+  if (ejformulasfromcode & missing(formulas)) {
+    # if (ejformulasfromcode & missing(formulafile) & missing(formulas) ) { #xxx in case formulafile gets implemented here
+    # # use the version of the default formulas that leaves out the EJ formulas. They are in code below instead.
+    formulas <- ejscreenformulasnoej # lazyloaded data
+  }
+
+  # keep.old default is to be missing here,
+  # and default in ejscreen.acs.calc should be the hardwired ejscreen-specific fields including FIPS and key raw demographics
+
   bg <- ejscreen.acs.calc(bg, keep.old = keep.old, formulas=formulas)
 
   # FOR NOW JUST ADD e AGAIN, SINCE ADDED IN CASE WANTED IN FORMULAS BUT NOT RETAINED BY DEFAULT keep.old
   # can fix that later to optimize this
   bg <- data.frame(bg, e[ , mynames.e], stringsAsFactors = FALSE)
-#now pctpre1960.1 here
+  # now pctpre1960.1 is here
   bg <- bg[ , names(bg)!='pctpre1960.1'] # get rid of case where this was in e and d since came from acs.calc
   # now focus on just those colnames that have been retained, not all the raw acs fields, etc.
   mynames.d <- names(bg)[!(names(bg) %in% c('FIPS', mynames.e))] # but that might include some fields we do not want? should have all returned by ejscreen.acs.calc other than FIPS
@@ -200,9 +208,6 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   #  add US percentile and map color bin cols
   ##########################################################################################################
 
-  #	DEMOG
-  bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , gsub('FIPS', '', mynames.d)], bg[ , wtsvarname]), stringsAsFactors=FALSE)
-  
   # cat('\n')
   # print('mynames.d');print(mynames.d);cat('\n')
   # print('mynames.e');print(mynames.e);cat('\n')
@@ -216,7 +221,7 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   #	ENVT
   bg <- data.frame(bg, ejanalysis::make.bin.pctile.cols(bg[ , mynames.e], bg[ , wtsvarname]), stringsAsFactors=FALSE)
 
-  if (ejformulasfromcode) {
+  if (ejformulasfromcode & missing(formulas)) {
 
     ##########################################################################################################
     # CALCULATE EJ INDEXES:
@@ -274,13 +279,13 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   }
 
   if (threshold) {
-  
+
     #  add threshold flag if requested
     # later could allow user specified fields to be applied to threshold cutoff
 
     if (missing(thresholdfieldnames)) {
           data(names.ejvars, package = 'ejanalysis', envir = environment())
-          thresholdfieldnames <- names.ej.pctile 
+          thresholdfieldnames <- names.ej.pctile
     }
 
     if (all(thresholdfieldnames %in% names(bg))) {
@@ -295,13 +300,16 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   ##########################################################################################################
 
   bg <- data.frame(bg,
-                   FIPS.tract=ejanalysis::get.fips.tract(bg$FIPS),
-                   FIPS.county=ejanalysis::get.fips.county(bg$FIPS),
+                   FIPS.TRACT=ejanalysis::get.fips.tract(bg$FIPS),
+                   FIPS.COUNTY=ejanalysis::get.fips.county(bg$FIPS),
                    FIPS.ST=ejanalysis::get.fips.st(bg$FIPS),
                    stringsAsFactors=FALSE)
-  bg$ST <- ejanalysis::get.state.info(query=bg$FIPS.ST, fields='ST')$ST
+  bg$countyname <- ejanalysis::get.county.info(query=bg$FIPS.COUNTY, fields='fullname')$fullname
+  stateinfo <- ejanalysis::get.state.info(query=bg$FIPS.ST, fields=c('ST', 'statename'))
+  bg$ST <- stateinfo$ST
+  bg$statename <- stateinfo$statename
   bg$REGION <- ejanalysis::get.epa.region(bg$ST)
-  bg <- analyze.stuff::put.first(bg, c('FIPS', 'FIPS.tract', 'FIPS.county', 'FIPS.ST', 'ST', 'REGION'))
+  bg <- analyze.stuff::put.first(bg, c('FIPS', 'FIPS.TRACT', 'FIPS.COUNTY', 'FIPS.ST', 'ST', 'statename', 'REGION'))
 
 
   ##########################################################################################################

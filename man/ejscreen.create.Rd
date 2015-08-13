@@ -23,7 +23,8 @@ Not currently passed to ejscreen.acs.calc which uses \code{\link[analyze.stuff]{
 
 \item{keep.old}{optional vector of colnames from e that are to be used/returned. For nondefault colnames, this must be used.}
 
-\item{formulas}{optional, see \code{\link{ejscreen.acs.calc}} for details. Defaults are in ejscreenformulas$formula}
+\item{formulas}{optional, see \code{\link{ejscreen.acs.calc}} for details. Defaults are in ejscreenformulas$formula
+Note that if formulas is specified, ejformulasfromcode is ignored.}
 
 \item{demogvarname0}{optional, default is 'VSI.eo' used as demographic indicator for EJ Indexes. Must be a colname in acsraw or created and kept by formulas.}
 
@@ -39,7 +40,8 @@ Not currently passed to ejscreen.acs.calc which uses \code{\link[analyze.stuff]{
 
 \item{EJprefix2}{optional, default is 'EJ.PCT' - specifies prefix for colnames of Alternative 2 version of EJ Indexes, with a period separating prefix from body of colname}
 
-\item{ejformulasfromcode}{optional, default is FALSE. If TRUE, use EJ Index formulas built into this function instead of those in ejscreenformulas (or specified by user?). The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE.}
+\item{ejformulasfromcode}{optional, default is FALSE. If TRUE, use EJ Index formulas built into this function instead of the EJ Index formulas in ejscreenformulas.
+The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE. Note that if formulas is specified, ejformulasfromcode is ignored.}
 
 \item{demogvarname0suffix}{optional, default is 'eo' - specifies suffix for colnames of EJ Indexes based on demogvarname0, with a period separating body of colname from suffix}
 
