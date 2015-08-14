@@ -1,11 +1,12 @@
-#' @name ejscreenformulas
+#' @name ejscreenformulasnoej
 #' @docType data
-#' @title EJSCREEN 2015 Formulas and Fieldnames
+#' @title EJSCREEN 2015 Formulas and Fieldnames Excluding EJ Index Formulas
 #' @description This provides fieldnames and formulas required by the \pkg{ejscreen} package.
 #'  Formulas can be viewed this way: sort(ejscreenformulas$formula)
-#' @usage data('ejscreenformulas')
+#'  This excludes the EJ Index formulas for cases where those are to be calculated using code separately.
+#' @usage data('ejscreenformulasnoej')
 #' @source See related Technical Documentation at \url{http://www.epa.gov/ejscreen}
-#' @seealso  \code{\link{ejscreenformulasnoej}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
+#' @seealso  \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
 #' @keywords EJ, environmental justice, datasets, demographic
 #' @format A data.frame: \cr\cr
 #' > str(ejscreenformulas) \cr

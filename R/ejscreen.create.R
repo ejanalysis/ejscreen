@@ -316,7 +316,7 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   # Still need to do the following here or separately
   ##########################################################################################################
 
-  warning('Popup text fields are not implemented yet')
+  #warning('Popup text fields are not implemented yet')
   # POPUP TEXT ****
   # - Create text popup versions of all raw scores and percentiles for display:
   #     -limited significant digits for environmental indicators

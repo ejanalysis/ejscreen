@@ -4,10 +4,6 @@
 
 *.Rproj
 
-man/hello.Rd
-
-R/hello.R
-
 acsdata/g20135ak.txt
 
 acsdata/g20135al.txt
@@ -16,4 +12,3 @@ acsdata/variables needed template.csv
 
 R/ejscreen.lookuptables.NOTES.R
 
-blah.csv
