@@ -16,7 +16,7 @@ ejscreen.acs.calc(bg, folder = getwd(), keep.old, keep.new, formulafile,
 
 \item{keep.new}{Vector of variables names of new created variables, indicating which to return (retain, not drop). Default is to keep a specific list of fields (see source code). Or this can be simply 'all' which means keep all new fields.}
 
-\item{formulafile}{Name of optional csv file with column called formula, providing formulas as character fields.
+\item{formulafile}{Name of optional csv file with column called formula, providing R syntax formulas as character fields.
 If not specified, function loads this as data(ejscreenformulas).
 Example of one formula: 'pctunder5 <- ifelse( pop==0,0, under5/pop)'
  Use a result of zero in cases where the denominator is zero, to avoid division by zero.
