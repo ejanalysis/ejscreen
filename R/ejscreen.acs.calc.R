@@ -5,7 +5,7 @@
 #'   Relies upon \code{\link[analyze.stuff]{calc.fields}} from \pkg{analyze.stuff} package.
 #' @param bg Data.frame of raw demographic data counts, and environmental indicators, for each block group, such as population or number of Hispanics.
 #' @param folder Default is getwd(). Specifies path for where to read from (if formulafile specified) and write to.
-#' @param formulafile Name of optional csv file with column called formula, providing formulas as character fields.
+#' @param formulafile Name of optional csv file with column called formula, providing R syntax formulas as character fields.
 #'  If not specified, function loads this as data(ejscreenformulas).
 #'  Example of one formula: 'pctunder5 <- ifelse( pop==0,0, under5/pop)'
 #'   Use a result of zero in cases where the denominator is zero, to avoid division by zero.

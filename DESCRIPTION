@@ -8,6 +8,11 @@ Maintainer: ejanalyst <info@ejanalysis.com>
 Description: Data and tools related to the United States Environmental Protection Agency's screening and mapping tool for environmental justice, EJSCREEN
 License: MIT + file LICENSE
 LazyData: TRUE
+Depends:  R (>= 3.1.2),
+  Hmisc,
+  proxistat, 
+  ejanalysis, 
+  analyze.stuff
 URL:
   http://ejanalysis.github.io
   http://www.ejanalysis.com/
