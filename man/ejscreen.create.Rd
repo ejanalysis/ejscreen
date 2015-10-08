@@ -5,7 +5,7 @@
 \title{Create EJSCREEN Dataset from Environmental Indicators}
 \usage{
 ejscreen.create(e, acsraw, folder = getwd(), keep.old, formulas,
-  demogvarname0 = "VSI.eo", demogvarname1 = "VSI.svi6",
+  mystates = "all", demogvarname0 = "VSI.eo", demogvarname1 = "VSI.svi6",
   wtsvarname = "pop", checkfips = TRUE, EJprefix0 = "EJ.DISPARITY",
   EJprefix1 = "EJ.BURDEN", EJprefix2 = "EJ.PCT",
   ejformulasfromcode = FALSE, demogvarname0suffix = "eo",
@@ -25,6 +25,8 @@ Not currently passed to ejscreen.acs.calc which uses \code{\link[analyze.stuff]{
 
 \item{formulas}{optional, see \code{\link{ejscreen.acs.calc}} for details. Defaults are in ejscreenformulas$formula
 Note that if formulas is specified, ejformulasfromcode is ignored.}
+
+\item{mystates}{optional vector of 2-letter state abbreviations. Default is "all" which specifies all states plus DC plus PR.}
 
 \item{demogvarname0}{optional, default is 'VSI.eo' used as demographic indicator for EJ Indexes. Must be a colname in acsraw or created and kept by formulas.}
 

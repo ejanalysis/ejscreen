@@ -11,6 +11,7 @@
 #'   Not currently passed to ejscreen.acs.calc which uses \code{\link[analyze.stuff]{calc.fields}} in \pkg{analyze.stuff} package.
 #' @param keep.old optional vector of colnames from e that are to be used/returned. For nondefault colnames, this must be used.
 #' @param end.year optional to pass to \code{\link[ACSdownload]{get.acs}} (such as end.year='2013' -- otherwise uses default year used by \code{\link{get.acs}})
+#' @param mystates optional vector of 2-letter state abbreviations. Default is "all" which specifies all states plus DC plus PR.
 #' @param demogvarname0 optional, default is 'VSI.eo' used as demographic indicator for EJ Indexes. Must be a colname in acsraw or created and kept by formulas.
 #' @param demogvarname1 optional, default is 'VSI.svi6' used for alternative EJ Indexes. Must be a colname in acsraw or created and kept by formulas.
 #' @param wtsvarname optional, default is 'pop' used for weighted percentiles, etc. Must be a colname in acsraw or created and kept by formulas.
@@ -49,7 +50,7 @@
 #'  }
 #' @export
 ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
-
+                            mystates='all',
                             demogvarname0='VSI.eo', demogvarname1='VSI.svi6', wtsvarname='pop', checkfips=TRUE,
                             EJprefix0='EJ.DISPARITY', EJprefix1='EJ.BURDEN', EJprefix2='EJ.PCT', ejformulasfromcode=FALSE,
                             demogvarname0suffix='eo', demogvarname1suffix='svi6', end.year, threshold=FALSE, cutoff=0.80, thresholdfieldnames) {
@@ -122,17 +123,20 @@ ejscreen.create <- function(e, acsraw, folder=getwd(), keep.old, formulas,
   #  GET DEMOGRAPHICS
   ##########################################################################################################
 
+  mystates <- ACSdownload::clean.mystates(mystates=mystates)
+
   # Created file called "variables needed.csv" specific to EJSCREEN
   # and now that is in  data(vars.ejscreen.acs) from ejscreen package as default list of acs variables like 'B01001.001'
   if (missing(acsraw)) {
     if (!missing(end.year)) {
       data(vars.ejscreen.acs, package = "ejanalysis", envir = environment())
-      acsraw <- ACSdownload::get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, base.path=folder, end.year=end.year)
+      acsraw <- ACSdownload::get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, base.path=folder, end.year=end.year, mystates = mystates)
     } else {
-      acsraw <- ACSdownload::get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, base.path=folder)
+      acsraw <- ACSdownload::get.acs(tables = 'ejscreen', vars = vars.ejscreen.acs, base.path=folder, mystates = mystates)
     }
     acsraw  <- acsraw$bg
     # NOTE THIS DOES NOT PRESERVE tracts data downloaded
+    # NOTE THIS ASSUMES acsraw HAS THE RIGHT STATES TO MATCH THOSE IN e
   }
 
   if (1==0) {
