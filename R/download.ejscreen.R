@@ -15,9 +15,11 @@
 #' @source See \url{http://www.epa.gov/ejscreen} for more information, and see \url{http://www.epa.gov/ejscreen/download-ejscreen-data} or \url{ftp://newftp.epa.gov/EJSCREEN} for raw data.
 #' @examples
 #'  \dontrun{
-#'   bg <- download.ejscreen(folder='~', addflag=TRUE)
+#'
+#'  bg <- download.ejscreen(folder='~', addflag=TRUE)
 #'  }
-#'  @seealso \code{\link{ejscreen.create}}
+#'
+#' @seealso \code{\link{ejscreen.create}}
 #' @export
 download.ejscreen <- function(folder=getwd(), ftpurl='ftp://newftp.epa.gov/EJSCREEN', zipname='EJSCREEN_20150505.csv.zip', csvname='EJSCREEN_20150505.csv', addflag=FALSE, cutoff=80, or.tied=TRUE) {
 

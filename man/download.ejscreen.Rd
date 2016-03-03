@@ -39,8 +39,12 @@ Designed for 2015 version only right now. Not tested.
 }
 \examples{
  \dontrun{
-  bg <- download.ejscreen(folder='~', addflag=TRUE)
+
+ bg <- download.ejscreen(folder='~', addflag=TRUE)
  }
- @seealso \\code{\\link{ejscreen.create}}
+
+}
+\seealso{
+\code{\link{ejscreen.create}}
 }
 
