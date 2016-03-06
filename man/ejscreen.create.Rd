@@ -8,7 +8,7 @@ ejscreen.create(e, acsraw, folder = getwd(), keep.old, formulas,
   mystates = "all", demogvarname0 = "VSI.eo", demogvarname1 = "VSI.svi6",
   wtsvarname = "pop", checkfips = TRUE, EJprefix0 = "EJ.DISPARITY",
   EJprefix1 = "EJ.BURDEN", EJprefix2 = "EJ.PCT",
-  ejformulasfromcode = FALSE, demogvarname0suffix = "eo",
+  ejformulasfromcode = FALSE, ejtype = 1, demogvarname0suffix = "eo",
   demogvarname1suffix = "svi6", end.year, threshold = FALSE, cutoff = 0.8,
   thresholdfieldnames)
 }
@@ -44,6 +44,8 @@ Note that if formulas is specified, ejformulasfromcode is ignored.}
 
 \item{ejformulasfromcode}{optional, default is FALSE. If TRUE, use EJ Index formulas built into this function instead of the EJ Index formulas in ejscreenformulas.
 The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE. Note that if formulas is specified, ejformulasfromcode is ignored.}
+
+\item{ejtype}{optional, default is 1, defines which formula to use for ejindex if not using ejscreenformulas. See \code{\link{ej.indexes}} But note alt1 and alt2 still use type 5 and 6 ignoring ejtype.}
 
 \item{demogvarname0suffix}{optional, default is 'eo' - specifies suffix for colnames of EJ Indexes based on demogvarname0, with a period separating body of colname from suffix}
 
