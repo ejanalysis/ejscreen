@@ -53,7 +53,8 @@ download.ejscreen <- function(folder=getwd(), ftpurl='ftp://newftp.epa.gov/EJSCR
   ##############################
 
   # read.csv takes a couple of minutes, and much faster if you use data.table::fread()
-  # bg <- read.csv('EJSCREEN_20150505.csv', nrows = 220000) # as.is = TRUE,
+  #   Read 217739 rows and 391 (of 391) columns from 0.653 GB file in 00:00:46  # fast via fread()
+  # bg <- read.csv('EJSCREEN_20150505.csv', nrows = 220000) # as.is = TRUE, # too slow
   cat('Attempting to import dataset to R \n')
   bg <- fread(csvname)
   bg <- data.frame(bg)
@@ -92,7 +93,9 @@ download.ejscreen <- function(folder=getwd(), ftpurl='ftp://newftp.epa.gov/EJSCR
   # IF YOU WANT TO SAVE THE RESULTS IN ONE TABLE:
   bg$flagged <- x
 }
-
+  # sort by FIPS
+  bg <- bg[ order(bg$FIPS), ]
+  
   # write.csv(bg, file='EJSCREEN_20150505_flagged.csv', row.names=FALSE)
   cat('Done \n\n')
 
