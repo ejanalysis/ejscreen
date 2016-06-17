@@ -22,20 +22,7 @@ Given a matrix or numeric data.frame, round each column to a specified column-sp
  This is a wrapper for analyze.stuff::signifarray which is a wrapper that applies signif() to a matrix or data.frame.
 }
 \details{
-Sig figs used if digits specified as 'ejscreen' are: \cr
-        defaultcolname dig \cr
-    1               pm   3 \cr
-    2               o3   3 \cr
-    3           cancer   2 \cr
-    4            neuro   2 \cr
-    5             resp   2 \cr
-    6              dpm   3 \cr
-    7       pctpre1960   2 \cr
-    8    traffic.score   2 \cr
-    9    proximity.npl   2 \cr
-    10   proximity.rmp   2 \cr
-    11  proximity.tsdf   2 \cr
-    12 proximity.npdes   2 \cr
+Sig figs used if digits specified as 'ejscreen' are those stored in data(esigfigs)
 }
 \examples{
 ejscreensignifarray(data.frame(a=rnorm(10), b=rnorm(10), c=rnorm(10)), 1:3)
@@ -43,6 +30,6 @@ ejscreensignifarray(data.frame(a=rnorm(10), b=rnorm(10), c=rnorm(10)), 1:3)
  ejscreensignifarray(envirodata)
 }
 \seealso{
-\code{\link[analyze.stuff]{signifarray}} \code{\link{signif}}
+\code{\link{esigfigs}} \code{\link[analyze.stuff]{signifarray}} \code{\link{signif}}
 }
 
