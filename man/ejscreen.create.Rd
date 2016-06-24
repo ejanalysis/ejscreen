@@ -10,7 +10,7 @@ ejscreen.create(e, acsraw, folder = getwd(), keep.old, formulas,
   EJprefix1 = "EJ.BURDEN", EJprefix2 = "EJ.PCT",
   ejformulasfromcode = FALSE, ejtype = 1, demogvarname0suffix = "eo",
   demogvarname1suffix = "svi6", end.year, threshold = FALSE, cutoff = 0.8,
-  thresholdfieldnames)
+  thresholdfieldnames, ...)
 }
 \arguments{
 \item{e}{Data.frame of raw data for environmental indicators, one row per block group, one column per indicator.}
@@ -58,6 +58,8 @@ The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE. N
 \item{cutoff}{optional, default is 0.80 (80th percentile). If threshold=TRUE, then cutoff defines the threshold against which percentiles are compared.}
 
 \item{thresholdfieldnames}{optional, default is standard EJSCREEN EJ Indexes built into code. Otherwise, vector of character class fieldnames, specifying which fields to compare to cutoff if threshold=TRUE.}
+
+\item{...}{optional extra parameters passed only to \code{\link[ACSdownload]{get.acs}} such as new.geo = FALSE, save.files = TRUE, write.files = TRUE}
 
 \item{checkfips}{optional, default is TRUE. If TRUE, function checks to verify all FIPS codes appear to be valid US FIPS (correct number of characters, adding any leading zero needed, and checking the first five to ensure valid county)}
 }
