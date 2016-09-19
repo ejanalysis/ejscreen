@@ -26,7 +26,7 @@ Not currently passed to ejscreen.acs.calc which uses \code{\link[analyze.stuff]{
 \item{formulas}{optional, see \code{\link{ejscreen.acs.calc}} for details. Defaults are in ejscreenformulas$formula
 Note that if formulas is specified, ejformulasfromcode is ignored.}
 
-\item{mystates}{optional vector of 2-letter state abbreviations. Default is "all" which specifies all states plus DC plus PR.}
+\item{mystates}{optional vector of 2-letter state abbreviations. Default is "all" which specifies all states plus DC (BUT NOT PR - we exclude PR so that calculating US percentiles works right)}
 
 \item{demogvarname0}{optional, default is 'VSI.eo' used as demographic indicator for EJ Indexes. Must be a colname in acsraw or created and kept by formulas.}
 
