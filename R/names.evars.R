@@ -6,7 +6,7 @@
 #'   of environmental indicator fields in data.frames that may be used in the ejscreen package
 #'   to make it easier to refer to them as a vector, e.g., mydf[ , names.e]
 #' @details NOTE: This used to provide the 2015 version's list, which had "neuro" in it, but now defaults to the latest version (e.g., 2016 or whatever). 
-#' @seealso  \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
+#' @seealso \code{\link{names.e.nice}}  \code{\link{ejscreenformulas}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
 #' @usage data('names.evars')
 #' @source Names developed for this package. No external data source.
 #' @keywords datasets

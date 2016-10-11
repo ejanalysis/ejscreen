@@ -37,7 +37,7 @@ This data set provides variables that hold the colnames
 NOTE: This used to provide the 2015 version's list, which had "neuro" in it, but now defaults to the latest version (e.g., 2016 or whatever).
 }
 \seealso{
-\code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
+\code{\link{names.e.nice}}  \code{\link{ejscreenformulas}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
 }
 \keyword{datasets}
 

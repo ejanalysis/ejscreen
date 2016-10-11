@@ -63,12 +63,43 @@
 #'     \item PCTNHMULTI.US
 #'   }
 #' @examples
-#' usapprox=data.frame(pop=rep(1419.767,217739),lowinc=464.4692,mins=515.4554,under5=92.48634,
+#' # tots <- ustotals(bg)
+#' tots <- list(POP.US = 314107084,
+#' LOWINC.US = 105773407, MINS.US = 116947592,
+#' UNDER5.US = 19973711, OVER64.US = 43177961,
+#' LTHS.US = 28587748, LINGISO.US = 5275272,
+#' PRE1960.US = 39159200,
+#' HISP.US = 53070096,
+#' NHWA.US = 197159492, NHBA.US = 38460598,
+#' NHAIANA.US = 2082768, NHAA.US = 15536209,
+#' NHNHPIA.US = 493155, NHOTHERALONE.US = 611881,
+#' NHMULTI.US = 6692885,
+#' PCTLOWINC.US = 0.345409177890786, PCTMIN.US = 0.372317588354677,
+#' PCTUNDER5.US = 0.0635888587600272, PCTOVER64.US = 0.137462550828685,
+#' PCTLTHS.US = 0.136746758570279, PCTLINGISO.US = 0.0453938768598784,
+#' PCTPRE1960.US = 0.295004484408374,
+#' PCTHISP.US = 0.168955425405178,
+#' PCTNHWA.US = 0.627682411645323, PCTNHBA.US = 0.122444223512005,
+#' PCTNHAIANA.US = 0.00663075780869686, PCTNHAA.US = 0.0494615046631677,
+#' PCTNHNHPIA.US = 0.00157002189737306, PCTNHOTHERALONE.US = 0.00194800127462264,
+#' PCTNHMULTI.US = 0.0213076537936343)
+#'
+#'  # Display as a nice table with two columns, rounded numbers, rownames and colnames
+#' tots <- round(cbind(unlist(tots)), 2)
+#' totrownames <- rownames(tots)[1:16]
+#' tots <- cbind(tots[1:16], c(1, tots[17:31]))
+#' rownames(tots) <- totrownames
+#' colnames(tots) <- c('count', 'pct')
+#' tots
+#'
+#' usapprox <- data.frame(
+#'  pop=rep(1419.767,217739),lowinc=464.4692,mins=515.4554,under5=92.48634,
 #'  over64=186.7899,lths=134.0128,lingiso=24.68058, pre1960=183.3237,hisp=232.1370,
 #'  nhwa=904.3119,nhba=173.5408,nhaiana=9.418460, nhaa=67.47893,nhnhpia=2.204764,
 #'  nhotheralone=2.829952,nhmulti=27.84555, povknownratio=1383.92,age25up=938.4447,
-#'  hhlds=529.1969,builtunits=604.5883)
-#' cbind( ustotals(usapprox) )
+#'  hhlds=529.1969,builtunits=604.5883
+#'  )
+#' cbind( ustotals(usapprox))
 #' @export
 ustotals <- function(bg) {
 
