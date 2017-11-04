@@ -1,13 +1,12 @@
-#' @name names.ejvars
+#' @name names.ejvars16
 #' @docType data
 #' @aliases names.ejvars names.ej EJ-variable-names
 #' @title Fieldnames of environmental justice indicator columns in ejscreen package data
 #' @description This data set provides variables that hold the colnames
 #'   of environmental indicator fields in data.frames that may be used in the ejscreen package
 #'   to make it easier to refer to them as a vector, e.g., mydf[ , names.ej]
-#' @details This should have the latest (2016) version. Also see \code{\link{names.ejvars16}}). 
-#'  The 2015 version had neuro-related indicators in it, and is now in \code{\link{names.ejvars15}}.
-#' @seealso  \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
+#' @details This is the 2016 version
+#' @seealso  \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}} \code{\link{names.ejvars15}}
 #' @usage data('names.ejvars')
 #' @source Names developed for this package. No external data source.
 #' @keywords datasets

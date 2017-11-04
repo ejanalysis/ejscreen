@@ -34,7 +34,8 @@ Note that if formulas is specified, ejformulasfromcode is ignored.}
 
 \item{wtsvarname}{optional, default is 'pop' used for weighted percentiles, etc. Must be a colname in acsraw or created and kept by formulas.}
 
-\item{checkfips}{optional, default is TRUE. If TRUE, verifies all FIPS are valid. To use something other than actual US FIPS codes, set this to FALSE.}
+\item{checkfips}{optional, default is TRUE. If TRUE, function checks to verify all FIPS codes appear to be valid US FIPS 
+(correct number of characters, adding any leading zero needed, and checking the first five to ensure valid county). To use something other than actual US FIPS codes, set this to FALSE.}
 
 \item{EJprefix0}{optional, default is 'EJ.DISPARITY' - specifies prefix for colnames of main EJ Indexes, with a period separating prefix from body of colname}
 
@@ -51,7 +52,7 @@ The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE. N
 
 \item{demogvarname1suffix}{optional, default is 'svi6' - specifies suffix for colnames of EJ Indexes based on demogvarname1, with a period separating body of colname from suffix}
 
-\item{end.year}{optional to pass to \code{\link[ACSdownload]{get.acs}} (such as end.year='2013' -- otherwise uses default year used by \code{\link{get.acs}})}
+\item{end.year}{optional to pass to \code{\link[ACSdownload]{get.acs}} (such as end.year='2013' -- otherwise uses default year used by \code{\link[ACSdownload]{get.acs}})}
 
 \item{threshold}{optional, default is FALSE. Set to TRUE to add a column (called 'flag') to results that is TRUE when one or more of certain percentiles (US EJ Index) in a block group (row) exceed cutoff.}
 
@@ -60,8 +61,6 @@ The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE. N
 \item{thresholdfieldnames}{optional, default is standard EJSCREEN EJ Indexes built into code. Otherwise, vector of character class fieldnames, specifying which fields to compare to cutoff if threshold=TRUE.}
 
 \item{...}{optional extra parameters passed only to \code{\link[ACSdownload]{get.acs}} such as new.geo = FALSE, save.files = TRUE, write.files = TRUE}
-
-\item{checkfips}{optional, default is TRUE. If TRUE, function checks to verify all FIPS codes appear to be valid US FIPS (correct number of characters, adding any leading zero needed, and checking the first five to ensure valid county)}
 }
 \value{
 Returns a data.frame with full ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
@@ -72,7 +71,9 @@ Start with raw environmental indicator data, and create full EJSCREEN dataset.
   This code also contains an outline of steps involved.
 }
 \details{
-**Note that if non-default fieldnames are used in e and/or acsraw, those must be specified in parameters including demogvarname0, demogvarname1, wtsvarname, keep.old (and could be reflected in prefix and suffix params as well).
+**Note that if non-default fieldnames are used in e and/or acsraw, 
+  those must be specified in parameters including demogvarname0, demogvarname1, wtsvarname, 
+  keep.old (and could be reflected in prefix and suffix params as well).
 }
 \examples{
  \dontrun{
@@ -95,4 +96,3 @@ Start with raw environmental indicator data, and create full EJSCREEN dataset.
 \seealso{
 \code{\link{make.popup.d}} \code{\link{make.popup.e}} \code{\link{make.popup.ej}} \code{\link{ejscreen.lookuptables}}
 }
-

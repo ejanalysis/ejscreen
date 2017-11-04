@@ -47,4 +47,3 @@ Designed for 2015 version only right now. Not tested.
 \seealso{
 \code{\link{ejscreen.create}}
 }
-

@@ -26,10 +26,10 @@ Sig figs used if digits specified as 'ejscreen' are those stored in data(esigfig
 }
 \examples{
  ejscreensignifarray(data.frame(a=rnorm(10), b=rnorm(10), c=rnorm(10)), 1:3)
- envirodata <- data.frame(matrix(rnorm(12*10), ncol=12)); data("names.evars"); names(envirodata) <- names.e
+ envirodata <- data.frame(matrix(rnorm(12*10), ncol=12))
+   data("names.evars"); names(envirodata) <- names.e
  ejscreensignifarray(envirodata)
 }
 \seealso{
 \code{\link{esigfigs}} \code{\link[analyze.stuff]{signifarray}} \code{\link{signif}}
 }
-

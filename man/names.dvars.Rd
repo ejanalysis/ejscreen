@@ -2,11 +2,11 @@
 % Please edit documentation in R/names.dvars.R
 \docType{data}
 \name{names.dvars}
-\alias{Dlist}
-\alias{demographic-variables}
+\alias{names.dvars}
 \alias{names.d}
 \alias{names.d.subgroups}
-\alias{names.dvars}
+\alias{Dlist}
+\alias{demographic-variables}
 \title{Fieldnames of demographic columns in ejscreen package data}
 \format{A series of variables (each is a character vector of colnames):
 \itemize{
@@ -39,4 +39,3 @@ This data set provides variables that hold the colnames
 \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
 }
 \keyword{datasets}
-

@@ -35,4 +35,3 @@ This provides fieldnames and formulas required by the \pkg{ejscreen} package.
 \keyword{demographic}
 \keyword{environmental}
 \keyword{justice,}
-

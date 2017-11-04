@@ -18,7 +18,7 @@
 #'     'pctile.text.pctmin'                            "13% (30%ile)" 
 #'     'pctile.text.EJ.DISPARITY.cancer.eo'            "36%ile"                                    
 #'   For E popups, text includes units:
-#'   (neuro is no longer used in 2016 version of EJSCREEN)
+#'   (neuro was only in 2015 version, not later versions of EJSCREEN)
 #'   
 #' names.e.pctile[names.e.pctile != 'pctile.neuro']
 #' # [1] "pctile.pm"              "pctile.o3"              "pctile.cancer"         
@@ -64,16 +64,17 @@
 #' @param pctile required integers 0 to 100, representing the percentile(s) at which the raw value(s) fall(s). 
 #' @param prefix optional, default is 'pctile.text.'  This is a text string specifying the first part of the desired resulting fieldname in outputs.
 #' @param basenames optional, default is colnames(e). Defines colname(s) of outputs, which are the prefix plus this. 
-#' @param units optional character vector with one per column of e, default is the units used for the 2016 EJSCREEN environmental indicators, 
+#' @param units optional character vector with one per column of e, default is the units used for the latest (2016) version of EJSCREEN environmental indicators, 
 #' such as 'ppb' and 'ug/m3' -- function will try to use units appropriate to basenames, looking in data(popupunits), and use '' (blank) if no match is found. 
 #' @param sigfigs optional, numeric vector with one per col of e, 
 #'   defining number of significant digits to show in popup, 
-#'   defaulting to rules in EJSCREEN 2016 version, 
+#'   defaulting to rules in EJSCREEN latest (2016) version, 
 #'   or just 2 for basenames not found in data(esigfigs).
 #' @return Returns character vector or data.frame, same shape as first input parameter.
 #' @seealso \code{\link{esigfigs}} \code{\link{make.popup.d}} \code{\link{make.popup.e}} \code{\link{make.popup.ej}} \code{\link{pctileAsText}}
 #' @examples
-#'     #   Example: inputs are test0 and test1, and desired output is like test2 (except note how prefix is added to each basename)
+#'     #   Example: inputs are test0 and test1, and desired output is like test2 
+#'     #   (except note how prefix is added to each basename)
 #'
 #'   test0 <- structure(list(
 #'     e1 = c(0.185525372063833, 0.174428104575163, 0.485647788983707), 

@@ -49,4 +49,3 @@ Does what ejscreen.rollup does, but for more than one resolution - a batch of ro
 \seealso{
 \code{\link{ejscreen.rollup}}
 }
-

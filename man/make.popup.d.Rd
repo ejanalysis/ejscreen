@@ -32,7 +32,8 @@ Note d should be a (vector? or) data.frame of exact demographic percentages from
     'pctile.text.EJ.DISPARITY.cancer.eo'            "36%ile"
 }
 \examples{
- # inputs are test0 and test1, and desired output is like test2 (except note how prefix is added to each basename)
+ # inputs are test0 and test1, and desired output is like test2 
+   # (except note how prefix is added to each basename)
  test0 <- structure(list(
    VSI.eo = c(0.185525372063833, 0.174428104575163, 0.485647788983707), 
    pctmin = c(0.131656804733727, 0.111928104575163, 0.671062839410395), 
@@ -79,4 +80,3 @@ make.popup.d(test0, test1)
 \seealso{
 \code{\link{make.popup.d}} \code{\link{make.popup.e}} \code{\link{make.popup.ej}} \code{\link{pctileAsText}}
 }
-

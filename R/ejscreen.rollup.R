@@ -1,5 +1,5 @@
 #' @title Aggregate EJSCREEN Dataset at Lower Resolution (e.g., Tracts)
-#'
+#' 
 #' @description
 #'   Start with full EJSCREEN dataset at one resolution (typically block groups), 
 #'   and create aggregated data at a higher geographic scale (e.g., tracts or counties)
@@ -9,7 +9,7 @@
 #' @param sumnames Default is a vector of colnames in bg, those which should be rolled up as sums (e.g., sum of all block group population counts in the tract)
 #' @param avgnames Default is a vector of colnames in bg, those which should be rolled up as weighted averages (e.g., pop wtd mean of air pollution level)
 #' @param wts Default is 'pop', the colname in bg specifying the field to use when calculating the weighted mean of all blockgroups in a tract, for example.
-#' @param acsnames Default is a vector of demographic colnames in bg, used in default ejscreen dataset (see code or \code{\link{ejscreenformulas}})
+#' @param acsnames Not used. Default is a vector of demographic colnames in bg, used in default ejscreen dataset (see code or \code{\link{ejscreenformulas}})
 #' @param ... Optional parameters to pass to \code{\link{ejscreen.create}} which uses formulas to create indicators from raw values.
 #' @param fipsname Default is 'FIPS.TRACT' - specifies colname of unique ID field FIPS used to group by. Can be FIPS.TRACT, FIPS.COUNTY, FIPS.ST, or REGION in default dataset.
 #' @param scalename ***Not used. Default is 'tracts' - specifies text to use in naming the saved file.
@@ -17,17 +17,20 @@
 #' @return Returns a data.frame with ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
 #'   as raw values, US percentiles, but not text for popups.
 #'   *** Output has one row per tract, county, state, or region, depending on what is specified.
+#' @seealso \code{\link{ejscreen.create}}
+#' @export
 #' @examples
-#'  \dontrun{
-#'  load("~/Dropbox/EJSCREEN/R analysis/bg 2015-04-22 Rnames plus subgroups.RData")
-#'  # Do this for each of several levels of resolution
-#'  #
-#' fipsnames <- c('FIPS.TRACT', 'FIPS.COUNTY', 'FIPS.ST', 'REGION')
-#' scalenames <- c('tracts', 'counties', 'states', 'regions')
-#' # or just for tracts, say this:
-#' #   fipsnames <- 'FIPS.TRACT'; scalenames <- 'tracts'
 #' 
-#' for (i in 1:length(fipsnames)) {
+#'  \dontrun{
+#'   # load("~/Dropbox/EJSCREEN/R analysis/bg 2015-04-22 Rnames plus subgroups.RData")
+#'   # Do this for each of several levels of resolution
+#'   #
+#'   fipsnames <- c('FIPS.TRACT', 'FIPS.COUNTY', 'FIPS.ST', 'REGION')
+#'   scalenames <- c('tracts', 'counties', 'states', 'regions')
+#'   # or just for tracts, say this:
+#'   #   fipsnames <- 'FIPS.TRACT'; scalenames <- 'tracts'
+#' 
+#'   for (i in 1:length(fipsnames)) {
 #'   
 #'   ######################################
 #'   # Specify resolution of interest
@@ -43,12 +46,10 @@
 #'   save(myrollup, file = paste('EJSCREEN 2015', scalename, 'data.RData') )
 #'   write.csv(myrollup, row.names = FALSE, file = paste('EJSCREEN 2015', scalename, 'data.csv'))
 #'   
-#' }
-#' 
+#'   }
 #'  }
-#'  @seealso \code{\link{ejscreen.create}}
-#' @export
-ejscreen.rollup <- function(bg, fipsname = 'FIPS.TRACT', scalename = 'tracts', enames, folder = getwd(), sumnames, avgnames, wts, ...) {
+#'  
+ejscreen.rollup <- function(bg, fipsname = 'FIPS.TRACT', scalename = 'tracts', enames, folder = getwd(), sumnames, avgnames, wts, acsnames, ...) {
   
   ######################################
   # Get packages (available via http://www.ejanalysis.com)
@@ -69,11 +70,11 @@ ejscreen.rollup <- function(bg, fipsname = 'FIPS.TRACT', scalename = 'tracts', e
   # Get the sum for raw count fields and area (assuming here you've already calculated the blockgroup demographics)
   if (missing(sumnames)) {
     sumnames1 <- c('pop', 'povknownratio', 'age25up', 'hhlds', 'builtunits', 
-                  'mins', 'lowinc', 'lths', 'lingiso', 'under5', 'over64', 
-                  'VNI.eo', 'VNI.svi6', 'VDI.eo', 'VDI.svi6',
-                  'hisp', 'nhaa', 'nhaiana', 'nhba',  'nhmulti', 'nhnhpia', 'nhotheralone', 'nhwa', 'nonmins', 
-                  'area', 
-                  'pre1960')
+                   'mins', 'lowinc', 'lths', 'lingiso', 'under5', 'over64', 
+                   'VNI.eo', 'VNI.svi6', 'VDI.eo', 'VDI.svi6',
+                   'hisp', 'nhaa', 'nhaiana', 'nhba',  'nhmulti', 'nhnhpia', 'nhotheralone', 'nhwa', 'nonmins', 
+                   'area', 
+                   'pre1960')
   }
   sumnames <- sumnames1[sumnames1 %in% names(bg)]
   if (sumnames1 != sumnames) {warning('Fields not found: ', setdiff(sumnames1, sumnames))}

@@ -44,4 +44,3 @@ Percentiles are calculated as exact values and then rounded down to the nearest 
  x=ejscreen.lookuptables(envirodata, weights=demogdata$pop, cols='all', zonecols=NULL)
  }
 }
-

@@ -114,4 +114,3 @@ usapprox <- data.frame(
  )
 cbind( ustotals(usapprox))
 }
-

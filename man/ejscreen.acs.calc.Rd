@@ -45,4 +45,3 @@ Use specified formulas to create calculated, derived variables such as percent l
  demogdata$povknownratio <- demogdata$pop
  x=ejscreen.acs.calc(bg=demogdata)
 }
-

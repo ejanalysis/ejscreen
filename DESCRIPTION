@@ -5,18 +5,20 @@ Version: 0.1
 Date: 2015-07-19
 Author: info@ejanalysis.com
 Maintainer: ejanalyst <info@ejanalysis.com>
-Description: Data and tools related to the United States Environmental
-    Protection Agency's screening and mapping tool for environmental justice,
-    EJSCREEN
+Description: Data and tools related to the United States Environmental Protection Agency's screening and mapping tool for environmental justice, EJSCREEN.
 License: MIT + file LICENSE
 LazyData: TRUE
+Suggested:
+    ACSdownload
 Depends:
     R (>= 3.1.2),
     Hmisc,
     proxistat,
     ejanalysis,
-    analyze.stuff
+    analyze.stuff,
+    data.table,
+    devtools
 URL: http://ejanalysis.github.io
     http://www.ejanalysis.com/
     http://www.epa.gov/ejscreen
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

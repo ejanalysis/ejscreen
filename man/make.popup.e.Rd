@@ -15,12 +15,12 @@ make.popup.e(e, pctile, prefix = "pctile.text.", basenames, units, sigfigs)
 
 \item{basenames}{optional, default is colnames(e). Defines colname(s) of outputs, which are the prefix plus this.}
 
-\item{units}{optional character vector with one per column of e, default is the units used for the 2016 EJSCREEN environmental indicators, 
+\item{units}{optional character vector with one per column of e, default is the units used for the latest (2016) version of EJSCREEN environmental indicators, 
 such as 'ppb' and 'ug/m3' -- function will try to use units appropriate to basenames, looking in data(popupunits), and use '' (blank) if no match is found.}
 
 \item{sigfigs}{optional, numeric vector with one per col of e, 
 defining number of significant digits to show in popup, 
-defaulting to rules in EJSCREEN 2016 version, 
+defaulting to rules in EJSCREEN latest (2016) version, 
 or just 2 for basenames not found in data(esigfigs).}
 }
 \value{
@@ -45,7 +45,7 @@ Could edit code to NOT put in the units when value is NA?
     'pctile.text.pctmin'                            "13% (30%ile)" 
     'pctile.text.EJ.DISPARITY.cancer.eo'            "36%ile"                                    
   For E popups, text includes units:
-  (neuro is no longer used in 2016 version of EJSCREEN)
+  (neuro was only in 2015 version, not later versions of EJSCREEN)
   
 names.e.pctile[names.e.pctile != 'pctile.neuro']
 # [1] "pctile.pm"              "pctile.o3"              "pctile.cancer"         
@@ -88,7 +88,8 @@ t(bg2[125:126, gsub('pctile', 'pctile.text', names.e.pctile[names.e.pctile != 'p
 #
 }
 \examples{
-    #   Example: inputs are test0 and test1, and desired output is like test2 (except note how prefix is added to each basename)
+    #   Example: inputs are test0 and test1, and desired output is like test2 
+    #   (except note how prefix is added to each basename)
 
   test0 <- structure(list(
     e1 = c(0.185525372063833, 0.174428104575163, 0.485647788983707), 
@@ -120,4 +121,3 @@ make.popup.e(test0, test1)
 \seealso{
 \code{\link{esigfigs}} \code{\link{make.popup.d}} \code{\link{make.popup.e}} \code{\link{make.popup.ej}} \code{\link{pctileAsText}}
 }
-

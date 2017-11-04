@@ -5,7 +5,7 @@
 \title{Aggregate EJSCREEN Dataset at Lower Resolution (e.g., Tracts)}
 \usage{
 ejscreen.rollup(bg, fipsname = "FIPS.TRACT", scalename = "tracts", enames,
-  folder = getwd(), sumnames, avgnames, wts, ...)
+  folder = getwd(), sumnames, avgnames, wts, acsnames, ...)
 }
 \arguments{
 \item{bg}{Data.frame of raw data for environmental and demographic counts, one row per block group typically, one column per indicator.}
@@ -24,9 +24,9 @@ ejscreen.rollup(bg, fipsname = "FIPS.TRACT", scalename = "tracts", enames,
 
 \item{wts}{Default is 'pop', the colname in bg specifying the field to use when calculating the weighted mean of all blockgroups in a tract, for example.}
 
-\item{...}{Optional parameters to pass to \code{\link{ejscreen.create}} which uses formulas to create indicators from raw values.}
+\item{acsnames}{Not used. Default is a vector of demographic colnames in bg, used in default ejscreen dataset (see code or \code{\link{ejscreenformulas}})}
 
-\item{acsnames}{Default is a vector of demographic colnames in bg, used in default ejscreen dataset (see code or \code{\link{ejscreenformulas}})}
+\item{...}{Optional parameters to pass to \code{\link{ejscreen.create}} which uses formulas to create indicators from raw values.}
 }
 \value{
 Returns a data.frame with ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
@@ -41,16 +41,17 @@ Start with full EJSCREEN dataset at one resolution (typically block groups),
 **default fieldnames are assumed for now. Uses \code{\link{ejscreen.create}}
 }
 \examples{
- \dontrun{
- load("~/Dropbox/EJSCREEN/R analysis/bg 2015-04-22 Rnames plus subgroups.RData")
- # Do this for each of several levels of resolution
- #
-fipsnames <- c('FIPS.TRACT', 'FIPS.COUNTY', 'FIPS.ST', 'REGION')
-scalenames <- c('tracts', 'counties', 'states', 'regions')
-# or just for tracts, say this:
-#   fipsnames <- 'FIPS.TRACT'; scalenames <- 'tracts'
 
-for (i in 1:length(fipsnames)) {
+ \dontrun{
+  # load("~/Dropbox/EJSCREEN/R analysis/bg 2015-04-22 Rnames plus subgroups.RData")
+  # Do this for each of several levels of resolution
+  #
+  fipsnames <- c('FIPS.TRACT', 'FIPS.COUNTY', 'FIPS.ST', 'REGION')
+  scalenames <- c('tracts', 'counties', 'states', 'regions')
+  # or just for tracts, say this:
+  #   fipsnames <- 'FIPS.TRACT'; scalenames <- 'tracts'
+
+  for (i in 1:length(fipsnames)) {
   
   ######################################
   # Specify resolution of interest
@@ -66,9 +67,10 @@ for (i in 1:length(fipsnames)) {
   save(myrollup, file = paste('EJSCREEN 2015', scalename, 'data.RData') )
   write.csv(myrollup, row.names = FALSE, file = paste('EJSCREEN 2015', scalename, 'data.csv'))
   
-}
-
+  }
  }
- @seealso \\code{\\link{ejscreen.create}}
+ 
 }
-
+\seealso{
+\code{\link{ejscreen.create}}
+}

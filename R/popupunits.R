@@ -8,22 +8,22 @@
 #' @seealso  \code{\link{make.popup.e}} \code{\link{names.e}}
 #' @keywords EJ, environmental justice, datasets, demographic
 #' @format A data.frame: \cr\cr
-#' > \code{str(popupunits) \cr
+#' > \code{str(popupunits) 
 #' 'data.frame':	11 obs. of  2 variables:
 #' $ evar : chr  "pm" "o3" "cancer"  ...
 #' $ units: chr  "ug/m3" "ppb" "lifetime risk per million" "" ...
 #' > popupunits
-#'               evar                          units \cr
-#' 1               pm                          ug/m3 \cr
-#' 2               o3                            ppb \cr
-#' 3           cancer      lifetime risk per million \cr
-#' 4             resp                                \cr
-#' 5              dpm                          ug/m3 \cr
-#' 6       pctpre1960            = fraction pre-1960 \cr
-#' 7    traffic.score daily vehicles/meters distance \cr
-#' 8    proximity.npl              sites/km distance \cr
-#' 9    proximity.rmp         facilities/km distance \cr
-#' 10  proximity.tsdf         facilities/km distance \cr
-#' 11 proximity.npdes         facilities/km distance \cr
+#'               evar                          units 
+#' 1               pm                          ug/m3 
+#' 2               o3                            ppb 
+#' 3           cancer      lifetime risk per million 
+#' 4             resp                                
+#' 5              dpm                          ug/m3 
+#' 6       pctpre1960            = fraction pre-1960 
+#' 7    traffic.score daily vehicles/meters distance 
+#' 8    proximity.npl              sites/km distance 
+#' 9    proximity.rmp         facilities/km distance 
+#' 10  proximity.tsdf         facilities/km distance 
+#' 11 proximity.npdes         facilities/km distance 
 #' }
 NULL

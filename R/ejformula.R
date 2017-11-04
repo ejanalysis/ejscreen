@@ -9,7 +9,7 @@
 #' @examples 
 #'   ejformula('VSI.eo')
 #'   ejformula(c('pctmin', 'pctlowinc'))
-#'   ejformula('VSI.eo', recursive = T)
+#'   ejformula('VSI.eo', recursive = TRUE)
 #'   ejformula()
 #' @seealso \code{\link{ejscreenformulas}}
 #' @export

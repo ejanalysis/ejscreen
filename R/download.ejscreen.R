@@ -27,7 +27,8 @@ download.ejscreen <- function(folder=getwd(), ftpurl='ftp://newftp.epa.gov/EJSCR
   # A script to get the 2015 EJSCREEN dataset into memory, using the friendly Rfieldnames
   ##########################################################################################
 
-  if (!require('data.table')) {install.packages('data.table'); library(data.table)}
+  # Now attached using Depends in DESCRIPTION file:
+  # if (!require('data.table')) {install.packages('data.table'); library(data.table)}
 
   # cat( 'value returned is a data.frame with the downloaded EJSCREEN dataset in it \n')
 
@@ -64,9 +65,10 @@ download.ejscreen <- function(folder=getwd(), ftpurl='ftp://newftp.epa.gov/EJSCR
   ##############################
   if (addflag) {
   # Get function called "flagged()" and names.ej.pctile, which stores field names:
-  if (!require('devtools')) install.packages('devtools')
-  if (!require('analyze.stuff')) devtools::install_github("ejanalysis/analyze.stuff"); library(analyze.stuff)
-  if (!require('ejanalysis')) devtools::install_github("ejanalysis/ejanalysis"); library(ejanalysis)
+  # THESE ARE NOW attached via Depends in DESCRIPTION file
+    # if (!require('devtools')) install.packages('devtools')
+  # if (!require('analyze.stuff')) devtools::install_github("ejanalysis/analyze.stuff"); library(analyze.stuff)
+  # if (!require('ejanalysis')) devtools::install_github("ejanalysis/ejanalysis"); library(ejanalysis)
   data(names.ejvars)
   # dput(names.ej.pctile)
   # c("pctile.EJ.DISPARITY.pm.eo",

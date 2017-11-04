@@ -40,7 +40,7 @@
 #'  \item  [1] "EJ.DISPARITY.pm.eo"             
 #'  \item  [2] "EJ.DISPARITY.o3.eo"             
 #'  \item  [3] "EJ.DISPARITY.cancer.eo" 
-#'  \item  [4] "EJ.DISPARITY.neuro.eo"  Note neuro items are not in 2016 version     
+#'  \item  [4] "EJ.DISPARITY.neuro.eo"  Note neuro items are only in 2015 version     
 #'  \item  [5] "EJ.DISPARITY.resp.eo"           
 #'  \item  [6] "EJ.DISPARITY.dpm.eo"            
 #'  \item  [7] "EJ.DISPARITY.pctpre1960.eo"     

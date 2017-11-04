@@ -29,7 +29,7 @@ See related Technical Documentation at \url{http://www.epa.gov/ejscreen}
 data('esigfigs')
 }
 \description{
-How many sig figs to show in showing environmental indicators in EJSCREEN 2015-2016?
+How many sig figs to show in showing environmental indicators in EJSCREEN?
 }
 \seealso{
 \code{\link{make.popup.e}}
@@ -39,4 +39,3 @@ How many sig figs to show in showing environmental indicators in EJSCREEN 2015-2
 \keyword{demographic}
 \keyword{environmental}
 \keyword{justice,}
-

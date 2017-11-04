@@ -28,7 +28,7 @@ ejscreen.rollup.all <- function(bg, scalenames = c('tracts', 'counties', 'states
   if (any(!(fipsnames %in% colnames(bg)))) {stop('Some of fipsnames not among colnames of bg')}
   if (length(scalenames) != length(fipsnames)) {stop('Lengths of scalenames and fipnames must be the same')}
   
-  # DEFAULTS (or without the 2016)
+  # DEFAULTS - based on latest (2016) version
   #filenames.R <- c('EJSCREEN 2016 tracts data.RData', 'EJSCREEN 2016 counties data.RData', 'EJSCREEN 2016 states data.RData', 'EJSCREEN 2016 regions data.RData')
   #filenames.csv <- c('EJSCREEN 2016 tracts data.RData', 'EJSCREEN 2016 counties data.RData', 'EJSCREEN 2016 states data.RData', 'EJSCREEN 2016 regions data.RData')
   

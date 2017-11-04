@@ -24,4 +24,3 @@ Converts numeric percentiles (0-100) into character (text)
  pctileAsText(bg2[ 125:126, c('pctile.pctmin', 'pctile.EJ.DISPARITY.pm.eo') ])
  }
 }
-

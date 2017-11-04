@@ -13,10 +13,9 @@ This data set provides nicer names for the ejscreen environmental indicator vari
   These can be used to label graphs, for example.
 }
 \details{
-Defaults to the latest version (e.g., 2016 or whatever).
+Defaults to the latest (2016) version
 }
 \seealso{
 \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
 }
 \keyword{datasets}
-

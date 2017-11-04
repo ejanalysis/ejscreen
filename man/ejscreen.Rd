@@ -4,6 +4,7 @@
 \name{ejscreen}
 \alias{ejscreen}
 \alias{ejscreen-package}
+\alias{ejscreen-package}
 \title{Tools for EJSCREEN, US EPA's Environmental Justice (EJ) Screening and Mapping Tool}
 \description{
 This R package provides tools related to environmental justice (EJ) analysis,
@@ -33,4 +34,3 @@ Key functions include
 \concept{
 justice EJ demographic
 }
-

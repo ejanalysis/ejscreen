@@ -25,10 +25,9 @@ Just a convenient way to look at the formula(s) used to create one or more varia
 \examples{
   ejformula('VSI.eo')
   ejformula(c('pctmin', 'pctlowinc'))
-  ejformula('VSI.eo', recursive = T)
+  ejformula('VSI.eo', recursive = TRUE)
   ejformula()
 }
 \seealso{
 \code{\link{ejscreenformulas}}
 }
-

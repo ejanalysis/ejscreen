@@ -24,4 +24,3 @@ Start with raw counts from demographic survey data, and environmental data,
 \examples{
  # (no examples yet)
 }
-

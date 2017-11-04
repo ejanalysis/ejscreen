@@ -33,7 +33,7 @@ ejscreen.lookuptables <- function(x, weights=x$pop, cols, zonecols=c('ST', 'REGI
 
   # This was previously done by CalculateLookupTables-2014-05.R and replicated by code in 'How to run EJSCREEN R scripts 2014-05.R'
 
-  require(Hmisc)
+  # require(Hmisc) # should be provided by Depends 
   # *** The Hmisc package provides the function called Hmisc::wtd.quantile(), but may recode to use analyze.stuff::wtd.pctiles
 
   places <- x; rm(x)

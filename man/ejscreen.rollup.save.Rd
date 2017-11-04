@@ -34,4 +34,3 @@ Just saves csv and/or RData file(s)
 \seealso{
 \code{\link{ejscreen.rollup.all}}
 }
-

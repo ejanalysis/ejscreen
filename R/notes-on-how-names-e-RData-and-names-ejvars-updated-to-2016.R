@@ -2,8 +2,9 @@
 if (1 == 0 ) {
   # changes to names.e, etc. for 2016 dataset
   # old 2015 changed so names.e15 etc ends in 15, and saved as ...15.RData files
-  # new 2016 saved as ...16.RData files (but then removed from pkg since causes a warning about two data files creating the same variables)
-  # and also saved as ...RData files to be the default now.
+  # the 2016 saved as ...16.RData files (but then maybe removed from pkg since causes a warning about two data files creating the same variables)
+  # the 2017 will be in ...17.RData files etc.  
+  # and also saved as ...RData files to be the default now. This should always be the latest current version.
   
   # get and change 2015 files:
   data("names.evars") # when it was 2015 version

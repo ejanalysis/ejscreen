@@ -1,7 +1,7 @@
 #' @name esigfigs
 #' @docType data
 #' @title How many signif digits to show
-#' @description How many sig figs to show in showing environmental indicators in EJSCREEN 2015-2016?
+#' @description How many sig figs to show in showing environmental indicators in EJSCREEN?
 #' @usage data('esigfigs')
 #' @source See related Technical Documentation at \url{http://www.epa.gov/ejscreen}
 #' @seealso  \code{\link{make.popup.e}}

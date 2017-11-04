@@ -67,4 +67,3 @@ Note pctile should be a (vector? or) data.frame of percentiles as INTEGER 0 to 1
 \seealso{
 \code{\link{make.popup.d}} \code{\link{make.popup.e}} \code{\link{make.popup.ej}} \code{\link{pctileAsText}}
 }
-

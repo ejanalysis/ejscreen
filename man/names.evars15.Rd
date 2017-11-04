@@ -2,14 +2,14 @@
 % Please edit documentation in R/names.evars15.R
 \docType{data}
 \name{names.evars15}
-\alias{Elist}
-\alias{environmental-variable-names}
-\alias{names.e}
-\alias{names.evars}
 \alias{names.evars15}
+\alias{names.evars}
+\alias{names.e}
+\alias{environmental-variable-names}
+\alias{Elist}
 \title{2015 Fieldnames of environmental indicator columns in ejscreen package data}
 \format{A series of variables (each is a character vector of colnames).
-For 2016 version of EJSCREEN:
+The 2016 version of EJSCREEN was:
 \itemize{
  \item "names.e" (pm, o3, cancer,     resp, dpm, pctpre1960, traffic.score, proximity.npl, proximity.rmp, proximity.tsdf, proximity.npdes)
  \item "names.e.bin"
@@ -35,10 +35,9 @@ This data set provides variables that hold the colnames
   to make it easier to refer to them as a vector, e.g., mydf[ , names.e15]
 }
 \details{
-NOTE: This is to provide the 2015 version's list, which had "neuro" in it, but now defaults to the latest version (e.g., 2016 or whatever).
+NOTE: This is to provide the 2015 version, which had "neuro" in it
 }
 \seealso{
 \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
 }
 \keyword{datasets}
-
