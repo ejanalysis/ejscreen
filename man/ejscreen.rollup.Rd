@@ -4,8 +4,8 @@
 \alias{ejscreen.rollup}
 \title{Aggregate EJSCREEN Dataset at Lower Resolution (e.g., Tracts)}
 \usage{
-ejscreen.rollup(bg, fipsname = "FIPS.TRACT", scalename = "tracts", enames,
-  folder = getwd(), sumnames, avgnames, wts, acsnames, ...)
+ejscreen.rollup(bg, fipsname = "FIPS.TRACT", scalename = "tracts",
+  enames, folder = getwd(), sumnames, avgnames, wts, acsnames, ...)
 }
 \arguments{
 \item{bg}{Data.frame of raw data for environmental and demographic counts, one row per block group typically, one column per indicator.}

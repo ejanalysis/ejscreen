@@ -4,7 +4,8 @@
 \alias{make.popup.e}
 \title{Make text to be shown in popups on Envt data map}
 \usage{
-make.popup.e(e, pctile, prefix = "pctile.text.", basenames, units, sigfigs)
+make.popup.e(e, pctile, prefix = "pctile.text.", basenames, units,
+  sigfigs)
 }
 \arguments{
 \item{e}{raw environmental indicator values for various locations}

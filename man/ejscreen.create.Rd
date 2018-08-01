@@ -5,12 +5,12 @@
 \title{Create EJSCREEN Dataset from Environmental Indicators}
 \usage{
 ejscreen.create(e, acsraw, folder = getwd(), keep.old, formulas,
-  mystates = "all", demogvarname0 = "VSI.eo", demogvarname1 = "VSI.svi6",
-  wtsvarname = "pop", checkfips = TRUE, EJprefix0 = "EJ.DISPARITY",
-  EJprefix1 = "EJ.BURDEN", EJprefix2 = "EJ.PCT",
-  ejformulasfromcode = FALSE, ejtype = 1, demogvarname0suffix = "eo",
-  demogvarname1suffix = "svi6", end.year, threshold = FALSE, cutoff = 0.8,
-  thresholdfieldnames, ...)
+  mystates = "all", demogvarname0 = "VSI.eo",
+  demogvarname1 = "VSI.svi6", wtsvarname = "pop", checkfips = TRUE,
+  EJprefix0 = "EJ.DISPARITY", EJprefix1 = "EJ.BURDEN",
+  EJprefix2 = "EJ.PCT", ejformulasfromcode = FALSE, ejtype = 1,
+  demogvarname0suffix = "eo", demogvarname1suffix = "svi6", end.year,
+  threshold = FALSE, cutoff = 0.8, thresholdfieldnames, ...)
 }
 \arguments{
 \item{e}{Data.frame of raw data for environmental indicators, one row per block group, one column per indicator.}

@@ -7,19 +7,19 @@
 See \url{http://www.epa.gov/ejscreen} for more information, and see \url{http://www.epa.gov/ejscreen/download-ejscreen-data} or \url{ftp://newftp.epa.gov/EJSCREEN} for raw data.
 }
 \usage{
-ejscreen.download(folder = getwd(), yr = 2017, ftpurl, zipname, csvname,
-  addflag = FALSE, cutoff = 80, or.tied = TRUE)
+ejscreen.download(folder = getwd(), yr = 2017, ftpurl, zipname,
+  csvname, addflag = FALSE, cutoff = 80, or.tied = TRUE)
 }
 \arguments{
 \item{folder}{Optional path to folder (directory) where the file will be downloaded and unzipped. Default is current working directory.}
 
 \item{yr}{Default was 2017 as of 6/2018. Optional numeric year version such as 2015, 2016, 2017.}
 
-\item{ftpurl}{Optional. Default is 'ftp://newftp.epa.gov/EJSCREEN/yyyy (yyyy=year version=yr) for where to find the zipped data.}
+\item{ftpurl}{Optional. Default is ftp://newftp.epa.gov/EJSCREEN/yyyy (yyyy=year version=yr) for where to find the zipped data.}
 
-\item{zipname}{Optional. Default for the name of the zip file of data depends on yr. '' for yr=2017. For yr=2015, 'EJSCREEN_20150505.csv.zip'}
+\item{zipname}{Optional. Default for the name of the zip file of data depends on yr. "" for yr=2017. For yr=2015, EJSCREEN_20150505.csv.zip}
 
-\item{csvname}{Optional. Default for the name of the csv file of data depends on yr. For yr=2017, 'EJSCREEN_2017_USPR_Public.csv' and for yr=2015, 'EJSCREEN_20150505.csv'}
+\item{csvname}{Optional. Default for the name of the csv file of data depends on yr. For yr=2017, EJSCREEN_2017_USPR_Public.csv and for yr=2015, EJSCREEN_20150505.csv}
 
 \item{addflag}{Optional. Default is FALSE. If TRUE, it adds a field called flagged, which is TRUE if 1 or more of the EJ Indexes is at/above the cutoff US percentile.}
 
@@ -32,11 +32,11 @@ Returns a data.frame with ejscreen dataset of environmental and demographics ind
   as raw values, US percentiles, text for popups. Output has one row per block group.
 }
 \description{
-Download EJSCREEN dataset from FTP site, and import to R as data.table, 
+Download EJSCREEN dataset from FTP site, and import to R as data.table,
   renaming fields with friendly colnames, optionally adding a flag field.
 }
 \details{
-Not tested.****
+Not tested.
 }
 \seealso{
 \code{\link{ejscreen.create}}
