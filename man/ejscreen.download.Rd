@@ -17,7 +17,7 @@ ejscreen.download(folder = getwd(), yr = 2017, ftpurl, zipname,
 
 \item{ftpurl}{Optional. Default is ftp://newftp.epa.gov/EJSCREEN/yyyy (yyyy=year version=yr) for where to find the zipped data.}
 
-\item{zipname}{Optional. Default for the name of the zip file of data depends on yr. "" for yr=2017. For yr=2015, EJSCREEN_20150505.csv.zip}
+\item{zipname}{Optional. Default for the name of the zip file of data depends on yr. Empty for yr=2017. For yr=2015, EJSCREEN_20150505.csv.zip}
 
 \item{csvname}{Optional. Default for the name of the csv file of data depends on yr. For yr=2017, EJSCREEN_2017_USPR_Public.csv and for yr=2015, EJSCREEN_20150505.csv}
 
