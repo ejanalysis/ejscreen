@@ -40,4 +40,3 @@ This is the 2016 version
 \seealso{
 \code{\link{names.e.nice}}  \code{\link{ejscreenformulas}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
 }
-\keyword{datasets}

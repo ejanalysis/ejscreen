@@ -31,8 +31,3 @@ This provides fieldnames and formulas required by the \pkg{ejscreen} package.
 \seealso{
 \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
 }
-\keyword{EJ,}
-\keyword{datasets,}
-\keyword{demographic}
-\keyword{environmental}
-\keyword{justice,}

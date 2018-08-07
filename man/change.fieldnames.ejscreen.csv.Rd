@@ -17,10 +17,10 @@ Just a wrapper to help easily change colnames used in csv file on EJSCREEN FTP s
   into friendlier, preferred colnames for work in R. Uses \code{\link[analyze.stuff]{change.fieldnames}}
 }
 \examples{
-\\donotrun {
- # gdbtable <- ejscreen.download()
- # names(gdbtable) <- change.fieldnames.ejscreen.csv(names(gdbtable))
-}
+ \dontrun{
+ gdbtable <- ejscreen.download()
+ names(gdbtable) <- change.fieldnames.ejscreen.csv(names(gdbtable))
+ }
 }
 \seealso{
 \code{\link[analyze.stuff]{change.fieldnames}}, \link{ejscreenformulas},

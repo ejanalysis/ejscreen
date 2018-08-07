@@ -6,6 +6,6 @@
 #' @details Defaults to the latest (2016) version
 #' @seealso  \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
 #' @usage data('names.e.nice')
-#' @keywords datasets
+#' @concepts datasets
 #' @format character vector
 NULL

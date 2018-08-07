@@ -5,12 +5,12 @@
 #' @return Returns a character vector of colnames, same length as input parameter
 #' @seealso \code{\link[analyze.stuff]{change.fieldnames}}, \link{ejscreenformulas}, 
 #' @examples
-#' \donotrun {
-#'  # gdbtable <- ejscreen.download()
-#'  # names(gdbtable) <- change.fieldnames.ejscreen.csv(names(gdbtable))
-#' }
+#'  \dontrun{
+#'  gdbtable <- ejscreen.download()
+#'  names(gdbtable) <- change.fieldnames.ejscreen.csv(names(gdbtable))
+#'  }
 #' @export
 change.fieldnames.ejscreen.csv <- function(mynames) {
   # just wrapper to change colnames in csv file on ejscreen ftp site to preferred colnames for work in R
   analyze.stuff::change.fieldnames(mynames, oldnames = analyze.stuff::ejscreenformulas$gdbfieldname, newnames = analyze.stuff::ejscreenformulas$Rfieldname)
-  }
+}

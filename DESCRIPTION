@@ -1,8 +1,8 @@
 Package: ejscreen
 Type: Package
 Title: EJSCREEN Tools for US EPA Environmental Justice Mapping and Screening
-Version: 0.1
-Date: 2015-07-19
+Version: 0.9
+Date: 2018-06-26
 Author: info@ejanalysis.com
 Maintainer: ejanalyst <info@ejanalysis.com>
 Description: Data and tools related to the United States Environmental Protection Agency's screening and mapping tool for environmental justice, EJSCREEN.

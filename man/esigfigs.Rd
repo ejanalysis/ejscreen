@@ -34,8 +34,3 @@ How many sig figs to show in showing environmental indicators in EJSCREEN?
 \seealso{
 \code{\link{make.popup.e}}
 }
-\keyword{EJ,}
-\keyword{datasets,}
-\keyword{demographic}
-\keyword{environmental}
-\keyword{justice,}

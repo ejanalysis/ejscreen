@@ -40,4 +40,3 @@ NOTE: This is to provide the 2015 version, which had "neuro" in it
 \seealso{
 \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
 }
-\keyword{datasets}

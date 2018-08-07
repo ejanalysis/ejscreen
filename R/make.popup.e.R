@@ -4,61 +4,65 @@
 #'   Takes raw values and what percentiles they are at, 
 #'   and presents those as a text field to be used as the text in a popup window on a map 
 #' @details 
-#'   Could edit code to NOT put in the units when value is NA?
-#'   Could edit code to handle cases like only one row, matrix not df?
-#'   Could fix to use only one space when no units
+#'   Could edit code to NOT put in the units when value is NA?\cr
+#'   Could edit code to handle cases like only one row, matrix not df?\cr
+#'   Could fix to use only one space when no units\cr
+#'   \cr
+#'   EJSCREEN as of 2015 used 85 pctile.text. fields, for popup text, like "pctile.text.EJ.DISPARITY.pm.eo"\cr
+#'   \code{
+#'    names(bg2)[grepl('pctile.text', names(bg2) )] \cr
+#'    length( bg2[1, grepl('pctile.text', names(bg2) )] ) \cr
+#'    # [1] 85 \cr\cr
+#'   }  
 #'   
-#'   EJSCREEN as of 2015 used 85 pctile.text. fields, for popup text, like "pctile.text.EJ.DISPARITY.pm.eo"  
-#'    names(bg2)[grepl('pctile.text', names(bg2) )]
-#'    length( bg2[1, grepl('pctile.text', names(bg2) )] )
-#'    # [1] 85
-#'   
-#'   In EJSCREEN, there are three types of pctile.text fields: E (text varies), D, EJ:
-#'     'pctile.text.cancer'                            "55 lifetime risk per million (91%ile)"     
-#'     'pctile.text.pctmin'                            "13% (30%ile)" 
-#'     'pctile.text.EJ.DISPARITY.cancer.eo'            "36%ile"                                    
-#'   For E popups, text includes units:
-#'   (neuro was only in 2015 version, not later versions of EJSCREEN)
-#'   
-#' names.e.pctile[names.e.pctile != 'pctile.neuro']
-#' # [1] "pctile.pm"              "pctile.o3"              "pctile.cancer"         
-#' # [4] "pctile.resp"            "pctile.dpm"             "pctile.pctpre1960"     
-#' # [7] "pctile.traffic.score"   "pctile.proximity.npl"   "pctile.proximity.rmp"  
-#' # [10] "pctile.proximity.tsdf"  "pctile.proximity.npdes"
-#' 
-#' # NOTE HOW UNITS ARE PART OF THE POPUP, AND IT USES SPECIAL ROUNDING RULES
-#' # #' # Stored in data('popunits') # colnames are evar and units 
-#' 
-#' t(bg2[1, gsub('pctile', 'pctile.text', names.e.pctile[names.e.pctile != 'pctile.neuro'])])
+#'   In EJSCREEN, there are three types of pctile.text fields: E (text varies), D, EJ:\cr
+#'   \code{
+#'     'pctile.text.cancer'                            "55 lifetime risk per million (91%ile)"     \cr
+#'     'pctile.text.pctmin'                            "13% (30%ile)" \cr
+#'     'pctile.text.EJ.DISPARITY.cancer.eo'            "36%ile"    \cr\cr
+#'     }                                
+#'   For E popups, text includes units:\cr
+#'   (neuro was only in 2015 version, not later versions of EJSCREEN)\cr\cr
+#'  \code{
+#' names.e.pctile[names.e.pctile != 'pctile.neuro']\cr
+#' # [1] "pctile.pm"              "pctile.o3"              "pctile.cancer"         \cr
+#' # [4] "pctile.resp"            "pctile.dpm"             "pctile.pctpre1960"     \cr
+#' # [7] "pctile.traffic.score"   "pctile.proximity.npl"   "pctile.proximity.rmp"  \cr
+#' # [10] "pctile.proximity.tsdf"  "pctile.proximity.npdes"\cr\cr
+#' }
+#' # NOTE HOW UNITS ARE PART OF THE POPUP, AND IT USES SPECIAL ROUNDING RULES \cr
+#' # #' # Stored in data('popunits') # colnames are evar and units \cr\cr
+#' \code{
+#' t(bg2[1, gsub('pctile', 'pctile.text', names.e.pctile[names.e.pctile != 'pctile.neuro'])]) \cr
 #' #                                            
-#' # pctile.text.pm              "10.4 ug/m3 (76%ile)"                       
-#' # pctile.text.o3              "42.8 ppb (22%ile)"                         
-#' # pctile.text.cancer          "55 lifetime risk per million (91%ile)"     
-#' # pctile.text.resp            "2.1  (72%ile)"                             
-#' # pctile.text.dpm             "0.401 ug/m3 (24%ile)"                      
-#' # pctile.text.pctpre1960      "0.4 = fraction pre-1960 (68%ile)"          
-#' # pctile.text.traffic.score   "23 daily vehicles/meters distance (28%ile)"
-#' # pctile.text.proximity.npl   "0.071 sites/km distance (55%ile)"          
-#' # pctile.text.proximity.rmp   "0.085 facilities/km distance (21%ile)"     
-#' # pctile.text.proximity.tsdf  "0 facilities/km distance (26%ile)"         
-#' # pctile.text.proximity.npdes "0.25 facilities/km distance (70%ile)"      
-#' # 
-#' t(bg2[125:126, gsub('pctile', 'pctile.text', names.e.pctile[names.e.pctile != 'pctile.neuro'])])
-#' #                        125                                          126                                       
-#' # pctile.text.pm              "8.37 ug/m3 (27%ile)"                        NA                                        
-#' # pctile.text.o3              "41.7 ppb (19%ile)"                          NA                                        
-#' # pctile.text.cancer          "36 lifetime risk per million (37%ile)"      NA                                        
-#' # pctile.text.resp            "1.4  (37%ile)"                              NA                                        
-#' # pctile.text.dpm             "0.275 ug/m3 (13%ile)"                       NA                                        
-#' # pctile.text.pctpre1960      "0.055 = fraction pre-1960 (27%ile)"         "0 = fraction pre-1960 (10%ile)"          
-#' # pctile.text.traffic.score   "1.7 daily vehicles/meters distance (6%ile)" "0 daily vehicles/meters distance (2%ile)"
-#' # pctile.text.proximity.npl   "0.056 sites/km distance (47%ile)"           "0 sites/km distance (16%ile)"            
-#' # pctile.text.proximity.rmp   "0.046 facilities/km distance (7%ile)"       "0 facilities/km distance (1%ile)"        
-#' # pctile.text.proximity.tsdf  "0 facilities/km distance (26%ile)"          "0 facilities/km distance (26%ile)"       
-#' # pctile.text.proximity.npdes "0.067 facilities/km distance (16%ile)"      "0 facilities/km distance (1%ile)"        
-#' # 
-#' # single result, e.g.: "24% (36%ile)"
-#' # 
+#' # pctile.text.pm              "10.4 ug/m3 (76%ile)"                       \cr
+#' # pctile.text.o3              "42.8 ppb (22%ile)"                         \cr
+#' # pctile.text.cancer          "55 lifetime risk per million (91%ile)"     \cr
+#' # pctile.text.resp            "2.1  (72%ile)"                             \cr
+#' # pctile.text.dpm             "0.401 ug/m3 (24%ile)"                      \cr
+#' # pctile.text.pctpre1960      "0.4 = fraction pre-1960 (68%ile)"         \cr
+#' # pctile.text.traffic.score   "23 daily vehicles/meters distance (28%ile)" \cr
+#' # pctile.text.proximity.npl   "0.071 sites/km distance (55%ile)"          \cr
+#' # pctile.text.proximity.rmp   "0.085 facilities/km distance (21%ile)"     \cr
+#' # pctile.text.proximity.tsdf  "0 facilities/km distance (26%ile)"        \cr
+#' # pctile.text.proximity.npdes "0.25 facilities/km distance (70%ile)"      \cr
+#' # \cr
+#' t(bg2[125:126, gsub('pctile', 'pctile.text', names.e.pctile[names.e.pctile != 'pctile.neuro'])]) \cr
+#' #                        125                                          126                       \cr
+#' # pctile.text.pm              "8.37 ug/m3 (27%ile)"                        NA                   \cr
+#' # pctile.text.o3              "41.7 ppb (19%ile)"                          NA                   \cr
+#' # pctile.text.cancer          "36 lifetime risk per million (37%ile)"      NA                   \cr
+#' # pctile.text.resp            "1.4  (37%ile)"                              NA                   \cr
+#' # pctile.text.dpm             "0.275 ug/m3 (13%ile)"                       NA   \cr
+#' # pctile.text.pctpre1960      "0.055 = fraction pre-1960 (27%ile)"         "0 = fraction pre-1960 (10%ile)" \cr
+#' # pctile.text.traffic.score   "1.7 daily vehicles/meters distance (6%ile)" "0 daily vehicles/meters distance (2%ile)" \cr
+#' # pctile.text.proximity.npl   "0.056 sites/km distance (47%ile)"           "0 sites/km distance (16%ile)" \cr
+#' # pctile.text.proximity.rmp   "0.046 facilities/km distance (7%ile)"       "0 facilities/km distance (1%ile)" \cr
+#' # pctile.text.proximity.tsdf  "0 facilities/km distance (26%ile)"          "0 facilities/km distance (26%ile)" \cr
+#' # pctile.text.proximity.npdes "0.067 facilities/km distance (16%ile)"      "0 facilities/km distance (1%ile)" \cr
+#' # \cr
+#' # single result, e.g.: "24% (36%ile)" \cr
+#' } 
 #' 
 #' @param e raw environmental indicator values for various locations
 #' @param pctile required integers 0 to 100, representing the percentile(s) at which the raw value(s) fall(s). 
@@ -126,12 +130,6 @@ make.popup.e <- function(e, pctile, prefix = 'pctile.text.', basenames, units, s
     units[is.na(units)] <- ''
     # might want to NOT put in the units when value is NA?
   }
-  #   print('units:')
-  #   print(units)
-  #   print('x:')
-  #   print(x)
-  #   print('y:')
-  #   print(y)
   
   # could fix to use only one space when no units
   
@@ -139,13 +137,6 @@ make.popup.e <- function(e, pctile, prefix = 'pctile.text.', basenames, units, s
   x <- data.frame(x, stringsAsFactors = FALSE)
   colnames(x) <- paste(prefix, basenames, sep = '')
   #rownames(x) <- NULL
-  
-  # print('e:') 
-  # print(str(e))
-  # print(e)
-  # print('x:')
-  #     print(str(x))
-  # print(x)
   
   x[is.na(e)] <- NA
   rownames(x) <- rownames(e)

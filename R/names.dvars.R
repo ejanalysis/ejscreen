@@ -8,7 +8,7 @@
 #' @usage data('names.dvars'); names.d
 #' @seealso  \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
 #' @source Names developed for this package. No external data source.
-#' @keywords datasets
+#' @concepts datasets
 #' @format A series of variables (each is a character vector of colnames):
 #' \itemize{
 #'  \item "names.d" (VSI.eo, VSI.svi6, pctmin, pctlowinc, pctlths, pctlingiso, pctunder5, pctover64)

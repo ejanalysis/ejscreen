@@ -9,7 +9,6 @@
 #' @seealso  \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
 #' @usage data('names.evars')
 #' @source Names developed for this package. No external data source.
-#' @keywords datasets
 #' @format A series of variables (each is a character vector of colnames).
 #' The 2016 version of EJSCREEN was:
 #' \itemize{

@@ -63,4 +63,3 @@ This is the 2015 (obsolete) version.
 \seealso{
 \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
 }
-\keyword{datasets}

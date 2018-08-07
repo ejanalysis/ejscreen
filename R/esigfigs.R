@@ -5,7 +5,6 @@
 #' @usage data('esigfigs')
 #' @source See related Technical Documentation at \url{http://www.epa.gov/ejscreen}
 #' @seealso  \code{\link{make.popup.e}}
-#' @keywords EJ, environmental justice, datasets, demographic
 #' @format A data.frame: \cr\cr
 #' > str(esigfigs) \cr
 #' 'data.frame':	12 obs. of  2 variables:\cr
