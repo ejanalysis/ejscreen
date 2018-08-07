@@ -5,7 +5,7 @@
 #' @param folder Optional path to folder (directory) where the file will be downloaded and unzipped. Default is current working directory.
 #' @param yr Default was 2017 as of 6/2018. Optional numeric year version such as 2015, 2016, 2017.
 #' @param ftpurl Optional. Default is ftp://newftp.epa.gov/EJSCREEN/yyyy (yyyy=year version=yr) for where to find the zipped data.
-#' @param zipname Optional. Default for the name of the zip file of data depends on yr. "" for yr=2017. For yr=2015, EJSCREEN_20150505.csv.zip
+#' @param zipname Optional. Default for the name of the zip file of data depends on yr. Empty for yr=2017. For yr=2015, EJSCREEN_20150505.csv.zip
 #' @param csvname Optional. Default for the name of the csv file of data depends on yr. For yr=2017, EJSCREEN_2017_USPR_Public.csv and for yr=2015, EJSCREEN_20150505.csv
 #' @param addflag Optional. Default is FALSE. If TRUE, it adds a field called flagged, which is TRUE if 1 or more of the EJ Indexes is at/above the cutoff US percentile.
 #' @param cutoff Optional. Default is 80. See addflag parameter.
@@ -23,12 +23,12 @@ ejscreen.download <- function(folder=getwd(), yr=2017, ftpurl, zipname, csvname,
   # #  names(bg) <- change.fieldnames.ejscreen.csv(names(bg))
   # #  }
 
-  ######################################################################################### #
+  ######################################################################################## #
   # A script to get the 2015, 2016, 2017 etc. version of EJSCREEN dataset into memory, using the friendly Rfieldnames
-  ######################################################################################### #
-
+  ######################################################################################## #
+  
   # Note: if already exists as .RData locally, could just do load("bg 2015-04-22 Rnames plus subgroups.RData")
-
+  
   ############################# #
   # Prepare to obtain the zip or just csv file from the FTP site, based on which yr
   # (takes a few minutes to download if you do it this way - you could do it manually using an FTP client instead)
@@ -89,7 +89,7 @@ ejscreen.download <- function(folder=getwd(), yr=2017, ftpurl, zipname, csvname,
   ############################# #
   # Read the csv file into R
   ############################# #
-  # Possibly eve faster via readr package? readr::read_csv() which I think can download and read all in one step
+  # Possibly even faster via readr package readr::read_csv() which I think can download and read all in one step 
   # read.csv takes a couple of minutes, and much faster if you use data.table::fread()
   #   Read 217739 rows and 391 (of 391) columns from 0.653 GB file in 00:00:46  # fast via fread()
   # bg <- read.csv('EJSCREEN_20150505.csv', nrows = 220000) # as.is = TRUE, # too slow
@@ -97,7 +97,7 @@ ejscreen.download <- function(folder=getwd(), yr=2017, ftpurl, zipname, csvname,
   cat('Attempting to import csv dataset to R \n')
   bg <- data.table::fread(csvname)
   bg <- data.frame(bg)
-
+  
   ############################# #
   # ADD FLAG COLUMN - FLAG ROWS WHERE AT LEAST ONE OF A FEW INDICATORS IS ABOVE GIVEN CUTOFF THRESHOLD
   ############################# #
@@ -129,7 +129,7 @@ ejscreen.download <- function(folder=getwd(), yr=2017, ftpurl, zipname, csvname,
     # if (!require('analyze.stuff')) devtools::install_github("ejanalysis/analyze.stuff"); library(analyze.stuff)
     # if (!require('ejanalysis')) devtools::install_github("ejanalysis/ejanalysis"); library(ejanalysis)
   }
-
+  
   ############################# #
   # sort by FIPS
   ############################# #
