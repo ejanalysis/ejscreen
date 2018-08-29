@@ -6,7 +6,7 @@
 #' @usage data('ejscreenformulas')
 #' @source See related Technical Documentation at \url{http://www.epa.gov/ejscreen}
 #' @seealso  \code{\link{ejscreenformulasnoej}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
-#' @concepts EJ, environmental justice, datasets, demographic
+#' @concept EJ, environmental justice, datasets, demographic
 #' @format A data.frame: \cr\cr
 #' > str(ejscreenformulas) \cr
 #' 'data.frame':	470 obs. of  8 variables: \cr

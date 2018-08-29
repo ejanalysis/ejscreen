@@ -9,7 +9,7 @@
 #' @seealso  \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}} \code{\link{names.ejvars15}}
 #' @usage data('names.ejvars')
 #' @source Names developed for this package. No external data source.
-#' @concepts datasets
+#' @concept datasets
 #' @format A series of variables (each is a character vector of colnames):
 #' \itemize{
 #'  \item "names.ej"

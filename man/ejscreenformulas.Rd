@@ -30,3 +30,4 @@ This provides fieldnames and formulas required by the \pkg{ejscreen} package.
 \seealso{
 \code{\link{ejscreenformulasnoej}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
 }
+\concept{EJ, environmental justice, datasets, demographic}

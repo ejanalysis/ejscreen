@@ -38,3 +38,4 @@ This data set provides variables that hold the colnames
 \seealso{
 \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
 }
+\concept{datasets}
