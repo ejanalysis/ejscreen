@@ -1,24 +1,29 @@
 Package: ejscreen
-Type: Package
-Title: EJSCREEN Tools for US EPA Environmental Justice Mapping and Screening
-Version: 0.9
-Date: 2018-06-26
-Author: info@ejanalysis.com
-Maintainer: ejanalyst <info@ejanalysis.com>
-Description: Data and tools related to the United States Environmental Protection Agency's screening and mapping tool for environmental justice, EJSCREEN.
-License: MIT + file LICENSE
-LazyData: TRUE
-Suggested:
-    ACSdownload
-Depends:
-    R (>= 3.1.2),
-    Hmisc,
-    proxistat,
-    ejanalysis,
+Title: EJSCREEN Tools for US EPA Environmental Justice (EJ) Mapping and Screening
+Description: Data and tools related to the United States Environmental Protection Agency's 
+    screening and mapping tool for environmental justice, EJSCREEN.
+    For any imported/suggested packages not on CRAN, see http://ejanalysis.github.io
+Version: 0.9.1
+Imports: 
     analyze.stuff,
+    Hmisc,
+    ejanalysis,
     data.table,
     devtools
-URL: http://ejanalysis.github.io
-    http://www.ejanalysis.com/
-    http://www.epa.gov/ejscreen
+Suggested:
+    ACSdownload,
+    proxistat
+Depends:
+    R (>= 3.1.2)
+URL: http://ejanalysis.github.io, https://github.com/ejanalysis/ejscreen, http://www.ejanalysis.com/
+BugReports: https://github.com/ejanalysis/ejscreen/issues
+Date: 2018-09-01
+Depends: R (>= 3.1.0)
 RoxygenNote: 6.1.0
+License: MIT + file LICENSE
+Repository: GitHub
+Author: info@ejanalysis.com
+Maintainer: info@ejanalysis.com <info@ejanalysis.com>
+NeedsCompilation: no
+LazyData: true
+Encoding: UTF-8
