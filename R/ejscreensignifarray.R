@@ -16,24 +16,28 @@
 #'  ejscreensignifarray(envirodata)
 #' @details  Sig figs used if digits specified as 'ejscreen' are those stored in data(esigfigs)
 #' @export
-ejscreensignifarray <- function(dat, digits='ejscreen') {
-
+ejscreensignifarray <- function(dat, digits = 'ejscreen') {
   if (is.vector(digits) && tolower(digits) == 'ejscreen') {
-    ###################################################################################
+    ################################################################################## #
     # DEFAULT RULES FOR SIGNIFICANT DIGITS ON DEFAULT RAW ENVT INDICATORS
-    ###################################################################################
+    ################################################################################## #
     data(names.evars, package = 'ejanalysis', envir = environment())
     #defaultsigfigs <- data.frame(defaultcolname=names.e, dig=c(3,3,2,2,2,3,2,2,2,2,2,2))
-#     if (any(!(colnames(dat) %in% defaultsigfigs$defaultcolname))) {
-#       stop('if digits is specified as "ejscreen" then colnames of dat must be exactly these (in any order):\n', paste(defaultsigfigs$defaultcolname, collapse = ' '), '\n')
-#     }
-        if (any(!(colnames(dat) %in% esigfigs$evar))) {
-          stop('if digits is specified as "ejscreen" then colnames of dat must be exactly these (in any order):\n', paste(esigfigs$evar, collapse = ' '), '\n')
-        }
-
+    #     if (any(!(colnames(dat) %in% defaultsigfigs$defaultcolname))) {
+    #       stop('if digits is specified as "ejscreen" then colnames of dat must be exactly these (in any order):\n', paste(defaultsigfigs$defaultcolname, collapse = ' '), '\n')
+    #     }
+    if (any(!(colnames(dat) %in% esigfigs$evar))) {
+      stop(
+        'if digits is specified as "ejscreen" then colnames of dat must be exactly these (in any order):\n',
+        paste(esigfigs$evar, collapse = ' '),
+        '\n'
+      )
+    }
+    
     # put default digits in correct order (and maybe only a subset that matches) in case dat has right colnames but in a different order than default here assumed
-    digits <- esigfigs[ match(colnames(dat), esigfigs$evar), 'sigfigs']
+    digits <-
+      esigfigs[match(colnames(dat), esigfigs$evar), 'sigfigs']
   }
-
+  
   return(analyze.stuff::signifarray(dat = dat, digits = digits))
 }

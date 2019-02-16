@@ -2,7 +2,7 @@
 % Please edit documentation in R/ejscreen.lookuptables.R
 \name{ejscreen.lookuptables}
 \alias{ejscreen.lookuptables}
-\title{Create EJSCREEN Lookup Tables of Pop. Percentiles by Zone}
+\title{Create EJSCREEN Lookup Tables of Pop. Percentiles by Zone - WORK IN PROGRESS}
 \usage{
 ejscreen.lookuptables(x, weights = x$pop, cols, zonecols = c("ST",
   "REGION"), folder = getwd(), missingcode = NA)
@@ -12,35 +12,46 @@ ejscreen.lookuptables(x, weights = x$pop, cols, zonecols = c("ST",
 
 \item{weights}{Weights for percentiles -- Default is population count to provide population percentiles.}
 
-\item{cols}{Optional vector of colnames of x that need percentile lookup tables, or 'all' which means all numeric fields in x.
+\item{cols}{Optional vector of colnames of x that need percentile lookup tables, or \code{all} which means all numeric fields in x.
 Default is a standard set of EJSCREEN fieldnames defined within this function (see source code).}
 
-\item{zonecols}{Optional. Must set to NULL if no zones wanted, because default is c('ST', 'REGION'), names of cols in x that contain zone codes, such as State names or Region numbers, used to create a lookup table file for each of the zonecols, with separate percentiles calculated within each zone.}
+\item{zonecols}{Optional. Must set to NULL if no zones wanted, because default is \code{c('ST', 'REGION')}, 
+names of cols in x that contain zone codes, such as State names or Region numbers, 
+used to create a lookup table file for each of the zonecols, with separate percentiles calculated within each zone.}
 
-\item{folder}{Default is getwd() - specifies where to save the csv files.}
+\item{folder}{Default is \code{getwd()} - specifies where to save the csv files.}
 
-\item{missingcode}{Leave this unspecified if missing values are set to NA in the input data. Default is -9999999 (but if already NA then do not specify anything for this). The number or value in the input data that designates a missing value.}
+\item{missingcode}{Leave this unspecified if missing values are set to NA in the input data. 
+Default is -9999999 (but if already NA then do not specify anything for this). The number or value in the input data that designates a missing value.}
 }
 \value{
 Overall lookup table(s) as data.frame (but not zonal ones). Creates lookup tables saved as csv files to specified folder.
   One table for overall percentiles, and one for each of the zonecols (unless that is set to NULL).
 }
 \description{
-*** Work in progress as of mid 2015.
+*** Work in progress as of 2019.
+  *** The Hmisc package provides the function called Hmisc::wtd.quantile(),
+  but could recode to use analyze.stuff::wtd.pctiles ?
+  
   Start with raw environmental, demographic, and EJ indicator data, and write as csv files to disk a series of
   lookup tables that show population percentiles and mean values for each indicator.
 }
 \details{
 Percentiles are calculated as exact values and then rounded down to the nearest 0-100 percentile.
-  This calculates percentiles among only the non-NA values. In other words, people in places with missing data are excluded from the calculation. This means the percentile is the percent of people with valid data (i.e., not NA) who have a tied or lower value.
+  This calculates percentiles among only the non-NA values. In other words, 
+  people in places with missing data are excluded from the calculation. This means the 
+  percentile is the percent of people with valid data (i.e., not NA) who have a tied or lower value.
 }
 \examples{
  \dontrun{
+ # Try with a sample envt data set:
  set.seed(99)
- envirodata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12),
+ envirodata <- data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12),
+   pm = runif(1000,5,20), o3 = runif(1000,3,50),
    air=rlnorm(1000), water=rlnorm(1000)*5, stringsAsFactors=FALSE)
- demogdata=data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12),
-   pop=rnorm(n=1000, mean=1400, sd=200), stringsAsFactors=FALSE)
- x=ejscreen.lookuptables(envirodata, weights=demogdata$pop, cols='all', zonecols=NULL)
+ demogdata <- data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12),
+   pop = rlnorm(1000, meanlog = log(1000), sdlog = 1), stringsAsFactors=FALSE)
+ x <- ejscreen.lookuptables(envirodata, weights=demogdata$pop, cols='all', zonecols=NULL)
+ x
  }
 }

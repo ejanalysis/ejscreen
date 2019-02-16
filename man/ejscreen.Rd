@@ -23,7 +23,7 @@ Key functions include
 \item \code{\link{ejscreen.download}} To download the raw data from the FTP site.
 \item \code{\link{ejscreen.create}}  To create a dataset of demographic indicators, EJ indexes, etc. starting with your own environmental indicators and taking demographic raw data from the American Community Survey (ACS).
 \item \code{\link{ejscreen.lookuptables}} To create the file that shows percentiles for each indicator
-\item Various functions from the \pkg{ejanalysis} package are also relevant. 
+\item Various functions from the \pkg{ejanalysis} package are also relevant.
 }
 }
 \references{

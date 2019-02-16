@@ -34,7 +34,7 @@ Note that if formulas is specified, ejformulasfromcode is ignored.}
 
 \item{wtsvarname}{optional, default is 'pop' used for weighted percentiles, etc. Must be a colname in acsraw or created and kept by formulas.}
 
-\item{checkfips}{optional, default is TRUE. If TRUE, function checks to verify all FIPS codes appear to be valid US FIPS 
+\item{checkfips}{optional, default is TRUE. If TRUE, function checks to verify all FIPS codes appear to be valid US FIPS
 (correct number of characters, adding any leading zero needed, and checking the first five to ensure valid county). To use something other than actual US FIPS codes, set this to FALSE.}
 
 \item{EJprefix0}{optional, default is 'EJ.DISPARITY' - specifies prefix for colnames of main EJ Indexes, with a period separating prefix from body of colname}
@@ -71,8 +71,8 @@ Start with raw environmental indicator data, and create full EJSCREEN dataset.
   This code also contains an outline of steps involved.
 }
 \details{
-**Note that if non-default fieldnames are used in e and/or acsraw, 
-  those must be specified in parameters including demogvarname0, demogvarname1, wtsvarname, 
+**Note that if non-default fieldnames are used in e and/or acsraw,
+  those must be specified in parameters including demogvarname0, demogvarname1, wtsvarname,
   keep.old (and could be reflected in prefix and suffix params as well).
 }
 \examples{

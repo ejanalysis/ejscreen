@@ -32,9 +32,9 @@ ejscreen.rollup.all <- function(bg, scalenames = c('tracts', 'counties', 'states
   #filenames.R <- c('EJSCREEN 2016 tracts data.RData', 'EJSCREEN 2016 counties data.RData', 'EJSCREEN 2016 states data.RData', 'EJSCREEN 2016 regions data.RData')
   #filenames.csv <- c('EJSCREEN 2016 tracts data.RData', 'EJSCREEN 2016 counties data.RData', 'EJSCREEN 2016 states data.RData', 'EJSCREEN 2016 regions data.RData')
   
-  ######################################
+  ##################################### #
   # Do rollup for each level of resolution (region, state, county, tract)
-  ######################################
+  ##################################### #
   
   # *** creates variables in environment that function was called from! *** 
   out <- list()
@@ -42,12 +42,12 @@ ejscreen.rollup.all <- function(bg, scalenames = c('tracts', 'counties', 'states
   for (i in 1:length(fipsnames)) {
     # loop through the scales (e.g., region, then state, then county, then tract)
     
-    ######################################
+    ##################################### #
     # Specify resolution of interest
     fipsname <- fipsnames[i] # 'FIPS.TRACT' 
     scalename <- scalenames[i] # 'tracts'
     
-    ######################################
+    ##################################### #
     # Get results, using the function ejscreen::ejscreen.rollup
     cat('Calculating rollup for', scalename, '...\n')
     # *** need to fix ejscreen.rollup to use scalename?? Right now it only uses fipsname

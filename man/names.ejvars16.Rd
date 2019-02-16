@@ -31,18 +31,18 @@
  \item "namesall.ej.bin"
  \item "namesall.ej.pctile"
 }
-And names.ej in turn is this, for example: 
+And names.ej in turn is this, for example:
 \itemize{
- \item  [1] "EJ.DISPARITY.pm.eo"             
- \item  [2] "EJ.DISPARITY.o3.eo"             
- \item  [3] "EJ.DISPARITY.cancer.eo"         
- \item  [4] "EJ.DISPARITY.resp.eo"           
- \item  [5] "EJ.DISPARITY.dpm.eo"            
- \item  [6] "EJ.DISPARITY.pctpre1960.eo"     
- \item  [7] "EJ.DISPARITY.traffic.score.eo"  
- \item  [8] "EJ.DISPARITY.proximity.npl.eo"  
- \item  [9] "EJ.DISPARITY.proximity.rmp.eo"  
- \item  [10] "EJ.DISPARITY.proximity.tsdf.eo" 
+ \item  [1] "EJ.DISPARITY.pm.eo"
+ \item  [2] "EJ.DISPARITY.o3.eo"
+ \item  [3] "EJ.DISPARITY.cancer.eo"
+ \item  [4] "EJ.DISPARITY.resp.eo"
+ \item  [5] "EJ.DISPARITY.dpm.eo"
+ \item  [6] "EJ.DISPARITY.pctpre1960.eo"
+ \item  [7] "EJ.DISPARITY.traffic.score.eo"
+ \item  [8] "EJ.DISPARITY.proximity.npl.eo"
+ \item  [9] "EJ.DISPARITY.proximity.rmp.eo"
+ \item  [10] "EJ.DISPARITY.proximity.tsdf.eo"
  \item  [11] "EJ.DISPARITY.proximity.npdes.eo"
 }}
 \source{

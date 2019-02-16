@@ -35,19 +35,19 @@
 #'  \item "namesall.ej.bin15"
 #'  \item "namesall.ej.pctile15"
 #' }
-#' And names.ej15 in turn is this, for example: 
+#' And names.ej15 in turn is this, for example:
 #' \itemize{
-#'  \item  [1] "EJ.DISPARITY.pm.eo"             
-#'  \item  [2] "EJ.DISPARITY.o3.eo"             
-#'  \item  [3] "EJ.DISPARITY.cancer.eo" 
-#'  \item  [4] "EJ.DISPARITY.neuro.eo"  Note neuro items are only in 2015 version     
-#'  \item  [5] "EJ.DISPARITY.resp.eo"           
-#'  \item  [6] "EJ.DISPARITY.dpm.eo"            
-#'  \item  [7] "EJ.DISPARITY.pctpre1960.eo"     
-#'  \item  [8] "EJ.DISPARITY.traffic.score.eo"  
-#'  \item  [9] "EJ.DISPARITY.proximity.npl.eo"  
-#'  \item  [10] "EJ.DISPARITY.proximity.rmp.eo"  
-#'  \item  [11] "EJ.DISPARITY.proximity.tsdf.eo" 
+#'  \item  [1] "EJ.DISPARITY.pm.eo"
+#'  \item  [2] "EJ.DISPARITY.o3.eo"
+#'  \item  [3] "EJ.DISPARITY.cancer.eo"
+#'  \item  [4] "EJ.DISPARITY.neuro.eo"  Note neuro items are only in 2015 version
+#'  \item  [5] "EJ.DISPARITY.resp.eo"
+#'  \item  [6] "EJ.DISPARITY.dpm.eo"
+#'  \item  [7] "EJ.DISPARITY.pctpre1960.eo"
+#'  \item  [8] "EJ.DISPARITY.traffic.score.eo"
+#'  \item  [9] "EJ.DISPARITY.proximity.npl.eo"
+#'  \item  [10] "EJ.DISPARITY.proximity.rmp.eo"
+#'  \item  [11] "EJ.DISPARITY.proximity.tsdf.eo"
 #'  \item  [12] "EJ.DISPARITY.proximity.npdes.eo"
 #' }
 NULL

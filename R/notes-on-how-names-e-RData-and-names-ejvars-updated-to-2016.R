@@ -14,7 +14,7 @@ if (1 == 0 ) {
   names.e.bin15 <- names.e.bin
   names.e.pctile15 <- names.e.pctile
   Elist15 <- Elist
-  save(names.e15, names.e.bin15, names.e.pctile15, Elist15, file = '/Users/markcorrales/Documents/R PACKAGES/ejscreen/data/names.evars15.RData')
+  save(names.e15, names.e.bin15, names.e.pctile15, Elist15, file = '/Users/USERNAMEGOESHERE/Documents/R PACKAGES/ejscreen/data/names.evars15.RData')
   
   # same for ej (many names) -- ensure only 2015 version is loaded, no ejscreen pkg in search path
   EJNAMES <- grep('.ej', ls(), value = TRUE)
@@ -30,7 +30,7 @@ if (1 == 0 ) {
           "names.ej.pct.svi6.pctile15", "names.ej.pctile15", "names.ej.svi615", 
           "names.ej.svi6.bin15", "names.ej.svi6.pctile15", "namesall.ej15", 
           "namesall.ej.bin15", "namesall.ej.pctile15", 
-       file = '/Users/markcorrales/Documents/R PACKAGES/ejscreen/data/names.ejvars15.RData')
+       file = '/Users/USERNAMEGOESHERE/Documents/R PACKAGES/ejscreen/data/names.ejvars15.RData')
   
   
   # And created .R documentation files for names.evars, names.evars15, names.evars16
@@ -42,8 +42,8 @@ if (1 == 0 ) {
   names.e.pctile <- names.e.pctile[!grepl('neuro', names.e.pctile)]
   Elist <- Elist[!grepl('neuro', Elist)]
   
-#  save(names.e, names.e.bin, names.e.pctile, Elist, file = '/Users/markcorrales/Documents/R PACKAGES/ejscreen/data/names.evars16.RData')
-  save(names.e, names.e.bin, names.e.pctile, Elist, file = '/Users/markcorrales/Documents/R PACKAGES/ejscreen/data/names.evars.RData')
+#  save(names.e, names.e.bin, names.e.pctile, Elist, file = '/Users/USERNAMEGOESHERE/Documents/R PACKAGES/ejscreen/data/names.evars16.RData')
+  save(names.e, names.e.bin, names.e.pctile, Elist, file = '/Users/USERNAMEGOESHERE/Documents/R PACKAGES/ejscreen/data/names.evars.RData')
   
   
   # create 2016 ej name lists
@@ -62,7 +62,7 @@ if (1 == 0 ) {
   #      "names.ej.pct.svi6.pctile", "names.ej.pctile", "names.ej.svi6", 
   #      "names.ej.svi6.bin", "names.ej.svi6.pctile", "namesall.ej", "namesall.ej.bin", 
   #      "namesall.ej.pctile", 
-  #      file = '/Users/markcorrales/Documents/R PACKAGES/ejscreen/data/names.ejvars16.RData')
+  #      file = '/Users/USERNAMEGOESHERE/Documents/R PACKAGES/ejscreen/data/names.ejvars16.RData')
   # 
   save("names.ej", "names.ej.bin", "names.ej.burden.eo", "names.ej.burden.eo.bin", 
        "names.ej.burden.eo.pctile", "names.ej.burden.svi6", "names.ej.burden.svi6.bin", 
@@ -71,5 +71,5 @@ if (1 == 0 ) {
        "names.ej.pct.svi6.pctile", "names.ej.pctile", "names.ej.svi6", 
        "names.ej.svi6.bin", "names.ej.svi6.pctile", "namesall.ej", "namesall.ej.bin", 
        "namesall.ej.pctile", 
-       file = '/Users/markcorrales/Documents/R PACKAGES/ejscreen/data/names.ejvars.RData')
+       file = '/Users/USERNAMEGOESHERE/Documents/R PACKAGES/ejscreen/data/names.ejvars.RData')
 }

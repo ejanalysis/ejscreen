@@ -7,7 +7,7 @@
 pctileAsText(x)
 }
 \arguments{
-\item{x}{vector or data.frame of numeric values 0 to 100 (not 0 to 1), 
+\item{x}{vector or data.frame of numeric values 0 to 100 (not 0 to 1),
 representing percentiles from EJSCREEN dataset}
 }
 \value{

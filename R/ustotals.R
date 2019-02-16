@@ -154,7 +154,7 @@ ustotals <- function(bg) {
   # [3] "VDI.eo <- (VSI.eo - VSI.eo.US) * pop"
   # [4] "VDI.svi6 <- (VSI.svi6 - VSI.svi6.US) * pop"
 
-  #########################################################
+  ######################################################## #
   # TO CREATE NATIONAL PERSON-LEVEL SUMMARY STATS BASED ON ONLY TRACTS OR ONLY BLOCKGROUPS:
   #
   # Calculate
@@ -171,5 +171,5 @@ ustotals <- function(bg) {
   #   NOT THE SAME AS THE WAY A SIMPLISTIC EJ METRIC MIGHT INTERPRET COUNTS AND PERCENTS.
   #	  For example, LOWINC.US HERE CORRECTLY INCLUDES ONLY THOSE FOR WHOM POVERTY STATUS IS KNOWN, for example,
   #	  AND IS NOT quite THE SAME AS THE NATIONAL AVG % LOWINC TIMES TOTAL US POPULATION
-  #########################################################
+  ######################################################## #
 }

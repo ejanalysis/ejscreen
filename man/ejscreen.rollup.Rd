@@ -53,16 +53,16 @@ Start with full EJSCREEN dataset at one resolution (typically block groups),
 
   for (i in 1:length(fipsnames)) {
   
-  ######################################
+  ##################################### #
   # Specify resolution of interest
   fipsname <- fipsnames[i] # 'FIPS.TRACT'
   scalename <- scalenames[i] # 'tracts'
   
-  ######################################
+  ##################################### #
   # Get results, using the function
   myrollup <- ejscreen.rollup(bg = bg, fipsname = fipsname, scalename = scalename)
   
-  ######################################
+  ##################################### #
   # Save results
   save(myrollup, file = paste('EJSCREEN 2015', scalename, 'data.RData') )
   write.csv(myrollup, row.names = FALSE, file = paste('EJSCREEN 2015', scalename, 'data.csv'))

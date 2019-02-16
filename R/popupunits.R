@@ -1,7 +1,7 @@
 #' @name popupunits
 #' @docType data
 #' @title Units of measurement for environmental indicators
-#' @description Table indicating what units to use, such as ug/m3, 
+#' @description Table indicating what units to use, such as ug/m3,
 #'   in showing environmental indicators in EJSCREEN, as shown in popup windows on maps
 #' @usage data('popupunits')
 #' @source See related Technical Documentation at \url{http://www.epa.gov/ejscreen}

@@ -32,16 +32,16 @@
 #' 
 #'   for (i in 1:length(fipsnames)) {
 #'   
-#'   ######################################
+#'   ##################################### #
 #'   # Specify resolution of interest
 #'   fipsname <- fipsnames[i] # 'FIPS.TRACT'
 #'   scalename <- scalenames[i] # 'tracts'
 #'   
-#'   ######################################
+#'   ##################################### #
 #'   # Get results, using the function
 #'   myrollup <- ejscreen.rollup(bg = bg, fipsname = fipsname, scalename = scalename)
 #'   
-#'   ######################################
+#'   ##################################### #
 #'   # Save results
 #'   save(myrollup, file = paste('EJSCREEN 2015', scalename, 'data.RData') )
 #'   write.csv(myrollup, row.names = FALSE, file = paste('EJSCREEN 2015', scalename, 'data.csv'))
@@ -51,12 +51,12 @@
 #'  
 ejscreen.rollup <- function(bg, fipsname = 'FIPS.TRACT', scalename = 'tracts', enames, folder = getwd(), sumnames, avgnames, wts, acsnames, ...) {
   
-  ######################################
+  ##################################### #
   # Get packages (available via http://www.ejanalysis.com)
   # require(analyze.stuff); require(ejanalysis); require(ejscreen)
   #data(names.dvars)
   
-  ######################################
+  ##################################### #
   # Get the wtd.mean for E (and other maybe some other fields?)
   data(names.evars)
   if (missing(enames)) {enames <- names.e}
@@ -66,7 +66,7 @@ ejscreen.rollup <- function(bg, fipsname = 'FIPS.TRACT', scalename = 'tracts', e
   names(tracts.avg) <- gsub('by', fipsname, names(tracts.avg))
   tracts.avg$sum.no.wts.used <- NULL
   
-  ######################################
+  ##################################### #
   # Get the sum for raw count fields and area (assuming here you've already calculated the blockgroup demographics)
   if (missing(sumnames)) {
     sumnames1 <- c('pop', 'povknownratio', 'age25up', 'hhlds', 'builtunits', 
@@ -82,14 +82,14 @@ ejscreen.rollup <- function(bg, fipsname = 'FIPS.TRACT', scalename = 'tracts', e
   names(tracts.sum) <- gsub('by', fipsname, names(tracts.sum))
   tracts.sum$sum.no.wts.used <- NULL
   
-  ######################################
+  ##################################### #
   # Merge sums and averages
   rm(bg)
   tracts <- merge(tracts.sum, tracts.avg, by = fipsname)
   tracts <- tracts[ order(tracts[ , fipsname]), ]
   rm(tracts.sum, tracts.avg)
   
-  ######################################
+  ##################################### #
   # Calculate the calculated fields (like EJ Index, percentiles, bins) from the E means and D counts
   acsfields <- names(tracts)
   acsfields <- acsfields[acsfields != fipsname]

@@ -1,5 +1,6 @@
 #' @title Create Calculated EJSCREEN Variables
 #'
+
 #' @description
 #'   Use specified formulas to create calculated, derived variables such as percent low income.
 #'   Relies upon \code{\link[analyze.stuff]{calc.fields}} from \pkg{analyze.stuff} package.
@@ -28,94 +29,115 @@
 #'  demogdata$povknownratio <- demogdata$pop
 #'  x=ejscreen.acs.calc(bg=demogdata)
 #' @export
-ejscreen.acs.calc <- function(bg, folder=getwd(), keep.old, keep.new, formulafile, formulas) {
-
-  if (!missing(formulafile) & !missing(formulas) ) {stop('Cannot specify both formulafile and formulas.')}
-
-  if (missing(formulafile) & missing(formulas) ) {
-    #both missing so use default built in formulas and fieldnames
-    x <- ejscreenformulas  # lazy loads as data
-    myformulas <- x$formula
-  }
-
-  if (!missing(formulafile) & missing(formulas)) {
-    if (!file.exists(file.path(folder, formulafile))) {
-      stop(paste('formulafile not found at', file.path(folder, formulafile) ))
-      # x <- ejscreenformulas  # or could lazy load as data the defaults here
-    } else {
-      x <- read.csv(file = file.path(folder, formulafile), stringsAsFactors = FALSE)
+ejscreen.acs.calc <-
+  function(bg,
+           folder = getwd(),
+           keep.old,
+           keep.new,
+           formulafile,
+           formulas) {
+    if (!missing(formulafile) &
+        !missing(formulas)) {
+      stop('Cannot specify both formulafile and formulas.')
+    }
+    
+    if (missing(formulafile) & missing(formulas)) {
+      #both missing so use default built in formulas and fieldnames
+      x <- ejscreenformulas  # lazy loads as data
       myformulas <- x$formula
     }
-  }
-
-  if (missing(formulafile) & !missing(formulas)) {
-    myformulas <- formulas
-    # could add error checking here
-  }
-
-  # ejscreenformulas as of 8/2015:
-  #
-  # 'data.frame':	470 obs. of  8 variables:
-  #   $ gdbfieldname     : chr  NA NA NA NA ...
-  #   $ Rfieldname       : chr  "ageunder5m" "age5to9m" "age10to14m" "age15to17m" ...
-  #   $ acsfieldname     : chr  "B01001.003" "B01001.004" "B01001.005" "B01001.006" ...
-  #   $ type             : chr  "ACS" "ACS" "ACS" "ACS" ...
-  #   $ glossaryfieldname: chr  NA NA NA NA ...
-  #   $ formula          : chr  NA NA NA NA ...
-  #   $ acsfieldnamelong : chr  "Under 5 years|SEX BY AGE" "5 to 9 years|SEX BY AGE" "10 to 14 years|SEX BY AGE" "15 to 17 years|SEX BY AGE" ...
-  #   $ universe         : chr  "Universe:  Total population" "Universe:  Total population" "Universe:  Total population" "Universe:  Total population" ...
-
-  if (missing(keep.old)) {
-    keep.old <- c(
-      'FIPS',
-      'ST',
-      'pop',
-      'builtunits',
-      'age25up',
-      'povknownratio',
-      'hhlds',
-      'hisp',
-      'nhwa',
-      'nhba',
-      'nhaiana',
-      'nhaa',
-      'nhnhpia',
-      'nhotheralone',
-      'nhmulti'
-    )
-  }
-  if (keep.old[1]=='all') {keep.old <- names(bg)}
-  # don't try to keep fields not supplied in bg
-  keep.old <- keep.old[ keep.old %in% names(bg)]
-
-  if (missing(keep.new)) {
-    keep.new <- c(
-      'VSI.eo', 'VSI.svi6',
-      "VNI.eo", "VNI.svi6", "VDI.eo", "VDI.svi6",
-     'pctpre1960',
-       'pctlowinc',
-       'pctmin',
-       'pctlths',
-       'pctlingiso',
-       'pctunder5',
-       'pctover64',
-     'pre1960',
-       'lowinc',
-       'mins',
-       'nonmins',
-       'lths',
-       'lingiso',
-       'under5',
-       'over64',
-     'pcthisp',
-     'pctnhwa',
-     'pctnhba',
-     'pctnhaiana',
-     'pctnhaa',
-     'pctnhnhpia',
-     'pctnhotheralone',
-     'pctnhmulti'
-    )
+    
+    if (!missing(formulafile) & missing(formulas)) {
+      if (!file.exists(file.path(folder, formulafile))) {
+        stop(paste(
+          'formulafile not found at',
+          file.path(folder, formulafile)
+        ))
+        # x <- ejscreenformulas  # or could lazy load as data the defaults here
+      } else {
+        x <-
+          read.csv(file = file.path(folder, formulafile),
+                   stringsAsFactors = FALSE)
+        myformulas <- x$formula
+      }
+    }
+    
+    if (missing(formulafile) & !missing(formulas)) {
+      myformulas <- formulas
+      # could add error checking here
+    }
+    
+    # ejscreenformulas as of 8/2015:
+    #
+    # 'data.frame':	470 obs. of  8 variables:
+    #   $ gdbfieldname     : chr  NA NA NA NA ...
+    #   $ Rfieldname       : chr  "ageunder5m" "age5to9m" "age10to14m" "age15to17m" ...
+    #   $ acsfieldname     : chr  "B01001.003" "B01001.004" "B01001.005" "B01001.006" ...
+    #   $ type             : chr  "ACS" "ACS" "ACS" "ACS" ...
+    #   $ glossaryfieldname: chr  NA NA NA NA ...
+    #   $ formula          : chr  NA NA NA NA ...
+    #   $ acsfieldnamelong : chr  "Under 5 years|SEX BY AGE" "5 to 9 years|SEX BY AGE" "10 to 14 years|SEX BY AGE" "15 to 17 years|SEX BY AGE" ...
+    #   $ universe         : chr  "Universe:  Total population" "Universe:  Total population" "Universe:  Total population" "Universe:  Total population" ...
+    
+    
+    if (missing(keep.old)) {
+      keep.old <- c(
+        'FIPS',
+        'ST',
+        'pop',
+        'builtunits',
+        'age25up',
+        'povknownratio',
+        'hhlds',
+        'hisp',
+        'nhwa',
+        'nhba',
+        'nhaiana',
+        'nhaa',
+        'nhnhpia',
+        'nhotheralone',
+        'nhmulti'
+      )
+    }
+    if (keep.old[1] == 'all') {
+      keep.old <- names(bg)
+    }
+    # don't try to keep fields not supplied in bg
+    keep.old <- keep.old[keep.old %in% names(bg)]
+    
+    
+    if (missing(keep.new)) {
+      keep.new <- c(
+        'VSI.eo',
+        'VSI.svi6',
+        "VNI.eo",
+        "VNI.svi6",
+        "VDI.eo",
+        "VDI.svi6",
+        'pctpre1960',
+        'pctlowinc',
+        'pctmin',
+        'pctlths',
+        'pctlingiso',
+        'pctunder5',
+        'pctover64',
+        'pre1960',
+        'lowinc',
+        'mins',
+        'nonmins',
+        'lths',
+        'lingiso',
+        'under5',
+        'over64',
+        'pcthisp',
+        'pctnhwa',
+        'pctnhba',
+        'pctnhaiana',
+        'pctnhaa',
+        'pctnhnhpia',
+        'pctnhotheralone',
+        'pctnhmulti'
+      )
     ejfields <- c("EJ.DISPARITY.pctpre1960.eo",        "EJ.DISPARITY.pctpre1960.svi6",
     "EJ.BURDEN.pctpre1960.eo",           "EJ.BURDEN.pctpre1960.svi6",
     "EJ.PCT.pctpre1960.eo",              "EJ.PCT.pctpre1960.svi6",
@@ -154,29 +176,34 @@ ejscreen.acs.calc <- function(bg, folder=getwd(), keep.old, keep.new, formulafil
     "EJ.PCT.pm.eo",                      "EJ.PCT.pm.svi6")
     keep.new <- c(keep.new, ejfields)
   }
-  # if any of these are not successfully created by calc.fields(), they just won't be returned by that function.
-  if (keep.new[1]=='all') {
-    # all the new ones (calc.fields returns all new and none of old by default)
-    newfieldsonly <- analyze.stuff::calc.fields(bg, formulas=myformulas)
-    bg <- data.frame(bg[ , keep.old], newfieldsonly, stringsAsFactors = FALSE)
-  } else {
-    # just some of the new ones
-    bg <- analyze.stuff::calc.fields(bg, formulas=myformulas, keep=c(keep.old, keep.new))
+    # if any of these are not successfully created by calc.fields(), they just won't be returned by that function.
+    if (keep.new[1] == 'all') {
+      # all the new ones (calc.fields returns all new and none of old by default)
+      newfieldsonly <-
+        analyze.stuff::calc.fields(bg, formulas = myformulas)
+      bg <-
+        data.frame(bg[, keep.old], newfieldsonly, stringsAsFactors = FALSE)
+    } else {
+      # just some of the new ones
+      bg <-
+        analyze.stuff::calc.fields(bg,
+                                   formulas = myformulas,
+                                   keep = c(keep.old, keep.new))
+    }
+    
+    #new.fields <- analyze.stuff::calc.fields(bg, formulas=myformulas, keep=keep.new)
+    #print('keep.new: '); print(keep.new)
+    #print(names(new.fields))
+    # don't try to keep fields not successfully created
+    #keep.new <- keep.new[ keep.new %in% names(new.fields)]
+    
+    #print('keep.new: '); print(keep.new)
+    #print('keep.old: '); print(keep.old)
+    #print('names of bg'); print(names(bg))
+    
+    #bg <- cbind( bg[ , keep.old], new.fields[ , keep.new] )
+    # new.fields would only have cols that were in keep.new
+    #bg <- cbind( bg[ , keep.old], new.fields )
+    
+    return(bg)
   }
-
-  #new.fields <- analyze.stuff::calc.fields(bg, formulas=myformulas, keep=keep.new)
-  #print('keep.new: '); print(keep.new)
-  #print(names(new.fields))
-  # don't try to keep fields not successfully created
-  #keep.new <- keep.new[ keep.new %in% names(new.fields)]
-
-  #print('keep.new: '); print(keep.new)
-  #print('keep.old: '); print(keep.old)
-  #print('names of bg'); print(names(bg))
-
-  #bg <- cbind( bg[ , keep.old], new.fields[ , keep.new] )
-  # new.fields would only have cols that were in keep.new
-  #bg <- cbind( bg[ , keep.old], new.fields )
-
-  return(bg)
-}
