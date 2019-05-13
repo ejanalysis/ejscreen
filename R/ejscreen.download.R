@@ -205,6 +205,9 @@ ejscreen.download <-
     ############################# #
     bg <- bg[order(bg$FIPS), ]
     
+    # to drop the popup text percentile info
+    # bg <- bg[,!grepl('pctile.text', names(bg)) ] 
+    
     ############################# #
     cat('Done \n\n')
     ############################# #
