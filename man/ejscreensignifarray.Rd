@@ -11,7 +11,8 @@ ejscreensignifarray(dat, digits = "ejscreen")
 
 \item{digits}{Optional, 'ejscreen' by default. Can be a vector as long as the number of columns in dat, where each elements specifies the
 number of significant digits to retain for numbers in the corresponding column of dat.
-If 'ejscreen' it specifies using the default settings described below in details, in which case colnames(dat) must be exactly the same (but in any order) as defaultcolnames below.}
+If 'ejscreen' it specifies using the default settings described below in details, 
+in which case all colnames(dat) must be among (but in any order) defaultcolnames below.}
 }
 \value{
 Returns dat, but with numbers rounded based on digits parameter.
@@ -26,8 +27,10 @@ Sig figs used if digits specified as 'ejscreen' are those stored in data(esigfig
 }
 \examples{
  ejscreensignifarray(data.frame(a=rnorm(10), b=rnorm(10), c=rnorm(10)), 1:3)
- envirodata <- data.frame(matrix(rnorm(12*10), ncol=12))
-   data("names.evars"); names(envirodata) <- names.e
+ envirodata <- data.frame(matrix(rnorm(11*10), ncol=11))
+   # data("names.evars"); names(envirodata) <- names.e
+   names(envirodata) <- c("pm", "o3", "cancer", "resp", "dpm", "pctpre1960", "traffic.score", 
+   "proximity.npl", "proximity.rmp", "proximity.tsdf", "proximity.npdes")
  ejscreensignifarray(envirodata)
 }
 \seealso{

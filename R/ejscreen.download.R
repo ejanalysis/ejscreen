@@ -51,8 +51,10 @@ ejscreen.download <-
       stop('Invalid year')
     }
     
-    ftpurl <-
-      paste('ftp://newftp.epa.gov/EJSCREEN/', yr, sep = '') # coerces yr to character. Hopefully will keep this format
+    justftpurl <- function(yr='2017') {
+      return(paste('ftp://newftp.epa.gov/EJSCREEN/', yr, sep = '')) # coerces yr to character. Hopefully will keep this format
+    }  
+    ftpurl <- justftpurl(ftpurl)
     
     zipcsvnames <- function(yr) {
       if (yr == 2015) {
@@ -61,7 +63,7 @@ ejscreen.download <-
       }
       if (yr == 2016) {
         zipname <- 'EJSCREEN_V3_USPR_090216_CSV.zip'
-        csvname <- 'EJSCREEN_V3_USPR_090216_CSV'
+        csvname <- 'EJSCREEN_V3_USPR_090216_CSV' # no extension ?
       }
       if (yr == 2017) {
         zipname <- '' # not zipped on ftp site for this year
@@ -78,101 +80,134 @@ ejscreen.download <-
     zipname <- x[1]
     csvname <- x[2]
     
-    setwd(folder)
+    #setwd(folder) # should not need this
     if (zipname == '') {
       myfilename <- csvname
     } else {
       myfilename <- zipname
     }
-    mypathfile <- file.path(ftpurl, myfilename)
     
     # Download, Unzip, Read  ----------------------------------------------
     
-    ############################# #
-    # DOWNLOAD from the FTP site
-    ############################# #
-    cat('Attempting to download dataset from ',
-        mypathfile,
-        'and saving in',
-        folder,
-        ' \n')
-    cat('This normally takes a few minutes. \n')
-    x <- download.file(mypathfile, myfilename)
-    if (x != 0) {
-      stop('Download failed.')
-    }
-    if (!(file.exists(myfilename))) {
-      stop('download attempted but saved zip file not found locally')
+    justdownload <- function(mypathfileRemote, mypathfileLocal) {
+      ############################# #
+      # DOWNLOAD from the FTP site
+      ############################# #
+      #mypathfileRemote <- file.path(ftpurl, myfilename)
+      #mypathfileLocal <- file.path(folder, myfilename)
+      cat('Attempting to download dataset from ',
+          mypathfileRemote,
+          'and saving as',
+          mypathfileLocal,
+          ' \n')
+      cat('This normally takes a few minutes. \n')
+      x <- download.file(url = mypathfileRemote, destfile = mypathfileLocal)
+      if (x != 0) {
+        stop('Download failed.')
+      }
+      if (!(file.exists(mypathfileLocal))) {
+        stop('download attempted but saved zip file not found locally')
+      }
+      return(NULL)
     }
     
+    justdownload(mypathfileRemote = file.path(ftpurl, myfilename), mypathfileLocal = file.path(folder, myfilename))
+    
     ############################# #
-    # UNZIP IF WAS ZIPPED
+    # UNZIP IF WAS ZIPPED---------
     ############################# #
     if (zipname == '') {
       cat('\n')
     } else {
       cat('Attempting to unzip dataset \n')
-      unzip(zipname)
+      unzip(file.path(folder, myfilename))
     }
     
-    ############################# #
-    # Read the csv file into R
-    ############################# #
-    # Possibly even faster via readr package readr::read_csv() which I think can download and read all in one step
-    # read.csv takes a couple of minutes, and much faster if you use data.table::fread()
-    #   Read 217739 rows and 391 (of 391) columns from 0.653 GB file in 00:00:46  # fast via fread()
-    # bg <- read.csv('EJSCREEN_20150505.csv', nrows = 220000) # as.is = TRUE, # too slow
-    if (!(file.exists(csvname))) {
-      stop('csv file should have been downloaded but not found in folder where expected')
+    justreadcsv <- function(fullpathcsvname) {
+      # fullpathcsvname here should include full path unless used setwd()
+      ############################# #
+      # Read the csv file into R
+      ############################# #
+      # Possibly even faster via readr package readr::read_csv() which I think can download and read all in one step
+      # read.csv takes a couple of minutes, and much faster if you use data.table::fread()
+      #   Read 217739 rows and 391 (of 391) columns from 0.653 GB file in 00:00:46  # fast via fread()
+      # bg <- read.csv('EJSCREEN_20150505.csv', nrows = 220000) # as.is = TRUE, # too slow
+      if (!(file.exists(fullpathcsvname))) {
+        stop('csv file should have been downloaded but not found in folder where expected')
+      }
+      cat('Attempting to import csv dataset to R \n')
+      #bg <- data.table::fread(fullpathcsvname)
+      # Handle 'None' as NA values this way:
+      bg <- readr::read_csv(file = fullpathcsvname, na = 'None')
+      bg <- data.frame(bg, stringsAsFactors = FALSE)
     }
-    cat('Attempting to import csv dataset to R \n')
-    bg <- data.table::fread(csvname)
-    bg <- data.frame(bg)
     
+    # DSLPM[1] 592  D_DSLPM_2
+    # $CANCER[1] 592
+    # $RESP[1] 592
+    # $PWDIS[1] 534
+    # $OZONE[1] 4258
+    # $PM25[1] 4258
     
-    ############################# #
-    # sort by FIPS
-    ############################# #
-    bg <- bg[order(bg$FIPS),]
+    # fread had a PROBLEM that readr::read_csv fixes - Several 2017 columns have "None" as a value so the col is interpreted as character not numeric.
+    # and ID column which is FIPS is interpreted as integer64 instead of character 
     
+    bg <- justreadcsv(fullpathcsvname = file.path(folder, csvname))
+    # bg <- justreadcsv("~/Desktop/ej17b/EJSCREEN_2017_USPR_Public.csv")
     
-    # Add a flag column ---------------------------------------------------------
+    # change field names  -----------
+    # -- rename the cols to preferred field names
+    names(bg) <- change.fieldnames.ejscreen.csv(names(bg))
     
+    # Add FIPS, countyname, statename, State etc --------
+    # add the other FIPS components as individual columns
+    bg <- addFIPScomponents(bg)   
+
+    # Add a flag column if needed ---------------------------------------------------------
+    #
     ############################# #
     # ADD FLAG COLUMN - FLAG ROWS WHERE AT LEAST ONE OF A FEW INDICATORS IS ABOVE GIVEN CUTOFF THRESHOLD
     ############################# #
+    #
+    # should have access to the data via lazy loading once package is loaded, so don't need to say data()
+    ### data(names.ejvars)
+    # dput(names.ej.pctile)
+    # c("pctile.EJ.DISPARITY.pm.eo",
+    #   "pctile.EJ.DISPARITY.o3.eo",
+    #   "pctile.EJ.DISPARITY.cancer.eo",
+    #   ###"pctile.EJ.DISPARITY.neuro.eo", # obsolete since 2015 version
+    #   "pctile.EJ.DISPARITY.resp.eo",
+    #   "pctile.EJ.DISPARITY.dpm.eo",
+    #   "pctile.EJ.DISPARITY.pctpre1960.eo",
+    #   "pctile.EJ.DISPARITY.traffic.score.eo",
+    #   "pctile.EJ.DISPARITY.proximity.npl.eo",
+    #   "pctile.EJ.DISPARITY.proximity.rmp.eo",
+    #   "pctile.EJ.DISPARITY.proximity.tsdf.eo",
+    #   "pctile.EJ.DISPARITY.proximity.npdes.eo")
+    #
+    # cat(round(100* sum(x)/length(x) , 1), ' percent of block groups are flagged as having 1+ of the EJ Indexes at/above the 80th percentile of US population \n')
+    ## 31% of US block groups
+    ## NOTE: function called "ejanalysis::flagged()" and data(names.ej.pctile), which stores field names
+    ##  ARE NOW attached via Depends in DESCRIPTION file
+    # if (!require('devtools')) install.packages('devtools')
+    # if (!require('analyze.stuff')) devtools::install_github("ejanalysis/analyze.stuff"); library(analyze.stuff)
+    # if (!require('ejanalysis')) devtools::install_github("ejanalysis/ejanalysis"); library(ejanalysis)
+    #
+    ## See which block groups are flagged as having one or more of 12 EJ indexes >= 80th US pctile
+    ## Store result as a logical vector as long as the list of block groups:
+    
     if (addflag) {
-      data(names.ejvars)
-      # dput(names.ej.pctile)
-      # c("pctile.EJ.DISPARITY.pm.eo",
-      #   "pctile.EJ.DISPARITY.o3.eo",
-      #   "pctile.EJ.DISPARITY.cancer.eo",
-      #   "pctile.EJ.DISPARITY.neuro.eo",
-      #   "pctile.EJ.DISPARITY.resp.eo",
-      #   "pctile.EJ.DISPARITY.dpm.eo",
-      #   "pctile.EJ.DISPARITY.pctpre1960.eo",
-      #   "pctile.EJ.DISPARITY.traffic.score.eo",
-      #   "pctile.EJ.DISPARITY.proximity.npl.eo",
-      #   "pctile.EJ.DISPARITY.proximity.rmp.eo",
-      #   "pctile.EJ.DISPARITY.proximity.tsdf.eo",
-      #   "pctile.EJ.DISPARITY.proximity.npdes.eo")
-      #
-      # See which block groups are flagged as having one or more of 12 EJ indexes >= 80th US pctile
-      # Store result as x, which is a logical vector as long as the list of block groups:
-      x <-
-        ejanalysis::flagged(bg[, names.ej.pctile], cutoff = cutoff, or.tied = or.tied)
-      bg$flagged <- x
-      # cat(round(100* sum(x)/length(x) , 1), ' percent of block groups are flagged as having 1+ of the EJ Indexes at/above the 80th percentile of US population \n')
-      # 31% of US block groups
-      # NOTE: function called "ejanalysis::flagged()" and data(names.ej.pctile), which stores field names
-      #  ARE NOW attached via Depends in DESCRIPTION file
-      # if (!require('devtools')) install.packages('devtools')
-      # if (!require('analyze.stuff')) devtools::install_github("ejanalysis/analyze.stuff"); library(analyze.stuff)
-      # if (!require('ejanalysis')) devtools::install_github("ejanalysis/ejanalysis"); library(ejanalysis)
+      bg$flagged <- ejanalysis::flagged(bg[, names.ej.pctile], cutoff = cutoff, or.tied = or.tied)
     }
+    
+    ############################# #
+    # sort by FIPS ----------
+    ############################# #
+    bg <- bg[order(bg$FIPS), ]
     
     ############################# #
     cat('Done \n\n')
     ############################# #
     return(bg)
   }
+
