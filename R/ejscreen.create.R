@@ -99,7 +99,7 @@ ejscreen.create <-
     # via SEPARATE CODE: # - Obtain ACS demographics from Census FTP site,
     # Create derived demographic fields (D)
     # - including creating calculated and other fields etc. using
-    # change.fieldnames(),
+    # analyze.stuff::change.fieldnames(),
     # get.fips.tract() get.epa.region() get.fips.county() get.fip.st(),
     # calc.fields(), etc.
     #
