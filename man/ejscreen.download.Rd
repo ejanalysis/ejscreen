@@ -46,8 +46,12 @@ Not fully tested. \cr
 }
 \examples{
  
-   # bg18 <- ejscreen.download('~/Dropbox/EJSCREEN/R Analysis/2018 dataset EJSCREEN/', justreadname = 'EJSCREEN_Full_USPR_2018.csv')
    # bg18 <- ejscreen.download('~/Dropbox/EJSCREEN/R Analysis/2018 dataset EJSCREEN/')
+   ## bg18 <- ejscreen.download('~/Dropbox/EJSCREEN/R Analysis/2018 dataset EJSCREEN/', justreadname = 'EJSCREEN_Full_USPR_2018.csv')
+   # bg18 <- bg18[ , !grepl(pattern = 'pctile\\\\.text', x = names(bg18))]
+   # bg18 <- bg18[ , !grepl(pattern = 'svi6', x = names(bg18))]
+   # setwd('~/Dropbox/EJSCREEN/R analysis/2018 dataset EJSCREEN')
+   # save(bg18, file = 'bg18.rdata')
 }
 \seealso{
 \code{\link{ejscreen.create}}

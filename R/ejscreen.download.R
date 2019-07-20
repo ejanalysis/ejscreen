@@ -21,8 +21,12 @@
 #' @source See \url{http://www.epa.gov/ejscreen} for more information, and see \url{http://www.epa.gov/ejscreen/download-ejscreen-data} or \url{ftp://newftp.epa.gov/EJSCREEN} for raw data.
 #' @seealso \code{\link{ejscreen.create}}
 #' @examples  
-#'    # bg18 <- ejscreen.download('~/Dropbox/EJSCREEN/R Analysis/2018 dataset EJSCREEN/', justreadname = 'EJSCREEN_Full_USPR_2018.csv')
 #'    # bg18 <- ejscreen.download('~/Dropbox/EJSCREEN/R Analysis/2018 dataset EJSCREEN/')
+#'    ## bg18 <- ejscreen.download('~/Dropbox/EJSCREEN/R Analysis/2018 dataset EJSCREEN/', justreadname = 'EJSCREEN_Full_USPR_2018.csv')
+#'    # bg18 <- bg18[ , !grepl(pattern = 'pctile\\.text', x = names(bg18))]
+#'    # bg18 <- bg18[ , !grepl(pattern = 'svi6', x = names(bg18))]
+#'    # setwd('~/Dropbox/EJSCREEN/R analysis/2018 dataset EJSCREEN')
+#'    # save(bg18, file = 'bg18.rdata')
 #' @export
 ejscreen.download <-
   function(folder = getwd(),
@@ -70,7 +74,12 @@ ejscreen.download <-
           stop('folder for that year not found on FTP site')
           }
       }
-            
+      
+      justftpurl <- function(yr) {
+        return(paste(ftpurlbase, yr, sep = '')) # coerces yr to character. Hopefully will keep this format
+      }  
+      ftpurl <- justftpurl(yr)
+
       zipcsvnames <- function(yr) {
         if (yr == 2015) {
           zipname <- 'EJSCREEN_20150505.csv.zip'
