@@ -7,19 +7,19 @@
 See \url{http://www.epa.gov/ejscreen} for more information, and see \url{http://www.epa.gov/ejscreen/download-ejscreen-data} or \url{ftp://newftp.epa.gov/EJSCREEN} for raw data.
 }
 \usage{
-ejscreen.download(folder = getwd(), yr = 2017, ftpurl, zipname,
-  csvname, addflag = FALSE, cutoff = 80, or.tied = TRUE)
+ejscreen.download(folder = getwd(), yr = NULL,
+  ftpurlbase = "ftp://newftp.epa.gov/EJSCREEN/", justreadname = NULL,
+  addflag = FALSE, cutoff = 80, or.tied = TRUE)
 }
 \arguments{
 \item{folder}{Optional path to folder (directory) where the file will be downloaded and unzipped. Default is current working directory.}
 
-\item{yr}{Default was 2017 as of 6/2018. Optional numeric year version such as 2015, 2016, 2017.}
+\item{yr}{Default is latest available year found as a folder on the FTP site. That was 2018 as of 7/20/19, but would be updated to 2019 upon release of that version in late 2019. Default was 2017 as of 6/2018. 
+Optional numeric year designating EJSCREEN version such as 2015, 2016, 2017, 2018, 2019.}
 
-\item{ftpurl}{Optional. Default is ftp://newftp.epa.gov/EJSCREEN/yyyy (yyyy=year version=yr) for where to find the zipped data.}
+\item{ftpurlbase}{Optional. Default is ftp://newftp.epa.gov/EJSCREEN/ and must have ending slash -- for where to find the zipped data.}
 
-\item{zipname}{Optional. Default for the name of the zip file of data depends on yr. Empty for yr=2017. For yr=2015, EJSCREEN_20150505.csv.zip}
-
-\item{csvname}{Optional. Default for the name of the csv file of data depends on yr. For yr=2017, EJSCREEN_2017_USPR_Public.csv and for yr=2015, EJSCREEN_20150505.csv}
+\item{justreadname}{Optional character file name - if specified, skips downloading and just tries to read csv found in \code{folder}.}
 
 \item{addflag}{Optional. Default is FALSE. If TRUE, it adds a field called flagged, which is TRUE if 1 or more of the EJ Indexes is at/above the cutoff US percentile.}
 
@@ -32,11 +32,22 @@ Returns a data.frame with ejscreen dataset of environmental and demographics ind
   as raw values, US percentiles, text for popups. Output has one row per block group.
 }
 \description{
-Download EJSCREEN dataset from FTP site, and import to R as data.table,
-  renaming fields with friendly colnames, optionally adding a flag field.
+Download EJSCREEN dataset from FTP site, unzip if necessary, 
+  import to R as data.table, 
+  renaming fields with friendly colnames, optionally adding a flag field (see parameter called \code{addflag}).
 }
 \details{
-Not tested.
+Not fully tested. \cr 
+  Each version of EJSCREEN uses updated environmental data and updated 5-year summary file estimates from the American Community Survey (ACS).\cr
+  The 2015 version of EJSCREEN, released in mid 2015, was based on 2008-2012 ACS data, and was the first public version available for download. \cr
+  The 2018 version of EJSCREEN, released in mid 2018, was based on 2012-2016 ACS 5-year summary file data that came out in Dec 2017.\cr
+  The 2019 version of EJSCREEN, released in mid/late 2019, is based on 2013-2017 ACS 5-year data that came out in Dec 2018.\cr
+  The 2014-2018 ACS 5-year data will be released starting December 19, 2019.
+}
+\examples{
+ 
+   # bg18 <- ejscreen.download('~/Dropbox/EJSCREEN/R Analysis/2018 dataset EJSCREEN/', justreadname = 'EJSCREEN_Full_USPR_2018.csv')
+   # bg18 <- ejscreen.download('~/Dropbox/EJSCREEN/R Analysis/2018 dataset EJSCREEN/')
 }
 \seealso{
 \code{\link{ejscreen.create}}
