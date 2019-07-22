@@ -27,7 +27,8 @@
 #' @param ejtype optional, default is 1, defines which formula to use for ejindex if not using ejscreenformulas. See \code{\link{ej.indexes}} But note alt1 and alt2 still use type 5 and 6 ignoring ejtype.
 #' @param checkfips optional, default is TRUE. If TRUE, function checks to verify all FIPS codes appear to be valid US FIPS
 #'   (correct number of characters, adding any leading zero needed, and checking the first five to ensure valid county). To use something other than actual US FIPS codes, set this to FALSE.
-#' @param threshold optional, default is FALSE. Set to TRUE to add a column (called 'flag') to results that is TRUE when one or more of certain percentiles (US EJ Index) in a block group (row) exceed cutoff.
+#' @param threshold optional, default is FALSE. Set to TRUE to add a column (called 'flagged') to results that is TRUE when one or more of certain percentiles (US EJ Index) in a block group (row) exceed cutoff. 
+#'   A field called flagged can also be added via \link[ejanalysis]{flagged} ejanalysis::flagged() or via \link{ejscreen.download}( addflag = TRUE )
 #' @param cutoff optional, default is 0.80 (80th percentile). If threshold=TRUE, then cutoff defines the threshold against which percentiles are compared.
 #' @param thresholdfieldnames optional, default is standard EJSCREEN EJ Indexes built into code. Otherwise, vector of character class fieldnames, specifying which fields to compare to cutoff if threshold=TRUE.
 #' @param ejformulasfromcode optional, default is FALSE. If TRUE, use EJ Index formulas built into this function instead of the EJ Index formulas in ejscreenformulas.
@@ -414,7 +415,7 @@ ejscreen.create <-
     
     
     # add threshold flag if requested -----------------------------------------
-    
+    # The field called flagged can also be added via ejanalysis::flagged() or via ejscreen.download( addflag = TRUE )
     if (threshold) {
       #  add threshold flag if requested
       # later could allow user specified fields to be applied to threshold cutoff
@@ -425,7 +426,7 @@ ejscreen.create <-
       }
       
       if (all(thresholdfieldnames %in% names(bg))) {
-        bg$flag <-
+        bg$flagged <-
           ejanalysis::flagged(bg[, thresholdfieldnames] / 100, cutoff = cutoff)
       } else {
         warning(

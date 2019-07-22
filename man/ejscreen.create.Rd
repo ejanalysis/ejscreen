@@ -54,7 +54,8 @@ The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE. N
 
 \item{end.year}{optional to pass to \code{\link[ACSdownload]{get.acs}} (such as end.year='2013' -- otherwise uses default year used by \code{\link[ACSdownload]{get.acs}})}
 
-\item{threshold}{optional, default is FALSE. Set to TRUE to add a column (called 'flag') to results that is TRUE when one or more of certain percentiles (US EJ Index) in a block group (row) exceed cutoff.}
+\item{threshold}{optional, default is FALSE. Set to TRUE to add a column (called 'flagged') to results that is TRUE when one or more of certain percentiles (US EJ Index) in a block group (row) exceed cutoff. 
+A field called flagged can also be added via \link[ejanalysis]{flagged} ejanalysis::flagged() or via \link{ejscreen.download}( addflag = TRUE )}
 
 \item{cutoff}{optional, default is 0.80 (80th percentile). If threshold=TRUE, then cutoff defines the threshold against which percentiles are compared.}
 
