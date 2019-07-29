@@ -27,7 +27,7 @@
 #' @param ejtype optional, default is 1, defines which formula to use for ejindex if not using ejscreenformulas. See \code{\link{ej.indexes}} But note alt1 and alt2 still use type 5 and 6 ignoring ejtype.
 #' @param checkfips optional, default is TRUE. If TRUE, function checks to verify all FIPS codes appear to be valid US FIPS
 #'   (correct number of characters, adding any leading zero needed, and checking the first five to ensure valid county). To use something other than actual US FIPS codes, set this to FALSE.
-#' @param threshold optional, default is FALSE. Set to TRUE to add a column (called 'flagged') to results that is TRUE when one or more of certain percentiles (US EJ Index) in a block group (row) exceed cutoff. 
+#' @param threshold optional, default is FALSE. Set to TRUE to add a column (called 'flagged') to results that is TRUE when one or more of certain percentiles (US EJ Index) in a block group (row) exceed cutoff.
 #'   A field called flagged can also be added via \link[ejanalysis]{flagged} ejanalysis::flagged() or via \link{ejscreen.download}( addflag = TRUE )
 #' @param cutoff optional, default is 0.80 (80th percentile). If threshold=TRUE, then cutoff defines the threshold against which percentiles are compared.
 #' @param thresholdfieldnames optional, default is standard EJSCREEN EJ Indexes built into code. Otherwise, vector of character class fieldnames, specifying which fields to compare to cutoff if threshold=TRUE.
@@ -81,8 +81,8 @@ ejscreen.create <-
     ##################################################################################### #
     # Create EJSCREEN dataset in R (given Demographic and Environmental variables)
     ##################################################################################### #
-    
-    
+
+
     ########################################## #
     # OUTLINE OF STEPS --------------------------------------------------------
     ########################################## #
@@ -133,27 +133,27 @@ ejscreen.create <-
     # Put into SHAPEFILE FORMAT? Maybe using sp pkg?
     #
     ##################################################################################### #
-    
+
     #   require(ACSdownload)
     #   require(analyze.stuff)
     #   require(proxistat)
     #   require(UScensus2010blocks)
     #   require(countyhealthrankings)
-    
+
     #require(ejanalysis)
     #data(names.evars); data(names.dvars); data(names.ejvars)
-    
+
     # GET DEMOGRAPHICS --------------------------------------------------------
-    
-    
+
+
     ########################################################################################################## #
     #  GET DEMOGRAPHICS
     ########################################################################################################## #
-    
+
     mystates <- ACSdownload::clean.mystates(mystates = mystates)
     # *** note that if mystates = 'all', this no longer returns 'pr' (Puerto Rico) as one of the states,
     # since that should be excluded to do percentiles on US without PR.
-    
+
     # Created file called "variables needed.csv" specific to EJSCREEN
     # and now that is in  data(vars.ejscreen.acs) from ejscreen package as default list of acs variables like 'B01001.001'
     if (missing(acsraw)) {
@@ -162,7 +162,7 @@ ejscreen.create <-
         # Should be available via lazy loading:
         # data(vars.ejscreen.acs, package = "ejscreen", envir = environment())
         acsraw <-
-          ACSdownload::get.acs(
+          ejscreen.acsget(
             tables = 'ejscreen',
             vars = vars.ejscreen.acs,
             base.path = folder,
@@ -172,7 +172,7 @@ ejscreen.create <-
           )
       } else {
         acsraw <-
-          ACSdownload::get.acs(
+          ejscreen.acsget(
             tables = 'ejscreen',
             vars = vars.ejscreen.acs,
             base.path = folder,
@@ -184,7 +184,7 @@ ejscreen.create <-
       # NOTE THIS DOES NOT PRESERVE tracts data downloaded
       # NOTE THIS ASSUMES acsraw HAS THE RIGHT STATES TO MATCH THOSE IN e
     }
-    
+
     if (1 == 0) {
       # older examples:
       # load(file.path(mypath, 'ACS - download and parse/ACS DOWNLOADED/FTP raw 20135 ACS', 'ACS 2009-2013 EJSCREEN BG w calc vars via FTP.RData'))
@@ -193,13 +193,13 @@ ejscreen.create <-
       #    load(file.path(mypath, 'bg EJSCREEN plus race eth subgrps ACS0812.RData'))
       # bg.d <- read.csv(file='8D-2014-06.csv', as.is=TRUE)
     }
-    
+
     # could allow user to pass formulafile here but would need to ensure correctly treated as missing if left out
     bg.d <-
       ejscreen.acs.rename(acsraw, folder = folder) # normally just uses default folder and filename
-    
+
     # PUT E AND D IN SAME DATA.FRAME   #  & get names of those fields ---------
-    
+
     ########################################################################################################## #
     #  PUT E AND D IN SAME DATA.FRAME
     #  & get names of those fields
@@ -210,23 +210,23 @@ ejscreen.create <-
     }
     bg.d <- bg.d[order(bg.d$FIPS),]
     e <- e[order(e$FIPS),]
-    
+
     if (checkfips) {
       #*** this fails in an ugly fashion if the values passed are not actually FIPS at all but are e.g., characters like "NY"
       # clean up adding leading zero and saving as character in case 11 digit numeric missing leading zero for example
       # but note that will not allow use of simple ordinal numbers in lieu of FIPS, since clean.fips requires fips to be valid state, county, etc., not just any number or string
-      
+
       e$FIPS <- ejanalysis::clean.fips(e$FIPS)
       bg.d$FIPS <- ejanalysis::clean.fips(bg.d$FIPS)
     }
-    
+
     if (any(e$FIPS != bg.d$FIPS)) {
       stop('Environment and Demographic datasets must match FIPS in 100% of cases')
     }
-    
+
     # **** SHOULD CHANGE THIS TO HANDLE CASE WHERE ENVT DATA IS MISSING IN SOME LOCATIONS, TREATED AS NA. *********************
     # WOULD NEED TO USE merge() below instead of data.frame()
-    
+
     mynames.d <- names(bg.d)[names(bg.d) != 'FIPS']
     mynames.e <- names(e)[names(e) != 'FIPS']
     if (any(mynames.d %in% mynames.e) |
@@ -237,30 +237,30 @@ ejscreen.create <-
     }
     # this was already available as names.d or names.e for EJSCREEN2014, but this is now more generic
     # NOTE: pctpre1960 is in environmental dataset but also demographic since obtained from ejscreen.acs.calc below, so it will be duplicated below.
-    
+
     # CALCULATE DEMOGRAPHIC derived fields (D) (and EJ Index fields -----------
-    
+
     ########################################################################################################## #
     # CALCULATE DEMOGRAPHIC derived fields (D) (and EJ Index fields if ejformulasfromcode=FALSE )
     # (Check that keep.old missing will work as intended)
     ########################################################################################################## #
-    
+
     # include environmental dataset along with demographic when sending bg to ejscreen.acs.calc
     bg <- data.frame(bg.d, e[, mynames.e], stringsAsFactors = FALSE)
     rm(bg.d) # rm(e); gc() # need e later
-    
+
     if (ejformulasfromcode & missing(formulas)) {
       # if (ejformulasfromcode & missing(formulafile) & missing(formulas) ) { #xxx in case formulafile gets implemented here
       # # use the version of the default formulas that leaves out the EJ formulas. They are in code below instead.
       formulas <- ejscreenformulasnoej # lazyloaded data
     }
-    
+
     # keep.old default is to be missing here,
     # and default in ejscreen.acs.calc should be the hardwired ejscreen-specific fields including FIPS and key raw demographics
-    
+
     bg <-
       ejscreen.acs.calc(bg, keep.old = keep.old, formulas = formulas)
-    
+
     # FOR NOW JUST ADD e AGAIN, SINCE ADDED IN CASE WANTED IN FORMULAS BUT NOT RETAINED BY DEFAULT keep.old
     # can fix that later to optimize this
     bg <- data.frame(bg, e[, mynames.e], stringsAsFactors = FALSE)
@@ -271,19 +271,19 @@ ejscreen.create <-
     mynames.d <-
       names(bg)[!(names(bg) %in% c('FIPS', mynames.e))] # but that might include some fields we do not want? should have all returned by ejscreen.acs.calc other than FIPS
     #mynames.d <- mynames.d[mynames.d %in% names(bg) ]     # but that leaves out the new d fields
-    
+
     # BINS AND PERCENTILES for DEMOG AND ENVT ---------------------------------
-    
+
     ########################################################################################################## #
     # BINS AND PERCENTILES for DEMOG AND ENVT (and EJ -- if created by formulas not code below):
     #  add US percentile and map color bin cols
     ########################################################################################################## #
-    
+
     # cat('\n')
     # print('mynames.d');print(mynames.d);cat('\n')
     # print('mynames.e');print(mynames.e);cat('\n')
     # print('names(bg)');print(names(bg));cat('\n')
-    
+
     #	DEMOG
     # (if EJ Index formulas were in ejscreenformulas variable lazy loaded from data, or specified by user formulas,
     # then they will be here as well!)
@@ -291,22 +291,22 @@ ejscreen.create <-
       data.frame(bg,
                  ejanalysis::make.bin.pctile.cols(bg[, gsub('FIPS', '', mynames.d)], bg[, wtsvarname]),
                  stringsAsFactors = FALSE)
-    
+
     #	ENVT
     bg <-
       data.frame(bg,
                  ejanalysis::make.bin.pctile.cols(bg[, mynames.e], bg[, wtsvarname]),
                  stringsAsFactors = FALSE)
-    
+
     # CALCULATE and name the EJ INDEXES & add those cols and bin pctil --------
-    
+
     if (ejformulasfromcode & missing(formulas)) {
       ########################################################################################################## #
       # CALCULATE EJ INDEXES:
       #  CALCULATE and name the EJ INDEXES & add those cols to bg
       # and the bin and percentile cols
       ########################################################################################################## #
-      
+
       #   Warning - Did not specify us.demog= fraction of US population that is in the given demographic group
       #   Using calculated us.demog= NaN , based on all locations with valid demographics (which may be a bit different than those with valid envt scores)
       # and using bg[ , wtsvarname] (default is pop) as denominator, which is not exactly right for pctlowinc, pctlths, pctlingiso, (&pctpre1960).
@@ -314,7 +314,7 @@ ejscreen.create <-
       #   (bg$age25up)
       #   (bg$hhlds)
       #   (bg$builtunits)
-      
+
       # EJ Index raw values cols
       EJ.basic.eo   <-
         data.frame(
@@ -342,16 +342,16 @@ ejscreen.create <-
       # add to bg
       bg <-
         data.frame(bg, EJ.basic.eo, EJ.basic.svi6, stringsAsFactors = FALSE)
-      
+
       # EJ bin/percentile cols
       bg <-
         data.frame(bg,
                    ejanalysis::make.bin.pctile.cols(bg[, c(names(EJ.basic.eo), names(EJ.basic.svi6))], weights = bg[, wtsvarname]),
                    stringsAsFactors = FALSE)
       rm(EJ.basic.eo, EJ.basic.svi6)
-      
+
       ### #
-      
+
       # Supplementary/ alt1 EJ Indexes raw values cols
       #EJ.alt1.eo   <- sapply(bg[ , mynames.e], function(x) {x * bg[ , wtsvarname] * bg[,demogvarname0]  })
       EJ.alt1.eo   <-
@@ -373,7 +373,7 @@ ejscreen.create <-
         )
       names(EJ.alt1.svi6) <-
         paste(EJprefix1, mynames.e, demogvarname1suffix, sep = '.')
-      
+
       # Supplementary/ alt2 EJ Indexes raw values cols
       #EJ.alt2.eo   <- sapply(bg[ , mynames.e], function(x) {x * bg[ , demogvarname0]  })
       EJ.alt2.eo   <-
@@ -389,7 +389,7 @@ ejscreen.create <-
                                type = 6)
       names(EJ.alt2.svi6) <-
         paste(EJprefix2, mynames.e, demogvarname1suffix, sep = '.')
-      
+
       # add alt raw EJ cols to bg
       bg <-
         data.frame(bg,
@@ -398,7 +398,7 @@ ejscreen.create <-
                    EJ.alt2.eo,
                    EJ.alt2.svi6,
                    stringsAsFactors = FALSE)
-      
+
       # EJ alt bin/percentile cols
       bg <-
         data.frame(bg,
@@ -408,23 +408,23 @@ ejscreen.create <-
         data.frame(bg,
                    ejanalysis::make.bin.pctile.cols(bg[, c(names(EJ.alt2.eo), names(EJ.alt2.svi6))], bg[, wtsvarname]),
                    stringsAsFactors = FALSE)
-      
+
       rm(EJ.alt1.eo, EJ.alt1.svi6, EJ.alt2.eo, EJ.alt2.svi6)
-      
+
     }
-    
-    
+
+
     # add threshold flag if requested -----------------------------------------
     # The field called flagged can also be added via ejanalysis::flagged() or via ejscreen.download( addflag = TRUE )
     if (threshold) {
       #  add threshold flag if requested
       # later could allow user specified fields to be applied to threshold cutoff
-      
+
       if (missing(thresholdfieldnames)) {
         #data(names.ejvars, package = 'ejanalysis', envir = environment())
         thresholdfieldnames <- names.ej.pctile
       }
-      
+
       if (all(thresholdfieldnames %in% names(bg))) {
         bg$flagged <-
           ejanalysis::flagged(bg[, thresholdfieldnames] / 100, cutoff = cutoff)
@@ -434,12 +434,12 @@ ejscreen.create <-
         )
       }
     }
-    
+
     # Add FIPS, countyname, statename, State etc --------
     # add the other FIPS components as individual columns
-    bg <- addFIPScomponents(bg)   
+    bg <- addFIPScomponents(bg)
     # or if func rewritten to use fips not whole bg, then need to call like this:
     #  bg <- cbind(addFIPSparts(bg$FIPS), bg[ , names(bg)[names(bg) != 'FIPS']])
-    
+
     return(bg)
   }
