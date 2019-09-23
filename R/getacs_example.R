@@ -1,15 +1,19 @@
 
 if (1 == 0) {
 
+  # see also NOTES-on-reading-EJSCREEN-2019-from-gdb-...
+
   # notes on creating ACS2017 dataset that has fuller demog and county info
 
 
-  # also see data(bg17, package = 'ejscreen') # but that has fewer demog fields (lacks pctpoor, pcthisp, etc.)
-
+  # also see data(bg17, package = 'ejscreen') # but that has fewer demog fields (lacks pctpoor, pcthisp, etc.??)
+# But EJSCREEN dataset from FTP site DOES have pctpoor, pcthisp, etc.
+  # What ACS has that is not in FTP site is demographic subgroups like nhwa
 
 
   # script to download and clean up and calc ACS Demog fields used in EJSCREEN
 
+  # 2017 version shown here but 2018 also done in 2019.
 
   require(ejscreen)
   require(ACSdownload)
@@ -35,12 +39,10 @@ if (1 == 0) {
   write.csv(headers, file = 'headers ACS 2013-2017 EJ tables more fields.csv')
   head(acs2017$info)
 
-
   tracts <- acs2017$tracts
   tracts <- ejscreen.acs.rename(tracts)
   tracts <- ejscreen.acs.calc(tracts, keep.old = 'all', keep.new = 'all')
   save(tracts, file = '~/Downloads/acsoutput/tracts.rdata')
-
 
   bgacs2017 <- acs2017$bg
   bgacs2017 <- ejscreen.acs.rename(bgacs2017)
