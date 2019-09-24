@@ -8,6 +8,7 @@
 #'   and some fields added (lat lon for bg centroids, flagged if any of EJ indexes above 80th percentile in US),
 #'   and state name and state abbrev and county name and FIPS for tract, county, state,
 #'   BUT NOT REMOVING a handful of rows removed from the data (that had NA values in FIPS.ST)
+#'   Also, it does not include the lookup tables of percentiles for USA, Regions, States, which are in the gdb.
 #' @details
 #'   It was created for this package as follows: \cr\cr
 #'     \code{require(ejscreen); require(ACSdownload)} \cr
