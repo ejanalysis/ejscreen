@@ -15,6 +15,16 @@
 #'       lookup = lookupStates19, zone = 'NY')
 #'       # Those traffic scores are at the 62d and 83d percentiles within NY State (83 percent
 #'       # of the NY State population had a traffic score lower than 3000).
+#'    \dontrun {
+#'     bg <- bg19[sample(1:NROW(bg19), 100), ]
+#'     state.pctile.pm <- ejanalysis::lookup.pctile(myvector = bg$pm, varname.in.lookup.table = 'pm',
+#'        lookup = lookupStates19, zone = bg$ST)
+#'     plot(state.pctile.pm, bg$pctile.pm, pch = '.')
+#'     text(state.pctile.pm, bg$pctile.pm, labels = paste(bg$ST, round(bg$pm,1)), cex = 0.8)
+#'     abline(0,1)
+#'     lookupStates19[lookupStates19$PCTILE == 'mean', c('REGION', 'pm')]
+#'     lookupUSA19[lookupUSA19$PCTILE == 'mean', c('REGION', 'pm')]
+#'   }
 #' @seealso lookupUSA19 lookupRegions19 lookupStates19 \code{\link{[ejanalysis]lookup.pctile}}
 #' @details
 #'   It was created for this package as follows: \cr\cr
