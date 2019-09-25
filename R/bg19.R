@@ -2,6 +2,10 @@
 #' @docType data
 #' @title The 2019 version of EJSCREEN data, plus lat lon, countynames, etc., minus some nonessential fields
 #' @description
+#'   Note the 2018 version of EJSCREEN (released late 2018)
+#'     actually uses ACS2016, which is from 2012-2016 (released late 2017).
+#'   Note the 2019 version of EJSCREEN (released late 2019)
+#'     actually uses ACS2017, which is from 2013-2017 (released late 2018).
 #'   This data set is the EJSCREEN dataset from the ftp site but with
 #'   fields renamed for easier use in the ejscreen package,
 #'   and some columns dropped (svi6-related, and the 2 alternative versions of an EJ Index)

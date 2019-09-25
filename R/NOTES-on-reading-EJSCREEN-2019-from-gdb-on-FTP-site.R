@@ -1,6 +1,10 @@
 #
 # NOTES ON READING THE EJSCREEN 2019 DATASET FROM THE FTP SITE GDB FILE
-#
+##'   Note the 2018 version of EJSCREEN (released late 2018)
+#'     actually uses ACS2016, which is from 2012-2016 (released late 2017).
+#'   Note the 2019 version of EJSCREEN (released late 2019)
+#'     actually uses ACS2017, which is from 2013-2017 (released late 2018).
+
 # see the help file for bg19 *************
 
 # Be clear on diff between EJSCREEN vs ACS extra fields:

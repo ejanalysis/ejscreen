@@ -1,19 +1,35 @@
 
 if (1 == 0) {
 
-  # see also NOTES-on-reading-EJSCREEN-2019-from-gdb-...
+    #  Note the 2018 version of EJSCREEN (released late 2018)
+    #    actually uses ACS2016, which is from 2012-2016 (released late 2017).
+    # Note the 2019 version of EJSCREEN (released late 2019)
+    #    actually uses ACS2017, which is from 2013-2017 (released late 2018).
 
   # notes on creating ACS2017 dataset that has fuller demog and county info
-
-
-  # also see data(bg17, package = 'ejscreen') # but that has fewer demog fields (lacks pctpoor, pcthisp, etc.??)
-# But EJSCREEN dataset from FTP site DOES have pctpoor, pcthisp, etc.
-  # What ACS has that is not in FTP site is demographic subgroups like nhwa
-
-
   # script to download and clean up and calc ACS Demog fields used in EJSCREEN
 
-  # 2017 version shown here but 2018 also done in 2019.
+  # For just EJSCREEN data,
+  # see data(bg19, package = 'ejscreen') or bg17, bg18 data also
+  # and maybe also see NOTES-on-reading-EJSCREEN-2019-from-gdb-...
+  # EJSCREEN dataset from FTP site has count and pct lowinc, min, lingiso, povknownratio, builtunits, etc.
+
+  # but EJSCREEN on FTP site does NOT have
+
+  #  - extra FIPS / geo info like statename, countyname, tract fips,
+  #    and latitude/ longitude of block group internal point,
+  #    but all those are added to bg17, bg18, bg19 datasets.
+
+  #  - flag for 80th percentile nationwide,
+  #    but that is in bg17,bg18,bg19.
+
+  #  - demog subgroups like nonhispanic white alone (nhwa)
+  #  - poverty (as opposed to just lowincome), as pctpoor or count
+  # but ACS does have this extra demographic info.
+
+  ####################### #
+
+  # ACS 2013-2017 version shown here (it became available from Census around December 2018).
 
   require(ejscreen)
   require(ACSdownload)
@@ -21,7 +37,7 @@ if (1 == 0) {
   require(ejanalysis)
 
   if (os('win')) {
-    # setwd('~/../Desktop/EJ 2018 all work/GRANTS 2019 WORK')
+
     setwd('~/../Desktop/EJ 2018 all work/GRANTS 2019 WORK/EPA acsoutput 2013-2017 EJSCREEN tables all fields plus calc')
   }
 

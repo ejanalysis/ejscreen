@@ -6,7 +6,11 @@
 \title{The 2019 version of EJSCREEN data, plus lat lon, countynames, etc., minus some nonessential fields}
 \format{data.frame with 220,333 rows (block groups) and 118 columns (may vary by year)}
 \description{
-This data set is the EJSCREEN dataset from the ftp site but with
+Note the 2018 version of EJSCREEN (released late 2018)
+    actually uses ACS2016, which is from 2012-2016 (released late 2017).
+  Note the 2019 version of EJSCREEN (released late 2019)
+    actually uses ACS2017, which is from 2013-2017 (released late 2018).
+  This data set is the EJSCREEN dataset from the ftp site but with
   fields renamed for easier use in the ejscreen package,
   and some columns dropped (svi6-related, and the 2 alternative versions of an EJ Index)
   and some fields added (lat lon for bg centroids, flagged if any of EJ indexes above 80th percentile in US),
