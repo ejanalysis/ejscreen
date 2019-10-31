@@ -68,8 +68,11 @@ Returns a data.frame with full ejscreen dataset of environmental and demographic
   as raw values, US percentiles, and text for popups. Output has one row per block group.
 }
 \description{
-Start with raw environmental indicator data, and create full EJSCREEN dataset.
-  This code also contains an outline of steps involved.
+Start with raw environmental indicator data, and create (or replicate) a full EJSCREEN dataset.
+  The source code also contains comments with an outline of steps involved.
+  Note that rather than using this function, one can instead
+  download the gdb file from the EJSCREEN FTP site
+  and open it in ESRI ArcGIS and export the attribute tables as text files in csv format.
 }
 \details{
 **Note that if non-default fieldnames are used in e and/or acsraw,

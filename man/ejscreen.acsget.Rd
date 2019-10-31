@@ -32,6 +32,11 @@ ejscreen.acsget(end.year = "2017", tables = c("B01001", "B03002",
 list of data.frames, default is just block group not tracts, unlike results of \link[ACDdownload]{get.acs}
 }
 \description{
+Note the 2018 version of EJSCREEN (released late 2018)
+    actually uses ACS2016, which is from 2012-2016 (released late 2017).
+  Note the 2019 version of EJSCREEN (released late 2019)
+    actually uses ACS2017, which is from 2013-2017 (released late 2018).
+
 Helper function used by ejscreen.create, but can be used if one wants to obtain the more detailed relevant ACS data.
   The EJSCREEN-related ACS tables have more of the detailed fields than the demographic data on the
   EJSCREEN FTP site, because the detailed fields are used to calculate the ones

@@ -1,15 +1,20 @@
 #' @name bg18
 #' @docType data
 #' @title The 2018 version of EJSCREEN data, plus lat lon, countynames, etc., minus some nonessential fields
-#' @description 
+#' @description
+#'   Note the 2018 version of EJSCREEN (released late 2018)
+#'     actually uses ACS2016, which is from 2012-2016 (released late 2017).
+#'   Note the 2019 version of EJSCREEN (released late 2019)
+#'     actually uses ACS2017, which is from 2013-2017 (released late 2018).
+#'
 #'   This data set is the EJSCREEN 2018 dataset from the ftp site but with
-#'   fields renamed for easier use in the ejscreen package, 
+#'   fields renamed for easier use in the ejscreen package,
 #'   and some columns dropped (svi6-related, and the 2 alternative versions of an EJ Index)
 #'   and some fields added (lat lon for bg centroids, flagged if any of EJ indexes above 80th percentile in US),
 #'   and state name and state abbrev and county name and FIPS for tract, county, state,
 #'   BUT NOT REMOVING a handful of rows removed from the bg17 data (that had NA values in FIPS.ST)
-#' @details 
-#'   bg18 was created for this package as follows: \cr\cr 
+#' @details
+#'   bg18 was created for this package as follows: \cr\cr
 #'   \code{ bg18 <- ejscreen.download(yr = 2018, addflag = TRUE)} \cr
 #'   \code{ #    OR IF ALREADY DOWNLOADED AND UNZIPPED, JUST DO THIS: }\cr
 #'   \code{#  bg18 <- ejscreen.download(justreadname = 'EJSCREEN_Full_USPR_2018.csv', addflag = TRUE)} \cr\cr
