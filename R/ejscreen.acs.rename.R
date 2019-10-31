@@ -9,8 +9,7 @@
 #' @param formulafile Default if this is blank is to use data(ejscreenformulas). Otherwise filename must be specified.
 #'   If not specified, function loads this as data().
 #' @return Returns a data.frame with some or all of input fields, plus calculated new fields.
-#' @examples
-#'  # (no examples yet)
+#' @seealso  \code{\link{ejscreenformulas}} \code{\link{change.fieldnames.ejscreen.csv}} \code{\link[analyze.stuff]{change.fieldnames}}
 #' @export
 ejscreen.acs.rename <-
   function(acsraw, folder = getwd(), formulafile) {
@@ -34,6 +33,6 @@ ejscreen.acs.rename <-
       # 'MAP OF CENSUS VS EJSCREEN-EPA FIELDNAMES.CSV' was for demographics only, and a different fieldnames map was available for EJ/envt/etc.:
       # names(bg) <- change.fieldnames('saved fieldnames maps Contractor to EPA varnames 2014-05-22.csv')
     }
-    
+
     return(acsraw)
   }

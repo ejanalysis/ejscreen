@@ -21,6 +21,6 @@ Returns a data.frame with some or all of input fields, plus calculated new field
 Start with raw counts from demographic survey data, and environmental data,
   and rename fields to use friendly variable names.
 }
-\examples{
- # (no examples yet)
+\seealso{
+\code{\link{ejscreenformulas}} \code{\link{change.fieldnames.ejscreen.csv}} \code{\link[analyze.stuff]{change.fieldnames}}
 }

@@ -23,5 +23,5 @@ Just a wrapper to help easily change colnames used in csv file on EJSCREEN FTP s
  }
 }
 \seealso{
-\code{\link[analyze.stuff]{change.fieldnames}}, \link{ejscreenformulas},
+\code{\link{ejscreenformulas}} \code{\link{ejscreen.acs.rename}} \code{\link[analyze.stuff]{change.fieldnames}}
 }

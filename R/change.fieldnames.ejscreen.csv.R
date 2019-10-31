@@ -3,7 +3,7 @@
 #'   into friendlier, preferred colnames for work in R. Uses \code{\link[analyze.stuff]{change.fieldnames}}
 #' @param mynames A character vector of colnames from a data.frame, like names(mydf). No default.
 #' @return Returns a character vector of colnames, same length as input parameter
-#' @seealso \code{\link[analyze.stuff]{change.fieldnames}}, \link{ejscreenformulas},
+#' @seealso \code{\link{ejscreenformulas}} \code{\link{ejscreen.acs.rename}} \code{\link[analyze.stuff]{change.fieldnames}}
 #' @examples
 #'  \dontrun{
 #'  gdbtable <- ejscreen.download()
