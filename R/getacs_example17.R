@@ -3,10 +3,14 @@ if (1 == 0) {
 
     #  Note the 2018 version of EJSCREEN (released late 2018)
     #    actually uses ACS2016, which is from 2012-2016 (released late 2017).
+
     # Note the 2019 version of EJSCREEN (released late 2019)
     #    actually uses ACS2017, which is from 2013-2017 (released late 2018).
 
-  # notes on creating ACS2017 dataset that has fuller demog and county info
+
+  # see files in folder 'EPA acsoutput 2013-2017 EJSCREEN tables all fields plus calc'
+
+    # notes on creating ACS2017 dataset that has fuller demog and county info
   # script to download and clean up and calc ACS Demog fields used in EJSCREEN
 
   # For just EJSCREEN data,
