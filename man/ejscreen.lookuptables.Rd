@@ -4,8 +4,14 @@
 \alias{ejscreen.lookuptables}
 \title{Create EJSCREEN Lookup Tables of Pop. Percentiles by Zone - WORK IN PROGRESS}
 \usage{
-ejscreen.lookuptables(x, weights = x$pop, cols, zonecols = c("ST",
-  "REGION"), folder = getwd(), missingcode = NA)
+ejscreen.lookuptables(
+  x,
+  weights = x$pop,
+  cols,
+  zonecols = c("ST", "REGION"),
+  folder = getwd(),
+  missingcode = NA
+)
 }
 \arguments{
 \item{x}{Data.frame of indicators, one row per block group, one column per indicator.}

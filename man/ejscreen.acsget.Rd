@@ -4,14 +4,22 @@
 \alias{ejscreen.acsget}
 \title{Download ACS tables EJSCREEN uses, but with more race ethnicity poverty details}
 \usage{
-ejscreen.acsget(end.year = "2017", tables = c("B01001", "B03002",
-  "B15002", "C17002", "B25034"), base.path = getwd(),
+ejscreen.acsget(
+  end.year = "2017",
+  tables = c("B01001", "B03002", "B15002", "C17002", "B25034"),
+  base.path = getwd(),
   data.path = file.path(base.path, "acsdata"),
-  output.path = file.path(base.path, "acsoutput"), vars = "all",
-  sumlevel = "bg", write.files = TRUE, ...)
+  output.path = file.path(base.path, "acsoutput"),
+  vars = "all",
+  sumlevel = "bg",
+  write.files = TRUE,
+  ...
+)
 }
 \arguments{
 \item{end.year}{optional character year like 2017 specifying last of 5 years of ACS summary file}
+
+\item{tables}{Default is the ones needed for EJSCREEN - character vector list of Census data tables like B01001}
 
 \item{base.path}{optional, default is working directory; folder in which data.path and output.path subfolders are or will be created}
 

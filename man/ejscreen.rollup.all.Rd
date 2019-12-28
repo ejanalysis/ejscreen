@@ -4,11 +4,19 @@
 \alias{ejscreen.rollup.all}
 \title{Aggregate EJSCREEN Dataset at Lower Resolutions (e.g., Tracts and Counties)}
 \usage{
-ejscreen.rollup.all(bg, scalenames = c("tracts", "counties", "states",
-  "regions"), fipsnames = c("FIPS.TRACT", "FIPS.COUNTY", "FIPS.ST",
-  "REGION"), myfolder = getwd(), filenamebase = "EJSCREEN",
-  filenames.R, filenames.csv, save.R = FALSE, save.csv = FALSE,
-  assigning = FALSE, ...)
+ejscreen.rollup.all(
+  bg,
+  scalenames = c("tracts", "counties", "states", "regions"),
+  fipsnames = c("FIPS.TRACT", "FIPS.COUNTY", "FIPS.ST", "REGION"),
+  myfolder = getwd(),
+  filenamebase = "EJSCREEN",
+  filenames.R,
+  filenames.csv,
+  save.R = FALSE,
+  save.csv = FALSE,
+  assigning = FALSE,
+  ...
+)
 }
 \arguments{
 \item{bg}{Required, data.frame of raw data for environmental and demographic counts, one row per block group typically, one column per indicator.}

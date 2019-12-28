@@ -4,8 +4,14 @@
 \alias{ejscreen.acs.calc}
 \title{Create Calculated EJSCREEN Variables}
 \usage{
-ejscreen.acs.calc(bg, folder = getwd(), keep.old, keep.new, formulafile,
-  formulas)
+ejscreen.acs.calc(
+  bg,
+  folder = getwd(),
+  keep.old,
+  keep.new,
+  formulafile,
+  formulas
+)
 }
 \arguments{
 \item{bg}{Data.frame of raw demographic data counts, and environmental indicators, for each block group, such as population or number of Hispanics.}

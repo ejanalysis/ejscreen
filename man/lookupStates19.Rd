@@ -92,7 +92,7 @@ lookup.pctile(1000, varname.in.lookup.table = 'traffic.score',  lookup = lookupU
       lookup = lookupStates19, zone = 'NY')
       # Those traffic scores are at the 62d and 83d percentiles within NY State (83 percent
       # of the NY State population had a traffic score lower than 3000).
-   \dontrun {
+   \dontrun{
     bg <- bg19[sample(1:NROW(bg19), 100), ]
     state.pctile.pm <- ejanalysis::lookup.pctile(myvector = bg$pm, varname.in.lookup.table = 'pm',
        lookup = lookupStates19, zone = bg$ST)

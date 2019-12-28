@@ -4,8 +4,7 @@
 \alias{ejformula}
 \title{See formula(s) used for EJSCREEN variable(s)}
 \usage{
-ejformula(fieldname = "all", decreasing = NA, dropNA = TRUE,
-  recursive = FALSE)
+ejformula(fieldname = "all", decreasing = NA, dropNA = TRUE, recursive = FALSE)
 }
 \arguments{
 \item{fieldname}{Optional, character vector specifying variable(s) in \code{ejscreenformulas$Rfieldname}, default is all \code{ejscreenformulas$Rfieldname} that are not NA values.}

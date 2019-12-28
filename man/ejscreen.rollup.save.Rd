@@ -4,9 +4,16 @@
 \alias{ejscreen.rollup.save}
 \title{Helper for ejscreen.rollup.all, to save files of results}
 \usage{
-ejscreen.rollup.save(myrollup, myfolder = getwd(),
-  filenamebase = "EJSCREEN", scalename = c("tracts"), filename.R,
-  filename.csv, save.R = TRUE, save.csv = TRUE)
+ejscreen.rollup.save(
+  myrollup,
+  myfolder = getwd(),
+  filenamebase = "EJSCREEN",
+  scalename = c("tracts"),
+  filename.R,
+  filename.csv,
+  save.R = TRUE,
+  save.csv = TRUE
+)
 }
 \arguments{
 \item{myrollup}{Required, data.frame results from ejscreen.rollup.all (just one scale at a time though)}

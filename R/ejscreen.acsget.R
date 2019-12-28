@@ -20,6 +20,7 @@
 #' @param vars Default here is 'all' vars which is more than what \link{ejscreen.create} keeps.
 #'   (or can be a vector of things like 'B01001')
 #' @param write.files Default here is TRUE but see \link[ACDdownload]{get.acs}
+#' @param tables Default is the ones needed for EJSCREEN - character vector list of Census data tables like B01001
 #' @param ...  passed to \link[ACDdownload]{get.acs}
 #'
 #' @return list of data.frames, default is just block group not tracts, unlike results of \link[ACDdownload]{get.acs}
