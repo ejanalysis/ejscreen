@@ -30,7 +30,7 @@
 #'     lookupStates19[lookupStates19$PCTILE == 'mean', c('REGION', 'pm')]
 #'     lookupUSA19[lookupUSA19$PCTILE == 'mean', c('REGION', 'pm')]
 #'   }
-#' @seealso lookupUSA19 lookupRegions19 lookupStates19 \code{\link{[ejanalysis]lookup.pctile}}
+#' @seealso lookupUSA19 lookupRegions19 lookupStates19 \code{\link[ejanalysis]{lookup.pctile}}
 #' @details
 #'   It was created for this package as follows: \cr\cr
 #'     \code{require(ejscreen)} \cr

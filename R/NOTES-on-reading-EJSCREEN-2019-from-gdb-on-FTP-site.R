@@ -5,7 +5,11 @@
 #'   Note the 2019 version of EJSCREEN (released late 2019)
 #'     actually uses ACS2017, which is from 2013-2017 (released late 2018).
 
-# see the help file for bg19 *************
+# see the help file for bg19 ************* and
+# see  ACS_US_TOTALS_2014-2018.R
+# see NOTES-on-reading-EJSCREEN-2019-from-gdb-on-FTP-site.R
+# see updating EJSCREEN tech doc 2019.R
+# see notes-on-how-names-e-RData-and-names-ejvars-updated-to-2016.R
 
 # Be clear on diff between EJSCREEN vs ACS extra fields:
 
