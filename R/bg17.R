@@ -1,6 +1,6 @@
 #' @name bg17
 #' @docType data
-#' @title This is the 2017 version of the EJSCREEN dataset plus lat lon and countynames, etc., minus some cols and rows
+#' @title The 2017 version of EJSCREEN data, plus lat lon and countynames, etc., minus some cols and rows
 #' @description
 #'   Note the 2018 version of EJSCREEN (released late 2018)
 #'     actually uses ACS2016, which is from 2012-2016 (released late 2017).

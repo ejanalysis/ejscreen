@@ -11,14 +11,14 @@
 #' @source Names developed for this package. No external data source.
 #' @concept datasets
 #' @format A series of variables (each is a character vector of colnames).
-#' For the latest (2016) version of EJSCREEN:
+#' For the 2019 version of EJSCREEN:
 #' \itemize{
 #'  \item "names.e" (pm, o3, cancer,     resp, dpm, pctpre1960, traffic.score, proximity.npl, proximity.rmp, proximity.tsdf, proximity.npdes)
 #'  \item "names.e.bin"
 #'  \item "names.e.pctile"
 #'  \item "Elist" (this one is like names.e, but as a list, not a vector)
 #' }
-#' For 2015 version of EJSCREEN it was:
+#' For 2015 version of EJSCREEN it also had neuro:
 #' \itemize{
 #'  \item "names.e" (pm, o3, cancer, neuro, resp, dpm, pctpre1960, traffic.score, proximity.npl, proximity.rmp, proximity.tsdf, proximity.npdes)
 #'  \item "names.e.bin"

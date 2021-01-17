@@ -1,12 +1,12 @@
 #' @name ejscreenformulasnoej
 #' @docType data
-#' @title EJSCREEN 2015 Formulas and Fieldnames Excluding EJ Index Formulas
+#' @title EJSCREEN Formulas and Fieldnames Excluding EJ Index Formulas
 #' @description This provides fieldnames and formulas required by the \pkg{ejscreen} package.
 #'  Formulas can be viewed this way: sort(ejscreenformulas$formula)
 #'  This excludes the EJ Index formulas for cases where those are to be calculated using code separately.
 #' @usage data('ejscreenformulasnoej')
 #' @source See related Technical Documentation at \url{http://www.epa.gov/ejscreen}
-#' @seealso  \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
+#' @seealso \code{\link{ejformula}}  \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
 #' @format A data.frame: \cr\cr
 #' > str(ejscreenformulas) \cr
 #' 'data.frame':	470 obs. of  8 variables: \cr
