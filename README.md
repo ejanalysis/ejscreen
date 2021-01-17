@@ -8,7 +8,7 @@ The resulting dataset is a data.frame that contains data on demographics (e.g., 
 
 ## Installation
 
-This package is not on CRAN yet, but you can install it from Github:
+This package is not on CRAN yet, but you can install it from Github (if it has been changed from a private to public repo):
 
 ```r
 if (!require('devtools')) install.packages('devtools')

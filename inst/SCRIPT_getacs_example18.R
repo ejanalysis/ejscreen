@@ -1,32 +1,47 @@
+# This script is not necessary if you already have the EJSCREEN datasets from the ejscreen R package,
+#  (which does provide some extra data beyond what is on the EJSCREEN FTP site.)
+#
+# This script obtains all the demographic fields used in EJSCREEN
+# not just the demographic subgroups
+# plus this script obtains countyname, statename, lat/lon of the blockgroup internal point.
+# In other words,
+# This script just shows how to replicate the demographic indicators in EJSCREEN
+# starting from the ACS data on the Bureau of Census website,
+# and how to create a few additional fields that are in the ejscreen package.
+
+
+# For just EJSCREEN data,
+# see data(bg19, package = 'ejscreen') or bg20, bg17, bg18 data also
+# and maybe also see NOTES-on-reading-EJSCREEN-2019-from-gdb-...
+#
+# EJSCREEN dataset from FTP site has just
+#  count and pct for lowinc, min, lingiso, povknownratio, builtunits, etc.
+
+# but EJSCREEN on FTP site does NOT have these which ejscreen R pkg does:
+
+#  *** demog subgroups, like percent hispanic, nonhispanic white alone (nhwa), nhba, etc.
+#  *** poverty rate (as opposed to just lowincome), as pctpoor or count
+#  ACS does have this extra demographic info.
+
+#  * extra FIPS / geo info like statename, countyname, tract fips,
+#    and latitude/ longitude of block group internal point,
+#    but all those are added to bg17, bg18, bg19 datasets.
+
+#  * flag for 80th percentile nationwide,
+#    but that is in bg17,bg18,bg19.
+
+#   VINTAGE:
+#
+#    Note the 2020 version of EJSCREEN released late 2020
+#     actually uses ACS2018, which is from 2014-2018 (released late 2019).
+#   Note the 2019 version of EJSCREEN (released late 2019)
+#     actually uses ACS2017, which is from 2013-2017 (released late 2018).
+#   Note the 2018 version of EJSCREEN (released late 2018)
+#     actually uses ACS2016, which is from 2012-2016 (released late 2017).
+
+
 
 if (1 == 0) {
-     # Note the 2018 version of EJSCREEN (released late 2018)
-     #  actually uses ACS2016, which is from 2012-2016 (released late 2017).
-     # Note the 2019 version of EJSCREEN (released late 2019)
-     #   actually uses ACS2017, which is from 2013-2017 (released late 2018).
-
-  # notes on creating ACS dataset that has fuller demog and county info
-  # script to download and clean up and calc ACS Demog fields used in EJSCREEN
-
-  # For just EJSCREEN data,
-  # see data(bg19, package = 'ejscreen') or bg17, bg18 data also
-  # and maybe also see NOTES-on-reading-EJSCREEN-2019-from-gdb-...
-  # EJSCREEN dataset from FTP site has count and pct lowinc, min, lingiso, povknownratio, builtunits, etc.
-
-  # but EJSCREEN on FTP site does NOT have
-
-  #  *** demog subgroups, like percent hispanic, nonhispanic white alone (nhwa), nhba, etc.
-  #  *** poverty rate (as opposed to just lowincome), as pctpoor or count
-  #  ACS does have this extra demographic info.
-
-  #  * extra FIPS / geo info like statename, countyname, tract fips,
-  #    and latitude/ longitude of block group internal point,
-  #    but all those are added to bg17, bg18, bg19 datasets.
-
-  #  * flag for 80th percentile nationwide,
-  #    but that is in bg17,bg18,bg19.
-
-
   ####################### #
   require(ejscreen)
   require(ACSdownload)
