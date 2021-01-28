@@ -6,7 +6,8 @@
 \alias{names.ej}
 \alias{EJ-variable-names}
 \title{2015 Fieldnames of environmental justice indicator columns in ejscreen package data}
-\format{A series of variables (each is a character vector of colnames):
+\format{
+A series of variables (each is a character vector of colnames):
 \itemize{
  \item "names.ej15"
  \item "names.ej.bin15"
@@ -44,7 +45,8 @@ And names.ej15 in turn is this, for example:
  \item  [10] "EJ.DISPARITY.proximity.rmp.eo"
  \item  [11] "EJ.DISPARITY.proximity.tsdf.eo"
  \item  [12] "EJ.DISPARITY.proximity.npdes.eo"
-}}
+}
+}
 \source{
 Names developed for this package. No external data source.
 }

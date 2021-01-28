@@ -4,7 +4,8 @@
 \name{popupunits}
 \alias{popupunits}
 \title{Units of measurement for environmental indicators}
-\format{A data.frame: \cr\cr
+\format{
+A data.frame: \cr\cr
 > \code{str(popupunits) \cr
 'data.frame':	11 obs. of  2 variables: \cr
 $ evar : chr  "pm" "o3" "cancer"  ... \cr
@@ -22,7 +23,8 @@ $ units: chr  "ug/m3" "ppb" "lifetime risk per million" "" ... \cr
 9    proximity.rmp         facilities/km distance  \cr
 10  proximity.tsdf         facilities/km distance  \cr
 11 proximity.npdes         facilities/km distance  \cr
-}}
+}
+}
 \source{
 See related Technical Documentation at \url{http://www.epa.gov/ejscreen}
 }

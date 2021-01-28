@@ -1,8 +1,8 @@
 Package: ejscreen
 Title: EJSCREEN Tools for US EPA Environmental Justice (EJ) Mapping and Screening
 Description: Data and tools related to the United States Environmental Protection Agency's screening and mapping tool for environmental justice, EJSCREEN. For any imported/suggested packages not on CRAN, see http://ejanalysis.github.io
-Version: 1.0.0
-Date: 2020-01-01
+Version: 2.0.0
+Date: 2020-01-28
 Imports: 
     analyze.stuff,
     Hmisc,
@@ -16,7 +16,7 @@ Depends:
     R (>= 3.1.2)
 URL: http://ejanalysis.github.io, https://github.com/ejanalysis/ejscreen, http://www.ejanalysis.com/
 BugReports: https://github.com/ejanalysis/ejscreen/issues
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 License: MIT + file LICENSE
 Repository: GitHub
 Author: info@ejanalysis.com

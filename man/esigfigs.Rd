@@ -4,7 +4,8 @@
 \name{esigfigs}
 \alias{esigfigs}
 \title{How many signif digits to show}
-\format{A data.frame: \cr\cr
+\format{
+A data.frame: \cr\cr
 > str(esigfigs) \cr
 'data.frame':	12 obs. of  2 variables:\cr
  $ sigfigs: num  3 3 2 2 2 3 2 2 2 2 ...\cr
@@ -21,7 +22,8 @@
         2   proximity.npl\cr
         2   proximity.rmp\cr
         2  proximity.tsdf\cr
-        2 proximity.npdes\cr}
+        2 proximity.npdes\cr
+}
 \source{
 See related Technical Documentation at \url{http://www.epa.gov/ejscreen}
 }

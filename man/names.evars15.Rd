@@ -8,7 +8,8 @@
 \alias{environmental-variable-names}
 \alias{Elist}
 \title{2015 Fieldnames of environmental indicator columns in ejscreen package data}
-\format{A series of variables (each is a character vector of colnames).
+\format{
+A series of variables (each is a character vector of colnames).
 The 2016 version of EJSCREEN was:
 \itemize{
  \item "names.e" (pm, o3, cancer,     resp, dpm, pctpre1960, traffic.score, proximity.npl, proximity.rmp, proximity.tsdf, proximity.npdes)
@@ -22,7 +23,8 @@ For 2015 version of EJSCREEN it was changed so names include 15, to distinguish:
  \item "names.e.bin15"
  \item "names.e.pctile15"
  \item "Elist15" (this one is like names.e, but as a list, not a vector)
-}}
+}
+}
 \source{
 Names developed for this package. No external data source.
 }

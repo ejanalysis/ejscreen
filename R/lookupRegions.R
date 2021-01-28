@@ -32,7 +32,7 @@
 #'     lookupStates19[lookupStates19$PCTILE == 'mean', c('REGION', 'pm')]
 #'     lookupUSA19[lookupUSA19$PCTILE == 'mean', c('REGION', 'pm')]
 #'   }
-#' @seealso lookupUSA lookupRegions lookupStates \code{\link{[ejanalysis]lookup.pctile}}
+#' @seealso lookupUSA lookupRegions lookupStates \code{\link[ejanalysis]{lookup.pctile}}
 #' @details
 #'   See lookupUSA for details.
 #'

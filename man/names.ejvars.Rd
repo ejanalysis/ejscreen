@@ -6,26 +6,18 @@
 \alias{names.ej}
 \alias{EJ-variable-names}
 \title{Fieldnames of environmental justice indicator columns in ejscreen package data}
-\format{A series of variables (each is a character vector of colnames):
+\format{
+A series of variables (each is a character vector of colnames):
 \itemize{
  \item "names.ej"
  \item "names.ej.bin"
  \item "names.ej.burden.eo"
  \item "names.ej.burden.eo.bin"
  \item "names.ej.burden.eo.pctile"
- \item "names.ej.burden.svi6"
- \item "names.ej.burden.svi6.bin"
- \item "names.ej.burden.svi6.pctile"
  \item "names.ej.pct.eo"
  \item "names.ej.pct.eo.bin"
  \item "names.ej.pct.eo.pctile"
- \item "names.ej.pct.svi6"
- \item "names.ej.pct.svi6.bin"
- \item "names.ej.pct.svi6.pctile"
  \item "names.ej.pctile"
- \item "names.ej.svi6"
- \item "names.ej.svi6.bin"
- \item "names.ej.svi6.pctile"
  \item "namesall.ej"
  \item "namesall.ej.bin"
  \item "namesall.ej.pctile"
@@ -43,7 +35,8 @@ And names.ej in turn is this, for example:
  \item  [9] "EJ.DISPARITY.proximity.rmp.eo"
  \item  [10] "EJ.DISPARITY.proximity.tsdf.eo"
  \item  [11] "EJ.DISPARITY.proximity.npdes.eo"
-}}
+}
+}
 \source{
 Names developed for this package. No external data source.
 }
@@ -56,8 +49,14 @@ This data set provides variables that hold the colnames
   to make it easier to refer to them as a vector, e.g., mydf[ , names.ej]
 }
 \details{
-This should have the latest (2016) version. Also see \code{\link{names.ejvars16}}).
+This should have the latest version.
+ Also see for example \code{\link{names.ejvars16}}).
  The 2015 version had neuro-related indicators in it, and is now in \code{\link{names.ejvars15}}.
+ Old versions also had fields related to svi6 the 6-demographic-variable indicator as
+ an alternative to eo the 2-demographic-variable indicator now used:
+ "names.ej.burden.svi6", "names.ej.burden.svi6.bin", "names.ej.burden.svi6.pctile",
+ "names.ej.pct.svi6", "names.ej.pct.svi6.bin", "names.ej.pct.svi6.pctile",
+ "names.ej.svi6", "names.ej.svi6.bin", "names.ej.svi6.pctile"
 }
 \seealso{
 \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}

@@ -4,7 +4,9 @@
 \name{bg18}
 \alias{bg18}
 \title{The 2018 version of EJSCREEN data, plus lat lon, countynames, etc., minus some nonessential fields}
-\format{data.frame with 220,333 rows (block groups) and 118 columns}
+\format{
+data.frame with 220,333 rows (block groups) and 118 columns
+}
 \description{
 Note the 2018 version of EJSCREEN (released late 2018)
     actually uses ACS2016, which is from 2012-2016 (released late 2017).

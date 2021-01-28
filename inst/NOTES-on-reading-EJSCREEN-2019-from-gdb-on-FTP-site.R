@@ -1,7 +1,7 @@
 #
 # NOTES ON READING THE EJSCREEN 2019 DATASET FROM THE FTP SITE GDB FILE
 
-#'   Note the 2020 version of EJSCREEN (released late 2020)
+#'   Note the 2020 version of EJSCREEN (released Jan 2021 not late 2020)
 #'     actually uses ACS2018, which is from 2014-2018 (released late 2019).
 
 #'   Note the 2019 version of EJSCREEN (released late 2019)
@@ -10,7 +10,9 @@
 ##'   Note the 2018 version of EJSCREEN (released late 2018)
 #'     actually uses ACS2016, which is from 2012-2016 (released late 2017).
 
-# see the help file for bg19 via typing ?bg19 in console ************* and
+# see the help file for bg19 or bg20 via typing ?bg19 or ?bg20 in console 
+# after library(ejscreen)
+# ************* and
 # see  ACS_US_TOTALS_2014-2018.R in batch.summarizer package
 # see NOTES-on-reading-EJSCREEN-2019-from-gdb-on-FTP-site.R
 # see updating EJSCREEN tech doc 2019.R
@@ -24,7 +26,6 @@
 # Note data(bg17, package = 'ejscreen')
 # which has the EJSCREEN dataset, but lacks demog subgroups or rollups.
 # The EJSCREEN dataset on the FTP site provides envt indicators and EJ indexes etc.
-
 
 # as a vertical list, those fields are:
 # OBJECTID

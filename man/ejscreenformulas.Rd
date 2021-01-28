@@ -3,10 +3,11 @@
 \docType{data}
 \name{ejscreenformulas}
 \alias{ejscreenformulas}
-\title{EJSCREEN 2015 Formulas and Fieldnames}
-\format{A data.frame: \cr\cr
+\title{EJSCREEN Formulas and Fieldnames}
+\format{
+A data.frame: \cr\cr
 > str(ejscreenformulas) \cr
-'data.frame':	470 obs. of  8 variables: \cr
+'data.frame': approx	470 obs. of  8 variables: \cr
 \itemize{
  \item $ gdbfieldname     : chr  NA NA NA NA ...
  \item $ Rfieldname       : chr  "ageunder5m" "age5to9m" "age10to14m" "age15to17m" ...
@@ -16,7 +17,8 @@
  \item $ formula          : chr  NA NA NA NA ...
  \item $ acsfieldnamelong : chr  "Under 5 years|SEX BY AGE" "5 to 9 years|SEX BY AGE" "10 to 14 years|SEX BY AGE" "15 to 17 years|SEX BY AGE" ...
  \item $ universe         : chr  "Universe:  Total population" "Universe:  Total population" "Universe:  Total population" "Universe:  Total population" ...
-}}
+}
+}
 \source{
 See related Technical Documentation at \url{http://www.epa.gov/ejscreen}
 }
@@ -26,8 +28,13 @@ data('ejscreenformulas')
 \description{
 This provides fieldnames and formulas required by the \pkg{ejscreen} package.
  Formulas can be viewed this way: sort(ejscreenformulas$formula)
+
+ Also useful to try using ejformula() which displays info from ejscreenformulas.
+ [They are not in the latest version of ejscreen but still in ejscreenformulas I think]
+  To exclude obsolete svi6-related and obsolete alternative forms of EJ Index:
+   # substr(grep('svi6|BURDEN|PCT', x=ejformula(), value = TRUE, invert = TRUE), 1, 80)
 }
 \seealso{
-\code{\link{ejscreenformulasnoej}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
+\code{\link{ejformula}}  \code{\link{ejscreenformulasnoej}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
 }
 \concept{EJ, environmental justice, datasets, demographic}
