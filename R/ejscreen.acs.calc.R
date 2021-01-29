@@ -1,13 +1,12 @@
 #' @title Create Calculated EJSCREEN Variables
 #'
-
 #' @description
 #'   Use specified formulas to create calculated, derived variables such as percent low income.
 #'   Relies upon \code{\link[analyze.stuff]{calc.fields}} from \pkg{analyze.stuff} package.
 #' @param bg Data.frame of raw demographic data counts, and environmental indicators, for each block group, such as population or number of Hispanics.
 #' @param folder Default is getwd(). Specifies path for where to read from (if formulafile specified) and write to.
 #' @param formulafile Name of optional csv file with column called formula, providing R syntax formulas as character fields.
-#'  If not specified, function loads this as data(ejscreenformulas).
+#'  If not specified, function gets this from data(ejscreenformulas).
 #'  Example of one formula: 'pctunder5 <- ifelse( pop==0,0, under5/pop)'
 #'   Use a result of zero in cases where the denominator is zero, to avoid division by zero.
 #'   For example, the formula \code{'pctmin <- ifelse(pop==0,0, as.numeric(mins ) / pop)'}
@@ -40,20 +39,20 @@ ejscreen.acs.calc <-
         !missing(formulas)) {
       stop('Cannot specify both formulafile and formulas.')
     }
-    
+
     if (missing(formulafile) & missing(formulas)) {
       #both missing so use default built in formulas and fieldnames
-      x <- ejscreenformulas  # lazy loads as data
+      x <- ejscreen::ejscreenformulas  # lazy loads as data
       myformulas <- x$formula
     }
-    
+
     if (!missing(formulafile) & missing(formulas)) {
       if (!file.exists(file.path(folder, formulafile))) {
         stop(paste(
           'formulafile not found at',
           file.path(folder, formulafile)
         ))
-        # x <- ejscreenformulas  # or could lazy load as data the defaults here
+        # x <- ejscreen::ejscreenformulas  # or could lazy load as data the defaults here
       } else {
         x <-
           read.csv(file = file.path(folder, formulafile),
@@ -61,13 +60,13 @@ ejscreen.acs.calc <-
         myformulas <- x$formula
       }
     }
-    
+
     if (missing(formulafile) & !missing(formulas)) {
       myformulas <- formulas
       # could add error checking here
     }
-    
-    # ejscreenformulas as of 8/2015:
+
+    # ejscreen::ejscreenformulas as of 8/2015:
     #
     # 'data.frame':	470 obs. of  8 variables:
     #   $ gdbfieldname     : chr  NA NA NA NA ...
@@ -78,8 +77,8 @@ ejscreen.acs.calc <-
     #   $ formula          : chr  NA NA NA NA ...
     #   $ acsfieldnamelong : chr  "Under 5 years|SEX BY AGE" "5 to 9 years|SEX BY AGE" "10 to 14 years|SEX BY AGE" "15 to 17 years|SEX BY AGE" ...
     #   $ universe         : chr  "Universe:  Total population" "Universe:  Total population" "Universe:  Total population" "Universe:  Total population" ...
-    
-    
+
+
     if (missing(keep.old)) {
       keep.old <- c(
         'FIPS',
@@ -89,6 +88,7 @@ ejscreen.acs.calc <-
         'age25up',
         'povknownratio',
         'hhlds',
+
         'hisp',
         'nhwa',
         'nhba',
@@ -104,8 +104,8 @@ ejscreen.acs.calc <-
     }
     # don't try to keep fields not supplied in bg
     keep.old <- keep.old[keep.old %in% names(bg)]
-    
-    
+
+
     if (missing(keep.new)) {
       keep.new <- c(
         'VSI.eo',
@@ -114,6 +114,7 @@ ejscreen.acs.calc <-
         "VNI.svi6",
         "VDI.eo",
         "VDI.svi6",
+
         'pctpre1960',
         'pctlowinc',
         'pctmin',
@@ -129,6 +130,8 @@ ejscreen.acs.calc <-
         'lingiso',
         'under5',
         'over64',
+
+        # COUNTS OF THESE, are in keep.old
         'pcthisp',
         'pctnhwa',
         'pctnhba',
@@ -138,42 +141,55 @@ ejscreen.acs.calc <-
         'pctnhotheralone',
         'pctnhmulti'
       )
-    ejfields <- c("EJ.DISPARITY.pctpre1960.eo",        "EJ.DISPARITY.pctpre1960.svi6",
+    ejfields <- c(
+      "EJ.DISPARITY.pctpre1960.eo",        "EJ.DISPARITY.pctpre1960.svi6",
     "EJ.BURDEN.pctpre1960.eo",           "EJ.BURDEN.pctpre1960.svi6",
     "EJ.PCT.pctpre1960.eo",              "EJ.PCT.pctpre1960.svi6",
+
     "EJ.DISPARITY.dpm.eo",               "EJ.DISPARITY.dpm.svi6",
     "EJ.BURDEN.dpm.eo",                  "EJ.BURDEN.dpm.svi6",
     "EJ.PCT.dpm.eo",                     "EJ.PCT.dpm.svi6",
+
     "EJ.DISPARITY.cancer.eo",            "EJ.DISPARITY.cancer.svi6",
     "EJ.BURDEN.cancer.eo",               "EJ.BURDEN.cancer.svi6",
     "EJ.PCT.cancer.eo",                  "EJ.PCT.cancer.svi6",
+
     "EJ.DISPARITY.resp.eo",              "EJ.DISPARITY.resp.svi6",
     "EJ.BURDEN.resp.eo",                 "EJ.BURDEN.resp.svi6",
     "EJ.PCT.resp.eo",                    "EJ.PCT.resp.svi6",
+
     "EJ.DISPARITY.neuro.eo",             "EJ.DISPARITY.neuro.svi6",
     "EJ.BURDEN.neuro.eo",                "EJ.BURDEN.neuro.svi6",
     "EJ.PCT.neuro.eo",                   "EJ.PCT.neuro.svi6",
+
     "EJ.DISPARITY.traffic.score.eo",     "EJ.DISPARITY.traffic.score.svi6",
     "EJ.BURDEN.traffic.score.eo",        "EJ.BURDEN.traffic.score.svi6",
     "EJ.PCT.traffic.score.eo",           "EJ.PCT.traffic.score.svi6",
+
     "EJ.DISPARITY.proximity.npdes.eo",   "EJ.DISPARITY.proximity.npdes.svi6",
     "EJ.BURDEN.proximity.npdes.eo",      "EJ.BURDEN.proximity.npdes.svi6",
     "EJ.PCT.proximity.npdes.eo",         "EJ.PCT.proximity.npdes.svi6",
+
     "EJ.DISPARITY.proximity.npl.eo",     "EJ.DISPARITY.proximity.npl.svi6",
     "EJ.BURDEN.proximity.npl.eo",        "EJ.BURDEN.proximity.npl.svi6",
     "EJ.PCT.proximity.npl.eo",           "EJ.PCT.proximity.npl.svi6",
+
     "EJ.DISPARITY.proximity.rmp.eo",     "EJ.DISPARITY.proximity.rmp.svi6",
     "EJ.BURDEN.proximity.rmp.eo",        "EJ.BURDEN.proximity.rmp.svi6",
     "EJ.PCT.proximity.rmp.eo",           "EJ.PCT.proximity.rmp.svi6",
+
     "EJ.DISPARITY.proximity.tsdf.eo",    "EJ.DISPARITY.proximity.tsdf.svi6",
     "EJ.BURDEN.proximity.tsdf.eo",       "EJ.BURDEN.proximity.tsdf.svi6",
     "EJ.PCT.proximity.tsdf.eo",          "EJ.PCT.proximity.tsdf.svi6",
+
     "EJ.DISPARITY.o3.eo",                "EJ.DISPARITY.o3.svi6",
     "EJ.BURDEN.o3.eo",                   "EJ.BURDEN.o3.svi6",
     "EJ.PCT.o3.eo",                      "EJ.PCT.o3.svi6",
+
     "EJ.DISPARITY.pm.eo",                "EJ.DISPARITY.pm.svi6",
     "EJ.BURDEN.pm.eo",                   "EJ.BURDEN.pm.svi6",
     "EJ.PCT.pm.eo",                      "EJ.PCT.pm.svi6")
+
     keep.new <- c(keep.new, ejfields)
   }
     # if any of these are not successfully created by calc.fields(), they just won't be returned by that function.
@@ -190,20 +206,20 @@ ejscreen.acs.calc <-
                                    formulas = myformulas,
                                    keep = c(keep.old, keep.new))
     }
-    
+
     #new.fields <- analyze.stuff::calc.fields(bg, formulas=myformulas, keep=keep.new)
     #print('keep.new: '); print(keep.new)
     #print(names(new.fields))
     # don't try to keep fields not successfully created
     #keep.new <- keep.new[ keep.new %in% names(new.fields)]
-    
+
     #print('keep.new: '); print(keep.new)
     #print('keep.old: '); print(keep.old)
     #print('names of bg'); print(names(bg))
-    
+
     #bg <- cbind( bg[ , keep.old], new.fields[ , keep.new] )
     # new.fields would only have cols that were in keep.new
     #bg <- cbind( bg[ , keep.old], new.fields )
-    
+
     return(bg)
   }

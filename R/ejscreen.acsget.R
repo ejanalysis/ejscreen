@@ -14,24 +14,24 @@
 #'
 #' @param end.year optional character year like 2017 specifying last of 5 years of ACS summary file
 #' @param base.path optional, default is working directory; folder in which data.path and output.path subfolders are or will be created
-#' @param data.path see \link[ACDdownload]{get.acs}
-#' @param output.path  see \link[ACDdownload]{get.acs}
-#' @param sumlevel Default here is just bg but see \link[ACDdownload]{get.acs}
+#' @param data.path see \link[ACSdownload]{get.acs}
+#' @param output.path  see \link[ACSdownload]{get.acs}
+#' @param sumlevel Default here is just bg but see \link[ACSdownload]{get.acs}
 #' @param vars Default here is 'all' vars which is more than what \link{ejscreen.create} keeps.
 #'   (or can be a vector of things like 'B01001')
-#' @param write.files Default here is TRUE but see \link[ACDdownload]{get.acs}
+#' @param write.files Default here is TRUE but see \link[ACSdownload]{get.acs}
 #' @param tables Default is the ones needed for EJSCREEN - character vector list of Census data tables like B01001
-#' @param ...  passed to \link[ACDdownload]{get.acs}
+#' @param ...  passed to \link[ACSdownload]{get.acs}
 #'
-#' @return list of data.frames, default is just block group not tracts, unlike results of \link[ACDdownload]{get.acs}
+#' @return list of data.frames, default is just block group not tracts, unlike results of \link[ACSdownload]{get.acs}
 #' @export
 #'
 ejscreen.acsget <- function(end.year = '2017',
                             tables = c('B01001', 'B03002', 'B15002', 'C17002', 'B25034'),
                             base.path = getwd(), data.path = file.path(base.path, 'acsdata'), output.path = file.path(base.path, 'acsoutput'),
                             vars = 'all', sumlevel = 'bg', write.files = TRUE, ...) {
-require(ACSdownload) # not sure how to avoid this if we want access to lookup.acs2017 and similar data in that pkg
-  x <- get.acs(end.year = end.year,
+# require(ACSdownload) # not sure how to avoid this if we want access to lookup.acs2017 and similar data in that pkg
+  x <- ACSdownload::get.acs(end.year = end.year,
                tables = tables, #B16002 language spoken - was in 2015 file not subsequent ones
                #tables = 'ejscreen', # failed once B16002 not avail and ACSdownload was not updated to leave that table out for later end.year values
                             base.path = base.path,

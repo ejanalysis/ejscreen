@@ -1,12 +1,19 @@
-#' @title Create EJSCREEN Dataset from Environmental Indicators
+#' @title Create EJSCREEN-like dataset from your own Environmental Indicators and ACS demographics
 #'
 #' @description
-#'   Start with raw environmental indicator data, and create (or replicate) a full EJSCREEN dataset.
-#'   The source code also contains comments with an outline of steps involved.
-#'   Note that rather than using this function, one can instead
-#'   download the gdb file from the EJSCREEN FTP site
-#'   and open it in ESRI ArcGIS and export the attribute tables as text files in csv format.
-#' @details **Note that if non-default fieldnames are used in e and/or acsraw,
+#'   The EJSCREEN dataset each year is already available as a dataset in this package (as bg19 for example).
+#'   But if you want to recreate that kind of dataset from your own environmental data (and demographic data),
+#'   this function does that.
+#'   This function ejscreen.create() starts with raw environmental indicator data, and/or ACS demographics,
+#'   and will create (or replicate) a full EJSCREEN dataset.
+#'   The ACS demographics, if not provided to the function, are downloaded from Census and calculated by this function.
+#'   The ACS 5-year summary file is used to obtain block group estimates of population count, minorities, low-income, etc.
+#'   The source code for this function also contains further comments with an outline of steps involved.
+#'   It relies on ejscreen.acsget() which relies on ACSdownload::get.acs(), and uses
+#'   ejanalysis::addFIPScomponents() to add FIPS.TRACT, countyname, etc.,
+#'   and also uses ejanalysis::make.bin.pctile.cols, ejanalysis::ej.indexes(),
+#'   ejanalysis::flagged(), etc.
+#'  #' @details **Note that if non-default fieldnames are used in e and/or acsraw,
 #'   those must be specified in parameters including demogvarname0, demogvarname1, wtsvarname,
 #'   keep.old (and could be reflected in prefix and suffix params as well).
 #' @param e Data.frame of raw data for environmental indicators, one row per block group, one column per indicator.
@@ -25,7 +32,7 @@
 #' @param EJprefix0 optional, default is 'EJ.DISPARITY' - specifies prefix for colnames of main EJ Indexes, with a period separating prefix from body of colname
 #' @param EJprefix1 optional, default is 'EJ.BURDEN' - specifies prefix for colnames of Alternative 1 version of EJ Indexes, with a period separating prefix from body of colname
 #' @param EJprefix2 optional, default is 'EJ.PCT' - specifies prefix for colnames of Alternative 2 version of EJ Indexes, with a period separating prefix from body of colname
-#' @param formulas optional, see \code{\link{ejscreen.acs.calc}} for details. Defaults are in ejscreenformulas$formula
+#' @param formulas optional, see \code{\link{ejscreen.acs.calc}} for details. Defaults are in \code{\link{ejscreenformulas}}$formula
 #'   Note that if formulas is specified, ejformulasfromcode is ignored.
 #' @param ejtype optional, default is 1, defines which formula to use for ejindex if not using ejscreenformulas. See \code{\link{ej.indexes}} But note alt1 and alt2 still use type 5 and 6 ignoring ejtype.
 #' @param checkfips optional, default is TRUE. If TRUE, function checks to verify all FIPS codes appear to be valid US FIPS
@@ -40,6 +47,7 @@
 #' @return Returns a data.frame with full ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
 #'   as raw values, US percentiles, and text for popups. Output has one row per block group.
 #' @seealso  \code{\link{make.popup.d}} \code{\link{make.popup.e}} \code{\link{make.popup.ej}} \code{\link{ejscreen.lookuptables}}
+#'
 #' @examples
 #'  \dontrun{
 #'  set.seed(99)
@@ -95,8 +103,8 @@ ejscreen.create <-
     # * proxistat() based on downloaded points and traffic?,
     # * ACSdownload etc. for pre1960,
     # * NATA website, and
-    # * OAR website/services?
-    # - drop extra fields unless doing replication work, so just importing 12 raw E for this purpose
+    # * EPA website/services?
+    # - drop extra fields unless doing replication work, so just importing e.g., 11 or 12 raw E for this purpose
     # - Rename fields using change.fieldnames()  or  escores <- data.frame(); names(escores) <- names.e; etc.
     #
     # DEMOGRAPHICS
@@ -108,7 +116,7 @@ ejscreen.create <-
     # calc.fields(), etc.
     #
     # EJ INDEXES
-    # - Calculate EJ indexes given D and E using ej.indexes() OR ejscreenformulas
+    # - Calculate EJ indexes given D and E using ej.indexes() OR ejscreen::ejscreenformulas
     #
     # PERCENTILES AND BINS
     #  make.bin.pctile.cols already creates them all:
@@ -125,15 +133,13 @@ ejscreen.create <-
     #
     # LOOKUP TABLES
     # - Create lookup tables of 100 population weighted percentiles and mean, for US and each EPA Region and each State; for each raw score.
-    # - Possibly create lookup tables (means, 100 percentiles) by county, or just county means.
+    # - Could also create lookup tables (means, 100 percentiles) by county, or just county means.
     #  This was originally done using "CalculateLookupTables-2014-05.R"
     # SEPARATE CODE: NOW SEE ejscreen.lookuptables()
     #
     # ROLLUPS
     # SEPARATE CODE: # - Create rollup files/layers, such as tract, county, state, Region rollups of raw/percentile/bin & text versions.
     # using rollup()
-    #
-    # Put into SHAPEFILE FORMAT? Maybe using sp pkg?
     #
     ##################################################################################### #
 
@@ -147,7 +153,6 @@ ejscreen.create <-
     #data(names.evars); data(names.dvars); data(names.ejvars)
 
     # GET DEMOGRAPHICS --------------------------------------------------------
-
 
     ########################################################################################################## #
     #  GET DEMOGRAPHICS
@@ -255,7 +260,7 @@ ejscreen.create <-
     if (ejformulasfromcode & missing(formulas)) {
       # if (ejformulasfromcode & missing(formulafile) & missing(formulas) ) { #xxx in case formulafile gets implemented here
       # # use the version of the default formulas that leaves out the EJ formulas. They are in code below instead.
-      formulas <- ejscreenformulasnoej # lazyloaded data
+      formulas <- ejscreen::ejscreenformulasnoej # lazyloaded data
     }
 
     # keep.old default is to be missing here,
@@ -288,7 +293,7 @@ ejscreen.create <-
     # print('names(bg)');print(names(bg));cat('\n')
 
     #	DEMOG
-    # (if EJ Index formulas were in ejscreenformulas variable lazy loaded from data, or specified by user formulas,
+    # (if EJ Index formulas were in ejscreen::ejscreenformulas variable lazy loaded from data, or specified by user formulas,
     # then they will be here as well!)
     bg <-
       data.frame(bg,
@@ -440,7 +445,7 @@ ejscreen.create <-
 
     # Add FIPS, countyname, statename, State etc --------
     # add the other FIPS components as individual columns
-    bg <- addFIPScomponents(bg)
+    bg <- ejanalysis::addFIPScomponents(bg)
     # or if func rewritten to use fips not whole bg, then need to call like this:
     #  bg <- cbind(addFIPSparts(bg$FIPS), bg[ , names(bg)[names(bg) != 'FIPS']])
 

@@ -2,7 +2,7 @@
 #' @docType data
 #' @title EJSCREEN Formulas and Fieldnames Excluding EJ Index Formulas
 #' @description This provides fieldnames and formulas required by the \pkg{ejscreen} package.
-#'  Formulas can be viewed this way: sort(ejscreenformulas$formula)
+#'  Formulas can be viewed this way: sort(ejscreen::ejscreenformulas$formula)
 #'  This excludes the EJ Index formulas for cases where those are to be calculated using code separately.
 #' @usage data('ejscreenformulasnoej')
 #' @source See related Technical Documentation at \url{http://www.epa.gov/ejscreen}

@@ -147,7 +147,7 @@ ustotals <- function(bg) {
   #  Note that the essential parts of this are now built into ejscreenformulas which is available as data() in this package
   # > require(ejscreen)
   # Loading required package: ejscreen
-  # > x=ejscreenformulas
+  # > x=ejscreen::ejscreenformulas
   # > x$formula[grepl('US', x$formula)]
   # [1] "VSI.eo.US <- ( sum(mins) / sum(pop)  +  sum(lowinc) / sum(povknownratio) ) / 2"
   # [2] "VSI.svi6.US <- (sum(mins) / sum(pop) + sum(lowinc) / sum(povknownratio) + sum(lths) / sum(age25up) + sum(lingiso) / sum(hhlds) + sum(over64) / sum(pop) + sum(under5) / sum(pop) ) / 6"

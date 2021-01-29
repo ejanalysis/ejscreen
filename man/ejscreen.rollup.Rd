@@ -44,7 +44,7 @@ Returns a data.frame with ejscreen dataset of environmental and demographics ind
   *** Output has one row per tract, county, state, or region, depending on what is specified.
 }
 \description{
-Start with full EJSCREEN dataset at one resolution (typically block groups), 
+Start with full EJSCREEN dataset at one resolution (typically block groups),
   and create aggregated data at a higher geographic scale (e.g., tracts or counties)
 }
 \details{
@@ -62,24 +62,24 @@ Start with full EJSCREEN dataset at one resolution (typically block groups),
   #   fipsnames <- 'FIPS.TRACT'; scalenames <- 'tracts'
 
   for (i in 1:length(fipsnames)) {
-  
+
   ##################################### #
   # Specify resolution of interest
   fipsname <- fipsnames[i] # 'FIPS.TRACT'
   scalename <- scalenames[i] # 'tracts'
-  
+
   ##################################### #
   # Get results, using the function
   myrollup <- ejscreen.rollup(bg = bg, fipsname = fipsname, scalename = scalename)
-  
+
   ##################################### #
   # Save results
   save(myrollup, file = paste('EJSCREEN 2015', scalename, 'data.RData') )
   write.csv(myrollup, row.names = FALSE, file = paste('EJSCREEN 2015', scalename, 'data.csv'))
-  
+
   }
  }
- 
+
 }
 \seealso{
 \code{\link{ejscreen.create}}

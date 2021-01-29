@@ -2,7 +2,7 @@
 % Please edit documentation in R/ejscreen.create.R
 \name{ejscreen.create}
 \alias{ejscreen.create}
-\title{Create EJSCREEN Dataset from Environmental Indicators}
+\title{Create EJSCREEN-like dataset from your own Environmental Indicators and ACS demographics}
 \usage{
 ejscreen.create(
   e,
@@ -85,14 +85,19 @@ Returns a data.frame with full ejscreen dataset of environmental and demographic
   as raw values, US percentiles, and text for popups. Output has one row per block group.
 }
 \description{
-Start with raw environmental indicator data, and create (or replicate) a full EJSCREEN dataset.
-  The source code also contains comments with an outline of steps involved.
-  Note that rather than using this function, one can instead
-  download the gdb file from the EJSCREEN FTP site
-  and open it in ESRI ArcGIS and export the attribute tables as text files in csv format.
-}
-\details{
-**Note that if non-default fieldnames are used in e and/or acsraw,
+The EJSCREEN dataset each year is already available as a dataset in this package (as bg19 for example).
+  But if you want to recreate that kind of dataset from your own environmental data (and demographic data),
+  this function does that.
+  This function ejscreen.create() starts with raw environmental indicator data, and/or ACS demographics,
+  and will create (or replicate) a full EJSCREEN dataset.
+  The ACS demographics, if not provided to the function, are downloaded from Census and calculated by this function.
+  The ACS 5-year summary file is used to obtain block group estimates of population count, minorities, low-income, etc.
+  The source code for this function also contains further comments with an outline of steps involved.
+  It relies on ejscreen.acsget() which relies on ACSdownload::get.acs(), and uses
+  ejanalysis::addFIPScomponents() to add FIPS.TRACT, countyname, etc.,
+  and also uses ejanalysis::make.bin.pctile.cols, ejanalysis::ej.indexes(),
+  ejanalysis::flagged(), etc.
+ #' @details **Note that if non-default fieldnames are used in e and/or acsraw,
   those must be specified in parameters including demogvarname0, demogvarname1, wtsvarname,
   keep.old (and could be reflected in prefix and suffix params as well).
 }

@@ -23,21 +23,21 @@ ejscreen.acsget(
 
 \item{base.path}{optional, default is working directory; folder in which data.path and output.path subfolders are or will be created}
 
-\item{data.path}{see \link[ACDdownload]{get.acs}}
+\item{data.path}{see \link[ACSdownload]{get.acs}}
 
-\item{output.path}{see \link[ACDdownload]{get.acs}}
+\item{output.path}{see \link[ACSdownload]{get.acs}}
 
 \item{vars}{Default here is 'all' vars which is more than what \link{ejscreen.create} keeps.
 (or can be a vector of things like 'B01001')}
 
-\item{sumlevel}{Default here is just bg but see \link[ACDdownload]{get.acs}}
+\item{sumlevel}{Default here is just bg but see \link[ACSdownload]{get.acs}}
 
-\item{write.files}{Default here is TRUE but see \link[ACDdownload]{get.acs}}
+\item{write.files}{Default here is TRUE but see \link[ACSdownload]{get.acs}}
 
-\item{...}{passed to \link[ACDdownload]{get.acs}}
+\item{...}{passed to \link[ACSdownload]{get.acs}}
 }
 \value{
-list of data.frames, default is just block group not tracts, unlike results of \link[ACDdownload]{get.acs}
+list of data.frames, default is just block group not tracts, unlike results of \link[ACSdownload]{get.acs}
 }
 \description{
 Note the 2018 version of EJSCREEN (released late 2018)
