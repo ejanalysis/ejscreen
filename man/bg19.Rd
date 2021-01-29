@@ -4,18 +4,29 @@
 \name{bg19}
 \alias{bg19}
 \title{The 2019 version of EJSCREEN data, plus lat lon, countynames, etc., minus some nonessential fields}
-\format{data.frame with 220,333 rows (block groups) and 118 columns (may vary by year)}
+\format{
+data.frame with 220,333 rows (block groups) and 118 columns (may vary by year)
+}
 \description{
-Note the 2018 version of EJSCREEN (released late 2018)
-    actually uses ACS2016, which is from 2012-2016 (released late 2017).
-  Note the 2019 version of EJSCREEN (released late 2019)
-    actually uses ACS2017, which is from 2013-2017 (released late 2018).
+The 2020 version of EJCSREEN (based on ACS2018) was delayed into early 2021.
+  For all of 2020 (through at least January 2021),
+    the newest EJSCREEN version available was the
+    2019 release of EJSCREEN, released in late 2019, which
+    uses ACS2017 demographic data released in December 2018,
+    covering the 5 years through 2017
+    (2013-2017 ACS 5-year summary file from Census).
+
+  The 2018 version of EJSCREEN (released late 2018)
+  used ACS2016 demographics, covering 2012-2016 (released December 2017).
+
   This data set is the EJSCREEN dataset from the ftp site but with
   fields renamed for easier use in the ejscreen package,
   and some columns dropped (svi6-related, and the 2 alternative versions of an EJ Index)
   and some fields added (lat lon for bg centroids, flagged if any of EJ indexes above 80th percentile in US),
+  and some demographic race ethnicity variables added for all but Puerto Rico (e.g. percent hispanic, etc.),
   and state name and state abbrev and county name and FIPS for tract, county, state,
   BUT NOT REMOVING a handful of rows removed from the data (that had NA values in FIPS.ST)
+
   Also, it does not include the lookup tables of percentiles for USA, Regions, States, which are in the gdb.
 }
 \details{
@@ -32,7 +43,6 @@ It was created for this package as follows: \cr\cr
   \cr then unzipped to
   \cr EJSCREEN_V2019.gdb
   \cr Opened EJSCREEN_V2019.gdb file in ESRI's ArcGIS
-  \cr
   \cr Opened attribute table EJSCREEN_Full
   \cr Exported all records as text format to a file named
   \cr EJSCREEN_Full_2019_Export_Output.csv
@@ -46,8 +56,9 @@ It was created for this package as follows: \cr\cr
   # Starts by reading in 368 columns from csv, then has about 373 columns \cr
   # after \link{ejscreen.download}, which renames fields, drops an ID field, \cr
   # and adds fields called FIPS.TRACT, FIPS.COUNTY, FIPS.ST, countyname, flagged. \cr\cr
+
   # Then for this package, got rid of some nonessential fields:  \cr
-  # (But note svi6 fields - which combine all 6 demog indicators not just 2 - were named in names.d) \cr\cr
+  # (But note svi6 fields - which combine all 6 demog indicators not just 2 - were named in names.d in older versions) \cr\cr
   \code{bg <- bg[ , !grepl(pattern = 'svi6', x = names(bg))]} \cr
   \code{bg <- bg[ , !grepl(pattern = 'pctile\\\\.text', x = names(bg))]} \cr
   \code{bg <- bg[ , !grepl(pattern = 'EJ\\\\.PCT', x = names(bg))]} \cr
@@ -55,14 +66,30 @@ It was created for this package as follows: \cr\cr
   \code{bg <- bg[ , names(bg) != 'ID_1'] } \cr
   \code{bg <- bg[ , names(bg) != 'Shape_Length'] } \cr
   # The ID_1 field is like FIPS but NA where some data missing \cr\cr
+  ## could also drop AREALAND and AREAWATER
+
   # Then added lat, lon fields for block group centroids, via \link[proxistat]{bg.pts} from proxistat package:\cr
   \code{bg <- merge(bg, bg.pts[ , c('FIPS', 'lat')], by.x = 'FIPS', by.y = 'FIPS', all.x = TRUE, all.y = FALSE)} \cr
   \code{bg <- merge(bg, bg.pts[ , c('FIPS', 'lon')], by.x = 'FIPS', by.y = 'FIPS', all.x = TRUE, all.y = FALSE)} \cr\cr
   \code{plot(bg$lon[bg$lon < -50], bg$lat[bg$lon < -50], pch = '.')} \cr\cr
   # \code{sum(is.na(bg$FIPS.ST))} \cr
   # \code{[1] 13} \cr\cr
+
   # THEN USE A NAME SPECIFIC TO THE YEAR: \cr
   \code{bg19 <- bg} \cr
+
+  # THEN ADDED DEMOGRAPHIC RACE ETHNICITY FIELDS
+  \code{acsdata <- ejscreen.acsget(tables = 'B03002') # 10 minutes?? slow - downloads each state} \cr
+  \code{bg <- acsdata$bg} \cr
+  \code{bg <- ejscreen.acs.rename(bg)} \cr
+  \code{names(bg) <- gsub('pop3002', 'pop', names(bg))} \cr
+  \code{bg <- ejscreen.acs.calc(bg)} \cr
+
+  \code{bg2 <- merge(bg, bg19, by = 'FIPS', all.x = TRUE, all.y = TRUE, suffixes = c('_acs', '_bg19'))} \cr
+  \code{names(bg2) <- gsub('pop_bg19', 'pop', names(bg2)); bg2$pop_acs <- NULL} \cr
+  \code{names(bg2) <- gsub('mins_bg19', 'mins', names(bg2)); bg2$mins_acs <- NULL} \cr
+  \code{names(bg2) <- gsub('pctmin_bg19', 'pctmin', names(bg2)); bg2$pctmin_acs <- NULL} \cr
+  \code{bg19 <- bg2 #replace with expanded version of dataset} \cr
+
   \code{save(bg19, file = 'bg19.rdata')} \cr \cr
 }
-\concept{datasets}
