@@ -6,7 +6,7 @@
 #'
 #' @param acsraw Data.frame of raw data counts for each block group, such as population or number of Hispanics.
 #' @param folder Default is getwd(). Specifies path for where to read from (if formulafile specified) and write to.
-#' @param formulafile Default if this is blank is to use data(ejscreenformulas). Otherwise filename must be specified.
+#' @param formulafile Default if this is blank is to use data('ejscreenformulas'). Otherwise filename must be specified.
 #'   If not specified, function loads this as data().
 #' @return Returns a data.frame with some or all of input fields, plus calculated new fields.
 #' @seealso  \code{\link{ejscreenformulas}} \code{\link{change.fieldnames.ejscreen.csv}} \code{\link[analyze.stuff]{change.fieldnames}}
@@ -20,8 +20,8 @@ ejscreen.acs.rename <-
         suppressWarnings(
           analyze.stuff::change.fieldnames(
             names(acsraw),
-            oldnames = ejscreenformulas$acsfieldname,
-            newnames = ejscreenformulas$Rfieldname
+            oldnames = ejscreen::ejscreenformulas$acsfieldname,
+            newnames = ejscreen::ejscreenformulas$Rfieldname
           )
         )
     } else {

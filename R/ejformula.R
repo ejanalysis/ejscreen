@@ -48,8 +48,8 @@ ejformula <-
         # find vector of valid Rfieldnames that are within the RHS of the formula
         # use grep?
         # find fieldnames that actually do have a formula? or all of them...
-        # rnames.f <- ejscreenformulas$Rfieldname[!is.na(ejscreenformulas$formula)]
-        rnames <- ejscreenformulas$Rfieldname
+        # rnames.f <- ejscreen::ejscreenformulas$Rfieldname[!is.na(ejscreen::ejscreenformulas$formula)]
+        rnames <- ejscreen::ejscreenformulas$Rfieldname
         RHS <- trimws(gsub('^.*<-', '', myform))
         RHS <-
           all.names(parse(text = RHS)) # result is a vector of variables and operators
