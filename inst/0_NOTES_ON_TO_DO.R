@@ -28,9 +28,9 @@
 
 # ideally merge/ reconcile
  #  batch.summarizer pkg's csv file with map of names
- # with ejscreenformulas in ejscreen pkg
+ # with ejscreen::ejscreenformulas
 
-# bg19$TSDF_CNT AND NPL version colnames in bg19 do not match what ejscreenformulas says
+# bg19$TSDF_CNT AND NPL version colnames in bg19 do not match what ejscreenformulas says... I prefer count.TSDF and count.NPL
 
 # maybe need clean up or update EJSCREEN_columns_explained.csv in inst folder
 # but ideally it is just subset of ejscreenformulas
@@ -39,7 +39,7 @@
 
 
 # ****
-# DONE - CHANGE "minority" to "people of color" in glossary (ejscreenformulas and noej version)
+# DONE - CHANGE "minority" to "people of color" in glossary (ejscreen::ejscreenformulas and noej version)
 # but not the actual Rfieldnames
 
 
@@ -64,9 +64,9 @@
 
 # DONE I THINK:
 # updated name of water indicator
-
-# ejscreenformulas$glossaryfieldname <- gsub('Proximity to major', 'Indicator for major', ejscreenformulas$glossaryfieldname)
-# ejscreenformulasnoej$glossaryfieldname <- gsub('Proximity to major', 'Indicator for major', ejscreenformulasnoej$glossaryfieldname)
+#
+# ejscreen::ejscreenformulas$glossaryfieldname <- gsub('Proximity to major', 'Indicator for major', ejscreen::ejscreenformulas$glossaryfieldname)
+# ejscreen::ejscreenformulasnoej$glossaryfieldname <- gsub('Proximity to major', 'Indicator for major', ejscreen::ejscreenformulasnoej$glossaryfieldname)
 # save(ejscreenformulas, file = 'ejscreenformulas.RData')
 # save(ejscreenformulasnoej, file = 'ejscreenformulasnoej.RData')
 #

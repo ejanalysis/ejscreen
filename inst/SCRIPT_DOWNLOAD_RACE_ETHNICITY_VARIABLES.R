@@ -1,11 +1,13 @@
 # SCRIPT TO DOWNLOAD AND CALCULATE
-#   [AND later MERGE INTO EJSCREEN DATASET ]
+#   [AND later can MERGE INTO EJSCREEN DATASET ]
 # DETAILED RACE ETHNICITY SUBGROUP VARIABLES THAT ARE NOT IN EJSCREEN
 # INCLUDING % Hispanic, etc. (the subgroups within "minority")
 # for use in EJ analysis
 #
 # This is also addressed in documentation help page for bg19 dataset via ?bg19
 
+#   Note the 2021 version of EJSCREEN (to be released late 2021?)
+#     actually will use ACS2019, which is from 2015-2019 (released late 2020).
 #   Note the 2020 version of EJSCREEN released late 2020
 #     actually uses ACS2018, which is from 2014-2018 (released late 2019).
 #   Note the 2019 version of EJSCREEN (released late 2019)
@@ -36,7 +38,7 @@ if (1 == 0) {
   # rm(acsdata)
   # head(bgACS); hist(bgACS$pcthisp,100)  # write.csv(bgACS, file = 'demographics.csv', row.names = FALSE)
   # to SEE WHAT THOSE FIELDS ARE DEFINED AS
-  # ejscreenformulas[ ejscreenformulas$Rfieldname %in% names(bgACS), c('Rfieldname', 'acsfieldname', 'acsfieldnamelong', 'formula')]
+  # ejscreen::ejscreenformulas[ ejscreen::ejscreenformulas$Rfieldname %in% names(bgACS), c('Rfieldname', 'acsfieldname', 'acsfieldnamelong', 'formula')]
 
   # could save just that now:
   # save(bgACS, file = 'bgACS.rdata')
@@ -44,10 +46,11 @@ if (1 == 0) {
   ######################################################################################
 
   ###########################################
-  # MERGE the
+  # COULD POSSIBLY MERGE the
   # DOWNLOADED ACS SUBGROUPS OF RACE ETHNICITY blockgroups
   # with the
   # EJSCREEN dataset blockgroups (from ftp site or from ejscreen package data)
+  # HOWEVER, THAT MAKES THE DATA FILE TOO LARGE ... OVER 100 MB
 
   # Note that only Puerto Rico is missing from bgACS?
   # while bg19 has PR
@@ -60,7 +63,7 @@ if (1 == 0) {
   # bg <- bg19 #; yr <- 2019
 
   ###########################################
-  # merge bgACS info into bg
+  # if you were to merge bgACS info into bg
   ###########################################
 
   bg2 <- merge(bgACS, bg, by = 'FIPS', all.x = TRUE, all.y = TRUE, suffixes = c('_acs', '_bg'))
@@ -92,10 +95,9 @@ if (1 == 0) {
   bg <- bg2; rm(bg2, bgACS)
   ###########################################
 
-
   ###########################################
   # # Then use one of these, for example, to save the full merge as a data file:
-  # bg19 <- bg; rm(bg); save(bg19, file = 'bg19.rdata')
-  # bg20 <- bg; rm(bg); save(bg20, file = 'bg20.rdata')
-  # # then move the .rdata file to the data folder and rebuild the package.
+  # bg19plus <- bg; rm(bg); save(bg19plus, file = 'bg19plus.rdata')
+  # bg20plus <- bg; rm(bg); save(bg20plus, file = 'bg20plus.rdata')
+
 }

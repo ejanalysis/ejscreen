@@ -72,14 +72,14 @@ if (1 == 0) {
   bg <- bgacs2017
   rm(bgacs2017) # nicer name
 
-  bg <- ejscreen::addFIPScomponents(bg)
+  bg <- ejanalysis::addFIPScomponents(bg)
   bg <- analyze.stuff::put.first(bg, 'countyname')
   bg <- analyze.stuff::put.first(bg, 'FIPS')
 
   save(bg, file = 'bg ACS 2013-2017 EJ tables more fields plus calculated renamed.rdata')
   write.csv(bg, file = 'bg ACS 2013-2017 EJ tables more fields plus calculated renamed.csv')
 
-  tracts <- ejscreen::addFIPScomponents(tracts)
+  tracts <- ejanalysis::addFIPScomponents(tracts)
   tracts <- analyze.stuff::put.first(tracts, 'countyname')
   tracts <- analyze.stuff::put.first(tracts, 'FIPS')
 

@@ -2,7 +2,7 @@
 # # and noej version of it
 #
 
-# These ejscreenformulas$Rfieldname  rows WERE ADDED
+# These ejscreen::ejscreenformulas$Rfieldname  rows WERE ADDED
 # 19   FIPS.TRACT <NA>
 #   20  FIPS.COUNTY <NA>
 #   21      FIPS.ST <NA>

@@ -14,8 +14,8 @@ if (1 == 0 ) {
   # and also saved as ...RData files to be the default now. This should always be the latest current version.
 
   # get and change 2015 files:
-  data("names.evars") # when it was 2015 version
-  data('names.ejvars') # when it was 2015 version
+  # data("names.evars") # when it was 2015 version
+  # data('names.ejvars') # when it was 2015 version
   # then rename those files names.evars15.RData and names.ejvars15.RData
   names.e15 <- names.e
   names.e.bin15 <- names.e.bin
