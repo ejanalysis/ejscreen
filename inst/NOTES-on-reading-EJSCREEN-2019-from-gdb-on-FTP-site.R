@@ -66,7 +66,7 @@ if (1==0) {
 #     actually uses ACS2016, which is from 2012-2016 (released late 2017).
 
 
-# See the help file for bg19 via typing ?bg19 or help(bg19, package = 'ejscreen') in RStudio or R console
+# See the help file for bg19 via typing ?bg19 or ?bg20 or help(bg19, package = 'ejscreen') in RStudio or R console
 # ************* and
 # see  ACS_US_TOTALS_2014-2018.R in batch.summarizer package
 # see NOTES-on-reading-EJSCREEN-2019-from-gdb-on-FTP-site.R

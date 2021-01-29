@@ -1,5 +1,8 @@
+#
 # This script is not necessary if you already have the EJSCREEN datasets from the ejscreen R package,
 #  (which does provide some extra data beyond what is on the EJSCREEN FTP site.)
+#  The extra demographics are now in data(bgDemographicSubgroups2015to2019)
+#
 #
 # This script obtains all the demographic fields used in EJSCREEN
 # not just the demographic subgroups

@@ -1,3 +1,6 @@
+
+# Not yet done for bg20 perhaps - unclear if in same format in that dataset update.
+
 # The lookup tables are provided via data()
 # in the ejscreen package, as
 # lookupUSA
@@ -7,7 +10,7 @@
 # This script shows how those can be created each year for the updated pkg.
 # But it may need to be adjusted to work for a given year.
 #
-#   Note the 2020 version of EJSCREEN released late 2020
+#   Note the 2020 version of EJSCREEN released late 2020 (actually Jan 2021)
 #     actually uses ACS2018, which is from 2014-2018 (released late 2019).
 #   Note the 2019 version of EJSCREEN (released late 2019)
 #     actually uses ACS2017, which is from 2013-2017 (released late 2018).
@@ -16,8 +19,8 @@
 
 
 # SCRIPT / NOTES ON HOW TO IMPORT EJSCREEN lookup tables of percentile values
-# that have been downloaded from EJSCREEN FTP site as gdb (geodatabase)
-# opened in ESRI ArcGIS,
+# that have been downloaded from EJSCREEN FTP site as zipped csv files
+# or as gdb (geodatabase) opened in ESRI ArcGIS,
 # attribute tables exported as text format to csv files
 #
 #  EJSCREEN_V2019.gdb.zip unzipped to
@@ -32,6 +35,7 @@
 if (1 == 0) {
 
   myfolder <- '~/../Desktop' # for example  # setwd(myfolder)
+  # myfolder <- '~/../'
   yr <- 2020
 
   yy <- substr(yr,3,4)
