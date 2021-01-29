@@ -18,28 +18,28 @@ ejformula <-
            decreasing = NA,
            dropNA = TRUE,
            recursive = FALSE) {
-    data(ejscreenformulas)
+    # data(ejscreenformulas)
     if (fieldname[1] == 'all') {
-      fieldname <- ejscreenformulas$Rfieldname
+      fieldname <- ejscreen::ejscreenformulas$Rfieldname
     }
-    
+
     # # for each element in vector of fieldnames, return it or its formula:
     # x <- fieldname # if recursively used, they may not be unique
     # for (i in 1:length(x)) {
-    #   if (x[i] %in% ejscreenformulas$Rfieldname) {
-    #     thisformula <- ejscreenformulas$formula[match(x[i], ejscreenformulas$Rfieldname) ]
+    #   if (x[i] %in% ejscreen::ejscreenformulas$Rfieldname) {
+    #     thisformula <- ejscreen::ejscreenformulas$formula[match(x[i], ejscreen::ejscreenformulas$Rfieldname) ]
     #     if (!is.na(thisformula)) {x[i] <- thisformula}
     #   }
     # }
     # this returns just the formulas for just the ones that are listed (e.g., not pm since no formula for it)
     x <-
-      ejscreenformulas$formula[match(fieldname, ejscreenformulas$Rfieldname)]
+      ejscreen::ejscreenformulas$formula[match(fieldname, ejscreen::ejscreenformulas$Rfieldname)]
     # if x is just a variable like pm, x will be empty
-    
+
     if (dropNA) {
       x <- x[!is.na(x)]
     }
-    
+
     if (recursive) {
       if (all(is.na(x)) | length(x) == 0) {
         return()
@@ -57,7 +57,7 @@ ejformula <-
         return(vars)
       }
       RHS <- unique(getRHS(x))
-      
+
       vector.of.formulas <-
         ejformula(RHS,
                   decreasing = decreasing,
@@ -68,12 +68,12 @@ ejformula <-
         vector.of.formulas[sapply(vector.of.formulas, length) > 0]
       x <- c(x, vector.of.formulas)
     }
-    
+
     if (dropNA) {
       x <- x[!is.na(x)]
     }
     x <- unique(x)
-    
+
     if (is.na(decreasing)) {
       return(x)
     } else {
