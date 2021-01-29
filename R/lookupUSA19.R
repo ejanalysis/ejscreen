@@ -13,10 +13,10 @@
 #'   It shows what the cutpoints are for each variable at percentiles 0,1,2 through 99, 100.
 #'   For example, if the traffic.score is 1000 in a given location,
 #'   you can look where that falls in the percentiles and see that 81% of the US population had lower scores:
-#'   lookup.pctile(1000, varname.in.lookup.table = 'traffic.score',  lookup = lookupUSA19)
+#'   ejanalysis::lookup.pctile(1000, varname.in.lookup.table = 'traffic.score',  lookup = lookupUSA19)
 #'
-#' @examples lookup.pctile(1000, varname.in.lookup.table = 'traffic.score',  lookup = lookupUSA19)
-#'     lookup.pctile(c(1000, 3000), varname.in.lookup.table = 'traffic.score',
+#' @examples ejanalysis::lookup.pctile(1000, varname.in.lookup.table = 'traffic.score',  lookup = lookupUSA19)
+#'     ejanalysis::lookup.pctile(c(1000, 3000), varname.in.lookup.table = 'traffic.score',
 #'       lookup = lookupStates19, zone = 'NY')
 #'       # Those traffic scores are at the 62d and 83d percentiles within NY State (83 percent
 #'       # of the NY State population had a traffic score lower than 3000).
