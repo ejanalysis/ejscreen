@@ -27,7 +27,7 @@ data('ejscreenformulasnoej')
 }
 \description{
 This provides fieldnames and formulas required by the \pkg{ejscreen} package.
- Formulas can be viewed this way: sort(ejscreenformulas$formula)
+ Formulas can be viewed this way: sort(ejscreen::ejscreenformulas$formula)
  This excludes the EJ Index formulas for cases where those are to be calculated using code separately.
 }
 \seealso{

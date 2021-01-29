@@ -11,7 +11,7 @@ ejscreen.acs.rename(acsraw, folder = getwd(), formulafile)
 
 \item{folder}{Default is getwd(). Specifies path for where to read from (if formulafile specified) and write to.}
 
-\item{formulafile}{Default if this is blank is to use data(ejscreenformulas). Otherwise filename must be specified.
+\item{formulafile}{Default if this is blank is to use data('ejscreenformulas'). Otherwise filename must be specified.
 If not specified, function loads this as data().}
 }
 \value{

@@ -40,7 +40,7 @@ Not currently passed to ejscreen.acs.calc which uses \code{\link[analyze.stuff]{
 
 \item{keep.old}{optional vector of colnames from e that are to be used/returned. For nondefault colnames, this must be used.}
 
-\item{formulas}{optional, see \code{\link{ejscreen.acs.calc}} for details. Defaults are in ejscreenformulas$formula
+\item{formulas}{optional, see \code{\link{ejscreen.acs.calc}} for details. Defaults are in \code{\link{ejscreenformulas}}$formula
 Note that if formulas is specified, ejformulasfromcode is ignored.}
 
 \item{mystates}{optional vector of 2-letter state abbreviations. Default is "all" which specifies all states plus DC (BUT NOT PR - we exclude PR so that calculating US percentiles works right)}
