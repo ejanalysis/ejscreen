@@ -3,7 +3,7 @@
 \docType{data}
 \name{bg19}
 \alias{bg19}
-\title{The 2019 version of EJSCREEN data, plus lat lon, countynames, etc., minus some nonessential fields}
+\title{The 2019 version of EJSCREEN data (based on ACS 2013-2017) plus lat lon, countynames, etc., minus some nonessential fields}
 \format{
 data.frame with 220,333 rows (block groups) and 118 columns (may vary by year)
 }

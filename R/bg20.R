@@ -1,5 +1,5 @@
 #' @name bg20
-#' @title The 2020 version of EJSCREEN data, plus lat lon, countynames, etc., minus some nonessential fields
+#' @title The 2020 version of EJSCREEN data (based on ACS 2014-2018) plus lat lon, countynames, etc., minus some nonessential fields
 #' @docType data
 #' @description
 #'   Note the 2020 version of EJSCREEN (released January 2021 rather than late 2020)

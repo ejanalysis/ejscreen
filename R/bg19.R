@@ -1,6 +1,6 @@
 #' @name bg19
 #' @docType data
-#' @title The 2019 version of EJSCREEN data, plus lat lon, countynames, etc., minus some nonessential fields
+#' @title The 2019 version of EJSCREEN data (based on ACS 2013-2017) plus lat lon, countynames, etc., minus some nonessential fields
 #' @description
 #'   Note the 2020 version of EJSCREEN (released January 2021 rather than late 2020)
 #'     actually uses ACS2018, which is from 2014-2018 (released by Census late 2019).
