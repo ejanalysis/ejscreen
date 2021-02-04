@@ -13,13 +13,18 @@
 #'
 #'   This data set is the EJSCREEN dataset from the ftp site but with
 #'   fields renamed for easier use in the ejscreen package,
-#'   and some columns dropped (svi6-related, and the 2 alternative versions of an EJ Index)
-#'   and some fields added (lat lon for bg centroids, flagged if any of EJ indexes above 80th percentile in US),
-#'   and some demographic race ethnicity variables added for all but Puerto Rico (e.g. percent hispanic, etc.),
-#'   and state name and state abbrev and county name and FIPS for tract, county, state,
-#'   BUT NOT REMOVING a handful of rows removed from the data (that had NA values in FIPS.ST)
-#'
-#'   Also, it does not include the lookup tables of percentiles for USA, Regions, States, which are in the gdb.
+#'   Columns dropped from ftp version, not included here:
+#'     - text fields about percentiles, used as popup text on maps
+#'     - columns related to the 2 alternative versions of an EJ Index phased out (except VNI.eo and VSI.eo are kept)
+#'     - columns related to using 6 instead of 2 demographic variables (svi6) 
+#'   Columns added here, not in ftp version:   
+#'     - lat lon for bg centroids
+#'     - state name and state abbrev, county name, and FIPS for tract, county, state
+#'     - flag indicating if any of EJ indexes above 80th percentile in US
+#'   Rows all were kept: Did not remove a handful of rows that had NA values in FIPS.ST
+#'   Lookup tables are not included here: lookup tables of percentiles for USA, Regions, States are in the gdb file on EJSCREEN FTP site.
+#'   Detailed info on demog subgroups is in \link{bgDemographicSubgroups2014to2018} and \link{bgDemographicSubgroups2015to2019}
+#'   
 #' @details
 #'   It was created for this package as follows: \cr\cr
 #'     \code{require(ejscreen); require(ACSdownload)} \cr
