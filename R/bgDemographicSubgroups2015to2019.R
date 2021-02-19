@@ -30,23 +30,27 @@
 #'   Note the 2018 version of EJSCREEN (released late 2018)
 #'    actually uses ACS2016, which is from 2012-2016 (released late 2017).
 #'
-#'   # COMPARISON OF 2014-2018 vs 2015-2019 US overall:
+#'     ##########################################
+#'     # How to merge demographic subgroup info into the basic EJSCREEN bg19 dataset:
+#'     ###########################################
+#'     d <- bgDemographicSubgroups2015to2019
+#'     d <- d[ , !(names(d) %in% c('pop', 'mins', 'pctmin'))]
+#'     bg21plus <- merge(bg21, d, by = 'FIPS', all.x = TRUE)
+#'     rm(d)
+#'     # save(bg21plus, file = 'bg21plus EJSCREEN dataset plus race ethnic subgroups.rdata')
+#'     # write.csv(bg21plus, file = 'bg21plus EJSCREEN dataset plus race ethnic subgroups.csv')
+#'     ##########################################
+#'     ##########################################
 #'
-#'   > with(bgDemographicSubgroups2014to2018, sum(pop))
-#'   [1] 322903030
-#'   > with(bgDemographicSubgroups2015to2019, sum(pop))
-#'   [1] 324697795
-#'   > with(bgDemographicSubgroups2014to2018, sum(hisp)/sum(pop))
-#'   [1] 0.1781276
-#'   > with(bgDemographicSubgroups2015to2019, sum(hisp)/sum(pop))
-#'   [1] 0.180104
-#'   > with(bgDemographicSubgroups2014to2018, sum(nhba)/sum(pop))
-#'   [1] 0.1229964
-#'   > with(bgDemographicSubgroups2015to2019, sum(nhba)/sum(pop))
-#'   [1] 0.1231223
+#'     # Note that only Puerto Rico is missing from this ACS dataset?
+#'     # while bg21 should have PR
+#'     # setdiff(substr(bg21$FIPS, 1,2), substr(bgDemographicSubgroups2015to2019$FIPS,1,2))
+#'     # [1] "72" which is the FIPS code for Puerto Rico.
 #'
-#'   How it was created:
-#'   \code{
+#'
+#'   How bgDemographicSubgroups2015to2019 was created:
+#'
+#'   \preformatted{
 #'     ######################################################################################
 #'     # DOWNLOAD ACS TABLE WITH RACE ETHNICITY BY BLOCK GROUP
 #'     # AND CREATE PERCENT VARIABLES LIKE PERCENT HISPANIC, ETC.
@@ -59,12 +63,12 @@
 #'   # [7] "nhotheralone"    "nhmulti"         "nonmins"         "pcthisp"         "pctnhwa"         "pctnhba"
 #'   # [13] "pctnhaiana"      "pctnhaa"         "pctnhnhpia"      "pctnhotheralone" "pctnhmulti"
 #'
-#'   setwd('~/../Downloads/acs')
+#'   # setwd('~/../Downloads/acs1519')
 #'
 #'   library(ejscreen); library(ejanalysis); library(analyze.stuff); require(ACSdownload)
 #'   acsdata <- ejscreen.acsget(tables = 'B03002',
 #'     end.year = 2019,
-#'     base.path = '~/../Downloads/acs', sumlevel = 'both' )
+#'     base.path = '~/../Downloads/acs1519', sumlevel = 'both' )
 #'     # 10 minutes?? slow - downloads each state
 #'   bgACS   <- ejscreen.acs.rename(acsdata$bg)
 #'   names(bgACS) <- gsub('pop3002', 'pop', names(bgACS))
@@ -75,54 +79,9 @@
 #'   # ejscreenformulas[ ejscreenformulas$Rfieldname %in% names(bgACS), c('Rfieldname', 'acsfieldname', 'acsfieldnamelong', 'formula')]
 #'
 #'   bgDemographicSubgroups2015to2019 <- bgACS
-#'   save(bgDemographicSubgroups2015to2019, file = 'bgDemographicSubgroups2015to2019.rdata')
+#'   save(bgDemographicSubgroups2015to2019,
+#'   file = '~/R/ejscreen/data/bgDemographicSubgroups2015to2019.rdata')
 #'
-#'   # rm(bgACS) # used below in script example to merge with bg21 etc.
-#'     ######################################################################################
-#'
-#'     ###########################################
-#'     # HOW TO MERGE the
-#'     # DOWNLOADED ACS SUBGROUPS OF RACE ETHNICITY blockgroups
-#'     # with the
-#'     # EJSCREEN dataset blockgroups (from ftp site or from ejscreen package data)
-#'
-#'     # Note that only Puerto Rico is missing from bgACS?
-#'     # while bg21 should have PR
-#'     # setdiff(substr(bg21$FIPS, 1,2), substr(bgACS$FIPS,1,2))
-#'     # [1] "72" which is the FIPS code for Puerto Rico.
-#'
-#'     bg <- 0 # just to stop RStudio from warnings about bg not existing.
-#'     # # Use one of these, for example:
-#'     # bg <- bg21 #; yr <- 2021
-#'
-#'     ###########################################
-#'     # merge bgACS info into bg
-#'     ###########################################
-#'
-#'     bg2 <- merge(bgACS, bg, by = 'FIPS', all.x = TRUE, all.y = TRUE, suffixes = c('_acs', '_bg'))
-#'
-#'     # check which fields were in both
-#'     # > grep('_acs', names(bg2), value = T)
-#'     # [1] "pop_acs"    "pctmin_acs" "mins_acs"
-#'     # > grep('_bg', names(bg2), value = T)
-#'     # [1] "pop_bg"    "mins_bg"   "pctmin_bg"
-#'     # confirm value was same in both for avail block groups
-#'     # > table(bg2$mins_acs == bg2$mins_bg, useNA = 'always')
-#'     # TRUE   <NA>
-#'     # > table(bg2$pop_acs == bg2$pop_bg, useNA = 'always')
-#'     # TRUE   <NA>
-#'     # almost exactly the same percent minority values:
-#'     # table(abs(bg2$pctmin_acs - bg2$pctmin_bg)/bg2$pctmin_acs < 0.00001, useNA = 'always')
-#'     # TRUE   <NA>
-#'     #
-#'     # rename to original names, using the bg version and dropping duplicate from acs download
-#'
-#'     names(bg2) <- gsub('pop_bg', 'pop', names(bg2)); bg2$pop_acs <- NULL
-#'     names(bg2) <- gsub('mins_bg', 'mins', names(bg2)); bg2$mins_acs <- NULL
-#'     names(bg2) <- gsub('pctmin_bg', 'pctmin', names(bg2)); bg2$pctmin_acs <- NULL
-#'
-#'     #replace with expanded version of dataset, once sure merge was ok.
-#'     bg <- bg2; rm(bg2, bgACS)
 #'     ###########################################
 #'   }
 #'

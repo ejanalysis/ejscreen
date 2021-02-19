@@ -1,7 +1,19 @@
 
 
-# This has been moved to help file for 
-# data(bgDemographicSubgroups2015to2019) 
+# This has been moved to help file for
+# data(bgDemographicSubgroups2015to2019)
+# data(bgDemographicSubgroups2014to2018)
+
+
+
+
+
+
+
+
+# the rest is obsolete now
+
+
 
 # SCRIPT TO DOWNLOAD AND CALCULATE
 #   [AND later can MERGE INTO EJSCREEN DATASET ]
@@ -35,10 +47,10 @@ if (1 == 0) {
   # [13] "pctnhaiana"      "pctnhaa"         "pctnhnhpia"      "pctnhotheralone" "pctnhmulti"
 
   library(ejscreen); library(ejanalysis); library(analyze.stuff); require(ACSdownload)
-  
+
   setwd('~/../Downloads/acs')
-  
-  acsdata <- ejscreen.acsget(tables = 'B03002', end.year = 2019, 
+
+  acsdata <- ejscreen.acsget(tables = 'B03002', end.year = 2019,
                              base.path = '~/../Downloads/acs', sumlevel = 'both' ) # 10 minutes?? slow - downloads each state
   bgACS   <- ejscreen.acs.rename(acsdata$bg)
   names(bgACS) <- gsub('pop3002', 'pop', names(bgACS))
@@ -49,7 +61,7 @@ if (1 == 0) {
   # ejscreen::ejscreenformulas[ ejscreen::ejscreenformulas$Rfieldname %in% names(bgACS), c('Rfieldname', 'acsfieldname', 'acsfieldnamelong', 'formula')]
 
   # could save just that now:
-  bgDemographicSubgroups2015to2019 <- bgACS 
+  bgDemographicSubgroups2015to2019 <- bgACS
   # rm(bgACS) # used below in script to merge with bg20 etc.
   save(bgDemographicSubgroups2015to2019, file = 'bgDemographicSubgroups2015to2019.rdata')
 
