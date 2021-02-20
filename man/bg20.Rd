@@ -10,17 +10,23 @@ data.frame with 220,333 rows (block groups) and 118 columns in bg20
 \description{
 Note the 2020 version of EJSCREEN (released January 2021 rather than late 2020)
     actually uses ACS2018, which is from 2014-2018 (released by Census late 2019).
+    
   Note the 2019 version of EJSCREEN (released late 2019)
     actually uses ACS2017, which is from 2013-2017 (released by Census late 2018).
 
-  This data set is the EJSCREEN dataset table from the csv file on the ftp site but with
+  This data set is the EJSCREEN dataset from the ftp site but with
   fields renamed for easier use in the ejscreen package,
-  and some columns dropped (text fields about percentiles, used as popup text on maps)
-  and state name and state abbrev and county name and FIPS for tract, county, state,
-  and lat lon of a point representing each block group
-  BUT NOT REMOVING a handful of rows removed from the data (that had NA values in FIPS.ST)
-  Also, it does not include the lookup tables of percentiles for USA, Regions, States.
-  Also, it does not include the lookup tables of percentiles for USA, Regions, States, which are in the gdb.
+  Columns dropped from ftp version, not included here:
+    - text fields about percentiles, used as popup text on maps
+    - any obsolete columns related to the 2 alternative versions of an EJ Index phased out (except VNI.eo and VSI.eo are kept)
+    - any obsolete columns related to using 6 instead of 2 demographic variables (svi6) 
+  Columns added here, not in ftp version:   
+    - lat lon for bg centroids
+    - state name and state abbrev, county name, and FIPS for tract, county, state
+    - flag indicating if any of EJ indexes above 80th percentile in US
+  Rows all were kept: Did not remove a handful of rows that had NA values in FIPS.ST
+  Lookup tables are not included here: lookup tables of percentiles for USA, Regions, States are in the gdb file on EJSCREEN FTP site.
+  Detailed info on demog subgroups is in \link{bgDemographicSubgroups2014to2018} and \link{bgDemographicSubgroups2015to2019}
 }
 \details{
 Definitions of column names here vs in the gdb or csv on the FTP site files
