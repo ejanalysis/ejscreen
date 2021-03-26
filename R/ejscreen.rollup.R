@@ -62,7 +62,7 @@ ejscreen.rollup <- function(bg, fipsname = 'FIPS.TRACT', scalename = 'tracts', e
   if (missing(enames)) {enames <- names.e}
   if (missing(avgnames)) {avgnames <- enames}
   if (missing(wts)) {wts <- bg$pop}
-  tracts.avg   <- rollup(bg[ , avgnames], wts = wts, by = bg[ , fipsname], prefix = '' )
+  tracts.avg   <- ejanalysis::rollup(bg[ , avgnames], wts = wts, by = bg[ , fipsname], prefix = '' )
   names(tracts.avg) <- gsub('by', fipsname, names(tracts.avg))
   tracts.avg$sum.no.wts.used <- NULL
 
@@ -78,7 +78,7 @@ ejscreen.rollup <- function(bg, fipsname = 'FIPS.TRACT', scalename = 'tracts', e
   }
   sumnames <- sumnames1[sumnames1 %in% names(bg)]
   if (sumnames1 != sumnames) {warning('Fields not found: ', setdiff(sumnames1, sumnames))}
-  tracts.sum <- rollup(bg[ , sumnames], by = bg[ , fipsname], FUN = sum, prefix = '')
+  tracts.sum <- ejanalysis::rollup(bg[ , sumnames], by = bg[ , fipsname], FUN = sum, prefix = '')
   names(tracts.sum) <- gsub('by', fipsname, names(tracts.sum))
   tracts.sum$sum.no.wts.used <- NULL
 

@@ -23,6 +23,10 @@ This data was created by downloading and calculating
   INCLUDING % Hispanic, etc. (the subgroups within "minority")
   for use in EJ analysis.
   This can be MERGED WITH the EJSCREEN DATASET (see below).
+  But note that unlike bgDemographicSubgroups2014to2018,
+   bg20 has PR 
+   and may also have some rows with NA for state fips not yet fixed.
+  
 
   This may also be addressed in documentation help page for bg19 or bg20 via ?bg20
 

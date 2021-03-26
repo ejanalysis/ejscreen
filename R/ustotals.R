@@ -63,7 +63,8 @@
 #'     \item PCTNHMULTI.US
 #'   }
 #' @examples
-#' # tots <- ustotals(bg)
+#' # cbind(Subgroups_2014_2018 = ustotals(bgDemographicSubgroups2014to2018), EJSCREEN = ustotals(bg20[!is.na(bg20$ST) & bg20$ST != 'PR',])) 
+#' 
 #' tots <- list(POP.US = 314107084,
 #' LOWINC.US = 105773407, MINS.US = 116947592,
 #' UNDER5.US = 19973711, OVER64.US = 43177961,
@@ -84,13 +85,15 @@
 #' PCTNHNHPIA.US = 0.00157002189737306, PCTNHOTHERALONE.US = 0.00194800127462264,
 #' PCTNHMULTI.US = 0.0213076537936343)
 #'
+#' # tots <- ustotals(bg20)
+#' 
 #'  # Display as a nice table with two columns, rounded numbers, rownames and colnames
-#' tots <- round(cbind(unlist(tots)), 2)
-#' totrownames <- rownames(tots)[1:16]
-#' tots <- cbind(tots[1:16], c(1, tots[17:31]))
-#' rownames(tots) <- totrownames
-#' colnames(tots) <- c('count', 'pct')
-#' tots
+# tots <- round(cbind(unlist(tots)), 3)
+# totrownames <- rownames(tots)[1:16]
+# tots <- cbind(tots[1:16], 100 * c(1, tots[17:31]))
+# rownames(tots) <- totrownames
+# colnames(tots) <- c('count', 'pct')
+# tots
 #'
 #' usapprox <- data.frame(
 #'  pop=rep(1419.767,217739),lowinc=464.4692,mins=515.4554,under5=92.48634,
