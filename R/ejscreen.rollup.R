@@ -6,7 +6,7 @@
 #' @details **default fieldnames are assumed for now. Uses \code{\link{ejscreen.create}}
 #' @param bg Data.frame of raw data for environmental and demographic counts, one row per block group typically, one column per indicator.
 #' @param enames Default is \code{\link{names.e}}, the colnames of raw envt indicators in bg
-#' @param sumnames Default is a vector of colnames in bg, those which should be rolled up as sums (e.g., sum of all block group population counts in the tract)
+#' @param sumnames Default is a vector of colnames in bg, those which should be rolled up as sums with na.rm=TRUE (e.g., sum of all block group population counts in the tract)
 #' @param avgnames Default is a vector of colnames in bg, those which should be rolled up as weighted averages (e.g., pop wtd mean of air pollution level)
 #' @param wts Default is 'pop', the colname in bg specifying the field to use when calculating the weighted mean of all blockgroups in a tract, for example.
 #' @param acsnames Not used. Default is a vector of demographic colnames in bg, used in default ejscreen dataset (see code or \code{\link{ejscreenformulas}})
@@ -39,12 +39,12 @@
 #'
 #'   ##################################### #
 #'   # Get results, using the function
-#'   myrollup <- ejscreen.rollup(bg = bg, fipsname = fipsname, scalename = scalename)
+#'   myrollup <- ejscreen.rollup(bg = bg, fipsname = fipsname)
 #'
 #'   ##################################### #
 #'   # Save results
-#'   save(myrollup, file = paste('EJSCREEN 2015', scalename, 'data.RData') )
-#'   write.csv(myrollup, row.names = FALSE, file = paste('EJSCREEN 2015', scalename, 'data.csv'))
+#'   save(myrollup, file = paste('EJSCREEN 202o', scalename, 'data.RData') )
+#'   write.csv(myrollup, row.names = FALSE, file = paste('EJSCREEN 2020', scalename, 'data.csv'))
 #'
 #'   }
 #'  }
@@ -77,8 +77,8 @@ ejscreen.rollup <- function(bg, fipsname = 'FIPS.TRACT', scalename = 'tracts', e
                    'pre1960')
   }
   sumnames <- sumnames1[sumnames1 %in% names(bg)]
-  if (sumnames1 != sumnames) {warning('Fields not found: ', setdiff(sumnames1, sumnames))}
-  tracts.sum <- ejanalysis::rollup(bg[ , sumnames], by = bg[ , fipsname], FUN = sum, prefix = '')
+  if (!setequal(sumnames1, sumnames)) {warning('Fields not found: ', setdiff(sumnames1, sumnames))}
+  tracts.sum <- ejanalysis::rollup(bg[ , sumnames], by = bg[ , fipsname], FUN = function(z) sum(z, na.rm = TRUE), prefix = '')
   names(tracts.sum) <- gsub('by', fipsname, names(tracts.sum))
   tracts.sum$sum.no.wts.used <- NULL
 
@@ -101,6 +101,7 @@ ejscreen.rollup <- function(bg, fipsname = 'FIPS.TRACT', scalename = 'tracts', e
   tracts <- ejscreen.create(
     e =      data.frame(FIPS = tracts[ , fipsname], tracts[ , names(tracts) %in% enames]),
     acsraw = data.frame(FIPS = tracts[ , fipsname], tracts[ , acsfields] ),
+    checkfips = ifelse(fipsname == 'REGION', FALSE, TRUE),
     ...
   )
   return(tracts)
