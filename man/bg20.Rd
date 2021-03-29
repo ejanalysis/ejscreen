@@ -24,12 +24,19 @@ Note the 2020 version of EJSCREEN (released January 2021 rather than late 2020)
     - lat lon for bg centroids
     - state name and state abbrev, county name, and FIPS for tract, county, state
     - flag indicating if any of EJ indexes above 80th percentile in US
-  Rows all were kept: Did not remove a handful of rows that had NA values in FIPS.ST
-  Lookup tables are not included here: lookup tables of percentiles for USA, Regions, States are in the gdb file on EJSCREEN FTP site.
   Detailed info on demog subgroups is in \link{bgDemographicSubgroups2014to2018} and \link{bgDemographicSubgroups2015to2019}
 }
 \details{
-Definitions of column names here vs in the gdb or csv on the FTP site files
+Note that unlike bgDemographicSubgroups2014to2018,
+   bg20 has PR 
+   and has some rows with NA for state fips not yet fixed
+   and has some rows with lowinc or povknownratio NA not fixed (but pctlowinc is OK)...
+   rows all were kept -- Did not remove a handful of rows that had NA values in FIPS.ST
+   Not clear why those were there and may be errors that get fixed.
+   
+  Lookup tables are not included here: lookup tables of percentiles for USA, Regions, States are in the gdb file on EJSCREEN FTP site.
+  
+  Definitions of column names here vs in the gdb or csv on the FTP site files
   are in data(ejscreenformulas)
   and also in a file called EJSCREEN_columns_explained.csv
   in the inst folder of the ejscreen package.
