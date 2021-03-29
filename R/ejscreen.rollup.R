@@ -7,7 +7,13 @@
 #' @param bg Data.frame of raw data for environmental and demographic counts, one row per block group typically, one column per indicator.
 #' @param enames Default is \code{\link{names.e}}, the colnames of raw envt indicators in bg
 #' @param sumnames Default is a vector of colnames in bg, those which should be rolled up as sums (e.g., sum of all block group population counts in the tract)
-#' @param avgnames Default is a vector of colnames in bg, those which should be rolled up as weighted averages (e.g., pop wtd mean of air pollution level)
+#'   including 'pop', 'povknownratio', 'age25up', 'hhlds', 'builtunits',
+#'   'mins', 'lowinc', 'lths', 'lingiso', 'under5', 'over64',
+#'   'VNI.eo', 'VNI.svi6', 'VDI.eo', 'VDI.svi6',
+#'   'hisp', 'nhaa', 'nhaiana', 'nhba',  'nhmulti', 'nhnhpia', 'nhotheralone', 'nhwa', 'nonmins',
+#'   'area',
+#'   'pre1960'
+#' @param avgnames Default is ejscreen::enames, a vector of colnames in bg, those which should be rolled up as weighted averages (e.g., pop wtd mean of air pollution level)
 #' @param wts Default is 'pop', the colname in bg specifying the field to use when calculating the weighted mean of all blockgroups in a tract, for example.
 #' @param acsnames Not used. Default is a vector of demographic colnames in bg, used in default ejscreen dataset (see code or \code{\link{ejscreenformulas}})
 #' @param ... Optional parameters to pass to \code{\link{ejscreen.create}} which uses formulas to create indicators from raw values.

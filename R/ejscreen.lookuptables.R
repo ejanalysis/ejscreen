@@ -264,7 +264,7 @@ ejscreen.lookuptables <-
         r = rbind(r, t(data.frame(mean = sapply(rawcols, function(x)
           Hmisc::wtd.mean(x, wts, na.rm = TRUE)))))
         r = rbind(r, t(data.frame(std.dev = sapply(rawcols, function(x)
-          sqrt(wtd.var(x, wts, na.rm = TRUE))))))
+          sqrt(Hmisc::wtd.var(x, wts, na.rm = TRUE))))))
 
         # fix columns where all were NA values so don't say zero
         r[, rawcol.is.all.na] <- NA

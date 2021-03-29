@@ -21,13 +21,13 @@ ejscreen.lookuptables(
 \item{cols}{Optional vector of colnames of x that need percentile lookup tables, or \code{all} which means all numeric fields in x.
 Default is a standard set of EJSCREEN fieldnames defined within this function (see source code).}
 
-\item{zonecols}{Optional. Must set to NULL if no zones wanted, because default is \code{c('ST', 'REGION')}, 
-names of cols in x that contain zone codes, such as State names or Region numbers, 
+\item{zonecols}{Optional. Must set to NULL if no zones wanted, because default is \code{c('ST', 'REGION')},
+names of cols in x that contain zone codes, such as State names or Region numbers,
 used to create a lookup table file for each of the zonecols, with separate percentiles calculated within each zone.}
 
 \item{folder}{Default is \code{getwd()} - specifies where to save the csv files.}
 
-\item{missingcode}{Leave this unspecified if missing values are set to NA in the input data. 
+\item{missingcode}{Leave this unspecified if missing values are set to NA in the input data.
 Default is -9999999 (but if already NA then do not specify anything for this). The number or value in the input data that designates a missing value.}
 }
 \value{
@@ -38,14 +38,14 @@ Overall lookup table(s) as data.frame (but not zonal ones). Creates lookup table
 *** Work in progress as of 2019.
   *** The Hmisc package provides the function called Hmisc::wtd.quantile(),
   but could recode to use analyze.stuff::wtd.pctiles ?
-  
+
   Start with raw environmental, demographic, and EJ indicator data, and write as csv files to disk a series of
   lookup tables that show population percentiles and mean values for each indicator.
 }
 \details{
 Percentiles are calculated as exact values and then rounded down to the nearest 0-100 percentile.
-  This calculates percentiles among only the non-NA values. In other words, 
-  people in places with missing data are excluded from the calculation. This means the 
+  This calculates percentiles among only the non-NA values. In other words,
+  people in places with missing data are excluded from the calculation. This means the
   percentile is the percent of people with valid data (i.e., not NA) who have a tied or lower value.
 }
 \examples{

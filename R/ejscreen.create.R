@@ -220,20 +220,23 @@ ejscreen.create <-
     e <- e[order(e$FIPS),]
 
     if (checkfips) {
-      #*** this fails in an ugly fashion if the values passed are not actually FIPS at all but are e.g., characters like "NY"
+      #*** this used to fail in an ugly fashion if the values passed are not actually FIPS at all but are e.g., characters like "NY"
       # clean up adding leading zero and saving as character in case 11 digit numeric missing leading zero for example
       # but note that will not allow use of simple ordinal numbers in lieu of FIPS, since clean.fips requires fips to be valid state, county, etc., not just any number or string
+
 
       e$FIPS <- ejanalysis::clean.fips(e$FIPS)
       bg.d$FIPS <- ejanalysis::clean.fips(bg.d$FIPS)
     }
 
-    if (any(e$FIPS != bg.d$FIPS)) {
+    # na.omit() should at least avoid some errors?
+    if (any(na.omit(e$FIPS != bg.d$FIPS))) {
       stop('Environment and Demographic datasets must match FIPS in 100% of cases')
     }
 
     # **** SHOULD CHANGE THIS TO HANDLE CASE WHERE ENVT DATA IS MISSING IN SOME LOCATIONS, TREATED AS NA. *********************
     # WOULD NEED TO USE merge() below instead of data.frame()
+    # na.omit() should at least avoid some errors?
 
     mynames.d <- names(bg.d)[names(bg.d) != 'FIPS']
     mynames.e <- names(e)[names(e) != 'FIPS']

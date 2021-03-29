@@ -28,9 +28,15 @@ ejscreen.rollup(
 
 \item{folder}{***Not used. Optional, default is getwd().}
 
-\item{sumnames}{Default is a vector of colnames in bg, those which should be rolled up as sums (e.g., sum of all block group population counts in the tract)}
+\item{sumnames}{Default is a vector of colnames in bg, those which should be rolled up as sums (e.g., sum of all block group population counts in the tract)
+including 'pop', 'povknownratio', 'age25up', 'hhlds', 'builtunits',
+'mins', 'lowinc', 'lths', 'lingiso', 'under5', 'over64',
+'VNI.eo', 'VNI.svi6', 'VDI.eo', 'VDI.svi6',
+'hisp', 'nhaa', 'nhaiana', 'nhba',  'nhmulti', 'nhnhpia', 'nhotheralone', 'nhwa', 'nonmins',
+'area',
+'pre1960'}
 
-\item{avgnames}{Default is a vector of colnames in bg, those which should be rolled up as weighted averages (e.g., pop wtd mean of air pollution level)}
+\item{avgnames}{Default is ejscreen::enames, a vector of colnames in bg, those which should be rolled up as weighted averages (e.g., pop wtd mean of air pollution level)}
 
 \item{wts}{Default is 'pop', the colname in bg specifying the field to use when calculating the weighted mean of all blockgroups in a tract, for example.}
 
