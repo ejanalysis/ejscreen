@@ -28,7 +28,7 @@ ejscreen.rollup(
 
 \item{folder}{***Not used. Optional, default is getwd().}
 
-\item{sumnames}{Default is a vector of colnames in bg, those which should be rolled up as sums (e.g., sum of all block group population counts in the tract)
+\item{sumnames}{Default is a vector of colnames in bg, those which should be rolled up as sums with na.rm=TRUE (e.g., sum of all block group population counts in the tract)
 including 'pop', 'povknownratio', 'age25up', 'hhlds', 'builtunits',
 'mins', 'lowinc', 'lths', 'lingiso', 'under5', 'over64',
 'VNI.eo', 'VNI.svi6', 'VDI.eo', 'VDI.svi6',
@@ -76,12 +76,12 @@ Start with full EJSCREEN dataset at one resolution (typically block groups),
 
   ##################################### #
   # Get results, using the function
-  myrollup <- ejscreen.rollup(bg = bg, fipsname = fipsname, scalename = scalename)
+  myrollup <- ejscreen.rollup(bg = bg, fipsname = fipsname)
 
   ##################################### #
   # Save results
-  save(myrollup, file = paste('EJSCREEN 2015', scalename, 'data.RData') )
-  write.csv(myrollup, row.names = FALSE, file = paste('EJSCREEN 2015', scalename, 'data.csv'))
+  save(myrollup, file = paste('EJSCREEN 202o', scalename, 'data.RData') )
+  write.csv(myrollup, row.names = FALSE, file = paste('EJSCREEN 2020', scalename, 'data.csv'))
 
   }
  }
