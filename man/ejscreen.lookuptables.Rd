@@ -50,7 +50,7 @@ Overall lookup table(s) as data.frame (but not zonal ones). Creates lookup table
   One table for overall percentiles, and one for each of the zonecols (unless that is set to NULL).
 }
 \description{
-*** Work in progress as of 2019.
+*** Work in progress as of 2021
   *** The Hmisc package provides the function called Hmisc::wtd.quantile(),
   but could recode to use analyze.stuff::wtd.pctiles ?
 

@@ -31,11 +31,31 @@ Note that unlike bgDemographicSubgroups2014to2018,
    bg20 has PR
    and has some rows with NA for state fips not yet fixed
    and has some rows with lowinc or povknownratio NA not fixed (but pctlowinc is OK)...
-   rows all were kept -- Initially a handful of rows that had NA values in FIPS.ST, other geo fields,
+   rows all were kept --
+   #
+   # HOW THE 13 PROBLEM ROWS WERE FIXED IN  bg18, bg19, bg20:
+   #
+   Initially a handful of rows that had NA values in FIPS.ST, other geo fields,
    in AK and SD, probably because those
    were not in the old list of valid county FIPS numbers that has been used by ejanalysis::get.county.info() used by clean.fips()
    and those block group FIPS are also not found in the Census 2010 (block group) FIPS in proxistat::bg.pts$FIPS
    Those 13 rows were manually fixed for bg20 (so now they have NA just for lat, lon, and countyname).
+   The fields that did not get created right for the 13 were:
+   y <- bg18
+   newfips <- y$FIPS[is.na(y$ST)]
+   bad <- which(is.na(y$ST))
+   nastuff <- analyze.stuff::na.check(y[bad,])[ , c('count', 'na')]; nastuff[order(nastuff$na),]
+   ###  FIPS.TRACT, FIPS.COUNTY ,FIPS.ST, ST, statename, REGION, countyname , lat  , lon
+
+   ######3 *** TO BE FIXED... CONTINUED...
+
+   y[bad] <- bg19[bad,]
+   y['FIPS.TRACT'] <- substr(y$FIPS,1,11)
+   y['FIPS.COUNTY'] <- substr(y$FIPS,1,5)
+   y['FIPS.ST'] <- substr(y$FIPS,1,2)
+   y['ST'] <- ejanalysis::get.state.info(substr(y$FIPS,1,2))$ST
+   y['statename'] <- ejanalysis::get.state.info(substr(y$FIPS,1,2))$statename
+   y['REGION'] <- ejanalysis::get.state.info(substr(y$FIPS,1,2))$REGION
 
   Lookup tables are not yet included here: lookup tables of percentiles for USA, Regions, States are in the gdb file on EJSCREEN FTP site.
   For that information, see ejscreen::lookupUSA, lookupRegions, lookupStates, and ejscreen::ejscreen.lookuptables
