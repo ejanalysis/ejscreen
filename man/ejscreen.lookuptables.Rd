@@ -6,17 +6,22 @@
 \usage{
 ejscreen.lookuptables(
   x,
-  weights = x$pop,
+  weights,
   cols,
   zonecols = c("ST", "REGION"),
+  zoneOverallName = "USA",
   folder = getwd(),
+  filename1 = "lookupUSA",
+  filenameprefix = "lookup",
+  savefilezoneset = TRUE,
+  savefileperzone = FALSE,
   missingcode = NA
 )
 }
 \arguments{
 \item{x}{Data.frame of indicators, one row per block group, one column per indicator.}
 
-\item{weights}{Weights for percentiles -- Default is population count to provide population percentiles.}
+\item{weights}{Weights for percentiles -- Default is x$pop (if found in x, otherwise no weights) (population count to provide population percentiles.)}
 
 \item{cols}{Optional vector of colnames of x that need percentile lookup tables, or \code{all} which means all numeric fields in x.
 Default is a standard set of EJSCREEN fieldnames defined within this function (see source code).}
@@ -25,7 +30,17 @@ Default is a standard set of EJSCREEN fieldnames defined within this function (s
 names of cols in x that contain zone codes, such as State names or Region numbers,
 used to create a lookup table file for each of the zonecols, with separate percentiles calculated within each zone.}
 
+\item{zoneOverallName}{Name of entire domain to use in table column called REGION. Default is USA.}
+
 \item{folder}{Default is \code{getwd()} - specifies where to save the csv files.}
+
+\item{filename1}{specifies name of file saved, but .csv is added after this}
+
+\item{filenameprefix}{specifies first part of names of files saved for zones}
+
+\item{savefilezoneset}{Save a file for the entire set of zones of one type, like 1 file containing stats on all states}
+
+\item{savefileperzone}{Save one file for each zone, like each state}
 
 \item{missingcode}{Leave this unspecified if missing values are set to NA in the input data.
 Default is -9999999 (but if already NA then do not specify anything for this). The number or value in the input data that designates a missing value.}

@@ -32,9 +32,12 @@
 #'     lookupStates19[lookupStates19$PCTILE == 'mean', c('REGION', 'pm')]
 #'     lookupUSA19[lookupUSA19$PCTILE == 'mean', c('REGION', 'pm')]
 #'   }
-#' @seealso lookupUSA lookupRegions lookupStates \code{\link[ejanalysis]{lookup.pctile}}
+#' @seealso lookupUSA20 lookupUSA lookupRegions lookupStates ejscreen.lookuptables \code{\link[ejanalysis]{lookup.pctile}}
 #' @details
-#'   It was created for this package from the EJSCREEN geodatabase
+#'   The 2020 version (lookupUSA20, lookupStates20, lookupRegions20)
+#'   was created for this package via  \code{x <- ejscreen::ejscreen.lookuptables(bg20)}
+#'   \cr
+#'   The 2019 version was created for this package from the EJSCREEN geodatabase
 #'   \cr downloaded from the EJSCREEN public FTP site as .gdb format (zipped).
 #'   \cr A script can be used to import and clean it up from that point:
 #'   \cr see SCRIPT_read-downloaded-pctile-lookups.R in the inst folder of this pkg
@@ -58,7 +61,6 @@
 #'   \code{ # [79] "EJ.DISPARITY.o3.eo"                "EJ.DISPARITY.o3.svi6"              "EJ.BURDEN.o3.eo"                   "EJ.BURDEN.o3.svi6"                 "EJ.PCT.o3.eo"                      "EJ.PCT.o3.svi6"                    }\cr
 #'   \code{ # [85] "EJ.DISPARITY.pm.eo"                "EJ.DISPARITY.pm.svi6"              "EJ.BURDEN.pm.eo"                   "EJ.BURDEN.pm.svi6"                 "EJ.PCT.pm.eo"                      "EJ.PCT.pm.svi6"    }\cr
 #'   \cr
-#'
 #'
 #' @concept datasets
 NULL

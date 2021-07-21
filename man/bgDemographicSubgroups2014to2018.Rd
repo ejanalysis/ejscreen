@@ -24,32 +24,32 @@ This data was created by downloading and calculating
   for use in EJ analysis.
   This can be MERGED WITH the EJSCREEN DATASET (see below).
   But note that unlike bgDemographicSubgroups2014to2018,
-   bg20 has PR 
+   bg20 has PR
    and may also have some rows with NA for state fips not yet fixed.
-  
 
+\cr \cr
   This may also be addressed in documentation help page for bg19 or bg20 via ?bg20
+\cr \cr
+  Note the 2021 version of EJSCREEN to be released late 2021 \cr
+  actually would use ACS2019 and fits with bgDemographicSubgroups2015to2019, which is from 2015-2019 (released late 2020). \cr \cr
+  *** Note the 2020 version of EJSCREEN released late 2020 (actually Jan 2021) \cr
+  actually uses ACS2018 and fits with bgDemographicSubgroups2014to2018, which is from 2014-2018 (released late 2019). \cr \cr
+  Note the 2019 version of EJSCREEN (released late 2019) \cr
+   actually uses ACS2017, which is from 2013-2017 (released late 2018). \cr \cr
+  Note the 2018 version of EJSCREEN (released late 2018) \cr
+   actually uses ACS2016, which is from 2012-2016 (released late 2017). \cr \cr
 
-  Note the 2021 version of EJSCREEN to be released late 2021
-  actually would use ACS2019 and fits with bgDemographicSubgroups2015to2019, which is from 2015-2019 (released late 2020).
-  *** Note the 2020 version of EJSCREEN released late 2020 (actually Jan 2021)
-  actually uses ACS2018 and fits with bgDemographicSubgroups2014to2018, which is from 2014-2018 (released late 2019).
-  Note the 2019 version of EJSCREEN (released late 2019)
-   actually uses ACS2017, which is from 2013-2017 (released late 2018).
-  Note the 2018 version of EJSCREEN (released late 2018)
-   actually uses ACS2016, which is from 2012-2016 (released late 2017).
-
-    ##########################################
-    # How to merge demographic subgroup info into the basic EJSCREEN bg20 dataset:
-    ###########################################
-    d <- bgDemographicSubgroups2014to2018
-    d <- d[ , !(names(d) %in% c('pop', 'mins', 'pctmin'))]
-    bg20plus <- merge(bg20, d, by = 'FIPS', all.x = TRUE)
-    rm(d)
-    # save(bg20plus, file = 'bg20plus EJSCREEN dataset plus race ethnic subgroups.rdata')
-    # write.csv(bg20plus, file = 'bg20plus EJSCREEN dataset plus race ethnic subgroups.csv')
-    ##########################################
-    names(bg20plus)[!(names(bg20plus) %in% names(bg20))]
+    ########################################## \cr
+    # How to merge demographic subgroup info into the basic EJSCREEN bg20 dataset: \cr
+    ########################################### \cr
+    d <- bgDemographicSubgroups2014to2018 \cr
+    d <- d[ , !(names(d) %in% c('pop', 'mins', 'pctmin'))] \cr
+    bg20plus <- merge(bg20, d, by = 'FIPS', all.x = TRUE) \cr
+    rm(d) \cr
+    # save(bg20plus, file = 'bg20plus EJSCREEN dataset plus race ethnic subgroups.rdata') \cr
+    # write.csv(bg20plus, file = 'bg20plus EJSCREEN dataset plus race ethnic subgroups.csv') \cr
+    ########################################## \cr \cr
+    names(bg20plus)[!(names(bg20plus) %in% names(bg20))] \cr
     [1] "hisp"            "nhwa"            "nhba"            "nhaiana"
     [5] "nhaa"            "nhnhpia"         "nhotheralone"    "nhmulti"
     [9] "nonmins"         "pcthisp"         "pctnhwa"         "pctnhba"
@@ -60,11 +60,11 @@ This data was created by downloading and calculating
     [1] 220333    118
     > dim(bg20plus)
     [1] 220333    135
-
-    # Note that only Puerto Rico is missing from this ACS dataset?
-    # while bg20 should have PR
-    # setdiff(substr(bg20$FIPS, 1,2), substr(bgDemographicSubgroups2014to2018$FIPS,1,2))  # substr(bgACS$FIPS,1,2))
-    # [1] "72" which is the FIPS code for Puerto Rico.
+\cr \cr
+    # Note that only Puerto Rico is missing from this ACS dataset? \cr
+    # while bg20 should have PR \cr
+    # setdiff(substr(bg20$FIPS, 1,2), substr(bgDemographicSubgroups2014to2018$FIPS,1,2))  # substr(bgACS$FIPS,1,2)) \cr
+    # [1] "72" which is the FIPS code for Puerto Rico. \cr
 
 
   How bgDemographicSubgroups2014to2018 was created:

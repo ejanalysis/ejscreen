@@ -34,19 +34,19 @@ This data was created by downloading and calculating
    actually uses ACS2017, which is from 2013-2017 (released late 2018).
   Note the 2018 version of EJSCREEN (released late 2018)
    actually uses ACS2016, which is from 2012-2016 (released late 2017).
-
-    ##########################################
-    # How to merge demographic subgroup info into the basic EJSCREEN bg19 dataset:
-    ###########################################
-    d <- bgDemographicSubgroups2015to2019
-    d <- d[ , !(names(d) %in% c('pop', 'mins', 'pctmin'))]
-    bg21plus <- merge(bg21, d, by = 'FIPS', all.x = TRUE)
-    rm(d)
-    # save(bg21plus, file = 'bg21plus EJSCREEN dataset plus race ethnic subgroups.rdata')
-    # write.csv(bg21plus, file = 'bg21plus EJSCREEN dataset plus race ethnic subgroups.csv')
-    ##########################################
-    ##########################################
-
+  \cr
+    ########################################## \cr
+    # How to merge demographic subgroup info into the basic EJSCREEN bg19 dataset: \cr
+    ########################################### \cr
+    d <- bgDemographicSubgroups2015to2019 \cr
+    d <- d[ , !(names(d) %in% c('pop', 'mins', 'pctmin'))] \cr
+    bg21plus <- merge(bg21, d, by = 'FIPS', all.x = TRUE) \cr
+    rm(d) \cr
+    # save(bg21plus, file = 'bg21plus EJSCREEN dataset plus race ethnic subgroups.rdata') \cr
+    # write.csv(bg21plus, file = 'bg21plus EJSCREEN dataset plus race ethnic subgroups.csv') \cr
+    ########################################## \cr
+    ########################################## \cr
+\cr
     # Note that only Puerto Rico is missing from this ACS dataset?
     # while bg21 should have PR
     # setdiff(substr(bg21$FIPS, 1,2), substr(bgDemographicSubgroups2015to2019$FIPS,1,2))

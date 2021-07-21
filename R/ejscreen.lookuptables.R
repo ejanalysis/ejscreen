@@ -1,7 +1,7 @@
 #' @title Create EJSCREEN Lookup Tables of Pop. Percentiles by Zone - WORK IN PROGRESS
 #'
 #' @description
-#'   *** Work in progress as of 2019.
+#'   *** Work in progress as of 2021
 #'   *** The Hmisc package provides the function called Hmisc::wtd.quantile(),
 #'   but could recode to use analyze.stuff::wtd.pctiles ?
 #'
@@ -12,11 +12,16 @@
 #'   people in places with missing data are excluded from the calculation. This means the
 #'   percentile is the percent of people with valid data (i.e., not NA) who have a tied or lower value.
 #' @param x Data.frame of indicators, one row per block group, one column per indicator.
-#' @param weights Weights for percentiles -- Default is population count to provide population percentiles.
+#' @param weights Weights for percentiles -- Default is x$pop (if found in x, otherwise no weights) (population count to provide population percentiles.)
 #' @param folder Default is \code{getwd()} - specifies where to save the csv files.
 #' @param zonecols Optional. Must set to NULL if no zones wanted, because default is \code{c('ST', 'REGION')},
 #'   names of cols in x that contain zone codes, such as State names or Region numbers,
 #'   used to create a lookup table file for each of the zonecols, with separate percentiles calculated within each zone.
+#' @param zoneOverallName Name of entire domain to use in table column called REGION. Default is USA.
+#' @param filename1 specifies name of file saved, but .csv is added after this
+#' @param filenameprefix specifies first part of names of files saved for zones
+#' @param savefilezoneset Save a file for the entire set of zones of one type, like 1 file containing stats on all states
+#' @param savefileperzone Save one file for each zone, like each state
 #' @param missingcode Leave this unspecified if missing values are set to NA in the input data.
 #'   Default is -9999999 (but if already NA then do not specify anything for this). The number or value in the input data that designates a missing value.
 #' @param cols Optional vector of colnames of x that need percentile lookup tables, or \code{all} which means all numeric fields in x.
@@ -38,10 +43,12 @@
 #' @export
 ejscreen.lookuptables <-
   function(x,
-           weights = x$pop,
+           weights,
            cols,
-           zonecols = c('ST', 'REGION'),
+           zonecols = c('ST', 'REGION'), zoneOverallName = 'USA',
            folder = getwd(),
+           filename1='lookupUSA', filenameprefix='lookup',
+           savefilezoneset=TRUE, savefileperzone=FALSE,
            missingcode = NA) {
 
     ############################### #
@@ -55,9 +62,18 @@ ejscreen.lookuptables <-
     #  cbind(table.pop.pctile(envirodata$pm, demogdata$pop))
     #    fname <- "TESTING results table of WTD pctiles for EJ vars.csv"
     #    write.wtd.pctiles(column.names = c("pm", "o3"), wts = demogdata$pop, filename = fname)
+if (missing(weights)) {
+  if ('pop' %in% names(x)) {
+    weights <- x$pop
+  } else {
+    warning('weights not specified but no column named pop found in x so using no weights')
+    weights=rep(1,NROW(x))
+  }
+}
+    if (any(is.na(x[ , zonecols]))) {stop('Must not have any NA values in x[ , zonecols] ', paste(zonecols, collapse = ' '))}
 
     places <- x
-    rm(x)
+    rm(x) # just because I had written the rest of this using places not x as the variable name
 
     # Which cols need pctiles? ------------------------------------------------
 
@@ -161,17 +177,21 @@ ejscreen.lookuptables <-
         analyze.stuff::change.fieldnames(cols,
                                          oldnames = ejscreenformulas$gdbfieldname,
                                          newnames = ejscreenformulas$Rfieldname)
-    }
+
+      }
     if (cols[1] == 'all') {
       cols <- names(places)[sapply(places, is.numeric)]
     }
 
     # *** Written assuming places data.frame is in memory in current environment,
     # not passed to functions here
-    if (any(!(cols %in% names(places)))) {
-      stop('Not all cols are found among colnames of x')
+    found <- cols %in% names(places)
+    if (any(!(found))) {
+      warning('Not all cols are found among colnames of x - using just those found')
+      print('Missing these:')
+      print(cols[!found])
+      cols <- cols[found]
     }
-
 
     # Handle NA missing values ------------------------------------------------
 
@@ -233,8 +253,7 @@ ejscreen.lookuptables <-
 
     # NOTE na.rm=TRUE is done in table.pop.pctile, so needn't do that below as well.
 
-    write.wtd.pctiles <-
-      function(column.names,
+    write.wtd.pctiles <- function(column.names,
                wts,
                folder = getwd(),
                filename,
@@ -273,7 +292,9 @@ ejscreen.lookuptables <-
         if (!is.na(missingcode)) {
           r[is.na(r)] <- missingcode
         }
-
+        r$OBJECTID <- 1:NROW(r)
+        r$REGION <- zoneOverallName
+        r$PCTILE <- gsub( '%', '',trimws(rownames(r)))
         write.csv(r, file = file.path(folder, paste(filename, ".csv", sep =
                                                       "")))
         return(r)
@@ -288,7 +309,7 @@ ejscreen.lookuptables <-
                wts,
                folder = getwd(),
                filename,
-               zone.vector,
+               zone.vector, savefileperzone=FALSE, savefilezoneset=TRUE,
                missingcode = NA) {
         # ***** Written assuming places data.frame is in memory in current environment,
         # not passed to this function, BUT places IN AVAILABLE WITHIN THE CALLING ENVIRONMENT
@@ -307,6 +328,8 @@ ejscreen.lookuptables <-
 
         # r <- list(1:length(unique(zone.vector))) # if we wanted to save all the tables, one per zone, in a list, could say r[[z]] <- .... below
 
+        lookupzoneset <- data.frame() # should preallocate memory and right dimensions here and write sections to it ideally
+        firstzone <- unique(zone.vector)[1]
         for (z in unique(zone.vector)) {
           # WITHIN A GIVEN ZONE ***
           # If every element of a column is NA, these all fail: wtd.mean, wtd.var, table.pop.pctile that uses wtd.quantile
@@ -324,7 +347,7 @@ ejscreen.lookuptables <-
           )))
           r = rbind(r, t(data.frame(
             std.dev = sapply(rawcols[zone.vector == z,], function(x)
-              sqrt(wtd.var(
+              sqrt(Hmisc::wtd.var(
                 x, wts[zone.vector == z], na.rm = TRUE
               )))
           )))
@@ -337,14 +360,37 @@ ejscreen.lookuptables <-
             r[is.na(r)] <- missingcode
           }
 
-          write.csv(r, file = file.path(
-            folder,
-            paste(filename, "-popwtd-for zone ", z, ".csv", sep = "")
-          ))
+          r$OBJECTID <-  1:NROW(r) # could redo for overall file later
+          r$REGION <- z
+          r$PCTILE <- gsub( '%', '',trimws(rownames(r)))
+
+          if (savefileperzone) {
+            r <- analyze.stuff::put.first(r, c('OBJECTID', 'REGION', 'PCTILE'))
+            write.csv(r, file = file.path(
+              folder,
+              paste(filename, " ", z, ".csv", sep = "")
+            ))
+          }
+
+          # ADD THIS PLACE TO RUNNING TABLE OF THE SET OF PLACES OF THIS TYPE
+          if (z == firstzone) {
+            lookupzoneset <- r
+          } else {
+            lookupzoneset <- rbind(lookupzoneset, r)
+          }
         }
-        return(unique(zone.vector))
-        # return(r[z])  #  if we wanted to compile & then return all the tables, one per zone, in a list
-      }
+        # finished loop over unique(zone.vector), eg Done with all States
+        lookupzoneset <- analyze.stuff::put.first(lookupzoneset, c('OBJECTID', 'REGION', 'PCTILE'))
+        lookupzoneset$OBJECTID <-  1:NROW(lookupzoneset)
+
+        if (savefilezoneset) {
+          # save 1 file with all states, for example
+          write.csv(lookupzoneset, file = file.path(folder, paste(filename, '.csv', sep = '')), row.names = FALSE)
+        }
+        # return(unique(zone.vector)) # *********
+        #  if we want to compile & then return all the tables, one per zone, in a list:
+        return(lookupzoneset)
+        }
 
     # zone.vector should be a vector that is the data in the column to use for grouping, e.g. zone.vector <- places$REGION
 
@@ -424,26 +470,31 @@ ejscreen.lookuptables <-
 
     #  x <- weightedCDF('in_rawData_csv.csv', 'output.csv', 'pop')   # cols is optional
 
-    x <-
-      write.wtd.pctiles(
+    x <- write.wtd.pctiles(column.names = cols,
+        wts = weights,
+        folder = folder,
+        filename = filename1,
+        missingcode = missingcode
+      )
+    # that is just for the US overall
+
+    y <- list()
+    for (i in 1:length(zonecols)) {
+      y[[i]] <- write.wtd.pctiles.by.zone(
         column.names = cols,
         wts = weights,
         folder = folder,
-        filename = 'output',
+        filename = paste(filenameprefix, zonecols[i], sep = ''),
+        zone.vector = places[, zonecols[i]],
+        savefileperzone=savefileperzone, savefilezoneset=savefilezoneset,
         missingcode = missingcode
       )
 
-    for (i in 1:length(zonecols)) {
-      y <- write.wtd.pctiles.by.zone(
-        column.names = cols,
-        wts = weights,
-        folder = folder,
-        filename = paste('out', zonecols[i], sep = '_'),
-        zone.vector = places[, zonecols[i]],
-        missingcode = missingcode
-      )
-      # Do not return y (by zone), just x (overall)
+      # gets here once after all states are done, and then again after all regions
     }
 
+    # Does not return y (by zone), just x (overall) but should?
+    # Try/test this:
+    # return( list(USA=x, REGION=y[[1]], ST=y[[2]] ) )
     return(x)
   }

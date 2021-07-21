@@ -10,7 +10,7 @@ data.frame with 220,333 rows (block groups) and 118 columns in bg20
 \description{
 Note the 2020 version of EJSCREEN (released January 2021 rather than late 2020)
     actually uses ACS2018, which is from 2014-2018 (released by Census late 2019).
-    
+
   Note the 2019 version of EJSCREEN (released late 2019)
     actually uses ACS2017, which is from 2013-2017 (released by Census late 2018).
 
@@ -19,8 +19,8 @@ Note the 2020 version of EJSCREEN (released January 2021 rather than late 2020)
   Columns dropped from ftp version, not included here:
     - text fields about percentiles, used as popup text on maps
     - any obsolete columns related to the 2 alternative versions of an EJ Index phased out (except VNI.eo and VSI.eo are kept)
-    - any obsolete columns related to using 6 instead of 2 demographic variables (svi6) 
-  Columns added here, not in ftp version:   
+    - any obsolete columns related to using 6 instead of 2 demographic variables (svi6)
+  Columns added here, not in ftp version:
     - lat lon for bg centroids
     - state name and state abbrev, county name, and FIPS for tract, county, state
     - flag indicating if any of EJ indexes above 80th percentile in US
@@ -28,14 +28,18 @@ Note the 2020 version of EJSCREEN (released January 2021 rather than late 2020)
 }
 \details{
 Note that unlike bgDemographicSubgroups2014to2018,
-   bg20 has PR 
+   bg20 has PR
    and has some rows with NA for state fips not yet fixed
    and has some rows with lowinc or povknownratio NA not fixed (but pctlowinc is OK)...
-   rows all were kept -- Did not remove a handful of rows that had NA values in FIPS.ST
-   Not clear why those were there and may be errors that get fixed.
-   
-  Lookup tables are not included here: lookup tables of percentiles for USA, Regions, States are in the gdb file on EJSCREEN FTP site.
-  
+   rows all were kept -- Initially a handful of rows that had NA values in FIPS.ST, other geo fields,
+   in AK and SD, probably because those
+   were not in the old list of valid county FIPS numbers that has been used by ejanalysis::get.county.info() used by clean.fips()
+   and those block group FIPS are also not found in the Census 2010 (block group) FIPS in proxistat::bg.pts$FIPS
+   Those 13 rows were manually fixed for bg20 (so now they have NA just for lat, lon, and countyname).
+
+  Lookup tables are not yet included here: lookup tables of percentiles for USA, Regions, States are in the gdb file on EJSCREEN FTP site.
+  For that information, see ejscreen::lookupUSA, lookupRegions, lookupStates, and ejscreen::ejscreen.lookuptables
+
   Definitions of column names here vs in the gdb or csv on the FTP site files
   are in data(ejscreenformulas)
   and also in a file called EJSCREEN_columns_explained.csv
