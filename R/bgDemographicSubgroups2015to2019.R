@@ -17,6 +17,13 @@
 #'   DETAILED RACE ETHNICITY SUBGROUP VARIABLES THAT ARE NOT IN EJSCREEN
 #'   INCLUDING % Hispanic, etc. (the subgroups within "minority")
 #'   for use in EJ analysis.
+#'
+#'   This will give a quick look at some key stats:
+#'    round(data.frame(cbind(
+#'      subgroups=unlist(ustotals(bgDemographicSubgroups2014to2018)),
+#'      maingroups= unlist(ustotals(bg20[bg20$ST !='PR',])))
+#'      ),2)
+#'
 #'   This can be MERGED WITH the EJSCREEN DATASET (see below).
 #'
 #'   This may also be addressed in documentation help page for bg19 or bg20 via ?bg20
