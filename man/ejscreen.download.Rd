@@ -2,16 +2,17 @@
 % Please edit documentation in R/ejscreen.download.R
 \name{ejscreen.download}
 \alias{ejscreen.download}
-\title{Download the EJSCREEN Dataset for use in R}
+\title{Download the EJSCREEN Dataset csv for use in R and rename variables}
 \source{
-See \url{http://www.epa.gov/ejscreen} for more information, and see \url{http://www.epa.gov/ejscreen/download-ejscreen-data} or \url{ftp://newftp.epa.gov/EJSCREEN} for raw data.
+See \url{http://www.epa.gov/ejscreen} for more information, and see \url{http://www.epa.gov/ejscreen/download-ejscreen-data}
 }
 \usage{
 ejscreen.download(
   folder = getwd(),
   yr = NULL,
-  ftpurlbase = "ftp://newftp.epa.gov/EJSCREEN/",
+  ftpurlbase = "https://gaftp.epa.gov/EJSCREEN/",
   justreadname = NULL,
+  statepctiles = FALSE,
   addflag = FALSE,
   cutoff = 80,
   or.tied = TRUE
@@ -20,12 +21,14 @@ ejscreen.download(
 \arguments{
 \item{folder}{Optional path to folder (directory) where the file will be downloaded and unzipped. Default is current working directory.}
 
-\item{yr}{Default is latest available year found as a folder on the FTP site. That was 2018 as of 7/20/19, but would be updated to 2019 upon release of that version in late 2019. Default was 2017 as of 6/2018.
-Optional numeric year designating EJSCREEN version such as 2015, 2016, 2017, 2018, 2019.}
+\item{yr}{Default is latest available year found as a folder on the FTP site.
+Optional numeric year designating EJSCREEN version such as 2015, 2016, 2017, 2018, 2019, 2020, etc.}
 
-\item{ftpurlbase}{Optional. Default is ftp://newftp.epa.gov/EJSCREEN/ and must have ending slash -- for where to find the zipped data.}
+\item{ftpurlbase}{Optional. where to find the zipped data.}
 
-\item{justreadname}{Optional character file name - if specified, skips downloading and just tries to read csv found in \code{folder}.}
+\item{justreadname}{Optional character file name - if specified, skips downloading and just tries to read previously-downloaded csv found in \code{folder}.}
+
+\item{statepctiles}{Optional, default FALSE. If TRUE, gets State Percentiles csv instead of the USPR file.}
 
 \item{addflag}{Optional. Default is FALSE. If TRUE, it adds a field called flagged, which is TRUE if 1 or more of the EJ Indexes is at/above the cutoff US percentile.}
 
@@ -35,30 +38,39 @@ Optional numeric year designating EJSCREEN version such as 2015, 2016, 2017, 201
 }
 \value{
 Returns a data.frame with ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
-  as raw values, US percentiles, text for popups. Output has one row per block group.
+  as raw values, US percentiles, text for popups. Output has one row per block group, sorted by FIPS.
 }
 \description{
 Download EJSCREEN dataset from FTP site, unzip if necessary,
   import to R as data.table,
-  renaming fields with friendly colnames, optionally adding a flag field (see parameter called \code{addflag}).
+  renaming fields with friendly colnames,
+  optionally adding a flag field (see parameter called \code{addflag}).
+  Note that since 2020v, State percentiles are also available in a separate zipped csv.
 }
 \details{
 Not fully tested. \cr
   Each version of EJSCREEN uses updated environmental data and updated 5-year summary file estimates from the American Community Survey (ACS).\cr
-  The 2015 version of EJSCREEN, released in mid 2015, was based on 2008-2012 ACS data, and was the first public version available for download. \cr
+    \cr
+  The 2021 version of EJSCREEN, likely to be released in late 2021, (which will be avail as data in \code{ejscreen::bg21}) \cr
+    is based on 2015-2019 ACS (Census calls it the 2019 5-year data release, but released it in Dec 2020).\cr
+    \url{https://www.census.gov/programs-surveys/acs/news/data-releases/2019/release-schedule.html}  \cr
+  The 2020 version of EJSCREEN, released not in late 2020 but early 2021 (plus a July updated/ corrected file?) \cr
+    is based on 2014-2018 ACS 5-year data that came out in Dec 2019. It is avail as \link{bg20} \cr
+    \cr
+  The 2019 version of EJSCREEN, released in mid/late 2019, \cr
+    is based on 2013-2017 ACS 5-year data that came out in Dec 2018. It is avail as \link{bg19} \cr
   The 2018 version of EJSCREEN, released in mid 2018, was based on 2012-2016 ACS 5-year summary file data that came out in Dec 2017.\cr
-  The 2019 version of EJSCREEN, released in mid/late 2019, is based on 2013-2017 ACS 5-year data that came out in Dec 2018.\cr
-  The 2014-2018 ACS 5-year data will be released starting December 19, 2019.
+  The 2015 version of EJSCREEN, released in mid 2015, was based on 2008-2012 ACS data, and was the first public version available for download.
 }
 \examples{
-   # bg18 <- ejscreen.download('~/Dropbox/EJSCREEN/R Analysis/2018 dataset EJSCREEN/')
-   ## bg18 <- ejscreen.download('~/Dropbox/EJSCREEN/R Analysis/2018 dataset EJSCREEN/',
+   # bg18 <- ejscreen.download('~')
+   ## bg18 <- ejscreen.download('~',
    #  justreadname = 'EJSCREEN_Full_USPR_2018.csv')
    # bg18 <- bg18[ , !grepl(pattern = 'pctile\\.text', x = names(bg18))]
    # bg18 <- bg18[ , !grepl(pattern = 'svi6', x = names(bg18))]
-   # setwd('~/Dropbox/EJSCREEN/R analysis/2018 dataset EJSCREEN')
+   # setwd('~')
    # save(bg18, file = 'bg18.rdata')
 }
 \seealso{
-\code{\link{ejscreen.create}}
+\code{\link{ejscreen.create}}  \code{\link{change.fieldnames.ejscreen.csv}}
 }

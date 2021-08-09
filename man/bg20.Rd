@@ -27,6 +27,12 @@ Note the 2020 version of EJSCREEN (released January 2021 rather than late 2020)
   Detailed info on demog subgroups is in \link{bgDemographicSubgroups2014to2018} and \link{bgDemographicSubgroups2015to2019}
 }
 \details{
+#'   This will give a quick look at some key stats:
+   round(data.frame(cbind(
+     subgroups=unlist(ustotals(bgDemographicSubgroups2014to2018)),
+     maingroups= unlist(ustotals(bg20[bg20$ST !='PR',])))
+     ),2)
+
 Note that unlike bgDemographicSubgroups2014to2018,
    bg20 has PR
    and has some rows with NA for state fips not yet fixed

@@ -1,50 +1,61 @@
-#' @title Download the EJSCREEN Dataset for use in R
+#' @title Download the EJSCREEN Dataset csv for use in R and rename variables
 #' @description Download EJSCREEN dataset from FTP site, unzip if necessary,
 #'   import to R as data.table,
-#'   renaming fields with friendly colnames, optionally adding a flag field (see parameter called \code{addflag}).
+#'   renaming fields with friendly colnames,
+#'   optionally adding a flag field (see parameter called \code{addflag}).
+#'   Note that since 2020v, State percentiles are also available in a separate zipped csv.
 #' @details Not fully tested. \cr
 #'   Each version of EJSCREEN uses updated environmental data and updated 5-year summary file estimates from the American Community Survey (ACS).\cr
-#'   The 2015 version of EJSCREEN, released in mid 2015, was based on 2008-2012 ACS data, and was the first public version available for download. \cr
+#'     \cr
+#'   The 2021 version of EJSCREEN, likely to be released in late 2021, (which will be avail as data in \code{ejscreen::bg21}) \cr
+#'     is based on 2015-2019 ACS (Census calls it the 2019 5-year data release, but released it in Dec 2020).\cr
+#'     \url{https://www.census.gov/programs-surveys/acs/news/data-releases/2019/release-schedule.html}  \cr
+#'   The 2020 version of EJSCREEN, released not in late 2020 but early 2021 (plus a July updated/ corrected file?) \cr
+#'     is based on 2014-2018 ACS 5-year data that came out in Dec 2019. It is avail as \link{bg20} \cr
+#'     \cr
+#'   The 2019 version of EJSCREEN, released in mid/late 2019, \cr
+#'     is based on 2013-2017 ACS 5-year data that came out in Dec 2018. It is avail as \link{bg19} \cr
 #'   The 2018 version of EJSCREEN, released in mid 2018, was based on 2012-2016 ACS 5-year summary file data that came out in Dec 2017.\cr
-#'   The 2019 version of EJSCREEN, released in mid/late 2019, is based on 2013-2017 ACS 5-year data that came out in Dec 2018.\cr
-#'   The 2014-2018 ACS 5-year data will be released starting December 19, 2019.
+#'   The 2015 version of EJSCREEN, released in mid 2015, was based on 2008-2012 ACS data, and was the first public version available for download.
 #' @param folder Optional path to folder (directory) where the file will be downloaded and unzipped. Default is current working directory.
-#' @param yr Default is latest available year found as a folder on the FTP site. That was 2018 as of 7/20/19, but would be updated to 2019 upon release of that version in late 2019. Default was 2017 as of 6/2018.
-#'   Optional numeric year designating EJSCREEN version such as 2015, 2016, 2017, 2018, 2019.
-#' @param ftpurlbase Optional. Default is ftp://newftp.epa.gov/EJSCREEN/ and must have ending slash -- for where to find the zipped data.
+#' @param yr Default is latest available year found as a folder on the FTP site.
+#'   Optional numeric year designating EJSCREEN version such as 2015, 2016, 2017, 2018, 2019, 2020, etc.
+#' @param ftpurlbase Optional. where to find the zipped data.
 #' @param addflag Optional. Default is FALSE. If TRUE, it adds a field called flagged, which is TRUE if 1 or more of the EJ Indexes is at/above the cutoff US percentile.
 #' @param cutoff Optional. Default is 80. See addflag parameter.
 #' @param or.tied Optional. Default is TRUE, meaning at or above the cutoff. FALSE means above only. See addflag parameter.
-#' @param justreadname Optional character file name - if specified, skips downloading and just tries to read csv found in \code{folder}.
+#' @param justreadname Optional character file name - if specified, skips downloading and just tries to read previously-downloaded csv found in \code{folder}.
+#' @param statepctiles Optional, default FALSE. If TRUE, gets State Percentiles csv instead of the USPR file.
 #' @return Returns a data.frame with ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
-#'   as raw values, US percentiles, text for popups. Output has one row per block group.
-#' @source See \url{http://www.epa.gov/ejscreen} for more information, and see \url{http://www.epa.gov/ejscreen/download-ejscreen-data} or \url{ftp://newftp.epa.gov/EJSCREEN} for raw data.
-#' @seealso \code{\link{ejscreen.create}}
+#'   as raw values, US percentiles, text for popups. Output has one row per block group, sorted by FIPS.
+#' @source See \url{http://www.epa.gov/ejscreen} for more information, and see \url{http://www.epa.gov/ejscreen/download-ejscreen-data}
+#' @seealso \code{\link{ejscreen.create}}  \code{\link{change.fieldnames.ejscreen.csv}}
 #' @examples
-#'    # bg18 <- ejscreen.download('~/Dropbox/EJSCREEN/R Analysis/2018 dataset EJSCREEN/')
-#'    ## bg18 <- ejscreen.download('~/Dropbox/EJSCREEN/R Analysis/2018 dataset EJSCREEN/',
+#'    # bg18 <- ejscreen.download('~')
+#'    ## bg18 <- ejscreen.download('~',
 #'    #  justreadname = 'EJSCREEN_Full_USPR_2018.csv')
 #'    # bg18 <- bg18[ , !grepl(pattern = 'pctile\\.text', x = names(bg18))]
 #'    # bg18 <- bg18[ , !grepl(pattern = 'svi6', x = names(bg18))]
-#'    # setwd('~/Dropbox/EJSCREEN/R analysis/2018 dataset EJSCREEN')
+#'    # setwd('~')
 #'    # save(bg18, file = 'bg18.rdata')
 #' @export
 ejscreen.download <-
   function(folder = getwd(),
            yr = NULL,
-           ftpurlbase = 'ftp://newftp.epa.gov/EJSCREEN/',
+           ftpurlbase = 'https://gaftp.epa.gov/EJSCREEN/',
+           # ftpurlbase = 'ftp://newftp.epa.gov/EJSCREEN/', # was the older URL, until about 2020
            justreadname = NULL,
+           statepctiles = FALSE,
            addflag = FALSE,
            cutoff = 80,
            or.tied = TRUE) {
     # #  @ e x a m p l e s
     # #  \dontrun{
     # #  bg <- ejscreen.download(folder='~', addflag=TRUE)
-    # #  names(bg) <- change.fieldnames.ejscreen.csv(names(bg))
     # #  }
 
     ######################################################################################## #
-    # A script to get the 2015, 2016, 2017, 2018, 2019, etc. version of EJSCREEN dataset into memory, using the friendly Rfieldnames
+    # A script to get the 2015, 2016, 2017, 2018, 2019, 2020, etc. version of EJSCREEN dataset into memory, using the friendly Rfieldnames
     ######################################################################################## #
 
     # Note: if already exists as .RData locally, could just do load("bg 2015-04-22 Rnames plus subgroups.RData")
@@ -59,10 +70,12 @@ ejscreen.download <-
 
       # Check ftp site for largest year of any folder, any use that as the year and folder
 
-      latestavailableyear <- function(mypath) {
+      latestavailableyear <- function(mypath='https://gaftp.epa.gov/EJSCREEN/') {
         calendaryear <- as.numeric(format(Sys.time(), "%Y")) # just says, what year is it?
         yrschecked <- 2015:calendaryear # 2015 was the earliest, and the current calendar year is latest version possibly available
-        return(yrschecked[max(which(sapply(paste(mypath, yrschecked, '/', sep = ''), RCurl::url.exists)))])
+        latestyr <- yrschecked[max(which(sapply(paste(mypath, yrschecked, '/', sep = ''), RCurl::url.exists)))]
+        cat('\n', paste(mypath, yrschecked, '/', '\n', sep = ''), '\n')
+        return(latestyr)
       }
       if (is.null(yr)) {
         yr <- latestavailableyear(ftpurlbase)
@@ -82,35 +95,59 @@ ejscreen.download <-
       ftpurl <- justftpurl(yr)
 
       zipcsvnames <- function(yr) {
+          zipnamestate <- '' # na for most years
+          csvnamestate <- ''  # na for most years
         if (yr == 2015) {
           zipname <- 'EJSCREEN_20150505.csv.zip'
           csvname <- 'EJSCREEN_20150505.csv'
+          warning('state percentiles not available for 2015 dataset')
         }
         if (yr == 2016) {
           zipname <- 'EJSCREEN_V3_USPR_090216_CSV.zip'
           csvname <- 'EJSCREEN_V3_USPR_090216_CSV' # no extension ?
+          warning('state percentiles not available for 2016 dataset')
         }
         if (yr == 2017) {
           zipname <- '' # not zipped on ftp site for this year
           csvname <- 'EJSCREEN_2017_USPR_Public.csv'
+          warning('state percentiles available only as gdb not csv for 2017 dataset')
         }
         if (yr == 2018) {
           zipname <- 'EJSCREEN_2018_USPR_csv.zip'
           csvname <- 'EJSCREEN_Full_USPR_2018.csv'
+          zipnamestate <- 'EJSCREEN_2018_StatePctile_csv.zip'
+          csvnamestate <- 'EJSCREEN_StatePctile_2018.csv'
         }
         if (yr == 2019) {
-          zipname <- 'EJSCREEN_2019_USPR_csv.zip'   # tbd
-          csvname <- 'EJSCREEN_Full_USPR_2019.csv'  # tbd
+          zipname <- 'EJSCREEN_2019_USPR.csv.zip'
+          csvname <- 'EJSCREEN_2019_USPR.csv'
+          zipnamestate <- 'EJSCREEN_2019_StatePctile.csv.zip'
+          csvnamestate <- 'EJSCREEN_2019_StatePctiles.csv'
         }
-        if (yr > 2019) {
-          zipname <- paste('EJSCREEN_', yr, '_USPR_csv.zip', sep = '') # hopefully will keep this format
+        if (yr == 2020) {
+          zipname <- 'EJSCREEN_2020_USPR.csv.zip'   #
+          csvname <- 'EJSCREEN_2020_USPR.csv'  #
+          zipnamestate <- 'EJSCREEN_2020_StatePctile.csv.zip'
+          csvnamestate <- 'EJSCREEN_2020_StatePctile.csv'
+          # https://gaftp.epa.gov/EJSCREEN/2020/EJSCREEN_2020_USPR.csv.zip
+          # https://gaftp.epa.gov/EJSCREEN/2020/EJSCREEN_2020_StatePctile.csv.zip
+        }
+        if (yr > 2020) {
+          zipname <- paste('EJSCREEN_', yr, '_USPR.csv.zip', sep = '') # hopefully will keep this format
           csvname <- paste('EJSCREEN_', yr, '_USPR.csv', sep = '') # hopefully will keep this format
+          zipnamestate <- paste('EJSCREEN_', yr, '_StatePctile.csv.zip', sep = '') # hopefully will keep this format
+          csvnamestate <- paste('EJSCREEN_', yr, '_StatePctile.csv', sep = '') # hopefully will keep this format
         }
-        return(c(zipname, csvname))
+        return(c(zipname, csvname, zipnamestate, csvnamestate))
       }
       x <- zipcsvnames(yr)
-      zipname <- x[1]
-      csvname <- x[2]
+      if (statepctiles) {
+        zipname <- x[3]
+        csvname <- x[4]
+      } else {
+        zipname <- x[1]
+        csvname <- x[2]
+      }
 
       #setwd(folder) # should not need this
       if (zipname == '') {
@@ -130,7 +167,7 @@ ejscreen.download <-
             'and saving as',
             mypathfileLocal,
             ' \n')
-        cat('This normally takes a few minutes. \n')
+        cat('This may take a few minutes. \n')
         x <- utils::download.file(url = mypathfileRemote, destfile = mypathfileLocal)
         if (x != 0) {
           stop('Download failed.')
@@ -149,8 +186,8 @@ ejscreen.download <-
       if (zipname == '') {
         cat('\n')
       } else {
-        cat('Attempting to unzip dataset \n')
-        utils::unzip(file.path(folder, myfilename))
+        cat('Attempting to unzip dataset from', file.path(folder, myfilename), 'to', file.path(folder), '\n')
+        utils::unzip(zipfile = file.path(folder, myfilename), exdir = folder)
       }
     }
 
@@ -197,6 +234,7 @@ ejscreen.download <-
     ## Store result as a logical vector as long as the list of block groups:
 
     if (addflag) {
+      warning('The flagged field may not work for state percentiles file yet')
       bg$flagged <- ejanalysis::flagged(bg[, names.ej.pctile], cutoff = cutoff, or.tied = or.tied)
     }
 
@@ -213,4 +251,3 @@ ejscreen.download <-
     ############################# #
     return(bg)
   }
-

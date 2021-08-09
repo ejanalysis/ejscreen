@@ -1,47 +1,33 @@
 # to do in ejscreen package
 # 2020
 
-# Shrink bg19 (and bg20) to fit in repo limit of 100MB  !!!
-# **  HAVE TO KEEP DEMOG SUBGRPS SEPARATELY
-# ** need redo documentation if so.
-# ** maybe bg19 or bg20  has to be only subset of what is on ftp site
-# (e.g. already cut popup text fields)
-# and the extra fields like geo and flag and demog subgroups have to be in a
-# separate bg19extra that has the same length and sort order by FIPS so it is easy to merge or just use in parallel
-
-# add bg20 when available
-# I already created documentation for it but not .rdata file yet
-#
-# Note:   For most of 2020 (through at least September),
-#     the newest EJSCREEN version available is the
-#     2019 release of EJSCREEN, released in late 2019, which
-#     uses demographic data released in late 2018,
-#     covering the 5 years through 2017
-#     (2013-2017 ACS 5-year summary file from Census).
-
-
-#  Check sample dataset if OK to pub
-
-#  Make it a public repo again
-
-# put it on CRAN not just github
+# clarify differences between bg20 vs ejscreen.download() colnames and extra fields, PR, etc.
 
 # ideally merge/ reconcile
- #  batch.summarizer pkg's csv file with map of names
- # with ejscreen::ejscreenformulas
+#  batch.summarizer pkg's csv file with map of names
+# with ejscreen::ejscreenformulas
 
 # bg19$TSDF_CNT AND NPL version colnames in bg19 do not match what ejscreenformulas says... I prefer count.TSDF and count.NPL
 
 # maybe need clean up or update EJSCREEN_columns_explained.csv in inst folder
 # but ideally it is just subset of ejscreenformulas
 
-# decide if really need to maintain files for older versions or only latest one
+
+# Shrank bg19 (and bg20) to fit in repo limit of 100MB
+# **  had TO KEEP DEMOG SUBGRPS SEPARATELY but ideally would like it all in 1 file or easier to merge
+#  and with PR in both or neither? or NA values for PR in demog file so list of FIPS is identical in both.
+
+# check / fix  bg20 if needed (July 2021 update on FTP site might have had changes)
+#
+
+#  Check sample dataset if OK to pub
+
+# put it on CRAN not just github
 
 
 # ****
 # DONE - CHANGE "minority" to "people of color" in glossary (ejscreen::ejscreenformulas and noej version)
 # but not the actual Rfieldnames
-
 
 # DONE I THINK - change names.e, names.d, enames, etc data to remove SVI6 type fields now
 # data("names.dvars")
@@ -60,7 +46,6 @@
 #      names.ej.pct.eo, names.ej.pct.eo.bin, names.ej.pct.eo.pctile,
 #      namesall.ej, namesall.ej.bin, namesall.ej.pctile,
 #      file = 'names.ejvars.RData')
-
 
 # DONE I THINK:
 # updated name of water indicator
