@@ -4,6 +4,8 @@
 #' @description
 #'  \preformatted{
 #'  The nationwide most recent version of the EJSCREEN percentile lookup table.
+#'   Lookup table with one column per indicator and rows 0-100 show percentiles,
+#'   and last two rows show mean and standard deviation.
 #'
 #'   The lookup table is for the US without PR, (at least for the 2019 version)
 #'   while bg19 had PR and bg20 has PR, so the lookup table means will not match means calculated from bg20.

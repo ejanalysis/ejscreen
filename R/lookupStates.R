@@ -2,6 +2,11 @@
 #' @docType data
 #' @title The State-level latest version of the EJSCREEN percentile lookup table.
 #' @description
+#'  \preformatted{
+#'  The nationwide most recent version of the EJSCREEN percentile lookup table.
+#'   Lookup table with one column per indicator and rows 0-100 show percentiles,
+#'   and last two rows show mean and standard deviation.
+#'
 #'   Note the 2020 version of EJSCREEN (confusingly released mid 2021 not late 2020)
 #'     actually uses ACS2018, which is from 2014-2018 (released late 2019).
 #'   Note the 2019 version of EJSCREEN (released late 2019)
@@ -16,7 +21,7 @@
 #'   For example, if the traffic.score is 1000 in a given location,
 #'   you can look where that falls in the percentiles and see that 81% of the US population had lower scores:
 #'   ejanalysis::lookup.pctile(1000, varname.in.lookup.table = 'traffic.score',  lookup = lookupUSA19)
-#'
+#'   }
 #' @examples ejanalysis::lookup.pctile(1000, varname.in.lookup.table = 'traffic.score',  lookup = lookupUSA19)
 #'     ejanalysis::lookup.pctile(c(1000, 3000), varname.in.lookup.table = 'traffic.score',
 #'       lookup = lookupStates19, zone = 'NY')

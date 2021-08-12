@@ -1,5 +1,9 @@
 # to do in ejscreen package
 # 2020
+#
+# create and UPDATE THE LOOKUP TABLES LIKE lookupUSA to be from 2020 version not 2019.
+# and later 2021v.
+# from gdb, or perhaps can replicate via write.wtd.mean...
 
 # ensure bg20 matches July update of 2020v from ftp site.
 
@@ -7,28 +11,8 @@
 
 
 
-# # RECONCILE THESE 3 VERSIONS OF US PCT MINORITY:
-
-# PUERTO RICO IS IN bg20 but not in bg20Demog...
+# PUERTO RICO IS IN bg20 but not in bg20Demog... and not in lookupUSA mean, percentiles.
 #
-# > unique(get.state.info(get.fips.st(bg20DemographicSubgroups2014to2018$FIPS))$ST)
-# Warning - some NA values in input query
-# [1] "AK" NA   "AL" "AR" "AZ" "CA" "CO" "CT" "DC" "DE" "FL" "GA" "HI" "IA" "ID" "IL"
-# [17] "IN" "KS" "KY" "LA" "MA" "MD" "ME" "MI" "MN" "MO" "MS" "MT" "NC" "ND" "NE" "NH"
-# [33] "NJ" "NM" "NV" "NY" "OH" "OK" "OR" "PA" "RI" "SC" "SD" "TN" "TX" "UT" "VA" "VT"
-# [49] "WA" "WI" "WV" "WY"
-# Warning message:
-#   In clean.fips(fips) :
-#   Some fips had invalid 5-digit state/county code after any missing zeroes added
-# > 'PR' %in% unique(get.state.info(get.fips.st(bg20DemographicSubgroups2014to2018$FIPS))$ST)
-# Warning - some NA values in input query
-# [1] FALSE
-# Warning message:
-#   In clean.fips(fips) :
-#   Some fips had invalid 5-digit state/county code after any missing zeroes added
-# > 'PR' %in% bg20$ST
-# [1] TRUE
-
 
 # > sum(bg20DemographicSubgroups2014to2018$mins) / sum(bg20DemographicSubgroups2014to2018$pop)
 # [1] 0.3893486  ***** NO PR BECAUSE MISSING FROM THIS DATASET
