@@ -5,8 +5,7 @@
 \alias{RRS.ST}
 \title{Ratios of mean indicator values across demographic groups by State}
 \description{
-Note the 2020 version of EJSCREEN (released January 2021 rather than late 2020)
-    actually uses ACS2018, which is from 2014-2018 (released by Census late 2019).
+Based on the latest EJSCREEN dataset such as bg20
 
     See \code{\link[ejanalysis]{RR.table}} for how this was created and can be used.
 }

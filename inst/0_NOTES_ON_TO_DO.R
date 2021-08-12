@@ -1,6 +1,85 @@
 # to do in ejscreen package
 # 2020
 
+# ensure bg20 matches July update of 2020v from ftp site.
+
+# get 2021version in late 2021? when available.
+
+
+
+# # RECONCILE THESE 3 VERSIONS OF US PCT MINORITY:
+
+# PUERTO RICO IS IN bg20 but not in bg20Demog...
+#
+# > unique(get.state.info(get.fips.st(bg20DemographicSubgroups2014to2018$FIPS))$ST)
+# Warning - some NA values in input query
+# [1] "AK" NA   "AL" "AR" "AZ" "CA" "CO" "CT" "DC" "DE" "FL" "GA" "HI" "IA" "ID" "IL"
+# [17] "IN" "KS" "KY" "LA" "MA" "MD" "ME" "MI" "MN" "MO" "MS" "MT" "NC" "ND" "NE" "NH"
+# [33] "NJ" "NM" "NV" "NY" "OH" "OK" "OR" "PA" "RI" "SC" "SD" "TN" "TX" "UT" "VA" "VT"
+# [49] "WA" "WI" "WV" "WY"
+# Warning message:
+#   In clean.fips(fips) :
+#   Some fips had invalid 5-digit state/county code after any missing zeroes added
+# > 'PR' %in% unique(get.state.info(get.fips.st(bg20DemographicSubgroups2014to2018$FIPS))$ST)
+# Warning - some NA values in input query
+# [1] FALSE
+# Warning message:
+#   In clean.fips(fips) :
+#   Some fips had invalid 5-digit state/county code after any missing zeroes added
+# > 'PR' %in% bg20$ST
+# [1] TRUE
+
+
+# > sum(bg20DemographicSubgroups2014to2018$mins) / sum(bg20DemographicSubgroups2014to2018$pop)
+# [1] 0.3893486  ***** NO PR BECAUSE MISSING FROM THIS DATASET
+
+# > cbind(ustotals(bg20[bg20$ST != 'PR',]))['PCTMIN.US',]
+# $PCTMIN.US
+# [1] 0.3893486  ***** NO PR BECAUSE REMOVEDD
+
+# > cbind(ustotals(bg20))['PCTMIN.US',]
+# $PCTMIN.US
+# [1] 0.3956014  ***** with PR
+
+# > sum(bg20$pctmin * bg20$pop) / sum(bg20$pop)
+# [1] 0.3956014  ***** with PR
+
+# > tail(lookupUSA20[,1:4],2)
+# Error in tail(lookupUSA20[, 1:4], 2) : object 'lookupUSA20' not found
+# >
+
+##########3
+
+# > sum(bg19$pctmin * bg19$pop) / sum(bg19$pop)
+# [1] 0.3919248  *****
+
+# > cbind(ustotals(bg19))['PCTMIN.US',]
+# $PCTMIN.US
+# [1] 0.3919248  ***** why does it not match the lookup table?
+#
+
+# > cbind(ustotals(bg19[bg19$ST != 'PR', ]))['PCTMIN.US',]
+# $PCTMIN.US
+# [1] 0.3853958  *****  IF YOU REMOVE PR, IT MATCHES LOOKUP TABLE MEAN
+
+# > tail(lookupUSA[,1:4],2)
+# OBJECTID REGION  PCTILE    pctmin
+# 102      102    USA    mean 0.3854359   *****  same as 2019 version, mean is for US minus PR
+# 103      103    USA std.dev 0.3096625
+
+# > tail(lookupUSA19[,1:4],2)
+# OBJECTID REGION  PCTILE    pctmin
+# 102      102    USA    mean 0.3854359  ***** 2019v, mean is for US minus PR
+# 103      103    USA std.dev 0.3096625
+#########3
+
+
+
+
+  #'   was created for this package via \code{x <- ejscreen::ejscreen.lookuptables(bg20)}
+
+
+
 # clarify differences between bg20 vs ejscreen.download() colnames and extra fields, PR, etc.
 
 # ideally merge/ reconcile

@@ -76,7 +76,10 @@ This function simply takes a data.frame of EJSCREEN demographic data
   This function is not needed to create an EJSCREEN dataset, but is convenient if one wants US summary values.
 }
 \examples{
-# cbind(Subgroups_2014_2018 = ustotals(bgDemographicSubgroups2014to2018), EJSCREEN = ustotals(bg20[!is.na(bg20$ST) & bg20$ST != 'PR',])) 
+# cbind(
+#   Subgroups_2014_2018 = ustotals(bg20DemographicSubgroups2014to2018),
+#   EJSCREEN = ustotals(bg20[!is.na(bg20$ST) & bg20$ST != 'PR',])
+#   )
 
 tots <- list(POP.US = 314107084,
 LOWINC.US = 105773407, MINS.US = 116947592,

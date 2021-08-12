@@ -1,7 +1,7 @@
 #
 # This script is not necessary if you already have the EJSCREEN datasets from the ejscreen R package,
 #  (which does provide some extra data beyond what is on the EJSCREEN FTP site.)
-#  The extra demographics are now in data(bgDemographicSubgroups2015to2019)
+#  The extra demographics are now in data(bg21DemographicSubgroups2015to2019)
 #
 #
 # This script obtains all the demographic fields used in EJSCREEN
@@ -35,7 +35,7 @@
 
 #   VINTAGE:
 #
-#    Note the 2020 version of EJSCREEN released late 2020
+#    Note the 2020 version of EJSCREEN released mid 2020
 #     actually uses ACS2018, which is from 2014-2018 (released late 2019).
 #   Note the 2019 version of EJSCREEN (released late 2019)
 #     actually uses ACS2017, which is from 2013-2017 (released late 2018).

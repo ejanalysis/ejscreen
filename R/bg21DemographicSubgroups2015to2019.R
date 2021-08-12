@@ -1,0 +1,96 @@
+#' @name bg21DemographicSubgroups2015to2019
+#' @docType data
+#' @title Demographic subgroups of race/ethnicity by block group (ACS2015-2019 for bg21 and late 2021v of EJSCREEN)
+#' @description This 2015-2019 data will fit with the \link{bg21} data once available,
+#'   which will be the (late) 2021 version of EJSCREEN.
+#'
+#'   Percent Hispanic, percent Non-Hispanic Black Alone (not multirace), etc.
+#'   Additional detail in demographic subgroups beyond demographic info
+#'   that is in EJSCREEN dataset. Block group resolution for USA.
+#'   From Census ACS 5 year summary file.
+#'   Can be merged with EJSCREEN data for analysis of the subgroups.
+#'   Race ethnicity groups are defined by Census Bureau. They are
+#'   mutually exclusive (no overlaps between groups,
+#'   so a person is always in only one of these groups)
+#'   so they add up to the total population count or percent.
+#' @details
+#'   This data was created by downloading and calculating
+#'   DETAILED RACE ETHNICITY SUBGROUP VARIABLES THAT ARE NOT IN EJSCREEN
+#'   INCLUDING % Hispanic, etc. (the subgroups within "minority")
+#'   for use in EJ analysis.
+#'
+#'   This will give a quick look at some key stats:
+#'    round(data.frame(cbind(
+#'      subgroups=unlist(ustotals(bg20DemographicSubgroups2014to2018)),
+#'      maingroups= unlist(ustotals(bg20[bg20$ST !='PR',])))
+#'      ),2)
+#'
+#'   This can be MERGED WITH the EJSCREEN DATASET (see below).
+#'
+#'   This may also be addressed in documentation help page for bg19 or bg20 via ?bg20
+#'
+#'   Note the 2021 version of EJSCREEN released mid-2021
+#'   actually uses ACS2019 and fits with bg21DemographicSubgroups2015to2019, which is from 2015-2019 (released late 2020).
+#'   Note the 2020 version of EJSCREEN released late 2020 (actually Jan 2021) in bg20
+#'   actually uses ACS2018 and fits with bg20DemographicSubgroups2014to2018, which is from 2014-2018 (released late 2019).
+#'   Note the 2019 version of EJSCREEN (released late 2019)
+#'    actually uses ACS2017, which is from 2013-2017 (released late 2018).
+#'   Note the 2018 version of EJSCREEN (released late 2018)
+#'    actually uses ACS2016, which is from 2012-2016 (released late 2017).
+#'   \cr
+#'     ########################################## \cr
+#'     # How to merge demographic subgroup info into the basic EJSCREEN bg21 dataset: \cr
+#'     ########################################### \cr
+#'     d <- bg21DemographicSubgroups2015to2019 \cr
+#'     d <- d[ , !(names(d) %in% c('pop', 'mins', 'pctmin'))] \cr
+#'     bg21plus <- merge(bg21, d, by = 'FIPS', all.x = TRUE) \cr
+#'     rm(d) \cr
+#'     # save(bg21plus, file = 'bg21plus EJSCREEN dataset plus race ethnic subgroups.rdata') \cr
+#'     # write.csv(bg21plus, file = 'bg21plus EJSCREEN dataset plus race ethnic subgroups.csv') \cr
+#'     ########################################## \cr
+#'     ########################################## \cr
+#' \cr
+#'     # Note that only Puerto Rico is missing from this ACS dataset?
+#'     # while bg21 should have PR
+#'     # setdiff(substr(bg21$FIPS, 1,2), substr(bg21DemographicSubgroups2015to2019$FIPS,1,2))
+#'     # [1] "72" which is the FIPS code for Puerto Rico.
+#'
+#'
+#'   How bg21DemographicSubgroups2015to2019 was created:
+#'
+#'   \preformatted{
+#'     ######################################################################################
+#'     # DOWNLOAD ACS TABLE WITH RACE ETHNICITY BY BLOCK GROUP
+#'     # AND CREATE PERCENT VARIABLES LIKE PERCENT HISPANIC, ETC.
+#'
+#'     # These are created: (count and percent hispanic or latino, nonhispanic white alone i.e. single race,
+#'   # nonhispanic black or african american alone, Not Hispanic or Latino American Indian and Alaska Native alone,
+#'   # Not Hispanic or Latino Native Hawaiian and Other Pacific Islander alone,
+#'   # and nh some other race alone, and nh two or more races)
+#'   # [1] "hisp"            "nhwa"            "nhba"            "nhaiana"         "nhaa"            "nhnhpia"
+#'   # [7] "nhotheralone"    "nhmulti"         "nonmins"         "pcthisp"         "pctnhwa"         "pctnhba"
+#'   # [13] "pctnhaiana"      "pctnhaa"         "pctnhnhpia"      "pctnhotheralone" "pctnhmulti"
+#'
+#'   # setwd('~/Downloads/acs1519')
+#'
+#'   library(ejscreen); library(ejanalysis); library(analyze.stuff); require(ACSdownload)
+#'   acsdata <- ejscreen.acsget(tables = 'B03002',
+#'     end.year = 2021,
+#'     base.path = '~/Downloads/acs1519', sumlevel = 'both' )
+#'     # 10 minutes?? slow - downloads each state
+#'   bgACS   <- ejscreen.acs.rename(acsdata$bg)
+#'   names(bgACS) <- gsub('pop3002', 'pop', names(bgACS))
+#'   bgACS   <- ejscreen.acs.calc(bgACS)
+#'   rm(acsdata)
+#'   # head(bgACS); hist(bgACS$pcthisp,100)  # write.csv(bgACS, file = 'demographics.csv', row.names = FALSE)
+#'   # to SEE WHAT THOSE FIELDS ARE DEFINED AS
+#'   # ejscreenformulas[ ejscreenformulas$Rfieldname %in% names(bgACS), c('Rfieldname', 'acsfieldname', 'acsfieldnamelong', 'formula')]
+#'
+#'   bg21DemographicSubgroups2015to2019 <- bgACS
+#'   save(bg21DemographicSubgroups2015to2019,
+#'     file = '~/Documents/R PACKAGES/ejscreen/data/bg21DemographicSubgroups2015to2019.rdata')
+#'
+#'     ###########################################
+#'   }
+#'
+NULL

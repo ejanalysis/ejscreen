@@ -5,7 +5,18 @@
 \alias{lookupUSA}
 \title{The nationwide most recent version of the EJSCREEN percentile lookup table.}
 \description{
-Note the 2020 version of EJSCREEN released late 2020 (actually Jan 2021)
+\preformatted{
+ The nationwide most recent version of the EJSCREEN percentile lookup table.
+
+  The lookup table is for the US without PR, (at least for the 2019 version)
+  while bg19 had PR and bg20 has PR, so the lookup table means will not match means calculated from bg20.
+    > round(unlist(cbind(ustotals(bg19[bg19$ST != 'PR',]))['PCTMIN.US',]),5)
+    PCTMIN.US
+    0.3854
+    > round(lookupUSA19[lookupUSA19$PCTILE == 'mean','pctmin'],5)
+    [1] 0.38544
+
+  Note the 2020 version of EJSCREEN released late 2020 (actually mid 2021)
     actually uses ACS2018, which is from 2014-2018 (released late 2019).
   Note the 2019 version of EJSCREEN (released late 2019)
     actually uses ACS2017, which is from 2013-2017 (released late 2018).
@@ -19,8 +30,9 @@ Note the 2020 version of EJSCREEN released late 2020 (actually Jan 2021)
   For example, if the traffic.score is 1000 in a given location,
   you can look where that falls in the percentiles and see that 81% of the US population had lower scores:
   ejanalysis::lookup.pctile(1000, varname.in.lookup.table = 'traffic.score',  lookup = lookupUSA19)
+ }
 
-Note the 2020 version of EJSCREEN released late 2020 (actually Jan 2021)
+Note the 2020 version of EJSCREEN released late 2020 (actually mid 2021)
     actually uses ACS2018, which is from 2014-2018 (released late 2019).
   Note the 2019 version of EJSCREEN (released late 2019)
     actually uses ACS2017, which is from 2013-2017 (released late 2018).
@@ -41,7 +53,7 @@ Note the 2020 version of EJSCREEN released late 2020 (actually Jan 2021)
 }
 \details{
 The 2020 version (lookupUSA20, lookupStates20, lookupRegions20)
-  was created for this package via  \code{x <- ejscreen::ejscreen.lookuptables(bg20)}
+  was created for this package via \code{x <- ejscreen::ejscreen.lookuptables(bg20)}
   \cr
   The 2019 version was created for this package from the EJSCREEN geodatabase
   \cr downloaded from the EJSCREEN public FTP site as .gdb format (zipped).

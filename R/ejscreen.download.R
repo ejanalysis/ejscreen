@@ -10,12 +10,13 @@
 #'   The 2021 version of EJSCREEN, likely to be released in late 2021, (which will be avail as data in \code{ejscreen::bg21}) \cr
 #'     is based on 2015-2019 ACS (Census calls it the 2019 5-year data release, but released it in Dec 2020).\cr
 #'     \url{https://www.census.gov/programs-surveys/acs/news/data-releases/2019/release-schedule.html}  \cr
-#'   The 2020 version of EJSCREEN, released not in late 2020 but early 2021 (plus a July updated/ corrected file?) \cr
-#'     is based on 2014-2018 ACS 5-year data that came out in Dec 2019. It is avail as \link{bg20} \cr
-#'     \cr
-#'   The 2019 version of EJSCREEN, released in mid/late 2019, \cr
-#'     is based on 2013-2017 ACS 5-year data that came out in Dec 2018. It is avail as \link{bg19} \cr
-#'   The 2018 version of EJSCREEN, released in mid 2018, was based on 2012-2016 ACS 5-year summary file data that came out in Dec 2017.\cr
+#'   Note the 2020 version of EJSCREEN (confusingly released mid 2021 not late 2020)
+#'     actually uses ACS2018, which is from 2014-2018 (released late 2019).
+#'     It is avail as \link{bg20}
+#'   Note the 2019 version of EJSCREEN (released late 2019)
+#'     actually uses ACS2017, which is from 2013-2017 (released late 2018).
+#'   Note the 2018 version of EJSCREEN (released late 2018)
+#'     actually uses ACS2016, which is from 2012-2016 (released late 2017).
 #'   The 2015 version of EJSCREEN, released in mid 2015, was based on 2008-2012 ACS data, and was the first public version available for download.
 #' @param folder Optional path to folder (directory) where the file will be downloaded and unzipped. Default is current working directory.
 #' @param yr Default is latest available year found as a folder on the FTP site.

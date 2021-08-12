@@ -2,7 +2,7 @@
 #' @docType data
 #' @title The nationwide most recent version of the EJSCREEN percentile lookup table.
 #' @description
-#'   Note the 2020 version of EJSCREEN released late 2020 (actually Jan 2021)
+#'   Note the 2020 version of EJSCREEN released late 2020 (actually mid 2021)
 #'     actually uses ACS2018, which is from 2014-2018 (released late 2019).
 #'   Note the 2019 version of EJSCREEN (released late 2019)
 #'     actually uses ACS2017, which is from 2013-2017 (released late 2018).

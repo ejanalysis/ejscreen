@@ -63,8 +63,11 @@
 #'     \item PCTNHMULTI.US
 #'   }
 #' @examples
-#' # cbind(Subgroups_2014_2018 = ustotals(bgDemographicSubgroups2014to2018), EJSCREEN = ustotals(bg20[!is.na(bg20$ST) & bg20$ST != 'PR',])) 
-#' 
+#' # cbind(
+#' #   Subgroups_2014_2018 = ustotals(bg20DemographicSubgroups2014to2018),
+#' #   EJSCREEN = ustotals(bg20[!is.na(bg20$ST) & bg20$ST != 'PR',])
+#' #   )
+#'
 #' tots <- list(POP.US = 314107084,
 #' LOWINC.US = 105773407, MINS.US = 116947592,
 #' UNDER5.US = 19973711, OVER64.US = 43177961,
@@ -86,7 +89,7 @@
 #' PCTNHMULTI.US = 0.0213076537936343)
 #'
 #' # tots <- ustotals(bg20)
-#' 
+#'
 #'  # Display as a nice table with two columns, rounded numbers, rownames and colnames
 # tots <- round(cbind(unlist(tots)), 3)
 # totrownames <- rownames(tots)[1:16]
@@ -107,33 +110,33 @@
 ustotals <- function(bg) {
 
   x <- list(
-    POP.US		  = sum(bg$pop),
-    LOWINC.US	  = sum(bg$lowinc),
-    MINS.US		  = sum(bg$mins),
-    UNDER5.US	  = sum(bg$under5),
-    OVER64.US	  = sum(bg$over64),
-    LTHS.US		  = sum(bg$lths),
-    LINGISO.US	= sum(bg$lingiso),
-    PRE1960.US	= sum(bg$pre1960),
-    HISP.US		  = sum(bg$hisp),
-    NHWA.US		  = sum(bg$nhwa ),
-    NHBA.US		  = sum(bg$nhba ),
-    NHAIANA.US	= sum(bg$nhaiana ),
-    NHAA.US		  = sum(bg$nhaa ),
-    NHNHPIA.US	= sum(bg$nhnhpia ),
-    NHOTHERALONE.US	= sum(bg$nhotheralone ),
-    NHMULTI.US	= sum(bg$nhmulti )
+    POP.US		  = sum(bg$pop, na.rm = TRUE),
+    LOWINC.US	  = sum(bg$lowinc, na.rm = TRUE),
+    MINS.US		  = sum(bg$mins, na.rm = TRUE),
+    UNDER5.US	  = sum(bg$under5, na.rm = TRUE),
+    OVER64.US	  = sum(bg$over64, na.rm = TRUE),
+    LTHS.US		  = sum(bg$lths, na.rm = TRUE),
+    LINGISO.US	= sum(bg$lingiso, na.rm = TRUE),
+    PRE1960.US	= sum(bg$pre1960, na.rm = TRUE),
+    HISP.US		  = sum(bg$hisp, na.rm = TRUE),
+    NHWA.US		  = sum(bg$nhwa , na.rm = TRUE),
+    NHBA.US		  = sum(bg$nhba , na.rm = TRUE),
+    NHAIANA.US	= sum(bg$nhaiana , na.rm = TRUE),
+    NHAA.US		  = sum(bg$nhaa , na.rm = TRUE),
+    NHNHPIA.US	= sum(bg$nhnhpia , na.rm = TRUE),
+    NHOTHERALONE.US	= sum(bg$nhotheralone , na.rm = TRUE),
+    NHMULTI.US	= sum(bg$nhmulti , na.rm = TRUE)
   )
 
   x <- c(
     x,
-    PCTLOWINC.US	= x$LOWINC.US / sum(bg$povknownratio),
+    PCTLOWINC.US	= x$LOWINC.US / sum(bg$povknownratio, na.rm = TRUE),
     PCTMIN.US	= x$MINS.US / x$POP.US,
     PCTUNDER5.US	= x$UNDER5.US / x$POP.US,
     PCTOVER64.US	= x$OVER64.US / x$POP.US,
-    PCTLTHS.US	= x$LTHS.US / sum(bg$age25up),
-    PCTLINGISO.US	= x$LINGISO.US / sum(bg$hhlds),
-    PCTPRE1960.US	= x$PRE1960.US / sum(bg$builtunits),
+    PCTLTHS.US	= x$LTHS.US / sum(bg$age25up, na.rm = TRUE),
+    PCTLINGISO.US	= x$LINGISO.US / sum(bg$hhlds, na.rm = TRUE),
+    PCTPRE1960.US	= x$PRE1960.US / sum(bg$builtunits, na.rm = TRUE),
 
     PCTHISP.US	= x$HISP.US/ x$POP.US,
     PCTNHWA.US	=  x$NHWA.US/ x$POP.US,

@@ -5,7 +5,7 @@
 \alias{lookupStates}
 \title{The State-level latest version of the EJSCREEN percentile lookup table.}
 \description{
-Note the 2020 version of EJSCREEN scheduled to be released late 2020
+Note the 2020 version of EJSCREEN (confusingly released mid 2021 not late 2020)
     actually uses ACS2018, which is from 2014-2018 (released late 2019).
   Note the 2019 version of EJSCREEN (released late 2019)
     actually uses ACS2017, which is from 2013-2017 (released late 2018).

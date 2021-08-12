@@ -2,7 +2,7 @@
 #' @docType data
 #' @title The 2020 version of EJSCREEN data (based on ACS 2014-2018) plus lat lon, countynames, etc., minus some nonessential fields
 #' @description
-#'   Note the 2020 version of EJSCREEN (released January 2021 rather than late 2020)
+#'   Note the 2020 version of EJSCREEN (released mid 2021 rather than late 2020)
 #'     actually uses ACS2018, which is from 2014-2018 (released by Census late 2019).
 #'
 #'   Note the 2019 version of EJSCREEN (released late 2019)
@@ -18,17 +18,17 @@
 #'     - lat lon for bg centroids
 #'     - state name and state abbrev, county name, and FIPS for tract, county, state
 #'     - flag indicating if any of EJ indexes above 80th percentile in US
-#'   Detailed info on demog subgroups is in \link{bgDemographicSubgroups2014to2018} and \link{bgDemographicSubgroups2015to2019}
+#'   Detailed info on demog subgroups is in \link{bg20DemographicSubgroups2014to2018} and \link{bg21DemographicSubgroups2015to2019}
 #'
 #' @details
 #'
 #' #'   This will give a quick look at some key stats:
 #'    round(data.frame(cbind(
-#'      subgroups=unlist(ustotals(bgDemographicSubgroups2014to2018)),
+#'      subgroups=unlist(ustotals(bg20DemographicSubgroups2014to2018)),
 #'      maingroups= unlist(ustotals(bg20[bg20$ST !='PR',])))
 #'      ),2)
 #'
-#' Note that unlike bgDemographicSubgroups2014to2018,
+#' Note that unlike bg20DemographicSubgroups2014to2018,
 #'    bg20 has PR
 #'    and has some rows with NA for state fips not yet fixed
 #'    and has some rows with lowinc or povknownratio NA not fixed (but pctlowinc is OK)...
@@ -74,7 +74,7 @@
 #'     \code{require(analyze.stuff); require(ejanalysis); require(readr)} \cr
 #'      \cr
 #'   \code{ # DOWNLOADED AND UNZIPPED  }\cr\cr
-#'   \cr 2020 version of EJSCREEN downloaded 2020-01-27 from public FTP site
+#'   \cr 2020 version of EJSCREEN downloaded 2021-07 from public FTP site
 #'   \cr as csv format (zipped)
 #'   \cr then unzipped to csv file
 #'   \cr
