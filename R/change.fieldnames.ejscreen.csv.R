@@ -13,7 +13,7 @@
 change.fieldnames.ejscreen.csv <- function(mynames) {
   # just wrapper to change colnames in csv file on ejscreen ftp site to preferred colnames for work in R
   analyze.stuff::change.fieldnames(
-    mynames,
+    allnames = mynames,
     oldnames = ejscreen::ejscreenformulas$gdbfieldname, # from data()
     newnames = ejscreen::ejscreenformulas$Rfieldname   # from data()
   )

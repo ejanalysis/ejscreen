@@ -9,7 +9,7 @@ data.frame with 220,333 ? rows (block groups) and 118 ? columns in bg21
 }
 \description{
 \preformatted{
-  The 2021 version of EJSCREEN, likely to be released in late 2021, (which will be avail as data in \code{ejscreen::bg21}) \cr
+  The 2021 version of EJSCREEN, likely to be released in very late 2021, (which will be avail as data in \code{ejscreen::bg21}) \cr
     is based on 2015-2019 ACS (Census calls it the 2019 5-year data release, but released it in Dec 2020).\cr
     \url{https://www.census.gov/programs-surveys/acs/news/data-releases/2019/release-schedule.html}  \cr
 

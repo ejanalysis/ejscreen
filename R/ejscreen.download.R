@@ -5,12 +5,13 @@
 #'   optionally adding a flag field (see parameter called \code{addflag}).
 #'   Note that since 2020v, State percentiles are also available in a separate zipped csv.
 #' @details Not fully tested. \cr
-#'   Each version of EJSCREEN uses updated environmental data and updated 5-year summary file estimates from the American Community Survey (ACS).\cr
-#'     \cr
-#'   The 2021 version of EJSCREEN, likely to be released in late 2021, (which will be avail as data in \code{ejscreen::bg21}) \cr
-#'     is based on 2015-2019 ACS (Census calls it the 2019 5-year data release, but released it in Dec 2020).\cr
-#'     \url{https://www.census.gov/programs-surveys/acs/news/data-releases/2019/release-schedule.html}  \cr
-#'   Note the 2020 version of EJSCREEN (confusingly released mid 2021 not late 2020)
+#'   \preformatted{
+#'   Each version of EJSCREEN uses updated environmental data and updated 5-year summary file estimates from the American Community Survey (ACS).
+#'
+#'   The 2021 version of EJSCREEN, likely to be released in late 2021, (which will be avail as data in \code{ejscreen::bg21})
+#'     is based on 2015-2019 ACS (Census calls it the 2019 5-year data release, but released it in Dec 2020).
+#'     \url{https://www.census.gov/programs-surveys/acs/news/data-releases/2019/release-schedule.html}
+#'   Note the 2020 version of EJSCREEN (confusingly released early/mid 2021 not late 2020)
 #'     actually uses ACS2018, which is from 2014-2018 (released late 2019).
 #'     It is avail as \link{bg20}
 #'   Note the 2019 version of EJSCREEN (released late 2019)
@@ -18,6 +19,7 @@
 #'   Note the 2018 version of EJSCREEN (released late 2018)
 #'     actually uses ACS2016, which is from 2012-2016 (released late 2017).
 #'   The 2015 version of EJSCREEN, released in mid 2015, was based on 2008-2012 ACS data, and was the first public version available for download.
+#'   }
 #' @param folder Optional path to folder (directory) where the file will be downloaded and unzipped. Default is current working directory.
 #' @param yr Default is latest available year found as a folder on the FTP site.
 #'   Optional numeric year designating EJSCREEN version such as 2015, 2016, 2017, 2018, 2019, 2020, etc.

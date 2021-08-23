@@ -15,7 +15,9 @@
 #'   ejanalysis::flagged(), etc.
 #'  #' @details **Note that if non-default fieldnames are used in e and/or acsraw,
 #'   those must be specified in parameters including demogvarname0, demogvarname1, wtsvarname,
-#'   keep.old (and could be reflected in prefix and suffix params as well).
+#'   keep.old (and could be reflected in prefix and suffix params as well). \cr\cr
+#'   This function does not create lookup tables that are used in EJSCREEN to convert a raw score in a buffer to a US,Region,or state percentile.
+#'   Use ejscreen.lookuptables() to create those lookup tables of 100 population weighted percentiles and mean, for US and each EPA Region and each State; for each raw score.
 #' @param e Data.frame of raw data for environmental indicators, one row per block group, one column per indicator.
 #' @param acsraw Optional data.frame of raw demographic indicators. Downloaded if not provided as parameter.
 #' @param folder Optional, default is getwd(). Passed to \code{\link[ACSdownload]{get.acs}} if demog data must be downloaded.
@@ -120,7 +122,8 @@ ejscreen.create <-
     #
     # PERCENTILES AND BINS
     #  make.bin.pctile.cols already creates them all:
-    #   - Assigns exact US percentiles using make.pctile.cols() (2 independent algorithms compared, verified same results). Regional/State percentiles not stored in gdb, just lookup tables.
+    #   - Assigns exact US percentiles using make.pctile.cols() (2 independent algorithms compared, verified same results).
+    #     Regional/State percentiles not stored in gdb, just lookup tables. State pctiles are in more recent versions though.
     #   - Assigns bins (map color bin number) using make.bin.cols()
     #  This originally was done by Calculate_BG_BinsPercentiles-2014-05.R
     #
@@ -130,14 +133,15 @@ ejscreen.create <-
     #     -floored percentiles as integer 0-100
     #     -rounded demographic percentages as integer 0-100
     #  This was also done in python using code such as in "EJCalc_TextFields_vz VB FIX NOT FLOOR.py"
-    #
+
     # LOOKUP TABLES
     # - Create lookup tables of 100 population weighted percentiles and mean, for US and each EPA Region and each State; for each raw score.
     # - Could also create lookup tables (means, 100 percentiles) by county, or just county means.
     #  This was originally done using "CalculateLookupTables-2014-05.R"
-    # SEPARATE CODE: NOW SEE ejscreen.lookuptables()
     #
-    # ROLLUPS
+    # SEPARATE CODE: NOW SEE ejscreen.lookuptables()
+
+    # ROLLUPS to lower resolution versions of the data
     # SEPARATE CODE: # - Create rollup files/layers, such as tract, county, state, Region rollups of raw/percentile/bin & text versions.
     # using rollup()
     #

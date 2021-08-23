@@ -8,7 +8,10 @@
 data.frame with 220,333 rows (block groups) and 118 columns in bg20
 }
 \description{
-Note the 2020 version of EJSCREEN (released mid 2021 rather than late 2020)
+\preformatted{
+  The latest version available as of September 2021 is still the 2020 version.
+
+  Note the 2020 version of EJSCREEN (released mid 2021 rather than late 2020)
     actually uses ACS2018, which is from 2014-2018 (released by Census late 2019).
 
   Note the 2019 version of EJSCREEN (released late 2019)
@@ -26,42 +29,20 @@ Note the 2020 version of EJSCREEN (released mid 2021 rather than late 2020)
     - flag indicating if any of EJ indexes above 80th percentile in US
   Detailed info on demog subgroups is in \link{bg20DemographicSubgroups2014to2018} and \link{bg21DemographicSubgroups2015to2019}
 }
+}
 \details{
-#'   This will give a quick look at some key stats:
+\preformatted{
+  This will give a quick look at some key stats:
    round(data.frame(cbind(
      subgroups=unlist(ustotals(bg20DemographicSubgroups2014to2018)),
      maingroups= unlist(ustotals(bg20[bg20$ST !='PR',])))
      ),2)
 
-Note that unlike bg20DemographicSubgroups2014to2018,
-   bg20 has PR
-   and has some rows with NA for state fips not yet fixed
-   and has some rows with lowinc or povknownratio NA not fixed (but pctlowinc is OK)...
-   rows all were kept --
-   #
-   # HOW THE 13 PROBLEM ROWS WERE FIXED IN  bg18, bg19, bg20:
-   #
-   Initially a handful of rows that had NA values in FIPS.ST, other geo fields,
-   in AK and SD, probably because those
-   were not in the old list of valid county FIPS numbers that has been used by ejanalysis::get.county.info() used by clean.fips()
-   and those block group FIPS are also not found in the Census 2010 (block group) FIPS in proxistat::bg.pts$FIPS
-   Those 13 rows were manually fixed for bg20 (so now they have NA just for lat, lon, and countyname).
-   The fields that did not get created right for the 13 were:
-   y <- bg18
-   newfips <- y$FIPS[is.na(y$ST)]
-   bad <- which(is.na(y$ST))
-   nastuff <- analyze.stuff::na.check(y[bad,])[ , c('count', 'na')]; nastuff[order(nastuff$na),]
-   ###  FIPS.TRACT, FIPS.COUNTY ,FIPS.ST, ST, statename, REGION, countyname , lat  , lon
-
-   ######3 *** TO BE FIXED... CONTINUED...
-
-   y[bad] <- bg19[bad,]
-   y['FIPS.TRACT'] <- substr(y$FIPS,1,11)
-   y['FIPS.COUNTY'] <- substr(y$FIPS,1,5)
-   y['FIPS.ST'] <- substr(y$FIPS,1,2)
-   y['ST'] <- ejanalysis::get.state.info(substr(y$FIPS,1,2))$ST
-   y['statename'] <- ejanalysis::get.state.info(substr(y$FIPS,1,2))$statename
-   y['REGION'] <- ejanalysis::get.state.info(substr(y$FIPS,1,2))$REGION
+Note that unlike bg20DemographicSubgroups2014to2018, bg20 has Puerto Rico (PR)
+ > dim(bg20)
+ [1] 220333    118
+ > dim(bg20DemographicSubgroups2014to2018)
+ [1] 217739     21
 
   Lookup tables are not yet included here: lookup tables of percentiles for USA, Regions, States are in the gdb file on EJSCREEN FTP site.
   For that information, see ejscreen::lookupUSA, lookupRegions, lookupStates, and ejscreen::ejscreen.lookuptables
@@ -71,32 +52,37 @@ Note that unlike bg20DemographicSubgroups2014to2018,
   and also in a file called EJSCREEN_columns_explained.csv
   in the inst folder of the ejscreen package.
   Technical documentation is at \url{https://www.epa.gov/ejscreen}
+  }
+ \preformatted{
 
-  The data was created for this package as follows: \cr\cr
-    \code{require(ejscreen); require(ACSdownload)} \cr
-    \code{require(proxistat) # for adding the lat lon of each block group }\cr
-    \code{require(analyze.stuff); require(ejanalysis); require(readr)} \cr
-     \cr
-  \code{ # DOWNLOADED AND UNZIPPED  }\cr\cr
-  \cr 2020 version of EJSCREEN downloaded 2021-07 from public FTP site
-  \cr as csv format (zipped)
-  \cr then unzipped to csv file
-  \cr
-  \code{#  bg <- ejscreen.download(folder = getwd(), justreadname = 'EJSCREEN_2020_USPR.csv', addflag = TRUE)} \cr\cr
-  # Starts by reading in 141 columns from csv\cr
-  # and \link{ejscreen.download} renames fields, drops an ID field, \cr
-  # and adds fields called FIPS.TRACT, FIPS.COUNTY, FIPS.ST, countyname, and (optionally) flagged. \cr\cr
-  \code{bg <- bg[ , !grepl(pattern = 'pctile\\\\.text', x = names(bg))]} \cr
-  \code{bg <- bg[ , names(bg) != 'Shape_Length'] } \cr
+  The data was created for this package as follows:
+    require(ejscreen); require(ACSdownload)
+    require(proxistat) # for adding the lat lon of each block group
+    require(analyze.stuff); require(ejanalysis); require(readr)
 
-  # Then added lat, lon fields for block group centroids, via \link[proxistat]{bg.pts} from proxistat package:\cr
-  \code{bg <- merge(bg, proxistat::bg.pts[ , c('FIPS', 'lat')], by.x = 'FIPS', by.y = 'FIPS', all.x = TRUE, all.y = FALSE)} \cr
-  \code{bg <- merge(bg, proxistat::bg.pts[ , c('FIPS', 'lon')], by.x = 'FIPS', by.y = 'FIPS', all.x = TRUE, all.y = FALSE)} \cr\cr
-  \code{plot(bg$lon[bg$lon < -50], bg$lat[bg$lon < -50], pch = '.')} \cr\cr
-  # \code{sum(is.na(bg$FIPS.ST)) # 13 are NA} \cr
+   # DOWNLOADED AND UNZIPPED
+   # 2020 version of EJSCREEN downloaded 2021-07 from public FTP site
+   # as csv format (zipped)
+   # then unzipped to csv file
 
-  # THEN USE A NAME SPECIFIC TO THE YEAR: \cr
-  \code{bg20 <- bg; rm(bg)} \cr
-  \code{save(bg20, file = 'bg20.rdata')} \cr \cr
+  # Starts by reading in 141 columns from csv
+  # and \link{ejscreen.download} renames fields, drops an ID field,
+  # and adds fields called FIPS.TRACT, FIPS.COUNTY, FIPS.ST, countyname, and (optionally) flagged.
+
+  bg <- ejscreen.download(folder = getwd(), justreadname = 'EJSCREEN_2020_USPR.csv', addflag = TRUE)
+  bg <- bg[ , !grepl(pattern = 'pctile\\\\.text', x = names(bg))]
+  bg <- bg[ , names(bg) != 'Shape_Length']
+  sum(is.na(bg$FIPS.ST)) #
+
+  # Then added lat, lon fields for block group centroids, via \link[proxistat]{bg.pts} from proxistat package:
+  bg <- merge(bg, proxistat::bg.pts[ , c('FIPS', 'lat')], by.x = 'FIPS', by.y = 'FIPS', all.x = TRUE, all.y = FALSE)
+  bg <- merge(bg, proxistat::bg.pts[ , c('FIPS', 'lon')], by.x = 'FIPS', by.y = 'FIPS', all.x = TRUE, all.y = FALSE)
+
+  plot(bg$lon[bg$lon < -50], bg$lat[bg$lon < -50], pch = '.')
+
+  # THEN USE A NAME SPECIFIC TO THE YEAR:
+  # bg20 <- bg; rm(bg)
+  # save(bg20, file = 'bg20.rdata')
+   }
 }
 \concept{datasets}

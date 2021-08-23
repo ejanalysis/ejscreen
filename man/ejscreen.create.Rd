@@ -99,7 +99,9 @@ The EJSCREEN dataset each year is already available as a dataset in this package
   ejanalysis::flagged(), etc.
  #' @details **Note that if non-default fieldnames are used in e and/or acsraw,
   those must be specified in parameters including demogvarname0, demogvarname1, wtsvarname,
-  keep.old (and could be reflected in prefix and suffix params as well).
+  keep.old (and could be reflected in prefix and suffix params as well). \cr\cr
+  This function does not create lookup tables that are used in EJSCREEN to convert a raw score in a buffer to a US,Region,or state percentile.
+  Use ejscreen.lookuptables() to create those lookup tables of 100 population weighted percentiles and mean, for US and each EPA Region and each State; for each raw score.
 }
 \examples{
  \dontrun{

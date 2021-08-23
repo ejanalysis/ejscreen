@@ -1,5 +1,5 @@
-
-# Not yet done for bg20 perhaps - unclear if in same format in that dataset update.
+# SCRIPT_read-downloaded-pctile-lookups.R
+# Not yet done for bg20 perhaps - They do not seem to bin in the gdb dataset for 2020v?
 
 # The lookup tables are provided via data()
 # in the ejscreen package, as
@@ -10,12 +10,16 @@
 # This script shows how those can be created each year for the updated pkg.
 # But it may need to be adjusted to work for a given year.
 #
-#   Note the 2020 version of EJSCREEN released late 2020 (actually mid 2021)
+#   Note the 2020 version of EJSCREEN (actually released mid 2021)
 #     actually uses ACS2018, which is from 2014-2018 (released late 2019).
 #   Note the 2019 version of EJSCREEN (released late 2019)
 #     actually uses ACS2017, which is from 2013-2017 (released late 2018).
 #   Note the 2018 version of EJSCREEN (released late 2018)
 #     actually uses ACS2016, which is from 2012-2016 (released late 2017).
+
+# It also should be possible to replicate those lookup tables using
+#   ejscreen::ejscreen.lookuptables()   which in turn relies on
+#   ejanalysis::write.wtd.pctiles.by.zone()
 
 
 # SCRIPT / NOTES ON HOW TO IMPORT EJSCREEN lookup tables of percentile values

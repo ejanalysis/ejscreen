@@ -3,7 +3,7 @@
 #' @description
 #'   *** Work in progress as of 2021
 #'   *** The Hmisc package provides the function called Hmisc::wtd.quantile(),
-#'   but could recode to use analyze.stuff::wtd.pctiles ?
+#'   but will recode to use  ejanalysis::write.wtd.pctiles.by.zone()
 #'
 #'   Start with raw environmental, demographic, and EJ indicator data, and write as csv files to disk a series of
 #'   lookup tables that show population percentiles and mean values for each indicator.
@@ -30,6 +30,8 @@
 #'   One table for overall percentiles, and one for each of the zonecols (unless that is set to NULL).
 #' @examples
 #'  \dontrun{
+#'  # ejscreen dataset:
+#'   out <- ejscreen.lookuptables(ejscreen::bg20[bg$REGION %in% 2:3,], weights=bg20$pop[bg$REGION %in% 2:3,])
 #'  # Try with a sample envt data set:
 #'  set.seed(99)
 #'  envirodata <- data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12),
@@ -51,10 +53,6 @@ ejscreen.lookuptables <-
            savefilezoneset=TRUE, savefileperzone=FALSE,
            missingcode = NA) {
 
-    ############################### #
-    #	NOTE THESE OLDER FUNCTIONS were WRITTEN ASSUMING THE DATA IS IN A DATAFRAME CALLED places <- x
-    # BUT not a problem because within this overall function that data.frame is available.
-    ############################### #
         # This was previously done by CalculateLookupTables-2014-05.R and replicated by code in 'How to run EJSCREEN R scripts 2014-05.R'
     ############################### #
     # With example for overall function providing a sample dataset, below
@@ -177,7 +175,6 @@ if (missing(weights)) {
         analyze.stuff::change.fieldnames(cols,
                                          oldnames = ejscreenformulas$gdbfieldname,
                                          newnames = ejscreenformulas$Rfieldname)
-
       }
     if (cols[1] == 'all') {
       cols <- names(places)[sapply(places, is.numeric)]
@@ -252,6 +249,9 @@ if (missing(weights)) {
     #  TO WRITE (POPULATION-)WEIGHTED CSV FILE WITH ***wtd*** PERCENTILES AND wtd MEAN, AND wtd STD DEVIATION
 
     # NOTE na.rm=TRUE is done in table.pop.pctile, so needn't do that below as well.
+    #
+    # *** why define it here, why not use
+    # ejanalysis::write.wtd.pctiles.by.zone() ???
 
     write.wtd.pctiles <- function(column.names,
                wts,
@@ -303,6 +303,8 @@ if (missing(weights)) {
     #################################### #
     #	DEFINE FUNCTION TO SHOW THOSE STATS STRATIFIED BY REGION (OR STATE),
     #	SAVING A FILE OF STATS FOR EACH REGION OR STATE
+    #
+    # *** why define it here, why not use ejanalysis::write.wtd.pctiles.by.zone() ???
 
     write.wtd.pctiles.by.zone <-
       function(column.names,
@@ -362,7 +364,7 @@ if (missing(weights)) {
 
           r$OBJECTID <-  1:NROW(r) # could redo for overall file later
           r$REGION <- z
-          r$PCTILE <- gsub( '%', '',trimws(rownames(r)))
+          r$PCTILE <- gsub( '%', '',trimws(rownames(r)))  # actually should start at 0, not 1, end with 100, mean, std.dev
 
           if (savefileperzone) {
             r <- analyze.stuff::put.first(r, c('OBJECTID', 'REGION', 'PCTILE'))
@@ -470,6 +472,9 @@ if (missing(weights)) {
 
     #  x <- weightedCDF('in_rawData_csv.csv', 'output.csv', 'pop')   # cols is optional
 
+    # why not just now use...
+    # x <- ejanalysis::write.wtd.pctiles() ??? parameterized differently (wts vs weights, etc)
+
     x <- write.wtd.pctiles(column.names = cols,
         wts = weights,
         folder = folder,
@@ -480,6 +485,10 @@ if (missing(weights)) {
 
     y <- list()
     for (i in 1:length(zonecols)) {
+
+      # why not just now use...
+      # x <- ejanalysis::write.wtd.pctiles.by.zone() ???
+
       y[[i]] <- write.wtd.pctiles.by.zone(
         column.names = cols,
         wts = weights,

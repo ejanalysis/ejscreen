@@ -49,12 +49,13 @@ Download EJSCREEN dataset from FTP site, unzip if necessary,
 }
 \details{
 Not fully tested. \cr
-  Each version of EJSCREEN uses updated environmental data and updated 5-year summary file estimates from the American Community Survey (ACS).\cr
-    \cr
-  The 2021 version of EJSCREEN, likely to be released in late 2021, (which will be avail as data in \code{ejscreen::bg21}) \cr
-    is based on 2015-2019 ACS (Census calls it the 2019 5-year data release, but released it in Dec 2020).\cr
-    \url{https://www.census.gov/programs-surveys/acs/news/data-releases/2019/release-schedule.html}  \cr
-  Note the 2020 version of EJSCREEN (confusingly released mid 2021 not late 2020)
+  \preformatted{
+  Each version of EJSCREEN uses updated environmental data and updated 5-year summary file estimates from the American Community Survey (ACS).
+
+  The 2021 version of EJSCREEN, likely to be released in late 2021, (which will be avail as data in \code{ejscreen::bg21})
+    is based on 2015-2019 ACS (Census calls it the 2019 5-year data release, but released it in Dec 2020).
+    \url{https://www.census.gov/programs-surveys/acs/news/data-releases/2019/release-schedule.html}
+  Note the 2020 version of EJSCREEN (confusingly released early/mid 2021 not late 2020)
     actually uses ACS2018, which is from 2014-2018 (released late 2019).
     It is avail as \link{bg20}
   Note the 2019 version of EJSCREEN (released late 2019)
@@ -62,6 +63,7 @@ Not fully tested. \cr
   Note the 2018 version of EJSCREEN (released late 2018)
     actually uses ACS2016, which is from 2012-2016 (released late 2017).
   The 2015 version of EJSCREEN, released in mid 2015, was based on 2008-2012 ACS data, and was the first public version available for download.
+  }
 }
 \examples{
    # bg18 <- ejscreen.download('~')

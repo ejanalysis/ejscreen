@@ -52,7 +52,7 @@ Overall lookup table(s) as data.frame (but not zonal ones). Creates lookup table
 \description{
 *** Work in progress as of 2021
   *** The Hmisc package provides the function called Hmisc::wtd.quantile(),
-  but could recode to use analyze.stuff::wtd.pctiles ?
+  but will recode to use  ejanalysis::write.wtd.pctiles.by.zone()
 
   Start with raw environmental, demographic, and EJ indicator data, and write as csv files to disk a series of
   lookup tables that show population percentiles and mean values for each indicator.
@@ -65,6 +65,8 @@ Percentiles are calculated as exact values and then rounded down to the nearest 
 }
 \examples{
  \dontrun{
+ # ejscreen dataset:
+  out <- ejscreen.lookuptables(ejscreen::bg20[bg$REGION \%in\% 2:3,], weights=bg20$pop[bg$REGION \%in\% 2:3,])
  # Try with a sample envt data set:
  set.seed(99)
  envirodata <- data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12),
