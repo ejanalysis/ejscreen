@@ -72,11 +72,13 @@ Note that unlike bg20DemographicSubgroups2014to2018, bg20 has Puerto Rico (PR)
   bg <- ejscreen.download(folder = getwd(), justreadname = 'EJSCREEN_2020_USPR.csv', addflag = TRUE)
   bg <- bg[ , !grepl(pattern = 'pctile\\\\.text', x = names(bg))]
   bg <- bg[ , names(bg) != 'Shape_Length']
-  sum(is.na(bg$FIPS.ST)) #
+
+  sum(is.na(bg$FIPS.ST)) # still 11 bg bad due to just
+  # 1 county fips "02261" (Valdez-Cordova, AK) not in proxistat::countiesall$FIPS.COUNTY
+  # which was from 2021 Gazeteer on Census website 8/2021.
 
   # Then added lat, lon fields for block group centroids, via \link[proxistat]{bg.pts} from proxistat package:
   bg <- merge(bg, proxistat::bg.pts[ , c('FIPS', 'lat')], by.x = 'FIPS', by.y = 'FIPS', all.x = TRUE, all.y = FALSE)
-  bg <- merge(bg, proxistat::bg.pts[ , c('FIPS', 'lon')], by.x = 'FIPS', by.y = 'FIPS', all.x = TRUE, all.y = FALSE)
 
   plot(bg$lon[bg$lon < -50], bg$lat[bg$lon < -50], pch = '.')
 

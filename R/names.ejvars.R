@@ -7,8 +7,6 @@
 #'   to make it easier to refer to them as a vector, e.g., mydf[ , names.ej]
 #'
 #' @details This should have the latest version.
-#'  Also see for example \code{\link{names.ejvars16}}).
-#'  The 2015 version had neuro-related indicators in it, and is now in \code{\link{names.ejvars15}}.
 #'  Old versions also had fields related to svi6 the 6-demographic-variable indicator as
 #'  an alternative to eo the 2-demographic-variable indicator now used:
 #'  "names.ej.burden.svi6", "names.ej.burden.svi6.bin", "names.ej.burden.svi6.pctile",
