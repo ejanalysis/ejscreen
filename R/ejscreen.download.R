@@ -19,6 +19,22 @@
 #'   Note the 2018 version of EJSCREEN (released late 2018)
 #'     actually uses ACS2016, which is from 2012-2016 (released late 2017).
 #'   The 2015 version of EJSCREEN, released in mid 2015, was based on 2008-2012 ACS data, and was the first public version available for download.
+#'
+#'
+#'        TO JUST READ THE EJSCREEN DATA ONCE DOWNLOADED FROM THE FTP SITE:
+#'
+#'        # may recode ejscreen.download to split out just the part that downloads, unzips, reads into R verbatim.
+#'
+#'        x <- readr::read_csv('~/Downloads/EJSCREEN_2020_USPR.csv',  na = 'None')
+#'        x <- data.frame(x, stringsAsFactors = FALSE) # if you want a data.frame not a data.table
+#'
+#'        TO JUST RENAME COLUMNS TO FRIENDLY NAMES USED IN THIS PACKAGE:
+#'
+#'        names(x) <- ejscreen::change.fieldnames.ejscreen.csv(names(x))
+#'
+#'        TO JUST ADD SOME USEFUL COLUMNS (FIPS, countyname, statename, etc.):
+#'
+#'        x <- ejanalysis::addFIPScomponents(x)
 #'   }
 #' @param folder Optional path to folder (directory) where the file will be downloaded and unzipped. Default is current working directory.
 #' @param yr Default is latest available year found as a folder on the FTP site.
@@ -34,13 +50,13 @@
 #' @source See \url{http://www.epa.gov/ejscreen} for more information, and see \url{http://www.epa.gov/ejscreen/download-ejscreen-data}
 #' @seealso \code{\link{ejscreen.create}}  \code{\link{change.fieldnames.ejscreen.csv}}
 #' @examples
-#'    # bg18 <- ejscreen.download('~')
-#'    ## bg18 <- ejscreen.download('~',
-#'    #  justreadname = 'EJSCREEN_Full_USPR_2018.csv')
-#'    # bg18 <- bg18[ , !grepl(pattern = 'pctile\\.text', x = names(bg18))]
-#'    # bg18 <- bg18[ , !grepl(pattern = 'svi6', x = names(bg18))]
+#'    # bg <- ejscreen.download('~')
+#'    ## bg <- ejscreen.download('~',
+#'    #  justreadname = 'EJSCREEN_Full_USPR_2020.csv')
+#'    # bg <- bg[ , !grepl(pattern = 'pctile\\.text', x = names(bg))]
+#'    # bg <- bg[ , !grepl(pattern = 'svi6', x = names(bg))]
 #'    # setwd('~')
-#'    # save(bg18, file = 'bg18.rdata')
+#'    # save(bg, file = 'bgYEAR20XX.rdata')
 #' @export
 ejscreen.download <-
   function(folder = getwd(),
@@ -52,16 +68,14 @@ ejscreen.download <-
            addflag = FALSE,
            cutoff = 80,
            or.tied = TRUE) {
-    # #  @ e x a m p l e s
-    # #  \dontrun{
-    # #  bg <- ejscreen.download(folder='~', addflag=TRUE)
-    # #  }
 
     ######################################################################################## #
-    # A script to get the 2015, 2016, 2017, 2018, 2019, 2020, etc. version of EJSCREEN dataset into memory, using the friendly Rfieldnames
+    # A way to get the 2015, 2016, 2017, 2018, 2019, 2020, etc. version of EJSCREEN dataset into memory, using the friendly Rfieldnames
     ######################################################################################## #
 
     # Note: if already exists as .RData locally, could just do load("bg 2015-04-22 Rnames plus subgroups.RData")
+
+# THIS PART SHOULD BE SPLIT OUT INTO ITS OWN FUNCTION - JUST FIND LATEST VERSION AND DOWNLOAD AND UNZIP, NO MODIFICATIONS
 
     # Prepare to obtain the zip or just csv file from the FTP site ------------
 
@@ -197,7 +211,7 @@ ejscreen.download <-
     justreadcsv <- function(fullpathcsvname) {
       # fullpathcsvname here should include full path unless used setwd()
       ############################# #
-      # Read the csv file into R
+      # Read the csv file into R           # this could be split out into a function that is exported for finer control of steps in ejscreen.download
       ############################# #
       # Possibly even faster via readr package readr::read_csv() which I think can download and read all in one step
       # read.csv takes a couple of minutes, and much faster if you use data.table::fread()
@@ -209,7 +223,7 @@ ejscreen.download <-
       cat('Attempting to import csv dataset to R \n')
       #bg <- data.table::fread(fullpathcsvname)
       # Handle 'None' as NA values this way:
-      bg <- readr::read_csv(file = fullpathcsvname, na = 'None')
+      bg <- readr::read_csv(file = fullpathcsvname, na = 'None') # should check if 2020+ versions still have None for NA
       bg <- data.frame(bg, stringsAsFactors = FALSE)
     }
 

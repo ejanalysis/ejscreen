@@ -22,7 +22,7 @@
 #' \preformatted{
 #'
 #'   Note the 2021 version of EJSCREEN possibly to be released near the end of 2021
-#'   actually uses ACS2019 and fits with bg21DemographicSubgroups2015to2019, which is from 2015-2019 (released by Census late 2020).
+#'   actually uses ACS2019 and fits with bg21DemographicSubgroups2015to2019, which is from 2015-2019 (released by Census December 2020).
 #'
 #'   Note the 2020 version of EJSCREEN released not in late 2020 but actually early-mid 2021, in bg20
 #'   actually uses ACS2018 and fits with bg20DemographicSubgroups2014to2018, which is from 2014-2018 (released by Census late 2019).

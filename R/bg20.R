@@ -48,7 +48,26 @@
 #'   }
 #'  \preformatted{
 #'
-#'   The data was created for this package as follows:
+#'        TO JUST READ THE EJSCREEN DATA ONCE DOWNLOADED FROM THE FTP SITE:
+#'
+#'        # may recode ejscreen.download to split out just the part that downloads, unzips, reads into R verbatim.
+#'
+#'        x <- readr::read_csv('~/Downloads/EJSCREEN_2020_USPR.csv',  na = 'None')
+#'        x <- data.frame(x, stringsAsFactors = FALSE) # if you want a data.frame not a data.table
+#'
+#'        TO JUST RENAME COLUMNS TO FRIENDLY NAMES USED IN THIS PACKAGE:
+#'
+#'        names(x) <- ejscreen::change.fieldnames.ejscreen.csv(names(x))
+#'
+#'        TO JUST ADD SOME USEFUL COLUMNS (FIPS, countyname, statename, etc.):
+#'
+#'        x <- ejanalysis::addFIPScomponents(x)
+#'
+#'
+#'   TO CREATE THIS bg20 DATASET FROM THE EJSCREEN DATA ON THE FTP SITE:
+#'
+#'   The key function is \link{ejscreen.download} which can downnload it, unzip, read, clean up, add fields, etc.
+#'
 #'     require(ejscreen); require(ACSdownload)
 #'     require(proxistat) # for adding the lat lon of each block group
 #'     require(analyze.stuff); require(ejanalysis); require(readr)

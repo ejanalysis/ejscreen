@@ -3,12 +3,12 @@
 #' @title The (late) 2021 version of EJSCREEN data (based on ACS 2015-2019) plus lat lon, countynames, etc., minus some nonessential fields
 #' @description
 #'  \preformatted{
-#'   The 2021 version of EJSCREEN, likely to be released in very late 2021, (which will be avail as data in \code{ejscreen::bg21}) \cr
-#'     is based on 2015-2019 ACS (Census calls it the 2019 5-year data release, but released it in Dec 2020).\cr
+#'   The 2021 version of EJSCREEN, likely to be released in very late 2021 (or possibly in 2022?), (which will be avail as data in \code{ejscreen::bg21}) \cr
+#'     is based on 2015-2019 ACS (Census calls it the 2019 5-year data release, but released it in December 2020).\cr
 #'     \url{https://www.census.gov/programs-surveys/acs/news/data-releases/2019/release-schedule.html}  \cr
 #'
 #'   Note the 2020 version of EJSCREEN (confusingly released mid 2021 rather than late 2020)
-#'     actually uses ACS2018, which is from 2014-2018 (released by Census late 2019). See \link{bg20}
+#'     actually uses ACS2018, which is from 2014-2018 (released by Census December 2019). See \link{bg20}
 #'
 #'   Note the 2019 version of EJSCREEN (released late 2019)
 #'     actually uses ACS2017, which is from 2013-2017 (released by Census late 2018).

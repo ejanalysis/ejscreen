@@ -1,6 +1,9 @@
 # to do in ejscreen package
 
 
+#  break up ejscreen.download into smaller functions that download, unzip, read, rename, drop fields, add fields
+
+
 # Clarify differences between bg20  vs  ejscreen.download()
 # in terms of colnames and extra columns, rows for PR, etc.
 
@@ -13,12 +16,12 @@
 #   ejanalysis::write.wtd.pctiles.by.zone()
 
 
-
+#ejscreen::ejscreen.download(justreadname = '~/Dropbox/2021 EJ EPA/2021-02 EJSCREEN 2020v RR/EJSCREEN_2020_USPR.csv')
 
 ############ ANNUAL UPDATE ################
 # get 2021version dataset in late 2021? when available.
-# create bg21.rdata and bg21.R (data and help docs)
-# update lookupUSA, states, regions,
+# create bg21.rdata and bg21.R (data and help docs), maybe with ejscreen::ejscreen.download()
+# update lookupUSA, states, regions, maybe with ejscreen::ejscreen.lookuptables()
 # update default endyear in various functions
 ###########################################
 
