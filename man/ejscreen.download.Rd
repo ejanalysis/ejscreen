@@ -63,16 +63,32 @@ Not fully tested. \cr
   Note the 2018 version of EJSCREEN (released late 2018)
     actually uses ACS2016, which is from 2012-2016 (released late 2017).
   The 2015 version of EJSCREEN, released in mid 2015, was based on 2008-2012 ACS data, and was the first public version available for download.
+
+
+       TO JUST READ THE EJSCREEN DATA ONCE DOWNLOADED FROM THE FTP SITE:
+
+       # may recode ejscreen.download to split out just the part that downloads, unzips, reads into R verbatim.
+
+       x <- readr::read_csv('~/Downloads/EJSCREEN_2020_USPR.csv',  na = 'None')
+       x <- data.frame(x, stringsAsFactors = FALSE) # if you want a data.frame not a data.table
+
+       TO JUST RENAME COLUMNS TO FRIENDLY NAMES USED IN THIS PACKAGE:
+
+       names(x) <- ejscreen::change.fieldnames.ejscreen.csv(names(x))
+
+       TO JUST ADD SOME USEFUL COLUMNS (FIPS, countyname, statename, etc.):
+
+       x <- ejanalysis::addFIPScomponents(x)
   }
 }
 \examples{
-   # bg18 <- ejscreen.download('~')
-   ## bg18 <- ejscreen.download('~',
-   #  justreadname = 'EJSCREEN_Full_USPR_2018.csv')
-   # bg18 <- bg18[ , !grepl(pattern = 'pctile\\.text', x = names(bg18))]
-   # bg18 <- bg18[ , !grepl(pattern = 'svi6', x = names(bg18))]
+   # bg <- ejscreen.download('~')
+   ## bg <- ejscreen.download('~',
+   #  justreadname = 'EJSCREEN_Full_USPR_2020.csv')
+   # bg <- bg[ , !grepl(pattern = 'pctile\\.text', x = names(bg))]
+   # bg <- bg[ , !grepl(pattern = 'svi6', x = names(bg))]
    # setwd('~')
-   # save(bg18, file = 'bg18.rdata')
+   # save(bg, file = 'bgYEAR20XX.rdata')
 }
 \seealso{
 \code{\link{ejscreen.create}}  \code{\link{change.fieldnames.ejscreen.csv}}
