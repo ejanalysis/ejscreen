@@ -37,6 +37,9 @@
 #'     \item OVER64.US,
 #'     \item LTHS.US,
 #'     \item LINGISO.US,
+#'     \item POVKNOWNRATIO.US # denominator FOR PCTLOWINC,
+#'     \item BUILTUNITS.US # denominator FOR PCTPRE1960,
+#'     \item HHLDS.US  # denominator FOR LINGISO,
 #'     \item PRE1960.US,
 #'     \item HISP.US,
 #'     \item NHWA.US,
@@ -89,13 +92,14 @@ ustotals <- function(bg) {
 
   x <- list(
     POP.US		  = sum(bg$pop, na.rm = TRUE),
+
     LOWINC.US	  = sum(bg$lowinc, na.rm = TRUE),
     MINS.US		  = sum(bg$mins, na.rm = TRUE),
+    LINGISO.US	= sum(bg$lingiso, na.rm = TRUE),
+    LTHS.US     = sum(bg$lths, na.rm = TRUE),
     UNDER5.US	  = sum(bg$under5, na.rm = TRUE),
     OVER64.US	  = sum(bg$over64, na.rm = TRUE),
-    LTHS.US		  = sum(bg$lths, na.rm = TRUE),
-    LINGISO.US	= sum(bg$lingiso, na.rm = TRUE),
-    PRE1960.US	= sum(bg$pre1960, na.rm = TRUE),
+
     HISP.US		  = sum(bg$hisp, na.rm = TRUE),
     NHWA.US		  = sum(bg$nhwa , na.rm = TRUE),
     NHBA.US		  = sum(bg$nhba , na.rm = TRUE),
@@ -103,32 +107,44 @@ ustotals <- function(bg) {
     NHAA.US		  = sum(bg$nhaa , na.rm = TRUE),
     NHNHPIA.US	= sum(bg$nhnhpia , na.rm = TRUE),
     NHOTHERALONE.US	= sum(bg$nhotheralone , na.rm = TRUE),
-    NHMULTI.US	= sum(bg$nhmulti , na.rm = TRUE)
+    NHMULTI.US	= sum(bg$nhmulti , na.rm = TRUE),
+
+    POVKNOWNRATIO.US = sum(bg$povknownratio, na.rm = TRUE), # denominator FOR PCTLOWINC
+    HHLDS.US         = sum(bg$hhlds, na.rm = TRUE),         # denominator FOR PCTLINGISO
+    AGE25UP.US	     = sum(bg$age25up, na.rm = TRUE),       # denominator FOR PCTLTHS
+    BUILTUNITS.US    = sum(bg$builtunits, na.rm = TRUE),   # denominator FOR PCTPRE1960
+
+    PRE1960.US	= sum(bg$pre1960, na.rm = TRUE)
   )
+
+
+
+
 
   x <- c(
     x,
-    PCTLOWINC.US	= x$LOWINC.US / sum(bg$povknownratio, na.rm = TRUE),
-    PCTMIN.US	= x$MINS.US / x$POP.US,
+    PCTLOWINC.US	= x$LOWINC.US      / x$POVKNOWNRATIO.US,
+    PCTMIN.US	    = x$MINS.US   / x$POP.US,
+    PCTLINGISO.US	= x$LINGISO.US    / x$HHLDS.US,
+    PCTLTHS.US	  = x$LTHS.US       / x$AGE25UP.US,
     PCTUNDER5.US	= x$UNDER5.US / x$POP.US,
     PCTOVER64.US	= x$OVER64.US / x$POP.US,
-    PCTLTHS.US	= x$LTHS.US / sum(bg$age25up, na.rm = TRUE),
-    PCTLINGISO.US	= x$LINGISO.US / sum(bg$hhlds, na.rm = TRUE),
-    PCTPRE1960.US	= x$PRE1960.US / sum(bg$builtunits, na.rm = TRUE),
 
-    PCTHISP.US	= x$HISP.US/ x$POP.US,
-    PCTNHWA.US	=  x$NHWA.US/ x$POP.US,
-    PCTNHBA.US	=  x$NHBA.US/ x$POP.US,
-    PCTNHAIANA.US	=  x$NHAIANA.US/ x$POP.US,
-    PCTNHAA.US	=  x$NHAA.US/ x$POP.US,
-    PCTNHNHPIA.US	=  x$NHNHPIA.US/ x$POP.US,
-    PCTNHOTHERALONE.US	=  x$NHOTHERALONE.US/ x$POP.US,
-    PCTNHMULTI.US	=  x$NHMULTI.US/ x$POP.US
+    PCTHISP.US	       = x$HISP.US         / x$POP.US,
+    PCTNHWA.US	       = x$NHWA.US         / x$POP.US,
+    PCTNHBA.US	       = x$NHBA.US         / x$POP.US,
+    PCTNHAIANA.US      = x$NHAIANA.US      / x$POP.US,
+    PCTNHAA.US	       = x$NHAA.US         / x$POP.US,
+    PCTNHNHPIA.US	     = x$NHNHPIA.US      / x$POP.US,
+    PCTNHOTHERALONE.US = x$NHOTHERALONE.US / x$POP.US,
+    PCTNHMULTI.US	     = x$NHMULTI.US      / x$POP.US,
+
+    PCTPRE1960.US	= x$PRE1960.US    / x$BUILTUNITS.US
   )
 
   return(x)
 
-  #  Note that the essential parts of this are now built into ejscreenformulas which is available as data() in this package
+  #  Note that the essential parts of this are now built into ejscreenformulas which is available as data() in ejscreen package
   # > require(ejscreen)
   # Loading required package: ejscreen
   # > x=ejscreen::ejscreenformulas
