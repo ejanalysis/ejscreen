@@ -3,13 +3,16 @@
 #' @title The 2020 version of EJSCREEN data (based on ACS 2014-2018) plus lat lon, countynames, etc., minus some nonessential fields
 #' @description
 #'  \preformatted{
-#'   The latest version available as of September 2021 is still the 2020 version.
+#'   Note EJScreen 2.0 is the version released February 18, 2022.
+#'     It uses ACS2019, which is from 2015-2019 (released by Census late 2020).
+#'
+#'   The latest version available until late February 18, 2022 was still the 2020 version.
 #'
 #'   Note the 2020 version of EJSCREEN (released mid 2021 rather than late 2020)
-#'     actually uses ACS2018, which is from 2014-2018 (released by Census late 2019).
+#'     actually used ACS2018, which is from 2014-2018 (released by Census late 2019).
 #'
 #'   Note the 2019 version of EJSCREEN (released late 2019)
-#'     actually uses ACS2017, which is from 2013-2017 (released by Census late 2018).
+#'     actually used ACS2017, which is from 2013-2017 (released by Census late 2018).
 #'
 #'   This data set is the EJSCREEN dataset from the ftp site but with
 #'   fields renamed for easier use in the ejscreen package,
