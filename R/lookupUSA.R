@@ -49,6 +49,19 @@
 #'     lookupStates19[lookupStates19$PCTILE == 'mean', c('REGION', 'pm')]
 #'     lookupUSA19[lookupUSA19$PCTILE == 'mean', c('REGION', 'pm')]
 #'   }
+#'  \dontrun{
+#'    What is environmental score at given percentile?
+#'  ejanalysis::lookup.pctile(40,'cancer',lookupUSA)
+#'  # [1] 84
+#'  ejanalysis::lookup.pctile(40,'cancer',lookupStates,'WV')
+#'  # [1] 93
+#'  #    What is percentile of given environmental score?
+#'  ejscreen::lookupUSA[lookupUSA$PCTILE=='84' ,'cancer']
+#'  # [1] 39.83055
+#'  ejscreen::lookupStates[lookupStates$PCTILE=='84' & lookupStates$REGION =='WV','cancer']
+#'  # [1] 33.36371
+#'  # also see ejanalysis::assign.pctiles
+#'  }
 #' @seealso lookupUSA20 lookupUSA lookupRegions lookupStates ejscreen.lookuptables \code{\link[ejanalysis]{lookup.pctile}}
 #' @details
 #'   The 2020 version (lookupUSA20, lookupStates20, lookupRegions20)
