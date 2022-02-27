@@ -8,7 +8,7 @@
 # in terms of colnames and extra columns, rows for PR, etc.
 
 # ******create and UPDATE THE LOOKUP TABLES LIKE lookupUSA lookupStates lookupRegions
-#   to be from 2020 version not 2019,
+#   to be from 2020 or 2021 version not 2019,
 #   (and then also from  2021v when available).
 #  Usually just get it from the gdb file on the ftp site (see SCRIPT_read-downloaded-pctile-lookups.R)
 # **It also should be possible to replicate those lookup tables using

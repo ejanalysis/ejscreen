@@ -1,15 +1,18 @@
 #' @name bg21
 #' @docType data
-#' @title The (late) 2021 version of EJSCREEN data (based on ACS 2015-2019) plus lat lon, countynames, etc., minus some nonessential fields
+#' @title EJScreen 2.0 dataset, plus additional variables, minus some nonessential fields
 #' @description
 #'  \preformatted{
-#'   Note EJScreen 2.0 is the version released February 18, 2022.
-#'     bg21 was going to hold that information... may be renamed given the EJScreen 2.0 name.
-#'     It uses ACS2019, which is from 2015-2019 (released by Census Dec 2020).
+#'  Any mid/late 2022 update of EJScreen will use ACS 2016-2020 released March 2022.
+#'  
+#'  EJScreen 2.0 is the version released by EPA February 18, 2022 
+#'    (but here it is bg21 because it would have been called the late 2021 version but was delayed)
+#'     bg21 could be renamed given the EJScreen 2.0 name.
+#'     This uses ACS2019, which is from 2015-2019 (released by Census Dec 2020).
 #'
-#'   The latest version available until late February 18, 2022 was still the 2020 version.
+#'   The last version before February 18, 2022 was still the 2020 version.
 #'   Note the 2020 version of EJSCREEN (confusingly released mid 2021 rather than late 2020)
-#'     actually uses ACS2018, which is from 2014-2018 (released by Census December 2019). See \link{bg20}
+#'     actually used ACS2018, which was from 2014-2018 (released by Census December 2019). See \link{bg20}
 #'
 #'   Note the 2019 version of EJSCREEN (released late 2019)
 #'     actually uses ACS2017, which is from 2013-2017 (released by Census late 2018).
@@ -29,11 +32,11 @@
 #'  }
 #' @details
 #'
-#' #'   This will give a quick look at some key stats:
-#'    round(data.frame(cbind(
-#'      subgroups=unlist(ustotals(bg21DemographicSubgroups2015to2019)),
-#'      maingroups= unlist(ustotals(bg21[bg21$ST !='PR',])))
-#'      ),2)
+#'    This will give a quick look at some key stats:
+#'    #round(data.frame(cbind(
+#'    #  subgroups = unlist(ustotals(bg21DemographicSubgroups2015to2019)),
+#'    #  maingroups = unlist(ustotals(bg21[ bg21$ST !='PR', ])))
+#'    #  ), 2)
 #'
 #' Note that unlike bg21DemographicSubgroups2015to2019,
 #'    bg21 has PR, but will likely add PR to have it in both.

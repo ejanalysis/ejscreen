@@ -70,7 +70,7 @@ ejscreen.download <-
            or.tied = TRUE) {
 
     ######################################################################################## #
-    # A way to get the 2015, 2016, 2017, 2018, 2019, 2020, etc. version of EJSCREEN dataset into memory, using the friendly Rfieldnames
+    # A way to get the 2015, 2016, 2017, 2018, 2019, 2020, 2021, etc. version of EJSCREEN dataset into memory, using the friendly Rfieldnames
     ######################################################################################## #
 
     # Note: if already exists as .RData locally, could just do load("bg 2015-04-22 Rnames plus subgroups.RData")
@@ -83,7 +83,7 @@ ejscreen.download <-
     # Prepare to obtain the zip or just csv file from the FTP site, based on which yr
     # (takes a few minutes to download if you do it this way - you could do it manually using an FTP client instead)
     ############################# #
-    if (missing(justreadname)) {
+    if (is.null(justreadname)) {
 
       # Check ftp site for largest year of any folder, any use that as the year and folder
 
@@ -92,9 +92,11 @@ ejscreen.download <-
         yrschecked <- 2015:calendaryear # 2015 was the earliest, and the current calendar year is latest version possibly available
         latestyr <- yrschecked[max(which(sapply(paste(mypath, yrschecked, '/', sep = ''), RCurl::url.exists)))]
         cat('\n', paste(mypath, yrschecked, '/', '\n', sep = ''), '\n')
+        if (is.na(latestyr)) {stop('problem - none of those URLs were found by RCurl::url.exists function')}
         return(latestyr)
       }
-      if (is.null(yr)) {
+      
+      if (!exists('yr') | is.null(yr) ) {
         yr <- latestavailableyear(ftpurlbase)
       } else {
         yr <- as.numeric(yr) # in case entered as character, later want it as number
@@ -218,6 +220,7 @@ ejscreen.download <-
       #   Read 217739 rows and 391 (of 391) columns from 0.653 GB file in 00:00:46  # fast via fread()
       # bg <- read.csv('EJSCREEN_20150505.csv', nrows = 220000) # as.is = TRUE, # too slow
       if (!(file.exists(fullpathcsvname))) {
+        print(fullpathcsvname)
         stop('csv file should have been downloaded but not found in folder where expected')
       }
       cat('Attempting to import csv dataset to R \n')
