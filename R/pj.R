@@ -12,8 +12,8 @@
 #' 
 pj <- function(enum, dnum, dat=ejscreen::bg20, ...) {
   
-  # or dat=bgstats2020?
-  EVARS <- ejscreen::names.e # c("pm", "o3", "cancer", "resp", "dpm", "pctpre1960", "traffic.score", "proximity.npl", "proximity.rmp", "proximity.tsdf", "proximity.npdes")
+  # or dat=blockgroupstats ?
+  EVARS <- ejscreen::names.e # c("pm", "o3", "cancer", "resp", "dpm", "pctpre1960", "traffic.score", "proximity.npl", "proximity.rmp", "proximity.tsdf", "proximity.npdes", "ust")
   DVARS <- ejscreen::names.d # c("VSI.eo", "pctmin", "pctlowinc", "pctlths", "pctlingiso", "pctunder5", "pctover64")
   EVARS_ILE <- ejscreen::names.e.pctile # paste0('pctile.', EVARS)
   DVARS_ILE <- ejscreen::names.d.pctile # paste0('pctile.', DVARS)
