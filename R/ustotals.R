@@ -1,10 +1,16 @@
 #' @title Get US Totals and Percentages Overall for EJSCREEN Fields
-#' @description This function simply takes a data.frame of EJSCREEN demographic data
+#' 
+#' @description NOTE: May replace with ustotals2 from batch.summarizer pkg, 
+#'   and or replace to be more generic by using ejscreenformulas style formulas
+#'   rather than formulas and variable names hard coded in this function.
+#' 
+#'   This function simply takes a data.frame of EJSCREEN demographic data
 #'   and returns the total count or overall US percentage for various fields,
 #'   by using the appropriate denominator (universe) to calculate any given percentage.
 #'   For example, PCTLOWINC.US equals sum(lowinc) / sum(povknownratio), not sum(lowinc) / sum(pop).
 #'   This function is hard-coded to use specified field names referring to EJSCREEN variables.
 #'   This function is not needed to create an EJSCREEN dataset, but is convenient if one wants US summary values.
+#' 
 #' @param bg Must be a data.frame that has the following colnames:
 #'   \itemize{
 #'     \item pop,

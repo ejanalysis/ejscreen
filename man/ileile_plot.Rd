@@ -28,7 +28,7 @@ ileile_plot(
 \item{...}{passed to plot(), such as col='red'}
 }
 \description{
-Scatter plot of median of Environmental score percentiles for each Demographic score percentile
+Shows median envt percentile of places within each percentile of demog
 }
 \examples{
 

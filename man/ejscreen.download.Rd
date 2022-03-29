@@ -52,9 +52,12 @@ Not fully tested. \cr
   \preformatted{
   Each version of EJSCREEN uses updated environmental data and updated 5-year summary file estimates from the American Community Survey (ACS).
 
-  The 2021 version of EJSCREEN, likely to be released in late 2021, (which will be avail as data in \code{ejscreen::bg21})
-    is based on 2015-2019 ACS (Census calls it the 2019 5-year data release, but released it in Dec 2020).
+  EJScreen 2.0 (released February 2022),
+    actually uses ACS2019 5-year summary file data, which is from 2015-2019 (released Dec 2020).
+    It is avail as data in \link{bg21}
+    (EJScreen 2.0 would have been called the 2021 version in old naming scheme).
     \url{https://www.census.gov/programs-surveys/acs/news/data-releases/2019/release-schedule.html}
+    
   Note the 2020 version of EJSCREEN (confusingly released early/mid 2021 not late 2020)
     actually uses ACS2018, which is from 2014-2018 (released late 2019).
     It is avail as \link{bg20}

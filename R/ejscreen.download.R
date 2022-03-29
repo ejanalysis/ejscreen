@@ -8,9 +8,12 @@
 #'   \preformatted{
 #'   Each version of EJSCREEN uses updated environmental data and updated 5-year summary file estimates from the American Community Survey (ACS).
 #'
-#'   The 2021 version of EJSCREEN, likely to be released in late 2021, (which will be avail as data in \code{ejscreen::bg21})
-#'     is based on 2015-2019 ACS (Census calls it the 2019 5-year data release, but released it in Dec 2020).
+#'   EJScreen 2.0 (released February 2022),
+#'     actually uses ACS2019 5-year summary file data, which is from 2015-2019 (released Dec 2020).
+#'     It is avail as data in \link{bg21}
+#'     (EJScreen 2.0 would have been called the 2021 version in old naming scheme).
 #'     \url{https://www.census.gov/programs-surveys/acs/news/data-releases/2019/release-schedule.html}
+#'     
 #'   Note the 2020 version of EJSCREEN (confusingly released early/mid 2021 not late 2020)
 #'     actually uses ACS2018, which is from 2014-2018 (released late 2019).
 #'     It is avail as \link{bg20}
@@ -88,11 +91,16 @@ ejscreen.download <-
       # Check ftp site for largest year of any folder, any use that as the year and folder
 
       latestavailableyear <- function(mypath='https://gaftp.epa.gov/EJSCREEN/') {
+        # proxy makes RCurl::url.exists not work right.
+        url.exists_andcandownloadthisfile <- function(url='https://gaftp.epa.gov/EJSCREEN/2021', file='') { # 2021_EJSCREEEN_columns-explained.xlsx
+        'try-error' != class(suppressWarnings(try(download.file(file.path(url,file), tempfile(),quiet = TRUE), silent = TRUE)))
+        }
         calendaryear <- as.numeric(format(Sys.time(), "%Y")) # just says, what year is it?
         yrschecked <- 2015:calendaryear # 2015 was the earliest, and the current calendar year is latest version possibly available
-        latestyr <- yrschecked[max(which(sapply(paste(mypath, yrschecked, '/', sep = ''), RCurl::url.exists)))]
-        cat('\n', paste(mypath, yrschecked, '/', '\n', sep = ''), '\n')
-        if (is.na(latestyr)) {stop('problem - none of those URLs were found by RCurl::url.exists function')}
+        # latestyr <- yrschecked[max(which(sapply(paste(mypath, yrschecked, '', sep = ''), RCurl::url.exists)))]
+        latestyr <- yrschecked[max(which(sapply(paste(mypath, yrschecked, '', sep = ''), url.exists_andcandownloadthisfile)))]
+        cat('\n', paste('checking ', mypath, yrschecked, '/', '\n', sep = ''), '\n')
+        if (is.na(latestyr)) {stop('problem - none of those URLs were found ')}
         return(latestyr)
       }
       
@@ -100,7 +108,8 @@ ejscreen.download <-
         yr <- latestavailableyear(ftpurlbase)
       } else {
         yr <- as.numeric(yr) # in case entered as character, later want it as number
-        if (!RCurl::url.exists(paste(ftpurlbase, yr, '/', sep = ''))) {
+        if (!url.exists_andcandownloadthisfile(paste(ftpurlbase, yr, '', sep = ''))) {
+        # if (!RCurl::url.exists(paste(ftpurlbase, yr, '/', sep = ''))) {
           calendaryear <- as.numeric(format(Sys.time(), "%Y"))
           # if (!(yr %in% 2015:calendaryear)) {stop('Invalid year')}
           if (yr == calendaryear) warning('This version might not be available yet. The 20xx version of EJSCREEN has typically been released around Sept/Oct of that year 20xx.')
@@ -144,6 +153,7 @@ ejscreen.download <-
           csvnamestate <- 'EJSCREEN_2019_StatePctiles.csv'
         }
         if (yr == 2020) {
+          # This is for the EJSREEN version released in 2021, delayed from 2020 original planned release timing
           zipname <- 'EJSCREEN_2020_USPR.csv.zip'   #
           csvname <- 'EJSCREEN_2020_USPR.csv'  #
           zipnamestate <- 'EJSCREEN_2020_StatePctile.csv.zip'
@@ -151,7 +161,21 @@ ejscreen.download <-
           # https://gaftp.epa.gov/EJSCREEN/2020/EJSCREEN_2020_USPR.csv.zip
           # https://gaftp.epa.gov/EJSCREEN/2020/EJSCREEN_2020_StatePctile.csv.zip
         }
-        if (yr > 2020) {
+          if (yr == 2021) {
+            # This is for the EJScreen 2.0 released February 2022, using ACS 2015-2019.
+            zipname <- 'EJSCREEN_2021_USPR.csv.zip'   #https://gaftp.epa.gov/EJSCREEN/2021
+            csvname <- 'EJSCREEN_2021_USPR.csv'  #
+            zipnamestate <- 'EJSCREEN_2021_StatePctile.csv.zip'
+            csvnamestate <- 'EJSCREEN_2021_StatePctile.csv'
+            # https://gaftp.epa.gov/EJSCREEN/2021/EJSCREEN_2021_USPR.csv.zip # 
+            # https://gaftp.epa.gov/EJSCREEN/2021/EJSCREEN_2021_StatePctile.csv.zip # or https://gaftp.epa.gov/EJSCREEN/2021/EJSCREEN_2021_StatePctile.gdb.zip
+            # also see
+            # EJSCREEN_2021_USPR_Tracts.csv.zip
+            # EJSCREEN_2021_StatePctile_Tracts.csv.zip  
+            #   tract resolution files for US and State as csv and gdb also available there.
+          }
+          
+        if (yr > 2021) {
           zipname <- paste('EJSCREEN_', yr, '_USPR.csv.zip', sep = '') # hopefully will keep this format
           csvname <- paste('EJSCREEN_', yr, '_USPR.csv', sep = '') # hopefully will keep this format
           zipnamestate <- paste('EJSCREEN_', yr, '_StatePctile.csv.zip', sep = '') # hopefully will keep this format

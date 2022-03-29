@@ -3,7 +3,7 @@
 \docType{data}
 \name{bg21}
 \alias{bg21}
-\title{EJScreen 2.0 dataset, plus additional variables, minus some nonessential fields}
+\title{EJScreen 2.0 dataset (Feb 2022), plus additional variables, minus some nonessential fields}
 \format{
 data.frame with 220,333 ? rows (block groups) and 118 ? columns in bg21
 }
@@ -61,7 +61,8 @@ Note that unlike bg21DemographicSubgroups2015to2019,
     \code{require(proxistat) # for adding the lat lon of each block group }\cr
     \code{require(analyze.stuff); require(ejanalysis); require(readr)} \cr
      \cr
-  \code{ # DOWNLOADED AND UNZIPPED  }\cr\cr
+     
+  \code{ # IF DOWNLOADED AND UNZIPPED  }\cr\cr
   \cr Latest version of EJSCREEN downloaded from public FTP site
   \cr as csv format (zipped)
   \cr then unzipped to csv file
@@ -69,20 +70,28 @@ Note that unlike bg21DemographicSubgroups2015to2019,
   \code{
   #  bg <- ejscreen.download(folder = getwd(), addflag = TRUE,   \cr
    justreadname = 'EJSCREEN_2021_USPR.csv' )} \cr\cr
-  # Starts by reading in approx 141 columns from csv\cr
-  # and \link{ejscreen.download} renames fields, drops an ID field, \cr
+  \cr  or  \cr\cr
+  
+  bg = ejscreen.download()
+  
+  \cr
+  #  \link{ejscreen.download} renames fields, drops an ID field, \cr
   # and adds fields called FIPS.TRACT, FIPS.COUNTY, FIPS.ST, countyname, and (optionally) flagged. \cr\cr
   \code{bg <- bg[ , !grepl(pattern = 'pctile\\\\.text', x = names(bg))]} \cr
   \code{bg <- bg[ , names(bg) != 'Shape_Length'] } \cr
 
   # Then added lat, lon fields for block group centroids, via \link[proxistat]{bg.pts} from proxistat package:\cr
+  # for 2010 boundaries that was like this:\cr
   \code{bg <- merge(bg, proxistat::bg.pts[ , c('FIPS', 'lat')], by.x = 'FIPS', by.y = 'FIPS', all.x = TRUE, all.y = FALSE)} \cr
   \code{bg <- merge(bg, proxistat::bg.pts[ , c('FIPS', 'lon')], by.x = 'FIPS', by.y = 'FIPS', all.x = TRUE, all.y = FALSE)} \cr\cr
+  # for 2020 boundaries it is like this: \cr
+  
+  
   \code{plot(bg$lon[bg$lon < -50], bg$lat[bg$lon < -50], pch = '.')} \cr\cr
   # \code{sum(is.na(bg$FIPS.ST)) # check if any are NA} \cr
 
   # THEN USE A NAME SPECIFIC TO THE YEAR: \cr
   \code{bg21 <- bg; rm(bg)} \cr
-  \code{save(bg21, file = 'bg21.rdata')} \cr \cr
+  \code{usethis::use_data(bg21) #  save(bg21, file = 'bg21.rdata')} \cr \cr
 }
 \concept{datasets}
