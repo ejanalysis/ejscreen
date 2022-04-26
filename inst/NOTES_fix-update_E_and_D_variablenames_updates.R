@@ -1,6 +1,7 @@
-# NOTES ON WHAT TO UPDATE WHEN NEW ENVT OR DEMOG VARIABLES ARE ADDED TO EJSCREEN / PACKAGE
+# NOTES ON WHAT TO UPDATE
+# WHEN NEW ENVT OR DEMOG VARIABLES ARE ADDED TO EJSCREEN / PACKAGE
 # updating EJAM, batch.summarizer, ejscreen, ejscreenapi, or other packages.
-#
+
 # This will be made easier in the future, but for now to manually add,
 # need to add the
 # new Environment variable (UST) and
@@ -24,6 +25,9 @@
 #
 # in  datasets/ data files:
 
+# note on NA vs 0: when E is NA, like cancer resp pm in 593 or pm/o3 in 4258,
+# then raw EJ, and pctile of E and EJ, are NA. But bin for E or EJ is set as 0, not NA.
+# That is inconsistent and might be confusing in some situations.
 
 # # batch.summarizer package ####################################
 
@@ -98,13 +102,13 @@
 
 # data(package='ejscreen')    # showing details of variables within the above data files.
 #
-##  some of those files contain multiple variables which in turn can contain lists of variable names:
+##  some of those files contain multiple variables which in turn can be lists of variable names:
 # >
 # Data sets in package ‘ejscreen’:
 #
 # bg20                         The 2020 version of EJSCREEN data (based on ACS 2014-2018) plus lat lon, countynames, etc., minus some nonessential fields
 # bg20DemographicSubgroups2014to2018  Demographic subgroups of race/ethnicity by block group (ACS2014-2018 for bg20 and 2020v of EJSCREEN)
-# bg21                         EJScreen 2.0 dataset, plus additional variables, minus some nonessential fields
+#21# bg21                         EJScreen 2.0 dataset, plus additional variables, minus some nonessential fields
 # bg21DemographicSubgroups2015to2019  Demographic subgroups of race/ethnicity by block group (ACS2015-2019 for bg21 and late 2021v of EJSCREEN)
 #
 # lookupRegions (lookupRegions20)   The EPA-Region-level latest version of the EJSCREEN percentile lookup table.
@@ -113,33 +117,51 @@
 #
 # ejscreenformulas             EJSCREEN Formulas and Fieldnames
 # ejscreenformulasnoej         EJSCREEN Formulas and Fieldnames Excluding EJ Index Formulas
-# esigfigs                     How many signif digits to show
+#21# esigfigs                     How many signif digits to show
 #
 # Dlist (names.dvars)          Fieldnames of demographic columns in ejscreen package data
 # Elist (names.evars)          Fieldnames of environmental indicator columns in ejscreen package data
 #
+# names.d.nice                            Nicer names for demog fields in ejscreen data
 # names.d                 (names.dvars)   Fieldnames of demographic columns in ejscreen package data
 # names.d.bin             (names.dvars)
+# names.d.pctile          (names.dvars)
 # names.d.eo              (names.dvars)
 # names.d.eo.bin          (names.dvars)
 # names.d.eo.pctile       (names.dvars)
-# names.d.nice                            Nicer names for demog fields in ejscreen data
-# names.d.pctile          (names.dvars)
 # names.d.subgroups       (names.dvars)   Fieldnames of demographic columns in ejscreen package data
 # names.d.subgroups.count (names.dvars)
 # names.d.subgroups.pct   (names.dvars)
 #
+# names.e.nice                        Nicer names for envt fields in ejscreen data
 # names.e         (names.evars)       Fieldnames of environmental indicator columns in ejscreen package data
 # names.e.bin     (names.evars)
-# names.e.nice                        Nicer names for envt fields in ejscreen data
 # names.e.pctile  (names.evars)
+
 # names.ej        (names.ejvars)      Fieldnames of environmental justice indicator columns in ejscreen package data
 # names.ej.bin    (names.ejvars)
+# names.ej.pctile (names.ejvars)
+# namesall.ej (names.ejvars)
+# namesall.ej.bin (names.ejvars)
+# namesall.ej.pctile (names.ejvars)
+#
+# names.ej.burden.eo (names.ejvars)
+# names.ej.burden.eo.bin (names.ejvars)
+# names.ej.burden.eo.pctile (names.ejvars)
+# names.ej.pct.eo (names.ejvars)
+# names.ej.pct.eo.bin (names.ejvars)
+# names.ej.pct.eo.pctile (names.ejvars)
+#
+# needed.ejscreen.acs
+# popupunits                          Units of measurement for environmental indicators
+# vars.ejscreen.acs
 #
 # RRS.REGIONS (RRS.REGIONS20)  Ratios of mean indicator values across demographic groups by EPA Region
 # RRS.ST (RRS.ST20)            Ratios of mean indicator values across demographic groups by State
 # RRS.US (RRS.US20)            Ratios of mean indicator values across demographic groups
 # RRS.county (RRS.county20)    Ratios of mean indicator values across demographic groups by US County
+
+
 
 
 # > ejscreen::ejscreenformulas[grep('unemp', ejscreenformulas$Rfieldname), 1:5]  #  DEMOGRAPHIC INDICATOR EXAMPLE

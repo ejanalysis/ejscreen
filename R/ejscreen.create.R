@@ -168,11 +168,13 @@ ejscreen.create <-
 
     # Created file called "variables needed.csv" specific to EJSCREEN
     # and now that is in  data(vars.ejscreen.acs) from ejscreen package as default list of acs variables like 'B01001.001'
+    # but vars.ejscreen.acs probably has way more than are really needed...
+    #   not all of those are in ejscreen::ejscreenformulas$acsfieldname
     if (missing(acsraw)) {
       if (!missing(end.year)) {
         end.year <- as.character(end.year)
-        # Should be available via lazy loading:
-        # data(vars.ejscreen.acs, package = "ejscreen", envir = environment())
+        # Should be available via lazy loading or
+        # data(vars.ejscreen.acs, package = "ejscreen")
         acsraw <-
           ejscreen.acsget(
             tables = 'ejscreen',
