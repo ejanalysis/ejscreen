@@ -2,7 +2,7 @@
 % Please edit documentation in R/ejscreen.create.R
 \name{ejscreen.create}
 \alias{ejscreen.create}
-\title{Create EJSCREEN-like dataset from your own Environmental Indicators and ACS demographics}
+\title{Replicate or Create EJSCREEN-like dataset from your own Environmental and Demographic Data}
 \usage{
 ejscreen.create(
   e,
@@ -12,16 +12,14 @@ ejscreen.create(
   formulas,
   mystates = "all",
   demogvarname0 = "VSI.eo",
-  demogvarname1 = "VSI.svi6",
   wtsvarname = "pop",
   checkfips = TRUE,
   EJprefix0 = "EJ.DISPARITY",
-  EJprefix1 = "EJ.BURDEN",
-  EJprefix2 = "EJ.PCT",
+  EJprefix1 = NULL,
+  EJprefix2 = NULL,
   ejformulasfromcode = FALSE,
   ejtype = 1,
   demogvarname0suffix = "eo",
-  demogvarname1suffix = "svi6",
   end.year,
   threshold = FALSE,
   cutoff = 0.8,
@@ -47,8 +45,6 @@ Note that if formulas is specified, ejformulasfromcode is ignored.}
 
 \item{demogvarname0}{optional, default is 'VSI.eo' used as demographic indicator for EJ Indexes. Must be a colname in acsraw or created and kept by formulas.}
 
-\item{demogvarname1}{optional, default is 'VSI.svi6' used for alternative EJ Indexes. Must be a colname in acsraw or created and kept by formulas.}
-
 \item{wtsvarname}{optional, default is 'pop' used for weighted percentiles, etc. Must be a colname in acsraw or created and kept by formulas.}
 
 \item{checkfips}{optional, default is TRUE. If TRUE, function checks to verify all FIPS codes appear to be valid US FIPS
@@ -56,9 +52,9 @@ Note that if formulas is specified, ejformulasfromcode is ignored.}
 
 \item{EJprefix0}{optional, default is 'EJ.DISPARITY' - specifies prefix for colnames of main EJ Indexes, with a period separating prefix from body of colname}
 
-\item{EJprefix1}{optional, default is 'EJ.BURDEN' - specifies prefix for colnames of Alternative 1 version of EJ Indexes, with a period separating prefix from body of colname}
+\item{EJprefix1}{optional, default is NULL, none used (old way was 'EJ.BURDEN' - specifies prefix for colnames of Alternative 1 version of EJ Indexes, with a period separating prefix from body of colname)}
 
-\item{EJprefix2}{optional, default is 'EJ.PCT' - specifies prefix for colnames of Alternative 2 version of EJ Indexes, with a period separating prefix from body of colname}
+\item{EJprefix2}{optional, default is NULL, none used (old way was 'EJ.PCT' - specifies prefix for colnames of Alternative 2 version of EJ Indexes, with a period separating prefix from body of colname)}
 
 \item{ejformulasfromcode}{optional, default is FALSE. If TRUE, use EJ Index formulas built into this function instead of the EJ Index formulas in ejscreenformulas.
 The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE. Note that if formulas is specified, ejformulasfromcode is ignored.}
@@ -66,8 +62,6 @@ The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE. N
 \item{ejtype}{optional, default is 1, defines which formula to use for ejindex if not using ejscreenformulas. See \code{\link{ej.indexes}} But note alt1 and alt2 still use type 5 and 6 ignoring ejtype.}
 
 \item{demogvarname0suffix}{optional, default is 'eo' - specifies suffix for colnames of EJ Indexes based on demogvarname0, with a period separating body of colname from suffix}
-
-\item{demogvarname1suffix}{optional, default is 'svi6' - specifies suffix for colnames of EJ Indexes based on demogvarname1, with a period separating body of colname from suffix}
 
 \item{end.year}{optional to pass to \code{\link[ACSdownload]{get.acs}} (such as end.year='2013' -- otherwise uses default year used by \code{\link[ACSdownload]{get.acs}})}
 
@@ -85,7 +79,7 @@ Returns a data.frame with full ejscreen dataset of environmental and demographic
   as raw values, US percentiles, and text for popups. Output has one row per block group.
 }
 \description{
-The EJSCREEN dataset each year is already available as a dataset in this package (as bg19 for example).
+The EJSCREEN dataset each year is already available as a dataset in this package (as bg21 for example).
   But if you want to recreate that kind of dataset from your own environmental data (and demographic data),
   this function does that.
   This function ejscreen.create() starts with raw environmental indicator data, and/or ACS demographics,
@@ -97,8 +91,8 @@ The EJSCREEN dataset each year is already available as a dataset in this package
   ejanalysis::addFIPScomponents() to add FIPS.TRACT, countyname, etc.,
   and also uses ejanalysis::make.bin.pctile.cols, ejanalysis::ej.indexes(),
   ejanalysis::flagged(), etc.
- #' @details **Note that if non-default fieldnames are used in e and/or acsraw,
-  those must be specified in parameters including demogvarname0, demogvarname1, wtsvarname,
+ @details **Note that if non-default fieldnames are used in e and/or acsraw,
+  those must be specified in parameters including demogvarname0, wtsvarname,
   keep.old (and could be reflected in prefix and suffix params as well). \cr\cr
   This function does not create lookup tables that are used in EJSCREEN to convert a raw score in a buffer to a US,Region,or state percentile.
   Use ejscreen.lookuptables() to create those lookup tables of 100 population weighted percentiles and mean, for US and each EPA Region and each State; for each raw score.
@@ -118,7 +112,7 @@ The EJSCREEN dataset each year is already available as a dataset in this package
  #  unless keep.old used as follows (work in progress):
  y=ejscreen.create(e=envirodata, acsraw=demogdata,
    keep.old = c(names(envirodata), names(demogdata)),
-   demogvarname0 = 'pctmin', demogvarname1 = 'pctlowinc', wtsvarname = 'pop' )
+   demogvarname0 = 'pctmin',wtsvarname = 'pop' )
  }
 }
 \seealso{

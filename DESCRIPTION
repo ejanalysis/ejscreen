@@ -4,18 +4,18 @@ Description: Data and tools related to the United States Environmental Protectio
 Version: 2.0.0
 Date: 2020-01-28
 Imports: 
-    analyze.stuff,
+    ACSdownload, 
     Hmisc,
-    ejanalysis,
     data.table,
     devtools,
-    ACSdownload, 
     RCurl, 
     readr
 Suggested:
     ACSdownload,
     proxistat
 Depends:
+  ejanalysis,
+  analyze.stuff,
     R (>= 3.5.0)
 URL: http://ejanalysis.github.io, https://github.com/ejanalysis/ejscreen, http://www.ejanalysis.com/
 BugReports: https://github.com/ejanalysis/ejscreen/issues

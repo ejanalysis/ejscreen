@@ -30,7 +30,7 @@ This 2015-2019 dataset fits with the \link{bg21} data,
 
   Note the 2020 version of EJSCREEN released not in late 2020 but actually early-mid 2021, in bg20
   actually uses ACS2018 and fits with bg20DemographicSubgroups2014to2018, which is from 2014-2018 (released by Census late 2019).
-
+ 
   This data was created by downloading and calculating
   DETAILED RACE ETHNICITY SUBGROUP VARIABLES THAT ARE NOT IN EJSCREEN
   INCLUDING percent Hispanic, etc. (the subgroups within "minority")
@@ -39,8 +39,8 @@ This 2015-2019 dataset fits with the \link{bg21} data,
  \cr
   This will give a quick look at some key stats: \cr
     # round(data.frame(cbind(  \cr
-    # subgroups=unlist(ustotals(bg21DemographicSubgroups2015to2019)), \cr
-    # maingroups= unlist(ustotals(bg21[bg21$ST !='PR',])))  \cr
+    # subgroups=unlist(ustotals(bg21DemographicSubgroups2015to2019)), \cr 
+    # maingroups = unlist(ustotals(subset(bg21, bg21$ST !='PR')))  \cr
     # ),2) \cr
  \cr
   This can be MERGED WITH the EJSCREEN DATASET (see below).\cr
@@ -53,9 +53,10 @@ This 2015-2019 dataset fits with the \link{bg21} data,
 
  }
     d <- bg21DemographicSubgroups2015to2019  \cr
-      d <- subset.data.frame(x = d, subset = !(names(d) %in% c('pop', 'mins', 'pctmin')) )  \cr
+    d <- subset.data.frame(x = d, subset = !(names(d) %in% c('pop', 'mins', 'pctmin')) )  \cr
     bg21plus <- merge(bg21, d, by = 'FIPS', all.x = TRUE)  \cr
     rm(d)  \cr
+    
     # save(bg21plus, file = 'bg21plus EJSCREEN dataset plus race ethnic subgroups.rdata')  \cr
     # write.csv(bg21plus, file = 'bg21plus EJSCREEN dataset plus race ethnic subgroups.csv') \cr
     ########################################## \cr
@@ -84,7 +85,7 @@ This 2015-2019 dataset fits with the \link{bg21} data,
   # "nhotheralone"    "nhmulti"         "nonmins"         "pcthisp"         "pctnhwa"         "pctnhba"
   # "pctnhaiana"      "pctnhaa"         "pctnhnhpia"      "pctnhotheralone" "pctnhmulti"
 
-  # setwd('~/Downloads/acs1519')
+  # setwd('~/../Downloads/acs1519')
 
   library(ejscreen); library(ejanalysis); library(analyze.stuff); require(ACSdownload)
   acsdata <- ejscreen.acsget(tables = 'B03002',
@@ -105,10 +106,10 @@ This 2015-2019 dataset fits with the \link{bg21} data,
     ######################################################################################
     # SUMMARY STATS ON DISPARITY BY GROUP BY ENVT ISSUE
     #  See help for RR.table() in ejanalysis package
-
-    x <- ejanalysis::RR.table(bg21plus, Enames = names.e, Dnames = c(names.d, names.d.subgroups), popcolname = 'pop', digits = 2)
-    y <- ejanalysis::RR.means(bg21plus[ , names.e], bg21plus[ , c(names.d, names.d.subgroups)], bg21plus$pop)
-    y
-    x
+    # (This is very slow right now)
+    Ratios <- ejanalysis::RR.table(bg21plus, Enames = names.e, Dnames = c(names.d, names.d.subgroups), popcolname = 'pop', digits = 2)
+    MeansByGroup_and_Ratios <- ejanalysis::RR.means(subset(bg21plus, select=names.e), subset(bg21plus, select = c(names.d, names.d.subgroups)), bg21plus$pop)
+    MeansByGroup_and_Ratios
+    Ratios
     }
 }

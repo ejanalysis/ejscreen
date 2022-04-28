@@ -2,7 +2,7 @@
 % Please edit documentation in R/ejscreen.lookuptables.R
 \name{ejscreen.lookuptables}
 \alias{ejscreen.lookuptables}
-\title{Create EJSCREEN Lookup Tables of Pop. Percentiles by Zone - WORK IN PROGRESS}
+\title{OBSOLETE - Create EJSCREEN Lookup Tables of Pop. Percentiles by Zone}
 \usage{
 ejscreen.lookuptables(
   x,
@@ -50,9 +50,11 @@ Overall lookup table(s) as data.frame (but not zonal ones). Creates lookup table
   One table for overall percentiles, and one for each of the zonecols (unless that is set to NULL).
 }
 \description{
-*** Work in progress as of 2021
+*** Was work in progress as of 2021 ...unless this has more useful code in some parts, it
+    was REPLACED BY  ejanalysis::write.wtd.pctiles() , i think
+  
   *** The Hmisc package provides the function called Hmisc::wtd.quantile(),
-  but will recode to use  ejanalysis::write.wtd.pctiles.by.zone()
+  but will recode to use  ejanalysis::write.wtd.pctiles()  
 
   Start with raw environmental, demographic, and EJ indicator data, and write as csv files to disk a series of
   lookup tables that show population percentiles and mean values for each indicator.
