@@ -45,8 +45,8 @@
 #'   The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE. Note that if formulas is specified, ejformulasfromcode is ignored.
 #' @param ... optional extra parameters passed only to \code{\link[ACSdownload]{get.acs}} such as new.geo = FALSE, save.files = TRUE, write.files = TRUE
 #' @return Returns a data.frame with full ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
-#'   as raw values, US percentiles, and text for popups. Output has one row per block group.
-#' @seealso  \code{\link{make.popup.d}} \code{\link{make.popup.e}} \code{\link{make.popup.ej}} \code{\link{ejscreen.lookuptables}}
+#'   as raw values, US percentiles, but not actually the text for map popups. Output has one row per block group.
+#' @seealso   \code{\link{ejscreen.lookuptables}}
 #'
 #' @examples
 #'  \dontrun{
@@ -125,7 +125,7 @@ ejscreen.create <-
     #   - Assigns bins (map color bin number) using make.bin.cols()
     #  This originally was done by Calculate_BG_BinsPercentiles-2014-05.R
     #
-    # POPUP TEXT ****
+    # POPUP TEXT ****  NOT DONE HERE AT LEAST NOT YET AS OF 4/2022
     # - Create text popup versions of all raw scores and percentiles for display:
     #     -limited significant digits for environmental indicators
     #     -floored percentiles as integer 0-100
