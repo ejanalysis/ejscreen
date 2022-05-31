@@ -11,6 +11,10 @@ ejscreen.create(
   keep.old,
   formulas,
   mystates = "all",
+  popup = FALSE,
+  write.lookup.us = FALSE,
+  write.lookup.regions = FALSE,
+  write.lookup.states = FALSE,
   demogvarname0 = "VSI.eo",
   wtsvarname = "pop",
   checkfips = TRUE,
@@ -42,6 +46,14 @@ Not currently passed to ejscreen.acs.calc which uses \code{\link[analyze.stuff]{
 Note that if formulas is specified, ejformulasfromcode is ignored.}
 
 \item{mystates}{optional vector of 2-letter state abbreviations. Default is "all" which specifies all states plus DC (BUT NOT PR - we exclude PR so that calculating US percentiles works right)}
+
+\item{popup}{optional, default is FALSE, whether to add columns of text that can be used for popup info on maps, with raw value and percentile and units for each envt, demog, and EJ indicator (US Percentiles only?)}
+
+\item{write.lookup.us}{whether to save file with lookup table of US percentiles and means}
+
+\item{write.lookup.regions}{whether to save file with lookup table of REGION percentiles and means}
+
+\item{write.lookup.states}{whether to save file with lookup table of State percentiles and means}
 
 \item{demogvarname0}{optional, default is 'VSI.eo' used as demographic indicator for EJ Indexes. Must be a colname in acsraw or created and kept by formulas.}
 
@@ -76,7 +88,8 @@ A field called flagged can also be added via \link[ejanalysis]{flagged} ejanalys
 }
 \value{
 Returns a data.frame with full ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
-  as raw values, US percentiles, and text for popups. Output has one row per block group.
+  as raw values, US percentiles, 
+  but not actually the text for map popups. Output has one row per block group.
 }
 \description{
 The EJSCREEN dataset each year is already available as a dataset in this package (as bg21 for example).
@@ -113,8 +126,9 @@ The EJSCREEN dataset each year is already available as a dataset in this package
  y=ejscreen.create(e=envirodata, acsraw=demogdata,
    keep.old = c(names(envirodata), names(demogdata)),
    demogvarname0 = 'pctmin',wtsvarname = 'pop' )
+   
  }
 }
 \seealso{
-\code{\link{make.popup.d}} \code{\link{make.popup.e}} \code{\link{make.popup.ej}} \code{\link{ejscreen.lookuptables}}
+\code{\link{ejscreen.lookuptables}}
 }
