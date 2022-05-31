@@ -27,8 +27,8 @@
 #'
 #'    This will give a quick look at some key stats:
 #'    #round(data.frame(cbind(
-#'    #  subgroups = unlist(ustotals(bg22DemographicSubgroups2016to2020)),
-#'    #  maingroups = unlist(ustotals(bg22_ACS2016_2020[ bg22_ACS2016_2020$ST !='PR', ])))
+#'    #   subgroups = unlist(ustotals(bg22DemographicSubgroups2016to2020)),
+#'    #  maingroups = unlist(ustotals(subset(bg22_ACS2016_2020, ST != 'PR')))
 #'    #  ), 2)
 #'
 #'    Note Puerto Rico may not be in bg22DemographicSubgroups2016to2020,

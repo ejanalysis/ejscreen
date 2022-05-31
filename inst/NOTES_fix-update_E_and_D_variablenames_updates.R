@@ -1,41 +1,46 @@
 # NOTES ON WHAT TO UPDATE
 # WHEN NEW ENVT OR DEMOG VARIABLES ARE ADDED TO EJSCREEN / PACKAGE
-# updating EJAM, batch.summarizer, ejscreen, ejscreenapi, or other packages.
 
-# This will be made easier in the future, but for now to manually add,
-# need to add the
+# also see: C:\Users\mcorrale\OneDrive - Environmental Protection Agency (EPA)\Downloads\-0 mc notes on weekly reg etc
+#   2022-05 TO DO EJ.txt
+
+# update these packages:  EJAM, batch.summarizer, ejscreen, ejscreenapi, or other packages.
+
+# Check what API provides versus old batch tool provided - did counts get created that we need for aggregating by GIS toolbox code but not by API??
+  
+####################################
+# This will be made easier in the future, but for now to manually added 2 new EJScreen indicators:
 # new Environment variable (UST) and
 # new Demographic indicator (percent Unemployed)
-# as
-# raw counts,
-# percents,
-# percentiles,
-# bins,
+# as the   raw counts, percents, percentiles, bins, nice/friendly names,
+# and metadata like:  units,  sig figs,  etc....
+# in files like:  global.R,  ustotals2 ??,  server.R ?? elsewhere??
+# in  datasets/ data files: 
+#   note on NA vs 0: when E is NA, like cancer resp pm in 593 or pm/o3 in 4258,
+#   then raw EJ, and pctile of E and EJ, are NA. But bin for E or EJ is set as 0, not NA.
+#   That is inconsistent and might be confusing in some situations.
+####################################
+# notes on updating to April 2022 vintage:
 #
-# nice/friendly names,
-# units,
-# sig figs,
-# etc....
+# for early 2022, all packages to use 2010 Census blocks/fips - EJScreen 2.0 - ACS 2015-2019.
+# for later 2022, all packages to use 2020 Census blocks/fips - EJScreen X?? - ACS 2016-2020.
 #
-# in code if hard-coded with those..
+# ejscreen has formulas and colnames and metadata in ejscreenformulas dataset.
+#  batch.summarizer has a file map_batch_to_friendly_fieldnames_2021_EJAM.csv
+#  and will replace with data
+# and probably replace with just ejscreen::ejscreenformulas
 #
-# global.R
-# ustotals2 ??
-# server.R ?? elsewhere??
-#
-# in  datasets/ data files:
+# userdefined datasets could use that same format maybe.
+####################################
 
-# note on NA vs 0: when E is NA, like cancer resp pm in 593 or pm/o3 in 4258,
-# then raw EJ, and pctile of E and EJ, are NA. But bin for E or EJ is set as 0, not NA.
-# That is inconsistent and might be confusing in some situations.
 
 # # batch.summarizer package ####################################
 
-#  batch.summarizer has a file map_batch_to_friendly_fieldnames_2021_EJAM.csv
+#  batch.summarizer has a file   map_batch_to_friendly_fieldnames_2021_EJAM.csv
 #  and will replace with data and probably replace with just ejscreen::ejscreenformulas
 # but for now the csv file has these for example:
 #
-# x[grep('traffic',x$newnames),]     #  ENVIRONMENTAL INDICATOR EXAMPLE
+# x[grep('traffic',x$newnames), ]     #  ENVIRONMENTAL INDICATOR EXAMPLE
 #
 # # A tibble: 12 × 11
 #   gdbfieldname    oldnames        newnames                               vartype varcategory longname gdblongname example order0 order1 order2
@@ -106,9 +111,9 @@
 # >
 # Data sets in package ‘ejscreen’:
 #
-# bg20                         The 2020 version of EJSCREEN data (based on ACS 2014-2018) plus lat lon, countynames, etc., minus some nonessential fields
+# bg20                              The 2020 version of EJSCREEN data (based on ACS 2014-2018) plus lat lon, countynames, etc., minus some nonessential fields
 # bg20DemographicSubgroups2014to2018  Demographic subgroups of race/ethnicity by block group (ACS2014-2018 for bg20 and 2020v of EJSCREEN)
-#21# bg21                         EJScreen 2.0 dataset, plus additional variables, minus some nonessential fields
+#21# bg21                           EJScreen 2.0 dataset, plus additional variables, minus some nonessential fields
 # bg21DemographicSubgroups2015to2019  Demographic subgroups of race/ethnicity by block group (ACS2015-2019 for bg21 and late 2021v of EJSCREEN)
 #
 # lookupRegions (lookupRegions20)   The EPA-Region-level latest version of the EJSCREEN percentile lookup table.
@@ -166,7 +171,7 @@
 
 # > ejscreen::ejscreenformulas[grep('unemp', ejscreenformulas$Rfieldname), 1:5]  #  DEMOGRAPHIC INDICATOR EXAMPLE
 #
-# gdbfieldname             Rfieldname acsfieldname                      type                           glossaryfieldname
+#      gdbfieldname             Rfieldname acsfieldname                      type                           glossaryfieldname
 # 1100  ACSUNEMPBAS         unemployedbase         <NA> Demographic Supplementary Count of denominator for percent unemployed
 # 2100   UNEMPLOYED             unemployed         <NA> Demographic Supplementary                  Count of people unemployed
 # 3100     UNEMPPCT          pctunemployed         <NA> Demographic Supplementary                          Percent Unemployed
@@ -176,7 +181,7 @@
 
 # > ejscreen::ejscreenformulas[grep('ust', ejscreenformulas$Rfieldname), 1:5]    #  ENVIRONMENTAL INDICATOR EXAMPLE
 #
-# gdbfieldname                      Rfieldname acsfieldname          type                                                   glossaryfieldname
+#      gdbfieldname                      Rfieldname acsfieldname          type                                                   glossaryfieldname
 # 482           UST                             ust         <NA> Environmental                                 Underground Storage Tanks Indicator
 # 710         P_UST                      pctile.ust         <NA> Environmental                  Percentile for Underground Storage Tanks Indicator
 # 1010        B_UST                         bin.ust         <NA> Environmental               Map color bin for Underground Storage Tanks Indicator
