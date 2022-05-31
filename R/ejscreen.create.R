@@ -26,6 +26,11 @@
 #' @param keep.old optional vector of colnames from e that are to be used/returned. For nondefault colnames, this must be used.
 #' @param end.year optional to pass to \code{\link[ACSdownload]{get.acs}} (such as end.year='2013' -- otherwise uses default year used by \code{\link[ACSdownload]{get.acs}})
 #' @param mystates optional vector of 2-letter state abbreviations. Default is "all" which specifies all states plus DC (BUT NOT PR - we exclude PR so that calculating US percentiles works right)
+#' @param popup optional, default is FALSE, whether to add columns of text that can be used for popup info on maps, with raw value and percentile and units for each envt, demog, and EJ indicator (US Percentiles only?)
+#' @param write.lookup.us whether to save file with lookup table of US percentiles and means
+#' @param write.lookup.regions whether to save file with lookup table of REGION percentiles and means
+#' @param write.lookup.states whether to save file with lookup table of State percentiles and means
+#' 
 #' @param demogvarname0 optional, default is 'VSI.eo' used as demographic indicator for EJ Indexes. Must be a colname in acsraw or created and kept by formulas.
 #' @param wtsvarname optional, default is 'pop' used for weighted percentiles, etc. Must be a colname in acsraw or created and kept by formulas.
 #' @param demogvarname0suffix optional, default is 'eo' - specifies suffix for colnames of EJ Indexes based on demogvarname0, with a period separating body of colname from suffix
@@ -45,7 +50,8 @@
 #'   The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE. Note that if formulas is specified, ejformulasfromcode is ignored.
 #' @param ... optional extra parameters passed only to \code{\link[ACSdownload]{get.acs}} such as new.geo = FALSE, save.files = TRUE, write.files = TRUE
 #' @return Returns a data.frame with full ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
-#'   as raw values, US percentiles, but not actually the text for map popups. Output has one row per block group.
+#'   as raw values, US percentiles, 
+#'   but not actually the text for map popups. Output has one row per block group.
 #' @seealso   \code{\link{ejscreen.lookuptables}}
 #'
 #' @examples
@@ -64,6 +70,7 @@
 #'  y=ejscreen.create(e=envirodata, acsraw=demogdata,
 #'    keep.old = c(names(envirodata), names(demogdata)),
 #'    demogvarname0 = 'pctmin',wtsvarname = 'pop' )
+#'    
 #'  }
 #' @export
 ejscreen.create <-
@@ -73,6 +80,10 @@ ejscreen.create <-
            keep.old,
            formulas,
            mystates = 'all',
+           popup = FALSE,
+           write.lookup.us = FALSE,
+           write.lookup.regions = FALSE,
+           write.lookup.states = FALSE,
            demogvarname0 = 'VSI.eo',
            # demogvarname1 = NULL, #'VSI.svi6',
            wtsvarname = 'pop',
@@ -126,6 +137,8 @@ ejscreen.create <-
     #  This originally was done by Calculate_BG_BinsPercentiles-2014-05.R
     #
     # POPUP TEXT ****  NOT DONE HERE AT LEAST NOT YET AS OF 4/2022
+    #  Should be possible via 
+    # ejscreen::make.popup.d, ejscreen::make.popup.e, ejscreen::make.popup.ej 
     # - Create text popup versions of all raw scores and percentiles for display:
     #     -limited significant digits for environmental indicators
     #     -floored percentiles as integer 0-100
@@ -137,7 +150,7 @@ ejscreen.create <-
     # - Could also create lookup tables (means, 100 percentiles) by county, or just county means.
     #  This was originally done using "CalculateLookupTables-2014-05.R"
     # then was working on  ejscreen.lookuptables()
-    #  BUT ejanalysis::write.wtd.pctiles()  seems to be what is used now?
+    #  BUT ejanalysis::write.wtd.pctiles.by.zone()  could be used now?
     
     # ROLLUPS to lower resolution versions of the data
     # SEPARATE CODE: # - Create rollup files/layers, such as tract, county, state, Region rollups of raw/percentile/bin & text versions.
@@ -480,6 +493,33 @@ ejscreen.create <-
     bg <- ejanalysis::addFIPScomponents(bg)
     # or if func rewritten to use fips not whole bg, then need to call like this:
     #  bg <- cbind(addFIPSparts(bg$FIPS), bg[ , names(bg)[names(bg) != 'FIPS']])
+    
+    if (popups) {
+      bg <- cbind(bg, ejscreen::make.popup.d(d = bg[ , names.d], pctile = bg[ , names.d.pctile]))
+      bg <- cbind(bg, ejscreen::make.popup.e(e = bg[ , names.e], pctile = bg[ , names.e.pctile]))
+      bg <- cbind(bg, ejscreen::make.popup.ej(pctile = bg[ , names.ej.pctile]))
+    }
+    
+    
+    if (write.lookup.us) {
+      ejanalysis::write.wtd.pctiles(mydf = bg[ , c(names.e, names.d, names.ej)], wts = bg$pop, filename =  'lookupUSA')
+    }
+    if (write.lookup.regions) {
+      if (!('REGION' %in% names(bg))) {
+        message('requires a column called REGION to create lookup table of percentiles')
+        } else {
+        ejanalysis::write.wtd.pctiles.by.zone(mydf = bg[ , c(names.e, names.d, names.ej)], wts = bg$pop,
+                                              zone.vector = bg$REGION, filename =  'lookupRegions')
+      }
+    }
+    if (write.lookup.states) {
+      if (!('ST' %in% names(bg))) {
+        message('requires a column called ST to create lookup table of percentiles')
+      } else {
+        ejanalysis::write.wtd.pctiles.by.zone(mydf = bg[ , c(names.e, names.d, names.ej)], wts = bg$pop, 
+                                            zone.vector = bg$ST, filename =  'lookupStates')
+      }
+    }
     
     return(bg)
   }
