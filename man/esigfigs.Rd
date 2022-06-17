@@ -23,6 +23,7 @@ A data.frame: \cr\cr
         2   proximity.rmp\cr
         2  proximity.tsdf\cr
         2 proximity.npdes\cr
+        2             ust
 }
 \source{
 See related Technical Documentation at \url{http://www.epa.gov/ejscreen}

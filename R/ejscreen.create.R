@@ -1,6 +1,9 @@
 #' @title Replicate or Create EJSCREEN-like dataset from your own Environmental and Demographic Data
 #'
 #' @description
+#' 
+#'   NOTE : does not include demographic subgroups yet  see  names.d.subgroups
+#'   
 #'   The EJSCREEN dataset each year is already available as a dataset in this package (as bg21 for example).
 #'   But if you want to recreate that kind of dataset from your own environmental data (and demographic data),
 #'   this function does that.

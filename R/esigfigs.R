@@ -23,5 +23,6 @@
 #'         2   proximity.rmp\cr
 #'         2  proximity.tsdf\cr
 #'         2 proximity.npdes\cr
+#'         2             ust
 #'
 NULL
