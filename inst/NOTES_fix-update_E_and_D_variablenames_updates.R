@@ -97,9 +97,9 @@
 #
 # [7] "esigfigs.RData"  # "vars.ejscreen.acs.RData"    "popupunits.RData"
 #
-# [11] "names.d.nice.rdata"  "names.dvars.RData"
-# [13] "names.e.nice.RData"  "names.evars.RData"
-# [15] "names.ejvars.RData"
+# [11] "names.d.nice.rdata"  "names.dvars.RData" # now just names.d.rda
+# [13] "names.e.nice.RData"  "names.evars.RData" # now just names.e.rda
+# [15] "names.ejvars.RData"      # now just names.ej.rda
 #      "needed.ejscreen.acs.RData"
 #
 # "RRS.county20.rdata"   "RRS.REGIONS20.rdata"  "RRS.ST20.rdata"  "RRS.US20.rdata"
@@ -124,38 +124,38 @@
 # ejscreenformulasnoej         EJSCREEN Formulas and Fieldnames Excluding EJ Index Formulas
 #21# esigfigs                     How many signif digits to show
 #
-# Dlist (names.dvars)          Fieldnames of demographic columns in ejscreen package data
-# Elist (names.evars)          Fieldnames of environmental indicator columns in ejscreen package data
+  # Dlist            Fieldnames of demographic columns in ejscreen package data
+  # Elist            Fieldnames of environmental indicator columns in ejscreen package data
 #
 # names.d.nice                            Nicer names for demog fields in ejscreen data
-# names.d                 (names.dvars)   Fieldnames of demographic columns in ejscreen package data
-# names.d.bin             (names.dvars)
-# names.d.pctile          (names.dvars)
-# names.d.eo              (names.dvars)
-# names.d.eo.bin          (names.dvars)
-# names.d.eo.pctile       (names.dvars)
-# names.d.subgroups       (names.dvars)   Fieldnames of demographic columns in ejscreen package data
-# names.d.subgroups.count (names.dvars)
-# names.d.subgroups.pct   (names.dvars)
+# names.d                    Fieldnames of demographic columns in ejscreen package data
+# names.d.bin             
+# names.d.pctile          
+# names.d.eo              
+# names.d.eo.bin          
+# names.d.eo.pctile       
+# names.d.subgroups          Fieldnames of demographic columns in ejscreen package data
+# names.d.subgroups.count 
+# names.d.subgroups.pct   
 #
 # names.e.nice                        Nicer names for envt fields in ejscreen data
-# names.e         (names.evars)       Fieldnames of environmental indicator columns in ejscreen package data
-# names.e.bin     (names.evars)
-# names.e.pctile  (names.evars)
+# names.e                Fieldnames of environmental indicator columns in ejscreen package data
+# names.e.bin     
+# names.e.pctile  
 
-# names.ej        (names.ejvars)      Fieldnames of environmental justice indicator columns in ejscreen package data
-# names.ej.bin    (names.ejvars)
-# names.ej.pctile (names.ejvars)
-# namesall.ej (names.ejvars)
-# namesall.ej.bin (names.ejvars)
-# namesall.ej.pctile (names.ejvars)
+# names.ej              Fieldnames of environmental justice indicator columns in ejscreen package data
+# names.ej.bin    
+# names.ej.pctile 
+# namesall.ej 
+# namesall.ej.bin 
+# namesall.ej.pctile 
 #
-# names.ej.burden.eo (names.ejvars)
-# names.ej.burden.eo.bin (names.ejvars)
-# names.ej.burden.eo.pctile (names.ejvars)
-# names.ej.pct.eo (names.ejvars)
-# names.ej.pct.eo.bin (names.ejvars)
-# names.ej.pct.eo.pctile (names.ejvars)
+# names.ej.burden.eo 
+# names.ej.burden.eo.bin 
+# names.ej.burden.eo.pctile 
+# names.ej.pct.eo 
+# names.ej.pct.eo.bin 
+# names.ej.pct.eo.pctile 
 #
 # needed.ejscreen.acs
 # popupunits                          Units of measurement for environmental indicators

@@ -64,8 +64,7 @@ ejscreen.rollup <- function(bg, fipsname = 'FIPS.TRACT', scalename = 'tracts', e
 
   ##################################### #
   # Get the wtd.mean for E (and other maybe some other fields?)
-  # data(names.evars)
-  if (missing(enames)) {enames <- names.e}
+   if (missing(enames)) {enames <- names.e}
   if (missing(avgnames)) {avgnames <- enames}
   if (missing(wts)) {wts <- bg$pop}
   tracts.avg   <- ejanalysis::rollup(bg[ , avgnames], wts = wts, by = bg[ , fipsname], prefix = '' )

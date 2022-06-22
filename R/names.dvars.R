@@ -1,6 +1,6 @@
-#' @name names.dvars
+#' @name names.d 
 #' @docType data
-#' @aliases names.dvars names.d names.d.subgroups Dlist demographic-variables
+#' @aliases names.d  names.d.pctile names.d.bin names.d.subgroups Dlist demographic-variables
 #' @title Fieldnames of demographic columns in ejscreen package data
 #' @description This data set provides variables that hold the colnames
 #'   of demographic fields in data.frames that may be used in the ejscreen package
@@ -9,7 +9,7 @@
 #'   a demographic indicator that used six not two components:
 #'   VSI.svi6, names.d.svi6, names.d.svi6.bin, names.d.svi6.pctile
 #' @usage data('names.dvars'); names.d
-#' @seealso  \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
+#' @seealso  \code{\link{ejscreenformulas}} \code{\link{names.e}} \code{\link{names.d}} \code{\link{names.ej}}
 #' @source Names developed for this package. No external data source.
 #' @concept datasets
 #' @format A series of variables (each is a character vector of colnames):

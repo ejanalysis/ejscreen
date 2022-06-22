@@ -168,7 +168,7 @@ ejscreen.create <-
     #   require(countyhealthrankings)
     
     #require(ejanalysis)
-    #data(names.evars); data(names.dvars); data(names.ejvars)
+    
     
     # GET DEMOGRAPHICS --------------------------------------------------------
     

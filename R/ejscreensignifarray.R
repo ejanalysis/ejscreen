@@ -17,8 +17,7 @@ ejscreensignifarray <- function(dat, digits = 'ejscreen') {
     ################################################################################## #
     # DEFAULT RULES FOR SIGNIFICANT DIGITS ON DEFAULT RAW ENVT INDICATORS
     ################################################################################## #
-    ###### data(names.evars, package = 'ejanalysis', envir = environment()) # this should be in ejscreen as data lazyloaded
-    #defaultsigfigs <- data.frame(defaultcolname=names.e, dig=c(3,3,2,2,2,3,2,2,2,2,2,2))
+     #defaultsigfigs <- data.frame(defaultcolname=names.e, dig=c(3,3,2,2,2,3,2,2,2,2,2,2))
     #     if (any(!(colnames(dat) %in% defaultsigfigs$defaultcolname))) {
     #       stop('if digits is specified as "ejscreen" then colnames of dat must be exactly these (in any order):\n', paste(defaultsigfigs$defaultcolname, collapse = ' '), '\n')
     #     }

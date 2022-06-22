@@ -1,6 +1,6 @@
-#' @name names.ejvars
+#' @name names.ej 
 #' @docType data
-#' @aliases names.ejvars names.ej EJ-variable-names
+#' @aliases names.ej  names.ej.pctile names.ej.bin  EJ-variable-names
 #' @title Fieldnames of environmental justice indicator columns in ejscreen package data
 #' @description This data set provides variables that hold the colnames
 #'   of environmental indicator fields in data.frames that may be used in the ejscreen package
@@ -13,11 +13,10 @@
 #'  "names.ej.pct.svi6", "names.ej.pct.svi6.bin", "names.ej.pct.svi6.pctile",
 #'  "names.ej.svi6", "names.ej.svi6.bin", "names.ej.svi6.pctile"
 #'
-#' @seealso  \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
-#' @usage data('names.ejvars')
+#' @seealso  \code{\link{ejscreenformulas}} \code{\link{names.e}} \code{\link{names.d}} \code{\link{names.ej.pctile}}
 #' @source Names developed for this package. No external data source.
 #' @concept datasets
-#' @format A series of variables (each is a character vector of colnames):
+#' @format A series of variables are available (each is a character vector of colnames):
 #' \itemize{
 #'  \item "names.ej"
 #'  \item "names.ej.bin"
@@ -45,5 +44,6 @@
 #'  \item  [9] "EJ.DISPARITY.proximity.rmp.eo"
 #'  \item  [10] "EJ.DISPARITY.proximity.tsdf.eo"
 #'  \item  [11] "EJ.DISPARITY.proximity.npdes.eo"
+#'  \item  [12] "EJ.DISPARITY.ust.eo"
 #' }
 NULL

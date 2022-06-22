@@ -11,7 +11,7 @@
 #'
 #' @usage data('ejscreenformulas')
 #' @source See related Technical Documentation at \url{http://www.epa.gov/ejscreen}
-#' @seealso \code{\link{ejformula}}  \code{\link{ejscreenformulasnoej}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
+#' @seealso \code{\link{ejformula}}  \code{\link{ejscreenformulasnoej}} \code{\link{names.e}} \code{\link{names.d}} \code{\link{names.ej}}
 #' @concept EJ, environmental justice, datasets, demographic
 #' @format A data.frame: \cr\cr
 #' > str(ejscreenformulas) \cr

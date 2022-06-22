@@ -7,10 +7,8 @@
 #'   to make it easier to refer to them as a vector, e.g., mydf[ , names.ej15]
 #' @details This is the 2015 (obsolete) version.
 #'  The 2015 version had neuro-related indicators in it, and is now in \code{\link{names.ejvars15}}.
-#' @seealso  \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
-#' @usage data('names.ejvars15')
+#' @seealso  \code{\link{ejscreenformulas}} \code{\link{names.e}} \code{\link{names.d}} \code{\link{names.ej}}
 #' @source Names developed for this package. No external data source.
-#' @concept datasets
 #' @format A series of variables (each is a character vector of colnames):
 #' \itemize{
 #'  \item "names.ej15"

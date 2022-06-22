@@ -6,7 +6,7 @@
 #'  This excludes the EJ Index formulas for cases where those are to be calculated using code separately.
 #' @usage data('ejscreenformulasnoej')
 #' @source See related Technical Documentation at \url{http://www.epa.gov/ejscreen}
-#' @seealso \code{\link{ejformula}}  \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
+#' @seealso \code{\link{ejformula}}  \code{\link{ejscreenformulas}} \code{\link{names.e}} \code{\link{names.d}} \code{\link{names.ej}}
 #' @format A data.frame: \cr\cr
 #' > str(ejscreenformulas) \cr
 #' 'data.frame':	470 obs. of  8 variables: \cr

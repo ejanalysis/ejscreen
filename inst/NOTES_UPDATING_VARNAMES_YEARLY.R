@@ -7,7 +7,7 @@
 # ENVIRONMENTAL / EJ INDICATORS
 
 new.e      <- 'ust'
-new.e.nice <- 'Underground Storage Tanks Indicator'
+new.e.nice <- 'Underground Storage Tanks (UST) Indicator'
 new.e.glossaryfieldname = 'Underground Storage Tanks Indicator'
 new.e.gdbfieldname = 'UST'
 new.e.popunits <- 'UST indicator' # could be, e.g., ppb
@@ -94,7 +94,18 @@ library(usethis)
 
 #???   vars.ejscreen.acs  # NEED TO ADD UNEMPLOYED AND DENOMINATOR FOR THIS - WHICH ACS TABLE IS IT FROM?
 # use_data(vars.ejscreen.acs, overwrite=TRUE)
+# 
+# needed.ejscreen.acs                                          
+# vars.ejscreen.acs 
 
+###################################################################### #
+# esigfigs & popupunits - significant digits & units for new ENVT indicator  ####
+###################################################################### #
+
+popupunits <- rbind(popupunits, data.frame(evar = new.e, units = new.e.popunits)); popupunits <- unique(popupunits)
+use_data(popupunits, overwrite=TRUE)
+esigfigs   <- rbind(esigfigs,   data.frame(evar = new.e, sigfigs = new.esigfigs));    esigfigs <- unique(esigfigs)
+use_data(esigfigs, overwrite=TRUE)
 
 ###################################################################### #
 # names.d.nice - nice name to use on graph labels etc. for new indicator  ####
@@ -127,7 +138,7 @@ use_data(names.d.nice, overwrite=TRUE)
 # several lists of variables related to the new DEMOG indicator  ####
 ###################################################################### #
 
-# in names.dvars ####
+# were in names.dvars ####
 names.d <- union(names.d, new.d.pct) ######################### #
 names.d.bin    <- paste0('bin.',    names.d)
 names.d.pctile <- paste0('pctile.', names.d)
@@ -141,23 +152,25 @@ names.d.subgroups.count <- c("nhwa", "hisp", "nhba", "nhaa", "nhaiana", "nhnhpia
 names.d.subgroups.pct  <- paste0('pct', names.d.subgroups.count) # done (names.dvars)
 names.d.subgroups <- names.d.subgroups.pct  # done (names.dvars) 
 
-use_data()
+# (names.dvars)   : *************************************************************************
+usethis::use_data( # done #################################
+  names.d , 
+  names.d.bin ,                                   
+  names.d.pctile    ,
+  Dlist,
+  names.d.eo   ,                                  
+  names.d.eo.bin  ,                               
+  names.d.eo.pctile ,                             
+  names.d.subgroups.count , 
+  names.d.subgroups.pct  ,
+  names.d.subgroups 
+)
 
-
-
-###################################################################### #
-# esigfigs & popupunits - significant digits & units for new ENVT indicator  ####
-###################################################################### #
-
-popupunits <- rbind(popupunits, data.frame(evar = new.e, units = new.e.popunits)); popupunits <- unique(popupunits)
-use_data(popupunits, overwrite=TRUE)
-esigfigs   <- rbind(esigfigs,   data.frame(evar = new.e, sigfigs = new.esigfigs));    esigfigs <- unique(esigfigs)
-use_data(esigfigs, overwrite=TRUE)
 
 ###################################################################### #
 # names.e.nice - nice name to use on graph labels etc. for new ENVT indicator  ####
 ###################################################################### #
-
+# names.e.nice <- c(names.e.nice, 'Underground storage tanks (UST) indicator')
 names.e.nice <- union(names.e.nice, new.e.nice)
 use_data(names.e.nice, overwrite=TRUE)
 # or
@@ -196,15 +209,28 @@ use_data(names.e.nice, overwrite=TRUE)
 ###################################################################### #
 # several lists of ENVT and EJ variables related to the new ENVT indicator  ####
 # had been saved in names.evars.RData and names.ejvars.RData
+# now each is in its own .rda file
 ###################################################################### #
 
-# in names.evars ####
+# related to  names.e  ####
 names.e        <- union(names.e, new.e) # done #################################
 names.e.bin    <- paste0('bin.',    names.e)
 names.e.pctile <- paste0('pctile.', names.e)
 Elist <- as.list(names.e)
+# names.ejvars
+usethis::use_data( # done #################################
+  names.e ,
+  names.e.bin ,
+  names.e.pctile,
+  Elist
+)
 
-# in names.ejvars ####
+
+
+
+###################################################################### #
+
+# were in names.ejvars ####
 names.ej <- paste0('EJ.DISPARITY.',   names.e, '.eo')
 names.ej.bin     <- paste0('bin.',    names.ej)
 names.ej.pctile  <- paste0('pctile.', names.ej)
@@ -219,7 +245,23 @@ namesall.ej <- c(names.ej, names.ej.burden.eo, names.ej.pct.eo)  # obsolete
 namesall.ej.bin <- paste0('bin.', namesall.ej)  # obsolete
 namesall.ej.pctile <- paste0('pctile.', namesall.ej)  # obsolete
 
+usethis::use_data(  # done #################################
+  
+  names.ej ,
+  names.ej.bin ,   
+  names.ej.burden.eo ,
+  names.ej.burden.eo.bin ,
+  names.ej.burden.eo.pctile ,
+  names.ej.pct.eo ,
+  names.ej.pct.eo.bin  ,
+  names.ej.pct.eo.pctile ,
+  names.ej.pctile ,
+  namesall.ej  ,
+  namesall.ej.bin   ,
+  namesall.ej.pctile
+)
 
+# use_data()  # cannot put several in one data file
 
 ###################################################################### #
 # UPDATE ejscreenformulas data file  ####
