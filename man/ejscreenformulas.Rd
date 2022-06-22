@@ -35,6 +35,6 @@ This provides fieldnames and formulas required by the \pkg{ejscreen} package.
    # substr(grep('svi6|BURDEN|PCT', x=ejformula(), value = TRUE, invert = TRUE), 1, 80)
 }
 \seealso{
-\code{\link{ejformula}}  \code{\link{ejscreenformulasnoej}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
+\code{\link{ejformula}}  \code{\link{ejscreenformulasnoej}} \code{\link{names.e}} \code{\link{names.d}} \code{\link{names.ej}}
 }
 \concept{EJ, environmental justice, datasets, demographic}

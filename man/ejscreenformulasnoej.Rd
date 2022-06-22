@@ -31,5 +31,5 @@ This provides fieldnames and formulas required by the \pkg{ejscreen} package.
  This excludes the EJ Index formulas for cases where those are to be calculated using code separately.
 }
 \seealso{
-\code{\link{ejformula}}  \code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
+\code{\link{ejformula}}  \code{\link{ejscreenformulas}} \code{\link{names.e}} \code{\link{names.d}} \code{\link{names.ej}}
 }

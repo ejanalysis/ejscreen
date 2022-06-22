@@ -15,6 +15,6 @@ This data set provides nicer names for the ejscreen demographic indicator variab
 Defaults to the latest version
 }
 \seealso{
-\code{\link{ejscreenformulas}} \code{\link{names.evars}} \code{\link{names.dvars}} \code{\link{names.ejvars}}
+\code{\link{ejscreenformulas}} \code{\link{names.e}} \code{\link{names.d}} \code{\link{names.ej}}
 }
 \concept{datasets}
