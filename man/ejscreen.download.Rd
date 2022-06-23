@@ -57,7 +57,7 @@ Not fully tested. \cr
     It is avail as data in \link{bg21}
     (EJScreen 2.0 would have been called the 2021 version in old naming scheme).
     \url{https://www.census.gov/programs-surveys/acs/news/data-releases/2019/release-schedule.html}
-    
+
   Note the 2020 version of EJSCREEN (confusingly released early/mid 2021 not late 2020)
     actually uses ACS2018, which is from 2014-2018 (released late 2019).
     It is avail as \link{bg20}
@@ -82,6 +82,7 @@ Not fully tested. \cr
        TO JUST ADD SOME USEFUL COLUMNS (FIPS, countyname, statename, etc.):
 
        x <- ejanalysis::addFIPScomponents(x)
+       # and could add attribute to indicate vintage
   }
 }
 \examples{

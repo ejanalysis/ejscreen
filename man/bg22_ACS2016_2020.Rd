@@ -10,11 +10,11 @@ data.frame with 220,333 ? rows (block groups) and 118 ? columns
 \description{
 \preformatted{
  Any mid/late 2022 update of EJScreen will use this demographic data,
-   from the 5-year summary file American Community Survey ACS 2016-2020 
+   from the 5-year summary file American Community Survey ACS 2016-2020
    released March 17 2022.
- 
- EJScreen 2.0 is the version released by EPA February 18, 2022 
-   (but in this package it is called bg21 because 
+
+ EJScreen 2.0 is the version released by EPA February 18, 2022
+   (but in this package it is called bg21 because
     it was meant to be the late 2021 version but was delayed)
     bg21 could be renamed given the EJScreen 2.0 name.
     It uses ACS2019, which is from 2015-2019 (released by Census Dec 2020).
@@ -41,26 +41,24 @@ This will give a quick look at some key stats:
    (but this may change)
    but EJScreen datasets do have it.
 
-  The data was created for this package as follows: \cr\cr
+  The data could be created for this package as follows: \cr\cr
     \code{require(ejscreen); require(ACSdownload)} \cr
     \code{require(proxistat) # for adding the lat lon of each block group }\cr
     \code{require(analyze.stuff); require(ejanalysis); require(readr)} \cr
      \cr
   \code{
-  #  bg <- 0 # to be completed  ------------------   \cr
-  
+  #  bg <- ejscreen::ejscreen.download(yr=2022) # to be confirmed later  ------------------   \cr
+
     } \cr\cr
-  # 
-  # add fields called FIPS.TRACT, FIPS.COUNTY, FIPS.ST, countyname. \cr\cr
- 
-  # add lat, lon fields for block group centroids, via \link[proxistat]{bg.pts} from proxistat package:\cr
-  \code{bg <- merge(bg, proxistat::bg.pts[ , c('FIPS', 'lat')], by.x = 'FIPS', by.y = 'FIPS', all.x = TRUE, all.y = FALSE)} \cr
-  \code{bg <- merge(bg, proxistat::bg.pts[ , c('FIPS', 'lon')], by.x = 'FIPS', by.y = 'FIPS', all.x = TRUE, all.y = FALSE)} \cr\cr
-  \code{plot(bg$lon[bg$lon < -50], bg$lat[bg$lon < -50], pch = '.')} \cr\cr
+  #
+  # ejscreen.download() adds fields called FIPS.TRACT, FIPS.COUNTY, FIPS.ST, countyname. \cr\cr
+
+  # and adds lat, lon fields for block group centroids, via \link[proxistat]{bg.pts} from proxistat package\cr
+  \code{# plot(bg$lon[bg$lon < -50], bg$lat[bg$lon < -50], pch = '.')} \cr\cr
   # \code{sum(is.na(bg$FIPS.ST)) # check if any are NA} \cr
 
   # THEN USE A NAME SPECIFIC TO THE YEAR: \cr
-  
+
   \code{bg22_ACS2016_2020 <- bg; rm(bg)} \cr
   \code{save(bg22_ACS2016_2020, file = 'bg22_ACS2016_2020.rdata')} \cr \cr
 }

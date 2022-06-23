@@ -13,7 +13,7 @@
 #'     It is avail as data in \link{bg21}
 #'     (EJScreen 2.0 would have been called the 2021 version in old naming scheme).
 #'     \url{https://www.census.gov/programs-surveys/acs/news/data-releases/2019/release-schedule.html}
-#'     
+#'
 #'   Note the 2020 version of EJSCREEN (confusingly released early/mid 2021 not late 2020)
 #'     actually uses ACS2018, which is from 2014-2018 (released late 2019).
 #'     It is avail as \link{bg20}
@@ -38,6 +38,7 @@
 #'        TO JUST ADD SOME USEFUL COLUMNS (FIPS, countyname, statename, etc.):
 #'
 #'        x <- ejanalysis::addFIPScomponents(x)
+#'        # and could add attribute to indicate vintage
 #'   }
 #' @param folder Optional path to folder (directory) where the file will be downloaded and unzipped. Default is current working directory.
 #' @param yr Default is latest available year found as a folder on the FTP site.
@@ -86,15 +87,16 @@ ejscreen.download <-
     # Prepare to obtain the zip or just csv file from the FTP site, based on which yr
     # (takes a few minutes to download if you do it this way - you could do it manually using an FTP client instead)
     ############################# #
+    url.exists_andcandownloadthisfile <- function(url='https://gaftp.epa.gov/EJSCREEN/2021', file='') { # 2021_EJSCREEEN_columns-explained.xlsx
+      'try-error' != class(suppressWarnings(try(download.file(file.path(url,file), tempfile(),quiet = TRUE), silent = TRUE)))
+    }
+
     if (is.null(justreadname)) {
 
       # Check ftp site for largest year of any folder, any use that as the year and folder
 
       latestavailableyear <- function(mypath='https://gaftp.epa.gov/EJSCREEN/') {
         # proxy makes RCurl::url.exists not work right.
-        url.exists_andcandownloadthisfile <- function(url='https://gaftp.epa.gov/EJSCREEN/2021', file='') { # 2021_EJSCREEEN_columns-explained.xlsx
-        'try-error' != class(suppressWarnings(try(download.file(file.path(url,file), tempfile(),quiet = TRUE), silent = TRUE)))
-        }
         calendaryear <- as.numeric(format(Sys.time(), "%Y")) # just says, what year is it?
         yrschecked <- 2015:calendaryear # 2015 was the earliest, and the current calendar year is latest version possibly available
         # latestyr <- yrschecked[max(which(sapply(paste(mypath, yrschecked, '', sep = ''), RCurl::url.exists)))]
@@ -103,7 +105,7 @@ ejscreen.download <-
         if (is.na(latestyr)) {stop('problem - none of those URLs were found ')}
         return(latestyr)
       }
-      
+
       if (!exists('yr') | is.null(yr) ) {
         yr <- latestavailableyear(ftpurlbase)
       } else {
@@ -167,14 +169,14 @@ ejscreen.download <-
             csvname <- 'EJSCREEN_2021_USPR.csv'  #
             zipnamestate <- 'EJSCREEN_2021_StatePctile.csv.zip'
             csvnamestate <- 'EJSCREEN_2021_StatePctile.csv'
-            # https://gaftp.epa.gov/EJSCREEN/2021/EJSCREEN_2021_USPR.csv.zip # 
+            # https://gaftp.epa.gov/EJSCREEN/2021/EJSCREEN_2021_USPR.csv.zip #
             # https://gaftp.epa.gov/EJSCREEN/2021/EJSCREEN_2021_StatePctile.csv.zip # or https://gaftp.epa.gov/EJSCREEN/2021/EJSCREEN_2021_StatePctile.gdb.zip
             # also see
             # EJSCREEN_2021_USPR_Tracts.csv.zip
-            # EJSCREEN_2021_StatePctile_Tracts.csv.zip  
+            # EJSCREEN_2021_StatePctile_Tracts.csv.zip
             #   tract resolution files for US and State as csv and gdb also available there.
           }
-          
+
         if (yr > 2021) {
           zipname <- paste('EJSCREEN_', yr, '_USPR.csv.zip', sep = '') # hopefully will keep this format
           csvname <- paste('EJSCREEN_', yr, '_USPR.csv', sep = '') # hopefully will keep this format
@@ -266,12 +268,24 @@ ejscreen.download <-
 
     # Add FIPS, countyname, statename, State etc --------
     # add the other FIPS components as individual columns
+    # but note this relies on checking fips against list in proxistat::bg.pts, I think, so
+    # the vintage would have to match or it will create NA values in FIPS.ST, statename, etc.
     bg <- ejanalysis::addFIPScomponents(bg)
 
-    # Add a flag column if needed ---------------------------------------------------------
-    #
+    # # PROBLEM WITH A FEW COUNTY FIPS: ****** they are in FTP EPA dataset but not in downloaded ACS 2020 Census list of county fips.
+    # > which(!(substr(bg$FIPS,1,5) %in% proxistat::countiesall$FIPS.COUNTY))
+    # [1] 3948 3949 3950 3951 3952 3953 3954 3955 3956 3957 3958
+
     ############################# #
-    # ADD FLAG COLUMN - FLAG ROWS WHERE AT LEAST ONE OF A FEW INDICATORS IS ABOVE GIVEN CUTOFF THRESHOLD
+    # Add attributes to indicate version (vintage, year) --------
+    ############################# #
+    yearnow <- substr(Sys.Date(),1,4)
+    attr(bg, 'year') <- paste0('EJScreen version based on ACS 5yrs through ', yr,' - downloaded in ', yearnow)
+
+    # Add a flag column if needed ---------------------------------------------------------
+    ############################# #
+    # ADD FLAG COLUMN for EJ80th threshold approach
+    # FLAG ROWS WHERE AT LEAST ONE OF A FEW INDICATORS IS ABOVE GIVEN CUTOFF THRESHOLD
     ############################# #
     #
     ## See which block groups are flagged as having one or more of 12 EJ indexes >= 80th US pctile
