@@ -2,6 +2,7 @@
 
 # Not yet done for bg20 perhaps - They do not seem to bin in the gdb dataset for 2020v?
 
+# note there is a map service with the lookups also.
 
 # The lookup tables are provided via data()
 # in the ejscreen package, as

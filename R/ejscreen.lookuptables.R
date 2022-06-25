@@ -1,15 +1,27 @@
-#' @title OBSOLETE - Create EJSCREEN Lookup Tables of Pop. Percentiles by Zone  
+#' @title Create EJSCREEN Lookup Tables of Pop. Percentiles by Zone  - but see ejscreen::write.wtd.pctiles.by.zone()
 #'
 #' @description
-#'   *** Was work in progress as of 2021 ...unless this has more useful code in some parts, it
-#'     was REPLACED BY  ejanalysis::write.wtd.pctiles() , i think
+#'   *** Was work in progress as of 2022 ...maybe this has more useful code in some parts \cr
+#'   see also: \cr\cr
+#'   ejanalysis::write.wtd.pctiles.by.zone   \cr
+#'   ejscreen::ejscreen.lookuptables\cr
+#'    ejscreen/inst/SCRIPT_pctilelookups_Create new lookup tables for EJScreen 2.0.R\cr
+#'     ejscreen/inst/SCRIPT_pctilelookups_read-downloaded-pctile-lookups.R\cr
+#'     will recode to use \cr
+#'   ejanalysis::write.wtd.pctiles.by.zone   \cr
+#'   and  see \cr
+#'   table.pop.pctile  and  \cr
+#'   map service with lookup tables  \cr or check gdb for lookup tables?\cr
+#'   \cr\cr
 #'   
-#'   *** The Hmisc package provides the function called Hmisc::wtd.quantile(),
-#'   but will recode to use  ejanalysis::write.wtd.pctiles()  
 #'
 #'   Start with raw environmental, demographic, and EJ indicator data, and write as csv files to disk a series of
 #'   lookup tables that show population percentiles and mean values for each indicator.
-#' @details Percentiles are calculated as exact values and then rounded down to the nearest 0-100 percentile.
+#' @details 
+#'   As of mid-2022 EJScreen was changing from pop weighted to unweighted percentiles, 
+#'   and changing so low tied values are 0th and percentile will mean percent <x not percent <= x
+#'   
+#' Percentiles are calculated as exact values and then rounded down to the nearest 0-100 percentile.
 #'   This calculates percentiles among only the non-NA values. In other words,
 #'   people in places with missing data are excluded from the calculation. This means the
 #'   percentile is the percent of people with valid data (i.e., not NA) who have a tied or lower value.
@@ -407,66 +419,7 @@ if (missing(weights)) {
     #
     #   pctiles.unrounded = function(x) { cbind(quantile(x, probs=(1:100)/100, na.rm=TRUE)) }
     #
-    #   ################################################################################################ #
-    #   #	TO WRITE (unweighted) CSV FILE WITH PERCENTILES AND MEAN, AND MAYBE STD DEVIATION (not used in EJSCREEN)
-    #
-    #     # Written assuming places data.frame is in memory in current environment,
-    #  # not passed to functions here
-    #
-    #   write.pctiles = function(column.names, folder=getwd(), filename, missingcode=NA) {
-    #
-    #     rawcols <- places[, column.names ] # wastes some RAM to make a copy, but easier
-    #
-    #     # if special missing value symbol used, convert to NA for the calculations
-    #     if (!is.na(missingcode)) {
-    #       rawcols[rawcols==missingcode] <- NA
-    #     }
-    #
-    #     r = data.frame(sapply(rawcols, function(x) pctiles.unrounded(x) ) )
-    #     r = rbind(r, t(data.frame(mean=sapply(rawcols, function(x) mean(x, na.rm=TRUE) ) ) ))
-    #     r = rbind(r, t(data.frame(std.dev=sapply(rawcols, function(x) sd(x, na.rm=TRUE) ) ) ))
-    #
-    #     # replace NA in tables with missing value symbol if necessary
-    #     if (!is.na(missingcode)) {
-    #       r[is.na(r)] <- missingcode
-    #     }
-    #
-    #     write.csv(r, file=file.path(folder, paste(filename, ".csv", sep="")))
-    #     return(r)
-    #   }
-
-    #   #################################### #
-    #   #  DEFINE FUNCTION TO SHOW THOSE unweighted STATS STRATIFIED BY REGION (OR STATE),  (not used in EJSCREEN)
-    #   #	SAVING A FILE OF STATS FOR EACH REGION OR STATE
-    #
-    #
-    #   # Written assuming places data.frame is in memory in current environment,
-    #   # not passed to functions here
-    #
-    #    write.pctiles.by.zone = function(column.names, folder=getwd(), filename, zone.vector, missingcode=NA) {
-    #
-    #     rawcols <- places[, column.names ] # wastes some RAM to make a copy, but easier
-    #
-    #     # if special missing value symbol used, convert to NA for the calculations
-    #     if (!is.na(missingcode)) {
-    #       rawcols[rawcols==missingcode] <- NA
-    #     }
-    #
-    #     for (z in unique(zone.vector)) {
-    #       r = data.frame(sapply(rawcols[zone.vector==z, ], function(x) pctiles.unrounded(x) ) )
-    #       r = rbind(r, t(data.frame(mean=sapply(rawcols[zone.vector==z,  ], function(x) mean(x, na.rm=TRUE) ) ) ))
-    #       r = rbind(r, t(data.frame(std.dev=sapply(rawcols[zone.vector==z, ], function(x) sd(x, na.rm=TRUE) ) ) ))
-    #
-    #       # replace NA in tables with missing value symbol if necessary
-    #       if (!is.na(missingcode)) {
-    #         r[is.na(r)] <- missingcode
-    #       }
-    #
-    #       write.csv(r, file=file.path(folder, paste(filename, "-notpopwtd-for zone ", z, ".csv", sep="")))
-    #     }
-    #     return(unique(zone.vector))
-    #   }
-
+   
     ############################################################################################################ #
 
     # CALL THE FUNCTIONS to write lookup tables as csv files ----------------
@@ -476,11 +429,7 @@ if (missing(weights)) {
     # why not just now use...
     # x <- ejanalysis::write.wtd.pctiles() ??? parameterized differently (wts vs weights, etc)
 
-    x <- write.wtd.pctiles(column.names = cols,
-        wts = weights,
         folder = folder,
-        filename = filename1,
-        missingcode = missingcode
       )
     # that is just for the US overall
 
@@ -493,7 +442,6 @@ if (missing(weights)) {
       y[[i]] <- write.wtd.pctiles.by.zone(
         column.names = cols,
         wts = weights,
-        folder = folder,
         filename = paste(filenameprefix, zonecols[i], sep = ''),
         zone.vector = places[, zonecols[i]],
         savefileperzone=savefileperzone, savefilezoneset=savefilezoneset,
