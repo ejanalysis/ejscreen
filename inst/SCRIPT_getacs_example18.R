@@ -63,7 +63,7 @@ if (1 == 0) {
 
 
   acs <- ejscreen.acsget(end.year = yr,
-                             tables = c('B01001', 'B03002', 'B15002', 'C17002', 'B25034'), #B16002 language spoken - was in 2015 file not subsequent ones
+                             tables = c('B01001', 'B03002', 'B15002', 'C17002', 'B25034', 'B16004'),
                              base.path = '~/Downloads',
                              vars = 'all',
                              write.files = TRUE, save.files = TRUE,

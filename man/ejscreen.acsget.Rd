@@ -5,8 +5,8 @@
 \title{Download ACS tables EJSCREEN uses, but with more race ethnicity poverty details}
 \usage{
 ejscreen.acsget(
-  end.year = "2017",
-  tables = c("B01001", "B03002", "B15002", "C17002", "B25034"),
+  end.year = "2020",
+  tables = c("B01001", "B03002", "B15002", "C16002", "C17002", "B25034", "B23025"),
   base.path = getwd(),
   data.path = file.path(base.path, "acsdata"),
   output.path = file.path(base.path, "acsoutput"),
@@ -17,7 +17,7 @@ ejscreen.acsget(
 )
 }
 \arguments{
-\item{end.year}{optional character year like 2017 specifying last of 5 years of ACS summary file}
+\item{end.year}{optional character year like 2020 specifying last of 5 years of ACS summary file}
 
 \item{tables}{Default is the ones needed for EJSCREEN - character vector list of Census data tables like B01001}
 
@@ -40,10 +40,8 @@ ejscreen.acsget(
 list of data.frames, default is just block group not tracts, unlike results of \link[ACSdownload]{get.acs}
 }
 \description{
-Note the 2018 version of EJSCREEN (released late 2018)
-    actually uses ACS2016, which is from 2012-2016 (released late 2017).
-  Note the 2019 version of EJSCREEN (released late 2019)
-    actually uses ACS2017, which is from 2013-2017 (released late 2018).
+EJScreen 2.0 was latest as of June 2022, released early 2022, and
+    actually used ACS2019, which is from 2015-2019 (released late 2020).
 
 Helper function used by ejscreen.create, but can be used if one wants to obtain the more detailed relevant ACS data.
   The EJSCREEN-related ACS tables have more of the detailed fields than the demographic data on the
