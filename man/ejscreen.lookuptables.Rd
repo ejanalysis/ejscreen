@@ -2,7 +2,7 @@
 % Please edit documentation in R/ejscreen.lookuptables.R
 \name{ejscreen.lookuptables}
 \alias{ejscreen.lookuptables}
-\title{OBSOLETE - Create EJSCREEN Lookup Tables of Pop. Percentiles by Zone}
+\title{Create EJSCREEN Lookup Tables of Pop. Percentiles by Zone  - but see ejscreen::write.wtd.pctiles.by.zone()}
 \usage{
 ejscreen.lookuptables(
   x,
@@ -50,16 +50,29 @@ Overall lookup table(s) as data.frame (but not zonal ones). Creates lookup table
   One table for overall percentiles, and one for each of the zonecols (unless that is set to NULL).
 }
 \description{
-*** Was work in progress as of 2021 ...unless this has more useful code in some parts, it
-    was REPLACED BY  ejanalysis::write.wtd.pctiles() , i think
+*** Was work in progress as of 2022 ...maybe this has more useful code in some parts \cr
+  see also: \cr\cr
   
-  *** The Hmisc package provides the function called Hmisc::wtd.quantile(),
-  but will recode to use  ejanalysis::write.wtd.pctiles()  
+  ejanalysis::write.wtd.pctiles.by.zone   \cr
+  
+  ejscreen::ejscreen.lookuptables\cr
+   ejscreen/inst/SCRIPT_pctilelookups_Create new lookup tables for EJScreen 2.0.R\cr
+    ejscreen/inst/SCRIPT_pctilelookups_read-downloaded-pctile-lookups.R\cr
+    will recode to use \cr
+  ejanalysis::write.wtd.pctiles.by.zone   \cr
+  and  see \cr
+  table.pop.pctile  and  \cr
+  map service with lookup tables  \cr or check gdb for lookup tables?\cr
+  \cr\cr
+  
 
   Start with raw environmental, demographic, and EJ indicator data, and write as csv files to disk a series of
   lookup tables that show population percentiles and mean values for each indicator.
 }
 \details{
+As of mid-2022 EJScreen was changing from pop weighted to unweighted percentiles, 
+  and changing so low tied values are 0th and percentile will mean percent <x not percent <= x
+  
 Percentiles are calculated as exact values and then rounded down to the nearest 0-100 percentile.
   This calculates percentiles among only the non-NA values. In other words,
   people in places with missing data are excluded from the calculation. This means the

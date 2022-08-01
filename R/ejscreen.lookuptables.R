@@ -3,7 +3,9 @@
 #' @description
 #'   *** Was work in progress as of 2022 ...maybe this has more useful code in some parts \cr
 #'   see also: \cr\cr
+#'   
 #'   ejanalysis::write.wtd.pctiles.by.zone   \cr
+#'   
 #'   ejscreen::ejscreen.lookuptables\cr
 #'    ejscreen/inst/SCRIPT_pctilelookups_Create new lookup tables for EJScreen 2.0.R\cr
 #'     ejscreen/inst/SCRIPT_pctilelookups_read-downloaded-pctile-lookups.R\cr
@@ -65,29 +67,29 @@ ejscreen.lookuptables <-
            filename1='lookupUSA', filenameprefix='lookup',
            savefilezoneset=TRUE, savefileperzone=FALSE,
            missingcode = NA) {
-
-        # This was previously done by CalculateLookupTables-2014-05.R and replicated by code in 'How to run EJSCREEN R scripts 2014-05.R'
+    
+    # This was previously done by CalculateLookupTables-2014-05.R and replicated by code in 'How to run EJSCREEN R scripts 2014-05.R'
     ############################### #
     # With example for overall function providing a sample dataset, below
     # can be used for testing parts of this, but require places in environment (memory):
     #  cbind(table.pop.pctile(envirodata$pm, demogdata$pop))
     #    fname <- "TESTING results table of WTD pctiles for EJ vars.csv"
     #    write.wtd.pctiles(column.names = c("pm", "o3"), wts = demogdata$pop, filename = fname)
-if (missing(weights)) {
-  if ('pop' %in% names(x)) {
-    weights <- x$pop
-  } else {
-    warning('weights not specified but no column named pop found in x so using no weights')
-    weights=rep(1,NROW(x))
-  }
-}
+    if (missing(weights)) {
+      if ('pop' %in% names(x)) {
+        weights <- x$pop
+      } else {
+        warning('weights not specified but no column named pop found in x so using no weights')
+        weights=rep(1,NROW(x))
+      }
+    }
     if (any(is.na(x[ , zonecols]))) {stop('Must not have any NA values in x[ , zonecols] ', paste(zonecols, collapse = ' '))}
-
+    
     places <- x
     rm(x) # just because I had written the rest of this using places not x as the variable name
-
+    
     # Which cols need pctiles? ------------------------------------------------
-
+    
     if (missing(cols)) {
       cols <- c(
         "MINORPCT",
@@ -188,11 +190,11 @@ if (missing(weights)) {
         analyze.stuff::change.fieldnames(cols,
                                          oldnames = ejscreenformulas$gdbfieldname,
                                          newnames = ejscreenformulas$Rfieldname)
-      }
+    }
     if (cols[1] == 'all') {
       cols <- names(places)[sapply(places, is.numeric)]
     }
-
+    
     # *** Written assuming places data.frame is in memory in current environment,
     # not passed to functions here
     found <- cols %in% names(places)
@@ -202,9 +204,9 @@ if (missing(weights)) {
       print(cols[!found])
       cols <- cols[found]
     }
-
+    
     # Handle NA missing values ------------------------------------------------
-
+    
     # As of 5/8/2014, -9999999  was the missing value indicator EPA was using but this code assumes NA.
     if (!is.na(missingcode)) {
       cat('Started creating NA values for missing data... ')
@@ -213,8 +215,8 @@ if (missing(weights)) {
       cat('Finished creating NA values for missing data... ')
       print(Sys.time())
     }
-
-
+    
+    
     ########################## #
     # *** HOW NA / MISSING VALUES ARE HANDLED IN THE DATA.FRAME AND THE CSV FILES AND ARCGIS ***
     # NOTE: There should be no NA values in the output tables, because they are excluded so even the minimum value or the 1th percentile is not NA --
@@ -229,25 +231,25 @@ if (missing(weights)) {
     # *** In testing there seemed to be problems where wtd.mean would be NA even if na.rm=TRUE,  ****
     # That was due to integer overflow, where integer raw field * integer weights ACSTOTPOP could create problem and NA would be returned.
     # *** So as of 5/16/2014, now functions do as.numeric()  for raw data columns and weights.
-
-
+    
+    
     # Functions defined - How to Calculate Percentiles ------------------------
-
-
+    
+    
     #################################### #
     #	FIRST, DEFINE THE BASIC FUNCTIONS
     #	THAT FIND 100 PERCENTILE VALUES, MEAN, AND MAYBE EVEN STANDARD DEVIATION,
     #	FOR DISTRIBUTION OF BLOCK GROUPS, AND THEN FOR DISTRIBUTION OF PEOPLE (POPULATION-WEIGHTED STATS ACROSS BLOCK GROUPS)
-
+    
     ################################################################################################ #
     # BASIC FUNCTION TO CALCULATE A LOOKUP TABLE OF 100 POPULATION PERCENTILES FOR THOSE PLACES WITH VALID DATA
-
+    
     # *** THIS SHOULD BE REPLACED (e.g., used AROUND lines 170 and 213) WITH
     #  analyze.stuff::wtd.pctiles(x, wts = NULL, na.rm = TRUE, type = "i/n",
     #   probs = (1:100)/100, digits = 3)
     # which is essentially this:
     #  cbind(round(Hmisc::wtd.quantile(x, wts, type=type, probs=probs, na.rm=na.rm), digits))
-
+    
     table.pop.pctile	<- function(x, wt) {
       Hmisc::wtd.quantile(
         x,
@@ -257,68 +259,68 @@ if (missing(weights)) {
         na.rm = TRUE
       )
     }
-
+    
     ################################################################################################ #
     #  TO WRITE (POPULATION-)WEIGHTED CSV FILE WITH ***wtd*** PERCENTILES AND wtd MEAN, AND wtd STD DEVIATION
-
+    
     # NOTE na.rm=TRUE is done in table.pop.pctile, so needn't do that below as well.
     #
     # *** why define it here, why not use
     # ejanalysis::write.wtd.pctiles.by.zone() ???
-
+    
     write.wtd.pctiles <- function(column.names,
-               wts,
-               folder = getwd(),
-               filename,
-               missingcode = NA) {
-        # Written assuming places data.frame is in memory in current environment,
-        # not passed to functions here
-
-        # as.numeric() is to avoid integer overflow if integer and wts huge
-        rawcols <-
-          as.data.frame(lapply(places[, column.names], as.numeric)) # to be more generic, column.names would be cols, replacing places[,column.names]
-        wts <- as.numeric(wts)
-
-        # if special missing value symbol used, convert to NA for the calculations
-        if (!is.na(missingcode)) {
-          rawcols[rawcols == missingcode] <- NA
-          wts[wts == missingcode] <- NA
-        }
-
-        # If every element of a column is NA, these all fail: wtd.mean, wtd.var, table.pop.pctile that uses wtd.quantile
-        # Use a simple way to allow wtd functions below to still work -- resulting pctiles and mean will all be zero.
-        rawcol.is.all.na <- sapply(rawcols, function(x)
-          all(is.na(x)))
-        rawcols[, rawcol.is.all.na] <- 0
-
-        r = data.frame(sapply(rawcols, function(x)
-          table.pop.pctile(x, wts)))
-        r = rbind(r, t(data.frame(mean = sapply(rawcols, function(x)
-          Hmisc::wtd.mean(x, wts, na.rm = TRUE)))))
-        r = rbind(r, t(data.frame(std.dev = sapply(rawcols, function(x)
-          sqrt(Hmisc::wtd.var(x, wts, na.rm = TRUE))))))
-
-        # fix columns where all were NA values so don't say zero
-        r[, rawcol.is.all.na] <- NA
-
-        # replace NA in tables with missing value symbol if necessary
-        if (!is.na(missingcode)) {
-          r[is.na(r)] <- missingcode
-        }
-        r$OBJECTID <- 1:NROW(r)
-        r$REGION <- zoneOverallName
-        r$PCTILE <- gsub( '%', '',trimws(rownames(r)))
-        write.csv(r, file = file.path(folder, paste(filename, ".csv", sep =
-                                                      "")))
-        return(r)
+                                  wts,
+                                  folder = getwd(),
+                                  filename,
+                                  missingcode = NA) {
+      # Written assuming places data.frame is in memory in current environment,
+      # not passed to functions here
+      
+      # as.numeric() is to avoid integer overflow if integer and wts huge
+      rawcols <-
+        as.data.frame(lapply(places[, column.names], as.numeric)) # to be more generic, column.names would be cols, replacing places[,column.names]
+      wts <- as.numeric(wts)
+      
+      # if special missing value symbol used, convert to NA for the calculations
+      if (!is.na(missingcode)) {
+        rawcols[rawcols == missingcode] <- NA
+        wts[wts == missingcode] <- NA
       }
-
+      
+      # If every element of a column is NA, these all fail: wtd.mean, wtd.var, table.pop.pctile that uses wtd.quantile
+      # Use a simple way to allow wtd functions below to still work -- resulting pctiles and mean will all be zero.
+      rawcol.is.all.na <- sapply(rawcols, function(x)
+        all(is.na(x)))
+      rawcols[, rawcol.is.all.na] <- 0
+      
+      r = data.frame(sapply(rawcols, function(x)
+        table.pop.pctile(x, wts)))
+      r = rbind(r, t(data.frame(mean = sapply(rawcols, function(x)
+        Hmisc::wtd.mean(x, wts, na.rm = TRUE)))))
+      r = rbind(r, t(data.frame(std.dev = sapply(rawcols, function(x)
+        sqrt(Hmisc::wtd.var(x, wts, na.rm = TRUE))))))
+      
+      # fix columns where all were NA values so don't say zero
+      r[, rawcol.is.all.na] <- NA
+      
+      # replace NA in tables with missing value symbol if necessary
+      if (!is.na(missingcode)) {
+        r[is.na(r)] <- missingcode
+      }
+      r$OBJECTID <- 1:NROW(r)
+      r$REGION <- zoneOverallName
+      r$PCTILE <- gsub( '%', '',trimws(rownames(r)))
+      write.csv(r, file = file.path(folder, paste(filename, ".csv", sep =
+                                                    "")))
+      return(r)
+    }
+    
     #################################### #
     #	DEFINE FUNCTION TO SHOW THOSE STATS STRATIFIED BY REGION (OR STATE),
     #	SAVING A FILE OF STATS FOR EACH REGION OR STATE
     #
     # *** why define it here, why not use ejanalysis::write.wtd.pctiles.by.zone() ???
-
+    
     write.wtd.pctiles.by.zone <-
       function(column.names,
                wts,
@@ -329,20 +331,20 @@ if (missing(weights)) {
         # ***** Written assuming places data.frame is in memory in current environment,
         # not passed to this function, BUT places IN AVAILABLE WITHIN THE CALLING ENVIRONMENT
         # SINCE ejscreen.lookuptables() gets passed the df and it is renamed places
-
+        
         # as.numeric() is to avoid integer overflow if integer and wts huge
         rawcols <-
           as.data.frame(lapply(places[, column.names], as.numeric)) # to be more generic, column.names would be cols, replacing places[,column.names]
         wts <- as.numeric(wts)
-
+        
         # if special missing value symbol used, convert to NA for the calculations
         if (!is.na(missingcode)) {
           rawcols[rawcols == missingcode] <- NA
           wts[wts == missingcode] <- NA
         }
-
+        
         # r <- list(1:length(unique(zone.vector))) # if we wanted to save all the tables, one per zone, in a list, could say r[[z]] <- .... below
-
+        
         lookupzoneset <- data.frame() # should preallocate memory and right dimensions here and write sections to it ideally
         firstzone <- unique(zone.vector)[1]
         for (z in unique(zone.vector)) {
@@ -353,7 +355,7 @@ if (missing(weights)) {
             sapply(rawcols[zone.vector == z,], function(x)
               all(is.na(x)))
           rawcols[zone.vector == z, rawcol.is.all.na] <- 0
-
+          
           r = data.frame(sapply(rawcols[zone.vector == z,], function(x)
             table.pop.pctile(x, wts[zone.vector == z])))
           r = rbind(r, t(data.frame(
@@ -366,19 +368,19 @@ if (missing(weights)) {
                 x, wts[zone.vector == z], na.rm = TRUE
               )))
           )))
-
+          
           # fix columns where all were NA values so don't say zero
           r[, rawcol.is.all.na] <- NA
-
+          
           # replace NA in tables with missing value symbol if necessary
           if (!is.na(missingcode)) {
             r[is.na(r)] <- missingcode
           }
-
+          
           r$OBJECTID <-  1:NROW(r) # could redo for overall file later
           r$REGION <- z
           r$PCTILE <- gsub( '%', '',trimws(rownames(r)))  # actually should start at 0, not 1, end with 100, mean, std.dev
-
+          
           if (savefileperzone) {
             r <- analyze.stuff::put.first(r, c('OBJECTID', 'REGION', 'PCTILE'))
             write.csv(r, file = file.path(
@@ -386,7 +388,7 @@ if (missing(weights)) {
               paste(filename, " ", z, ".csv", sep = "")
             ))
           }
-
+          
           # ADD THIS PLACE TO RUNNING TABLE OF THE SET OF PLACES OF THIS TYPE
           if (z == firstzone) {
             lookupzoneset <- r
@@ -397,7 +399,7 @@ if (missing(weights)) {
         # finished loop over unique(zone.vector), eg Done with all States
         lookupzoneset <- analyze.stuff::put.first(lookupzoneset, c('OBJECTID', 'REGION', 'PCTILE'))
         lookupzoneset$OBJECTID <-  1:NROW(lookupzoneset)
-
+        
         if (savefilezoneset) {
           # save 1 file with all states, for example
           write.csv(lookupzoneset, file = file.path(folder, paste(filename, '.csv', sep = '')), row.names = FALSE)
@@ -405,40 +407,40 @@ if (missing(weights)) {
         # return(unique(zone.vector)) # *********
         #  if we want to compile & then return all the tables, one per zone, in a list:
         return(lookupzoneset)
-        }
-
+      }
+    
     # zone.vector should be a vector that is the data in the column to use for grouping, e.g. zone.vector <- places$REGION
-
-
+    
+    
     # Notes on pctiles --------------------------------------------------------
-
-
+    
+    
     #   ################################################################################################ #
     #   #  TO CREATE BASIC LIST OF PERCENTILES (not used in EJSCREEN, BUT write.pctiles below would use it.)
     #
     #
     #   pctiles.unrounded = function(x) { cbind(quantile(x, probs=(1:100)/100, na.rm=TRUE)) }
     #
-   
+    
     ############################################################################################################ #
-
+    
     # CALL THE FUNCTIONS to write lookup tables as csv files ----------------
-
+    
     #  x <- weightedCDF('in_rawData_csv.csv', 'output.csv', 'pop')   # cols is optional
-
+    
     # why not just now use...
     # x <- ejanalysis::write.wtd.pctiles() ??? parameterized differently (wts vs weights, etc)
-
-        folder = folder,
-      )
+    # 
+    #         folder = folder,
+    #       )
     # that is just for the US overall
-
+    
     y <- list()
     for (i in 1:length(zonecols)) {
-
+      
       # why not just now use...
       # x <- ejanalysis::write.wtd.pctiles.by.zone() ???
-
+      
       y[[i]] <- write.wtd.pctiles.by.zone(
         column.names = cols,
         wts = weights,
@@ -447,10 +449,10 @@ if (missing(weights)) {
         savefileperzone=savefileperzone, savefilezoneset=savefilezoneset,
         missingcode = missingcode
       )
-
+      
       # gets here once after all states are done, and then again after all regions
     }
-
+    
     # Does not return y (by zone), just x (overall) but should?
     # Try/test this:
     # return( list(USA=x, REGION=y[[1]], ST=y[[2]] ) )

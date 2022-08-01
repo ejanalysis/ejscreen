@@ -47,6 +47,12 @@ This will give a quick look at some key stats:
     \code{require(analyze.stuff); require(ejanalysis); require(readr)} \cr
      \cr
   \code{
+  
+  
+  bg22 <- data.table::fread('~/../EJ 2021/EJSCREEN 2022 2.1 DATA late2022/EJSCREEN_2022_USPR.csv')
+  
+  
+  # or....
   #  bg <- ejscreen::ejscreen.download(yr=2022) # to be confirmed later  ------------------   \cr
 
     } \cr\cr
@@ -59,7 +65,7 @@ This will give a quick look at some key stats:
 
   # THEN USE A NAME SPECIFIC TO THE YEAR: \cr
 
-  \code{bg22_ACS2016_2020 <- bg; rm(bg)} \cr
-  \code{save(bg22_ACS2016_2020, file = 'bg22_ACS2016_2020.rdata')} \cr \cr
+  \code{bg22 <- bg; rm(bg)} \cr
+  \code{save(bg22, file = 'bg22_ACS2016_2020.rdata')} \cr \cr
 }
 \concept{datasets}

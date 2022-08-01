@@ -43,7 +43,7 @@
 #'    #  ), 2)
 #'
 #' Note that unlike bg21DemographicSubgroups2015to2019,
-#'    bg21 has PR, but will likely add PR to have it in both.
+#'    bg21 has PR, and will need to add PR to ACS demog subgroup data 
 #'
 #'   Lookup tables are not yet included here: lookup tables of percentiles for USA, Regions, States are on EJSCREEN FTP site.
 #'   For that information, see ejscreen::lookupUSA, lookupRegions, lookupStates, and ejscreen::ejscreen.lookuptables
@@ -89,7 +89,7 @@
 #'   *TO GET/CREATE THIS DATASET IN R FROM THE EPA FTP SITE VERSION*\cr\cr
 #'
 #'   # Download, unzip, read, modify, all in one function:
-#'   bg <- ejscreen.download(folder = getwd(), year = 2021)
+#'   #bg <- ejscreen.download(folder = getwd(), year = 2021)
 #'
 #'   *IF ALREADY DOWNLOADED AND UNZIPPED*\cr\cr
 #'   \cr Latest version of EJSCREEN downloaded from public FTP site
@@ -98,9 +98,19 @@
 #'   \cr
 #'   \code{
 #'   #  bg <- ejscreen.download(folder = getwd(), addflag = TRUE,   \cr
-#'    justreadname = 'EJSCREEN_2021_USPR.csv' )} \cr\cr
-#'   \cr
-#'
+#'   #  justreadname = 'EJSCREEN_2021_USPR.csv' )} \cr\cr
+#'    
+#'   \cr  or maybe should just do (instead of using ejscreen.download() to do this...)
+#'     # EJSCREEN_2021_USPR <- as.data.frame(readr::read_csv('./ejscreen2.1 july2022/EJSCREEN_2021_USPR.csv'))
+#'     bg <- as.data.frame(readr::read_csv('EJSCREEN_2021_USPR.csv'))
+#'     
+#'     names(bg) <- ejscreen::change.fieldnames.ejscreen.csv(names(bg))
+#'     bg$FIPS.TRACT <- substr(bg$FIPS, 1, 11) # assumes already has leading zeroes in FIPS
+#'     bg$FIPS.COUNTY <- substr(bg$FIPS, 1, 5) # assumes already has leading zeroes in FIPS
+#'     bg$FIPS.COUNTY <- substr(bg$FIPS, 1, 2) # assumes already has leading zeroes in FIPS
+#'     bg$countyname <- 
+#'     
+#'     
 #'   \cr
 #'   #  \link{ejscreen.download} renames fields, drops an ID field, \cr
 #'   # and adds fields called FIPS.TRACT, FIPS.COUNTY, FIPS.ST, countyname, and (optionally) flagged. \cr\cr
