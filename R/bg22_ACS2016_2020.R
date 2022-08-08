@@ -3,37 +3,30 @@
 #' @title ACS blockgroup data for EJScreen dataset, from ACS 2016-2020 summary file.
 #' @description
 #'  \preformatted{
-#'  Any mid/late 2022 update of EJScreen will use this demographic data,
-#'    from the 5-year summary file American Community Survey ACS 2016-2020
-#'    released March 17 2022.
+#'  
+#'  VINTAGE
 #'
-#'  EJScreen 2.0 is the version released by EPA February 18, 2022
-#'    (but in this package it is called bg21 because
-#'     it was meant to be the late 2021 version but was delayed)
-#'     bg21 could be renamed given the EJScreen 2.0 name.
-#'     It uses ACS2019, which is from 2015-2019 (released by Census Dec 2020).
+#'  - EJScreen 2.1 was released by EPA in August 2022. It is called bg22 here.
+#'    It uses ACS 2016-2020, which the Census Bureau released March 17, 2022.
 #'
-#'   The last version before February 18, 2022 was still the 2020 version.
-#'   Note the 2020 version of EJSCREEN (confusingly released mid 2021 rather than late 2020)
-#'     actually used ACS2018, which was from 2014-2018 (released by Census December 2019). See \link{bg20}
+#'  - EJScreen 2.0 was released by EPA February 18, 2022. It was called bg21 here.
+#'    It uses ACS 2015-2019, which the Census Bureau released December, 2020.
+#'    (EJScreen 2.0 was called the "2021 version" and bg21 here  
+#'    because it would have been called the late 2021 version but was delayed).
+#'    
 #'
-#'   Columns added here, not in ftp version:
+#'   Columns may be added here, not in ftp version:
 #'     - lat lon for bg centroids
 #'     - state name and state abbrev, county name, and FIPS for tract, county, state
+#'     - demographic subgroups
+#'     Detailed info on demog subgroups was in \link{bg22DemographicSubgroups2016to2020}
+#'   Column names may be renamed to friendlier variable names than the ones on the FTP site.
 #'
-#'   Detailed info on demog subgroups is in \link{bg22DemographicSubgroups2016to2020}
 #'  }
 #' @details
 #'
-#'    This will give a quick look at some key stats:
-#'    #round(data.frame(cbind(
-#'    #   subgroups = unlist(ustotals(bg22DemographicSubgroups2016to2020)),
-#'    #  maingroups = unlist(ustotals(subset(bg22_ACS2016_2020, ST != 'PR')))
-#'    #  ), 2)
-#'
-#'    Note Puerto Rico may not be in bg22DemographicSubgroups2016to2020,
+#'    Note Puerto Rico may not be in demographic subgroup data yet.
 #'    (but this may change)
-#'    but EJScreen datasets do have it.
 #'
 #'   The data could be created for this package as follows: \cr\cr
 #'     \code{require(ejscreen); require(ACSdownload)} \cr
@@ -41,10 +34,8 @@
 #'     \code{require(analyze.stuff); require(ejanalysis); require(readr)} \cr
 #'      \cr
 #'   \code{
-#'   
-#'   
-#'   bg22 <- data.table::fread('~/../EJ 2021/EJSCREEN 2022 2.1 DATA late2022/EJSCREEN_2022_USPR.csv')
-#'   
+#'    
+#'   bg22 <- as.data.frame(data.table::fread('~/../EJ 2021/EJSCREEN 2022 2.1 DATA late2022/EJSCREEN_2022_USPR.csv'))
 #'   
 #'   # or....
 #'   #  bg <- ejscreen::ejscreen.download(yr=2022) # to be confirmed later  ------------------   \cr

@@ -7,19 +7,18 @@
 #'
 #'  *VINTAGE*
 #'
-#'  - Any mid/late 2022 update of EJScreen will use ACS 2016-2020 released March 2022.
+#'  - EJScreen 2.1 was released by EPA in August 2022. It is called bg22 here.
+#'    It uses ACS 2016-2020, which the Census Bureau released March 17, 2022.
 #'
-#'  - EJScreen 2.0 is the version released by EPA February 18, 2022
-#'    (but here it is bg21 because it would have been called the late 2021 version but was delayed)
-#'     bg21 could be renamed given the EJScreen 2.0 name.
-#'     This uses ACS2019, which is from 2015-2019 (released by Census Dec 2020).
+#'  - EJScreen 2.0 was released by EPA February 18, 2022. It was called bg21 here.
+#'    It uses ACS 2015-2019, which the Census Bureau released December, 2020.
+#'    (EJScreen 2.0 was called the "2021 version" and bg21 here  
+#'    because it would have been called the late 2021 version but was delayed).
 #'
-#'   - The last version before February 18, 2022 was still the 2020 version.
+#'   - EJScreen before February 18, 2022 was still the "2020 version."
 #'     Note the 2020 version of EJSCREEN (confusingly released mid 2021 rather than late 2020)
-#'     actually used ACS2018, which was from 2014-2018 (released by Census December 2019). See \link{bg20}
+#'     actually used ACS2018, which was from 2014-2018 (released by Census December 2019).
 #'
-#'   - Note the 2019 version of EJSCREEN (released late 2019)
-#'     actually uses ACS2017, which is from 2013-2017 (released by Census late 2018).
 #'
 #'   - This data set is the EJSCREEN dataset from the ftp site but with
 #'   fields renamed for easier use in the ejscreen package,
