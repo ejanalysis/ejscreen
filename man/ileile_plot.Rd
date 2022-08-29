@@ -9,8 +9,7 @@ ileile_plot(
   y_envt_percentile,
   xlab = "Demographic percentile (binned by rounding)",
   ylab = "median of Environmental percentiles",
- 
-    main = "Does Environmental indicator tend to be higher where Demographic \% is higher?",
+  main = "Does Environmental indicator tend to be higher where Demographic \% is higher?",
   ...
 )
 }
@@ -31,15 +30,15 @@ ileile_plot(
 Shows median envt percentile of places within each percentile of demog
 }
 \examples{
-
+bg <- bg22
 ileile_plot(
-  ejscreen::bg20$pctile.pctmin, 
-  ejscreen::bg20$pctile.proximity.tsdf, 
-  xlab='low income percentile', 
+  ejscreen::bg$pctile.pctmin,
+  ejscreen::bg$pctile.proximity.tsdf,
+  xlab='low income percentile',
   ylab='median pctile of environmental score at that level of \% Demographics'
  )
- 
+
  pj(1,3)
- 
-  
+
+
 }

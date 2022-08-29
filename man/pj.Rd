@@ -4,14 +4,14 @@
 \alias{pj}
 \title{plot ej percentiles vs percentiles from EJSCREEN data}
 \usage{
-pj(enum, dnum, dat = ejscreen::bg20, ...)
+pj(enum, dnum, dat = ejscreen::bg22, ...)
 }
 \arguments{
 \item{enum}{which of the envt indicators to use, such as 1}
 
 \item{dnum}{which of the demog indicators to use, such as 3}
 
-\item{dat}{data.frame of ejscreen data, default is bg20}
+\item{dat}{data.frame of ejscreen data}
 }
 \description{
 plot ej percentiles vs percentiles from EJSCREEN data

@@ -39,18 +39,20 @@ ejscreen.rollup.all(
 
 \item{assigning}{optional logical, default = FALSE, whether to assign results to variable in calling environment, or just return list of data.frames as result.}
 
-\item{...}{Optional parameters to pass to \code{\link{ejscreen.create}} which uses formulas to create indicators from raw values.}
+\item{...}{Optional parameters to pass to \code{\link{ejscreen.create}}
+which uses formulas to create indicators from raw values.
+e.g. can pass clean=FALSE that is in turn passed eventually to clean.fips()}
 }
 \value{
 Returns a list of data.frames each like output of \code{\link{ejscreen.rollup}}, one per resolution (e.g., one for counties)
 }
 \description{
-Does what ejscreen.rollup does, but for more than one resolution - a batch of rollups done at once. 
-  Start with full EJSCREEN dataset at one resolution (typically block groups), 
+Does what ejscreen.rollup does, but for more than one resolution - a batch of rollups done at once.
+  Start with full EJSCREEN dataset at one resolution (typically block groups),
   and create aggregated data at higher geographic scales (e.g., tracts and counties)
 }
 \details{
-**default fieldnames are assumed for now. Uses \code{\link{ejscreen.create}}
+**default fieldnames are assumed for now. Uses \code{\link{ejscreen.create}}.
 }
 \examples{
 # (none)

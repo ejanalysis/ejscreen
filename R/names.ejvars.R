@@ -1,4 +1,4 @@
-#' @name names.ej 
+#' @name names.ej
 #' @docType data
 #' @aliases names.ej  names.ej.pctile names.ej.bin  EJ-variable-names
 #' @title Fieldnames of environmental justice indicator columns in ejscreen package data
@@ -7,11 +7,8 @@
 #'   to make it easier to refer to them as a vector, e.g., mydf[ , names.ej]
 #'
 #' @details This should have the latest version.
-#'  Old versions also had fields related to svi6 the 6-demographic-variable indicator as
-#'  an alternative to eo the 2-demographic-variable indicator now used:
-#'  "names.ej.burden.svi6", "names.ej.burden.svi6.bin", "names.ej.burden.svi6.pctile",
-#'  "names.ej.pct.svi6", "names.ej.pct.svi6.bin", "names.ej.pct.svi6.pctile",
-#'  "names.ej.svi6", "names.ej.svi6.bin", "names.ej.svi6.pctile"
+#'  Old versions also had fields related to svi6 the 6-demographic-variable indicator
+#'  and other versions of EJ index formula with PCT or BURDEN in the variable name instead of DISPARITY.
 #'
 #' @seealso  \code{\link{ejscreenformulas}} \code{\link{names.e}} \code{\link{names.d}} \code{\link{names.ej.pctile}}
 #' @source Names developed for this package. No external data source.
@@ -20,12 +17,6 @@
 #' \itemize{
 #'  \item "names.ej"
 #'  \item "names.ej.bin"
-#'  \item "names.ej.burden.eo"
-#'  \item "names.ej.burden.eo.bin"
-#'  \item "names.ej.burden.eo.pctile"
-#'  \item "names.ej.pct.eo"
-#'  \item "names.ej.pct.eo.bin"
-#'  \item "names.ej.pct.eo.pctile"
 #'  \item "names.ej.pctile"
 #'  \item "namesall.ej"
 #'  \item "namesall.ej.bin"

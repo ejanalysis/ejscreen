@@ -64,7 +64,8 @@ if (1 == 0) {
 
   acs <- ejscreen.acsget(end.year = yr,
                              tables = c('B01001', 'B03002', 'B15002', 'C17002', 'B25034', 'B16004'),
-                             base.path = '~/Downloads',
+                         # in ACS2020 C16002 replaced B16004 that was older ACS source for what had been called linguistic isolation, now called limited English speaking households.
+                         base.path = '~/Downloads',
                              vars = 'all',
                              write.files = TRUE, save.files = TRUE,
                              new.geo = FALSE)

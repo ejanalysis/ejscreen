@@ -52,9 +52,9 @@ Overall lookup table(s) as data.frame (but not zonal ones). Creates lookup table
 \description{
 *** Was work in progress as of 2022 ...maybe this has more useful code in some parts \cr
   see also: \cr\cr
-  
+
   ejanalysis::write.wtd.pctiles.by.zone   \cr
-  
+
   ejscreen::ejscreen.lookuptables\cr
    ejscreen/inst/SCRIPT_pctilelookups_Create new lookup tables for EJScreen 2.0.R\cr
     ejscreen/inst/SCRIPT_pctilelookups_read-downloaded-pctile-lookups.R\cr
@@ -64,15 +64,15 @@ Overall lookup table(s) as data.frame (but not zonal ones). Creates lookup table
   table.pop.pctile  and  \cr
   map service with lookup tables  \cr or check gdb for lookup tables?\cr
   \cr\cr
-  
+
 
   Start with raw environmental, demographic, and EJ indicator data, and write as csv files to disk a series of
   lookup tables that show population percentiles and mean values for each indicator.
 }
 \details{
-As of mid-2022 EJScreen was changing from pop weighted to unweighted percentiles, 
+As of mid-2022 EJScreen was changing from pop weighted to unweighted percentiles,
   and changing so low tied values are 0th and percentile will mean percent <x not percent <= x
-  
+
 Percentiles are calculated as exact values and then rounded down to the nearest 0-100 percentile.
   This calculates percentiles among only the non-NA values. In other words,
   people in places with missing data are excluded from the calculation. This means the
@@ -81,7 +81,8 @@ Percentiles are calculated as exact values and then rounded down to the nearest 
 \examples{
  \dontrun{
  # ejscreen dataset:
-  out <- ejscreen.lookuptables(ejscreen::bg20[bg$REGION \%in\% 2:3,], weights=bg20$pop[bg$REGION \%in\% 2:3,])
+ bg <- bg22
+  out <- ejscreen.lookuptables(ejscreen::bg[bg$REGION \%in\% 2:3,], weights=bg$pop[bg$REGION \%in\% 2:3,])
  # Try with a sample envt data set:
  set.seed(99)
  envirodata <- data.frame(FIPS=analyze.stuff::lead.zeroes(1:1000, 12),

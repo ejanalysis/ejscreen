@@ -110,8 +110,8 @@ if (1 == 0) {
   save(lookupRegions, file = file = file.path(myfolder, 'lookupRegions.rdata'))
   save(lookupStates,  file = file = file.path(myfolder, 'lookupStates.rdata'))
 
-  # # to save year-specific versions:
-  # lookupUSA19 <- lookupUSA; save(lookupUSA19, file = file = file.path(myfolder, 'lookupUSA19.rdata'))
+  # # to save year-specific versions, you could do this:
+  # lookupUSA22 <- lookupUSA; save(lookupUSA22, file = file = file.path(myfolder, 'lookupUSA22.rdata'))
   # # etc.
 
   # example of using this:

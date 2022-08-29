@@ -1,0 +1,64 @@
+#' @name bg22
+#' @docType data
+#' @title ACS blockgroup data for EJScreen dataset, from ACS 2016-2020 summary file.
+#' @description
+#'  \preformatted{
+#'
+#'  VINTAGE
+#'
+#'  - EJScreen 2.1 was released by EPA in August 2022. It is called bg22 here.
+#'    It uses ACS 2016-2020, which the Census Bureau released March 17, 2022 (delayed from Dec 2021).
+#'
+#'  - EJScreen 2.0 was released by EPA February 18, 2022. It was called bg21 here.
+#'    It uses ACS 2015-2019, which the Census Bureau released December, 2020.
+#'    (EJScreen 2.0 was called the "2021 version" and bg21 here
+#'    because it would have been called the late 2021 version but was delayed).
+#'
+#'   Columns may be added here, not in ftp version:
+#'     - lat lon for bg centroids
+#'     - state name and state abbrev, county name, and FIPS for tract, county, state
+#'     - demographic subgroups
+#'     Detailed info on demog subgroups was in \link{bg22DemographicSubgroups2016to2020}
+#'   Column names may be renamed to friendlier variable names than the ones on the FTP site.
+#'
+#'  }
+#' @details
+#'    Note Puerto Rico may not be in demographic subgroup data yet but this may change.
+#'
+#'   The data could be created for this package as follows: \cr\cr
+#'     \code{require(ejscreen); require(ACSdownload)} \cr
+#'     \code{require(proxistat) # for adding the lat lon of each block group }\cr
+#'     \code{require(analyze.stuff); require(ejanalysis); require(readr)} \cr
+#'      \cr
+#'   \code{
+#'   #bg22 <- as.data.frame(data.table::fread('~/../EJ 2021/EJSCREEN 2022 2.1 DATA late2022/EJSCREEN_2022_USPR.csv'))
+#'   #bg22 <- as.data.frame(data.table::fread('./inst/EJSCREEN_2022_USPR.csv'))
+#'   # or maybe as.data.frame(readr::read_csv('./inst/EJSCREEN_2022_USPR.csv')) # might handle FIPS better
+#'   names(bg22) <- ejscreen::change.fieldnames.ejscreen.csv(names(bg22))
+#'   bg22 <- ejanalysis(addFIPScomponents(bg22))
+#'
+#'   # or....
+#'   #  bg <- ejscreen::ejscreen.download(yr=2022) # to be confirmed later  ------------------   \cr
+#'
+#'     } \cr\cr
+#'   #
+#'   # ejscreen.download() adds fields called FIPS.TRACT, FIPS.COUNTY, FIPS.ST, countyname. \cr
+#'   # or ejanalysis::addFIPScomponents() does that \cr
+#'   # and adds lat, lon fields for block group centroids, via \link[proxistat]{bg.pts} from proxistat package\cr
+#'   \code{# plot(bg$lon[bg$lon < -50], bg$lat[bg$lon < -50], pch = '.')} \cr\cr
+
+#'   # \code{sum(is.na(bg$FIPS.ST)) # check if any are NA} \cr
+#'
+#'   # THEN USE A NAME SPECIFIC TO THE YEAR and add metadata: \cr
+#'
+#'   \code{bg22 <- bg; rm(bg)} \cr
+#'   # "2022 version" (EJScreen version 2.1, bg22, ACS2020, after 7/2022)
+#'   metadata <- list(releasedate = 'late 2022', ejscreen_version = '2.1', ACS_version = '2016-2020')
+#'   attributes(bg22) <- c(attributes(bg22), metadata)
+#'   usethis::use_data(bg22, overwrite = TRUE)
+#'   # or
+#'   # \code{save(bg22, file = 'bg22.rdata')} \cr \cr
+#'
+#' @concept datasets
+#' @format data.frame with 242335 rows (block groups) and 153 columns
+NULL

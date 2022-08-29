@@ -1,26 +1,87 @@
-# updating variables in ejscreen with names of indicators for EJScreen 2.0
+# Update now and yearly
+# updating ejscreen-related packages for EJScreen 2.0 or 2.1
 
-# 6/2022 all DONE for EJSCREEN 2.0
-#   except maybe these:
+#'  EJScreen 2.1 was released circa August 2022.
+#'    EJScreen 2.1 uses ACS2020, which is from 2016-2020 (released March 17 2022, delayed from Dec 2021).
+#'    It was to be called the 2022 version of EJScreen, and
+#'    here is called bg22.
+#'
+#'  EJScreen 2.0 was released by EPA 2022-02-18 (delayed from mid/late 2021).
+#'    EJScreen 2.0 used ACS2019, which is from 2015-2019 (released Dec 2020).
+#'    It was to be called the 2021 version, and here is called bg21 as it was to be a late 2021 version.
 
-# **** Update now and yearly to correct FIPS AND BOUNDARIES: ****
-#   for early 2022, all packages to use MAYBE 2010 Census blocks/fips, OR IS IT ACS 5YR 2020 FIPS?? - FOR EJScreen 2.0 - ACS 2015-2019.
-#   for later 2022, all packages to use 2020 Census blocks/fips - EJScreen X?? - ACS 2016-2020.
 
+##################################### #
+# **** list of FIPS codes for counties/ tracts/ block groups/ blocks, and block points ****
+
+# ejanalysis::clean.fips() relies on ejanalysis::get.county.info() which relies on proxistat::countiesall dataset
+
+#   for late 2022, EJScreen 2.1 - ACS 2016-2020,
+#   UPDATE all packages to use 2020 Census blocks/fips including
+# block points and weights
+# and
+# list of countynames for proxistat or other pkgs.
+#
+#   (until mid2022, used either 2010 Census blocks/fips, OR ACS5YR 2020 FIPS? - FOR EJScreen 2.0 - ACS 2015-2019. )
+
+##################################### #
 #  - *** lookup table files like lookupStates20 etc.  ******
 #
 #### nice to have but less critical:
 #
 #  - Get rid of bg21 and bg21Demog... if bg21plus has both, but note that breaks all code looking for bg21 or help files mentioning it.
 #     Maybe keep bg21 as just pure ejscreen csv as downloaded, ftp colnames, etc.
-#
+
+##################################### #
 #  - RRS files with ratios of means
-#  - ejscreenformulas -- needs ACS variable numbers details for unemployed and unemployedbase
+# RRS.US etc
+
+##################################### #
+#  - ejscreenformulas -
+#    ** needs ACS variable numbers details for unemployed and unemployedbase
+#    ** need new formulas for EJ Index = E * D
 #  - ejscreenformulasnoej - same
 #  - vars.ejscreen.acs  - not sure needed, but check and update
 #  - needed.ejscreen.acs ? need this at all?
 #  - FILE .csv ??
 
+
+
+#  sapply( grep('^names', ls(envir = parent.env(globalenv())), value=TRUE), get)
+
+# obsolete to remove:  (done 7/2022)
+mustdelete <- c(
+  'names.ej.burden.eo',
+  'names.ej.burden.eo.pctile',
+  'names.ej.burden.eo.bin',
+  'names.ej.pct.eo',
+  'names.ej.pct.eo.pctile',
+  'names.ej.pct.eo.bin'
+)
+for (thisone in mustdelete) {
+  file.remove(paste0('./data/', thisone, '.rda'))
+  }
+rm(mustdelete, thisone)
+
+# to update: (done 7/2022)
+# .BURDEN.
+# .PCT.
+# namesall.ej    namesall.ej.bin  namesall.ej.pctile
+namesall.ej <- namesall.ej[grepl('DISPARITY', namesall.ej)]
+namesall.ej.bin  <- namesall.ej.bin[grepl('DISPARITY', namesall.ej.bin)]
+namesall.ej.pctile <- namesall.ej.pctile[grepl('DISPARITY', namesall.ej.pctile)]
+library(usethis)
+use_data(namesall.ej, overwrite = TRUE)
+use_data(namesall.ej.pctile, overwrite = TRUE)
+use_data(namesall.ej.bin, overwrite = TRUE)
+
+
+
+
+##################################### #
+# update variables and names of indicators for EJScreen 2.0 and 2.1
+# (ust and pctunemployed were added for 2.0 and nothing else for 2.1?)
+# 6/2022 all DONE for EJSCREEN 2.0
 
 ##################################### #
 # SPECIFY NEW NAMES INFO ####
@@ -288,6 +349,7 @@ usethis::use_data(  # done ################################ #
 #   #C17002  RATIO OF INCOME TO POVERTY LEVEL IN THE PAST 12 MONTHS
 #
 #  # NOTE ACS table C16002 (not B16002 not B16004)
+# C16002 replaced B16004 that was older ACS source for what had been called linguistic isolation, now called limited English speaking households.
 #
 # New Tables in ACS SF 2016-2020
 #            C16002  HOUSEHOLD LANGUAGE BY HOUSEHOLD LIMITED ENGLISH SPEAKING STATUS

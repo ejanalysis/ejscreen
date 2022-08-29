@@ -108,87 +108,25 @@ ejscreen.acs.calc <-
 
     if (missing(keep.new)) {
       keep.new <- c(
-        'VSI.eo',
-        'VSI.svi6',
-        "VNI.eo",
-        "VNI.svi6",
-        "VDI.eo",
-        "VDI.svi6",
+        names.d,   # "VSI.eo"        "pctmin"        "pctlowinc"  etc.
+        names.d.subgroups, # "pctnhwa"         "pcthisp" etc.
+        names.d.subgroups.count, # "nhwa"         "hisp"  etc.
 
-        'pctpre1960',
-        'pctlowinc',
-        'pctmin',
-        'pctlths',
-        'pctlingiso',
-        'pctunder5',
-        'pctover64',
-        'pre1960',
+        'pctpre1960', # from ACS, unlike other Envt vars
+        'pre1960',   # from ACS, unlike other Envt vars
+
         'lowinc',
         'mins',
         'nonmins',
         'lths',
         'lingiso',
         'under5',
-        'over64',
-
-        # COUNTS OF THESE, are in keep.old
-        'pcthisp',
-        'pctnhwa',
-        'pctnhba',
-        'pctnhaiana',
-        'pctnhaa',
-        'pctnhnhpia',
-        'pctnhotheralone',
-        'pctnhmulti'
+        'over64'
       )
+
     ejfields <- c(
-      "EJ.DISPARITY.pctpre1960.eo",        "EJ.DISPARITY.pctpre1960.svi6",
-    "EJ.BURDEN.pctpre1960.eo",           "EJ.BURDEN.pctpre1960.svi6",
-    "EJ.PCT.pctpre1960.eo",              "EJ.PCT.pctpre1960.svi6",
-
-    "EJ.DISPARITY.dpm.eo",               "EJ.DISPARITY.dpm.svi6",
-    "EJ.BURDEN.dpm.eo",                  "EJ.BURDEN.dpm.svi6",
-    "EJ.PCT.dpm.eo",                     "EJ.PCT.dpm.svi6",
-
-    "EJ.DISPARITY.cancer.eo",            "EJ.DISPARITY.cancer.svi6",
-    "EJ.BURDEN.cancer.eo",               "EJ.BURDEN.cancer.svi6",
-    "EJ.PCT.cancer.eo",                  "EJ.PCT.cancer.svi6",
-
-    "EJ.DISPARITY.resp.eo",              "EJ.DISPARITY.resp.svi6",
-    "EJ.BURDEN.resp.eo",                 "EJ.BURDEN.resp.svi6",
-    "EJ.PCT.resp.eo",                    "EJ.PCT.resp.svi6",
-
-    "EJ.DISPARITY.neuro.eo",             "EJ.DISPARITY.neuro.svi6",
-    "EJ.BURDEN.neuro.eo",                "EJ.BURDEN.neuro.svi6",
-    "EJ.PCT.neuro.eo",                   "EJ.PCT.neuro.svi6",
-
-    "EJ.DISPARITY.traffic.score.eo",     "EJ.DISPARITY.traffic.score.svi6",
-    "EJ.BURDEN.traffic.score.eo",        "EJ.BURDEN.traffic.score.svi6",
-    "EJ.PCT.traffic.score.eo",           "EJ.PCT.traffic.score.svi6",
-
-    "EJ.DISPARITY.proximity.npdes.eo",   "EJ.DISPARITY.proximity.npdes.svi6",
-    "EJ.BURDEN.proximity.npdes.eo",      "EJ.BURDEN.proximity.npdes.svi6",
-    "EJ.PCT.proximity.npdes.eo",         "EJ.PCT.proximity.npdes.svi6",
-
-    "EJ.DISPARITY.proximity.npl.eo",     "EJ.DISPARITY.proximity.npl.svi6",
-    "EJ.BURDEN.proximity.npl.eo",        "EJ.BURDEN.proximity.npl.svi6",
-    "EJ.PCT.proximity.npl.eo",           "EJ.PCT.proximity.npl.svi6",
-
-    "EJ.DISPARITY.proximity.rmp.eo",     "EJ.DISPARITY.proximity.rmp.svi6",
-    "EJ.BURDEN.proximity.rmp.eo",        "EJ.BURDEN.proximity.rmp.svi6",
-    "EJ.PCT.proximity.rmp.eo",           "EJ.PCT.proximity.rmp.svi6",
-
-    "EJ.DISPARITY.proximity.tsdf.eo",    "EJ.DISPARITY.proximity.tsdf.svi6",
-    "EJ.BURDEN.proximity.tsdf.eo",       "EJ.BURDEN.proximity.tsdf.svi6",
-    "EJ.PCT.proximity.tsdf.eo",          "EJ.PCT.proximity.tsdf.svi6",
-
-    "EJ.DISPARITY.o3.eo",                "EJ.DISPARITY.o3.svi6",
-    "EJ.BURDEN.o3.eo",                   "EJ.BURDEN.o3.svi6",
-    "EJ.PCT.o3.eo",                      "EJ.PCT.o3.svi6",
-
-    "EJ.DISPARITY.pm.eo",                "EJ.DISPARITY.pm.svi6",
-    "EJ.BURDEN.pm.eo",                   "EJ.BURDEN.pm.svi6",
-    "EJ.PCT.pm.eo",                      "EJ.PCT.pm.svi6")
+      names.ej
+    )
 
     keep.new <- c(keep.new, ejfields)
   }

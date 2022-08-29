@@ -12,7 +12,7 @@
 \format{
 A series of variables (each is a character vector of colnames):
 \itemize{
- \item "names.d" (VSI.eo, pctmin, pctlowinc, pctlths, pctlingiso, pctunder5, pctover64)
+ \item "names.d" (VSI.eo, pctmin, pctlowinc, etc.)
  \item "names.d.bin"
  \item "names.d.eo"
  \item "names.d.eo.bin"

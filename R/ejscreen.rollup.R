@@ -18,6 +18,7 @@
 #' @param acsnames Not used. Default is a vector of demographic colnames in bg, used in default ejscreen dataset (see code or \code{\link{ejscreenformulas}})
 #' @param ... Optional parameters to pass to \code{\link{ejscreen.create}} which uses formulas to create indicators from raw values.
 #' @param fipsname Default is 'FIPS.TRACT' - specifies colname of unique ID field FIPS used to group by. Can be FIPS.TRACT, FIPS.COUNTY, FIPS.ST, or REGION in default dataset.
+#' @param checkfips Whether to try to validate FIPS, passed to ejscreen.create(). See source for default.
 #' @param scalename ***Not used. Default is 'tracts' - specifies text to use in naming the saved file.
 #' @param folder ***Not used. Optional, default is getwd().
 #' @return Returns a data.frame with ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
@@ -55,7 +56,7 @@
 #'   }
 #'  }
 #'
-ejscreen.rollup <- function(bg, fipsname = 'FIPS.TRACT', scalename = 'tracts', enames, folder = getwd(), sumnames, avgnames, wts, acsnames, ...) {
+ejscreen.rollup <- function(bg, fipsname = 'FIPS.TRACT', scalename = 'tracts', enames, folder = getwd(), sumnames, avgnames, wts, acsnames, checkfips, ...) {
 
   ##################################### #
   # Get packages (available via http://www.ejanalysis.com)
@@ -103,10 +104,13 @@ ejscreen.rollup <- function(bg, fipsname = 'FIPS.TRACT', scalename = 'tracts', e
   # the fips field has to be called FIPS to work in ejscreen.create()
   # so even though we might be passing a region, state, county, tract, or bg fips,
   # it always will be called FIPS when passed to ejscreen.create, and its type is figured out there.
+  if (missing('checkfips')) {
+    checkfips <- ifelse(fipsname == 'REGION', FALSE, TRUE)
+  }
   tracts <- ejscreen.create(
     e =      data.frame(FIPS = tracts[ , fipsname], tracts[ , names(tracts) %in% enames]),
     acsraw = data.frame(FIPS = tracts[ , fipsname], tracts[ , acsfields] ),
-    checkfips = ifelse(fipsname == 'REGION', FALSE, TRUE),
+    checkfips = checkfips,
     ...
   )
   return(tracts)

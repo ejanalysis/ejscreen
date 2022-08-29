@@ -1,24 +1,26 @@
-# 
+#
 # # WHERE TO FIND NATIONAL TOTALS ONLINE VIA DEEP LINKS TO CENSUS SITE
-# 
+#
 # https://www2.census.gov/programs-surveys/acs/summary_file/2020/
-#   
-#   #2022# ejscreentables <- c("B01001", "B03002", "B15002", "B16002", "C17002", "B25034", 'B23025') 
-#   # all are in NHGIS except: b16004 not 16002 ?. 
+#
+#   #2022# ejscreentables <- c("B01001", "B03002", "B15002", "B16002", "C17002", "B25034", 'B23025')
+#   # all are in NHGIS except: b16004 not 16002 ?.
+# C16002 replaced B16004 that was older ACS source for what had been called linguistic isolation, now called limited English speaking households.
 #   # and added B23025 unemployement
-#   
+#
 #   us totals for ACS 2016-2020
-# 
-# b16004 OR b16002  LINGUISTIC ISOLATION 
-# 
+#
+# C16002  LINGUISTIC ISOLATION
+# C16002 replaced B16004 that was older ACS source for what had been called linguistic isolation.
+#
 # B23025 UNEMPLOYMENT
-# 
+#
 # B01001  SEX BY AGE
 #   https://data.census.gov/cedsci/table?g=0100000US&d=ACS%205-Year%20Estimates%20Detailed%20Tables&tid=ACSDT5Y2020.B01001
 #   BY STATE:
 #   https://data.census.gov/cedsci/table?g=0100000US,%240400000&d=ACS%205-Year%20Estimates%20Detailed%20Tables
 #   326569308
-# 
+#
 #   B03002  HISPANIC OR LATINO ORIGIN BY RACE
 #   US (AND PR SUBSET SHOWN)
 #   https://data.census.gov/cedsci/table?text=b03002&g=0100000US_0400000US72&y=2020&d=ACS%205-Year%20Estimates%20Detailed%20Tables
@@ -43,7 +45,7 @@
 #   3404
 #   2320
 #   3212625
-#   
+#
 #   C17002  RATIO OF INCOME TO POVERTY LEVEL IN THE PAST 12 MONTHS
 #   https://data.census.gov/cedsci/table?text=C17002&g=0100000US&y=2020&d=ACS%205-Year%20Estimates%20Detailed%20Tables
 #   Total:	318564128
@@ -54,7 +56,7 @@
 #   1.50 to 1.84	19156891
 #   1.85 to 1.99	8400974
 #   2.00 and over	223664192
-#   
+#
 #   B15002  SEX BY EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER
 #   https://data.census.gov/cedsci/table?text=B15002&g=0100000US&y=2020&d=ACS%205-Year%20Estimates%20Detailed%20Tables&tid=ACSDT5Y2020.B15002
 #   Total:	222836834
@@ -76,7 +78,7 @@
 #   10th grade	1671237
 #   11th grade	1913681
 #   12th grade, no diploma	1923842
-#   
+#
 #   B25034  YEAR STRUCTURE BUILT
 #   https://data.census.gov/cedsci/table?text=B25034&g=0100000US&y=2020&d=ACS%205-Year%20Estimates%20Detailed%20Tables&tid=ACSDT5Y2020.B25034
 #   Total:	138432751
@@ -90,7 +92,7 @@
 #   Built 1950 to 1959	14087506
 #   Built 1940 to 1949	6658408
 #   Built 1939 or earlier	17184492
-#   
-#   
-#   
-#   
+#
+#
+#
+#

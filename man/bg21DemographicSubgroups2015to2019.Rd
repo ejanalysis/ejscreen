@@ -25,11 +25,14 @@ This 2015-2019 dataset fits with the \link{bg21} data,
 \details{
 \preformatted{
 
-  Note the 2021 version of EJSCREEN released Feb 2022 (Called EJScreen 2.0)
-  actually uses ACS2019 and fits with bg21DemographicSubgroups2015to2019, which is from 2015-2019 (released by Census December 2020).
+ EJScreen 2.1 was released circa August 2022.
+   EJScreen 2.1 uses ACS2020, which is from 2016-2020 (released March 17 2022, delayed from Dec 2021).
+   It was to be called the 2022 version of EJScreen, and
+   here is called bg22.
 
-  Note the 2020 version of EJSCREEN released not in late 2020 but actually early-mid 2021, in bg20
-  actually uses ACS2018 and fits with bg20DemographicSubgroups2014to2018, which is from 2014-2018 (released by Census late 2019).
+ EJScreen 2.0 was released by EPA 2022-02-18 (delayed from mid/late 2021).
+   EJScreen 2.0 used ACS2019, which is from 2015-2019 (released Dec 2020).
+   It was to be called the 2021 version, and here is called bg21 as it was to be a late 2021 version.
 
   This data was created by downloading and calculating
   DETAILED RACE ETHNICITY SUBGROUP VARIABLES THAT ARE NOT IN EJSCREEN

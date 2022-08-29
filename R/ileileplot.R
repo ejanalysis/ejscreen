@@ -1,8 +1,8 @@
 #' Scatter plot of median of Environmental score percentiles for each Demographic score percentile
 #'
 #' Shows median envt percentile of places within each percentile of demog
-#' 
-#' @param x_demog_percentile demographic scores of block groups, as percentiles 0-100 
+#'
+#' @param x_demog_percentile demographic scores of block groups, as percentiles 0-100
 #' @param y_envt_percentile environmental indicator scores of block groups, as percentiles 0-100
 #' @param main optional main title for plot
 #' @param xlab optional x axis text for demographic percentile variable
@@ -12,17 +12,17 @@
 #' @export
 #'
 #' @examples
-#' 
+#' bg <- bg22
 #' ileile_plot(
-#'   ejscreen::bg20$pctile.pctmin, 
-#'   ejscreen::bg20$pctile.proximity.tsdf, 
-#'   xlab='low income percentile', 
+#'   ejscreen::bg$pctile.pctmin,
+#'   ejscreen::bg$pctile.proximity.tsdf,
+#'   xlab='low income percentile',
 #'   ylab='median pctile of environmental score at that level of % Demographics'
 #'  )
-#'  
+#'
 #'  pj(1,3)
-#'  
-#'   
+#'
+#'
 ileile_plot <- function(x_demog_percentile, y_envt_percentile, xlab='Demographic percentile (binned by rounding)', ylab='median of Environmental percentiles',
                         main='Does Environmental indicator tend to be higher where Demographic % is higher?', ...) {
   yp <- y_envt_percentile

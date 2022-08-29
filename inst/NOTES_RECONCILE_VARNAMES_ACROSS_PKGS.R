@@ -10,6 +10,18 @@
 
 # Check what API provides versus old batch tool provided - did counts get created that we need for aggregating by GIS toolbox code but not by API??
 
+#'  EJScreen 2.1 was released circa August 2022.
+#'    EJScreen 2.1 uses ACS2020, which is from 2016-2020 (released March 17 2022, delayed from Dec 2021).
+#'    It was to be called the 2022 version of EJScreen, and
+#'    here is called bg22.
+#'
+#'  EJScreen 2.0 was released by EPA 2022-02-18 (delayed from mid/late 2021).
+#'    EJScreen 2.0 used ACS2019, which is from 2015-2019 (released Dec 2020).
+#'    It was to be called the 2021 version, and here is called bg21 as it was to be a late 2021 version.
+
+#'   The 2020 version of EJSCREEN (confusingly released mid 2021 not late 2020)
+#'     used ACS2018, which is from 2014-2018 (released Dec 2019).
+
 
 ####################################
 # This will be made easier in the future, but for 6/2022 manually added 2 new EJScreen indicators:
@@ -89,7 +101,8 @@
 #   list.files('./data')  # in ejscreen package
 #
 #   bg21plus which combines these 2: "bg21.rdata"   "bg21DemographicSubgroups2015to2019.rdata"
-#      "lookupRegions20.rdata"   "lookupStates20.rdata"    "lookupUSA20.rdata"
+#      THESE WERE REMOVED: "lookupRegions20.rdata"   "lookupStates20.rdata"    "lookupUSA20.rdata"
+#      REPLACED WITH JUST lookupStates  and  lookupUSA
 #
 #   "ejscreenformulas.rda"  "ejscreenformulasnoej.rda"
 #
@@ -108,9 +121,9 @@
 #   bg21                           EJScreen 2.0 dataset, plus additional variables, minus some nonessential fields
 #  bg21DemographicSubgroups2015to2019  Demographic subgroups of race/ethnicity by block group (ACS2015-2019 for bg21 and late 2021v of EJSCREEN)
 #
-# lookupRegions (lookupRegions20)   The EPA-Region-level latest version of the EJSCREEN percentile lookup table.
-# lookupStates  (lookupStates20)    The State-level latest version of the EJSCREEN percentile lookup table.
-# lookupUSA     (lookupUSA20)       The nationwide most recent version of the EJSCREEN percentile lookup table.
+# lookupRegions (not lookupRegions20)   The EPA-Region-level latest version of the EJSCREEN percentile lookup table.
+# lookupStates  (not lookupStates20)    The State-level latest version of the EJSCREEN percentile lookup table.
+# lookupUSA     (not lookupUSA20)       The nationwide most recent version of the EJSCREEN percentile lookup table.
 
 # ejscreenformulas             EJSCREEN Formulas and Fieldnames
 # ejscreenformulasnoej         EJSCREEN Formulas and Fieldnames Excluding EJ Index Formulas

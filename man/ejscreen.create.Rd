@@ -88,12 +88,12 @@ A field called flagged can also be added via \link[ejanalysis]{flagged} ejanalys
 }
 \value{
 Returns a data.frame with full ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
-  as raw values, US percentiles, 
+  as raw values, US percentiles,
   but not actually the text for map popups. Output has one row per block group.
 }
 \description{
 NOTE : does not include demographic subgroups yet  see  names.d.subgroups
-  
+
   The EJSCREEN dataset each year is already available as a dataset in this package (as bg21 for example).
   But if you want to recreate that kind of dataset from your own environmental data (and demographic data),
   this function does that.
@@ -128,7 +128,7 @@ NOTE : does not include demographic subgroups yet  see  names.d.subgroups
  y=ejscreen.create(e=envirodata, acsraw=demogdata,
    keep.old = c(names(envirodata), names(demogdata)),
    demogvarname0 = 'pctmin',wtsvarname = 'pop' )
-   
+
  }
 }
 \seealso{

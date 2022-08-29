@@ -9,8 +9,8 @@
 #'   Each version of EJSCREEN uses updated environmental data and updated 5-year summary file estimates from the American Community Survey (ACS).
 #'
 #'   The 2017-2021 American Community Survey 5-year estimates are scheduled to be released on Thursday, December 8, 2022.
-#'   The 2016-2020 ACS 5-year estimates were released Dec 2021. 
-#'   
+#'   The 2016-2020 ACS 5-year estimates were released Dec 2021.
+#'
 #'   EJScreen 2.0 (released February 2022),
 #'     actually uses ACS2019 5-year summary file data, which is from 2015-2019 (released Dec 2020).
 #'     It is avail as data in \link{bg21}
@@ -19,7 +19,7 @@
 #'
 #'   Note the 2020 version of EJSCREEN (confusingly released early/mid 2021 not late 2020)
 #'     actually used ACS2018, which is from 2014-2018 (released late 2019).
-#'     It is avail as \link{bg20}
+#'     It had been called bg20
 #'
 #'        TO JUST READ THE EJSCREEN DATA ONCE DOWNLOADED FROM THE FTP SITE:
 #'

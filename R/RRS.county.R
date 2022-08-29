@@ -2,7 +2,7 @@
 #' @docType data
 #' @title Ratios of mean indicator values across demographic groups by US County
 #' @description
-#'   Based on the latest EJSCREEN dataset such as bg20
+#'   Based on the latest EJSCREEN dataset
 #'
 #'     See \code{\link[ejanalysis]{RR.table}} for how this was created and can be used.
 NULL

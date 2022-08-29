@@ -14,6 +14,7 @@ ejscreen.rollup(
   avgnames,
   wts,
   acsnames,
+  checkfips,
   ...
 )
 }
@@ -41,6 +42,8 @@ including 'pop', 'povknownratio', 'age25up', 'hhlds', 'builtunits',
 \item{wts}{Default is 'pop', the colname in bg specifying the field to use when calculating the weighted mean of all blockgroups in a tract, for example.}
 
 \item{acsnames}{Not used. Default is a vector of demographic colnames in bg, used in default ejscreen dataset (see code or \code{\link{ejscreenformulas}})}
+
+\item{checkfips}{Whether to try to validate FIPS, passed to ejscreen.create(). See source for default.}
 
 \item{...}{Optional parameters to pass to \code{\link{ejscreen.create}} which uses formulas to create indicators from raw values.}
 }

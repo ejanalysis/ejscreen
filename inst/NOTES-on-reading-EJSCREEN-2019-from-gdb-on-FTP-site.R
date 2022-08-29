@@ -51,22 +51,22 @@ if (1==0) {
   # Then moved file to  ejscreen/data/  and rebuilt package.
 }
 
-# NOTE: THE YEARS CAN BE CONFUSING! bg19 actually uses ACS2017, for example:
-#
-#   Note the 2021 version of EJSCREEN (to be released late 2021?)
-#     actually will use ACS2019, which is from 2015-2019 (released late 2020).
-#
-#   Note the 2020 version of EJSCREEN (was to be released late 2020 but delayed to early 2021)
-#     actually uses ACS2018, which is from 2014-2018 (released late 2019).
-#
-#   Note the 2019 version of EJSCREEN (released late 2019), in data(bg19, package='ejscreen')
-#     actually uses ACS2017, which is from 2013-2017 (released late 2018).
-#
-#   Note the 2018 version of EJSCREEN (released late 2018)
-#     actually uses ACS2016, which is from 2012-2016 (released late 2017).
+# NOTE: THE YEARS CAN BE CONFUSING!
 
+###### @template is now obsolete!    http://127.0.0.1:30244/library/roxygen2/doc/reuse.html
 
-# See the help file for bg19 via typing ?bg19 or ?bg20 or help(bg19, package = 'ejscreen') in RStudio or R console
+#'   The 2022 version of EJSCREEN "EJScreen 2.1" (released circa August 2022)
+#'    uses ACS2020, which is from 2016-2020 (released late 2021).
+#'   The 2021 version of EJSCREEN "EJScreen 2.0" (confusingly released mid 2021 not late 2020)
+#'     used ACS2019, which is from 2015-2019 (released Dec 2020). *****????
+#'   The 2020 version of EJSCREEN (confusingly released mid 2021 not late 2020)
+#'     used ACS2018, which is from 2014-2018 (released Dec 2019).
+#'   The 2019 version of EJSCREEN (released late 2019)
+#'     used ACS2017, which is from 2013-2017 (released Dec 2018).
+#'   The 2018 version of EJSCREEN (released late 2018)
+#'     used ACS2016, which is from 2012-2016 (released Dec 2017).
+
+# See the help file for bg21 or bg22 e.g., help(bg22, package = 'ejscreen')
 # ************* and
 # see  ACS_US_TOTALS_2014-2018.R in batch.summarizer package
 # see NOTES-on-reading-EJSCREEN-2019-from-gdb-on-FTP-site.R

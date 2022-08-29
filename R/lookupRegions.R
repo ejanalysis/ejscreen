@@ -4,8 +4,7 @@
 #' @description
 #'  \preformatted{
 #'
-#'  WARNING: ****The 2020 version of EJSCREEN did not include these lookup tables for download, so
-#'  the lookupUSA and other tables might still be from the 2019 version while new ones are created.
+#'  WARNING: **** As of 2022-07, EJScreen did not include these lookup tables for download as csv files on FTP site.
 #'
 #'  The nationwide most recent version of the EJSCREEN percentile lookup table.
 #'   Lookup table with one column per indicator and rows 0-100 show percentiles,

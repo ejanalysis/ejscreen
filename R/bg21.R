@@ -8,16 +8,12 @@
 #'  *VINTAGE*
 #'
 #'  - EJScreen 2.1 was released by EPA in August 2022. It is called bg22 here.
-#'    It uses ACS 2016-2020, which the Census Bureau released March 17, 2022.
+#'    It uses ACS 2016-2020, which the Census Bureau released March 17, 2022 (delayed from Dec 2021).
 #'
 #'  - EJScreen 2.0 was released by EPA February 18, 2022. It was called bg21 here.
 #'    It uses ACS 2015-2019, which the Census Bureau released December, 2020.
-#'    (EJScreen 2.0 was called the "2021 version" and bg21 here  
+#'    (EJScreen 2.0 was called the "2021 version" and bg21 here
 #'    because it would have been called the late 2021 version but was delayed).
-#'
-#'   - EJScreen before February 18, 2022 was still the "2020 version."
-#'     Note the 2020 version of EJSCREEN (confusingly released mid 2021 rather than late 2020)
-#'     actually used ACS2018, which was from 2014-2018 (released by Census December 2019).
 #'
 #'
 #'   - This data set is the EJSCREEN dataset from the ftp site but with
@@ -42,7 +38,7 @@
 #'    #  ), 2)
 #'
 #' Note that unlike bg21DemographicSubgroups2015to2019,
-#'    bg21 has PR, and will need to add PR to ACS demog subgroup data 
+#'    bg21 has PR, and will need to add PR to ACS demog subgroup data
 #'
 #'   Lookup tables are not yet included here: lookup tables of percentiles for USA, Regions, States are on EJSCREEN FTP site.
 #'   For that information, see ejscreen::lookupUSA, lookupRegions, lookupStates, and ejscreen::ejscreen.lookuptables
@@ -98,18 +94,21 @@
 #'   \code{
 #'   #  bg <- ejscreen.download(folder = getwd(), addflag = TRUE,   \cr
 #'   #  justreadname = 'EJSCREEN_2021_USPR.csv' )} \cr\cr
-#'    
+#'
 #'   \cr  or maybe should just do (instead of using ejscreen.download() to do this...)
 #'     # EJSCREEN_2021_USPR <- as.data.frame(readr::read_csv('./ejscreen2.1 july2022/EJSCREEN_2021_USPR.csv'))
 #'     bg <- as.data.frame(readr::read_csv('EJSCREEN_2021_USPR.csv'))
-#'     
+#'
 #'     names(bg) <- ejscreen::change.fieldnames.ejscreen.csv(names(bg))
-#'     bg$FIPS.TRACT <- substr(bg$FIPS, 1, 11) # assumes already has leading zeroes in FIPS
-#'     bg$FIPS.COUNTY <- substr(bg$FIPS, 1, 5) # assumes already has leading zeroes in FIPS
-#'     bg$FIPS.COUNTY <- substr(bg$FIPS, 1, 2) # assumes already has leading zeroes in FIPS
-#'     bg$countyname <- 
-#'     
-#'     
+#'
+#'     bg <- ejanalysis::addFIPScomponents(bg)
+#'     # or
+#'     ### bg$FIPS.TRACT <- substr(bg$FIPS, 1, 11) # assumes already has leading zeroes in FIPS
+#'     ### bg$FIPS.COUNTY <- substr(bg$FIPS, 1, 5) # assumes already has leading zeroes in FIPS
+#'     ### bg$FIPS.COUNTY <- substr(bg$FIPS, 1, 2) # assumes already has leading zeroes in FIPS
+#'     ### etc. ### bg$countyname <-
+#'
+#'
 #'   \cr
 #'   #  \link{ejscreen.download} renames fields, drops an ID field, \cr
 #'   # and adds fields called FIPS.TRACT, FIPS.COUNTY, FIPS.ST, countyname, and (optionally) flagged. \cr\cr
