@@ -84,7 +84,9 @@
 #'   # "pctnhaiana"      "pctnhaa"         "pctnhnhpia"      "pctnhotheralone" "pctnhmulti"
 #'
 #'   # setwd('~/../Downloads/acs1519')
-#'
+#'    mydir <- '~/Downloads/acstest'
+#'       if (!dir.exists(mydir)) dir.create(mydir)
+#'       setwd(mydir)
 #'   library(ejscreen); library(ejanalysis); library(analyze.stuff); require(ACSdownload)
 #'   acsdata <- ejscreen.acsget(tables = 'B03002',
 #'     end.year = 2019,

@@ -26,7 +26,7 @@ This dataset fits with the bg22 data,
 \details{
 \preformatted{
 
- EJScreen 2.1 was released circa August 2022.
+ EJScreen 2.1 was released circa September 2022.
    EJScreen 2.1 uses ACS2020, which is from 2016-2020 (released March 17 2022, delayed from Dec 2021).
    It was to be called the 2022 version of EJScreen, and
    here is called bg22.
