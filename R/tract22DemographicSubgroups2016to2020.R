@@ -1,0 +1,23 @@
+#' @name tract22DemographicSubgroups2016to2020
+#' @docType data
+#' @title Demographic subgroups of race/ethnicity by Census Tract - Missing Puerto Rico
+#'
+#' @description This dataset fits with EJScreen 2.1,
+#'   released in late 2022, based on ACS 2016-2020.
+#'
+#'  \preformatted{
+#'
+#'   This data was created by downloading and calculating
+#'   DETAILED RACE ETHNICITY SUBGROUP VARIABLES THAT ARE NOT IN EJSCREEN
+#'   (the subgroups within "minority" or "people of color").
+#'   This dataset includes percent Hispanic,
+#'   percent Non-Hispanic Black Alone (not multirace), etc.
+#'   Race ethnicity groups are defined by Census Bureau. They are
+#'   mutually exclusive (no overlaps between groups,
+#'   so a person is always in only one of these groups)
+#'   so they add up to the total population count or percent.
+#'    
+#'   From Census ACS 5 year summary file.
+#'  }
+#'     
+NULL

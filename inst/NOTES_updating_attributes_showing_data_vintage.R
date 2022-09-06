@@ -11,6 +11,25 @@ head(t(statestats[usastats$PCTILE == 'mean', ]))
 # PUERTO RICO NOT INCLUDED?
 
 
+# set attributes to store metadata on vintage
+metadata <- list(
+  census_version = 2020,
+  acs_version = '2016-2020',
+  acs_releasedate = '3/17/2022',
+  ejscreen_version = '2.1',
+  ejscreen_releasedate = 'September 2022',
+  ejscreen_pkg_data = 'bg22'
+)
+  attributes(bg22) <- c(attributes(bg22), metadata)
+
+
+
+
+
+
+
+# older set of attributes:
+
  attr(usastats,    which = 'released') <- 2022
  attr(usastats,    which = 'ejscreen_version') <- '2.0'
  attr(usastats,    which = 'ACS') <- '2015-2019'

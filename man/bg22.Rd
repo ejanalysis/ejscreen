@@ -12,7 +12,7 @@ data.frame with 242335 rows (block groups) and 153 columns
 
  VINTAGE
 
- - EJScreen 2.1 was released by EPA in August 2022. It is called bg22 here.
+ - EJScreen 2.1 was released by EPA in September 2022. It is called bg22 here.
    It uses ACS 2016-2020, which the Census Bureau released March 17, 2022 (delayed from Dec 2021).
 
  - EJScreen 2.0 was released by EPA February 18, 2022. It was called bg21 here.
@@ -38,30 +38,41 @@ Note Puerto Rico may not be in demographic subgroup data yet but this may change
     \code{require(analyze.stuff); require(ejanalysis); require(readr)} \cr
      \cr
   \code{
-  #bg22 <- as.data.frame(data.table::fread('~/../EJ 2021/EJSCREEN 2022 2.1 DATA late2022/EJSCREEN_2022_USPR.csv'))
-  #bg22 <- as.data.frame(data.table::fread('./inst/EJSCREEN_2022_USPR.csv'))
-  # or maybe as.data.frame(readr::read_csv('./inst/EJSCREEN_2022_USPR.csv')) # might handle FIPS better
+  ## bg22 <- as.data.frame(data.table::fread('~/../EJ 2021/EJSCREEN 2022 2.1 DATA late2022/EJSCREEN_2022_USPR.csv'))
+  # might handle FIPS better:
+    bg22  <- as.data.frame(readr::read_csv("~/../EJ 2021/EJSCREEN 2022 2.1 DATA late2022/EJSCREEN_2022_USPR.csv"))
   names(bg22) <- ejscreen::change.fieldnames.ejscreen.csv(names(bg22))
-  bg22 <- ejanalysis(addFIPScomponents(bg22))
-
+  bg22 <- ejanalysis::addFIPScomponents(bg22, clean=FALSE)
+  # ejscreen.download() adds fields called FIPS.TRACT, FIPS.COUNTY, FIPS.ST, countyname. \cr
+  # or ejanalysis::addFIPScomponents() does that \cr 
   # or....
   #  bg <- ejscreen::ejscreen.download(yr=2022) # to be confirmed later  ------------------   \cr
 
     } \cr\cr
-  #
-  # ejscreen.download() adds fields called FIPS.TRACT, FIPS.COUNTY, FIPS.ST, countyname. \cr
-  # or ejanalysis::addFIPScomponents() does that \cr
-  # and adds lat, lon fields for block group centroids, via \link[proxistat]{bg.pts} from proxistat package\cr
+  
+  # and used to add lat, lon fields for block group centroids, via \link[proxistat]{bg.pts} from proxistat package\cr
   \code{# plot(bg$lon[bg$lon < -50], bg$lat[bg$lon < -50], pch = '.')} \cr\cr
+  # but that bg.pts has not been updated.
+  
+  
   # \code{sum(is.na(bg$FIPS.ST)) # check if any are NA} \cr
 
   # THEN USE A NAME SPECIFIC TO THE YEAR and add metadata: \cr
 
   \code{bg22 <- bg; rm(bg)} \cr
   # "2022 version" (EJScreen version 2.1, bg22, ACS2020, after 7/2022)
-  metadata <- list(releasedate = 'late 2022', ejscreen_version = '2.1', ACS_version = '2016-2020')
+   
+set attributes to store metadata on vintage
+metadata <- list(
+  census_version = 2020,
+  acs_version = '2016-2020',
+  acs_releasedate = '3/17/2022',
+  ejscreen_version = '2.1',
+  ejscreen_releasedate = 'September 2022',
+  ejscreen_pkg_data = 'bg22'
+)
   attributes(bg22) <- c(attributes(bg22), metadata)
-  usethis::use_data(bg22, overwrite = TRUE)
+   usethis::use_data(bg22, overwrite = TRUE)
   # or
   # \code{save(bg22, file = 'bg22.rdata')} \cr \cr
 }

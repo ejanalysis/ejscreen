@@ -1,12 +1,12 @@
 #' @name bg22DemographicSubgroups2016to2020
 #' @docType data
-#' @title Demographic subgroups of race/ethnicity by block group
-#'
+#' @title Demographic subgroups of race/ethnicity by block group - Missing Puerto Rico
+#' 
 #' @description This dataset fits with the bg22 data,
 #'   which is called EJScreen 2.1, released in late 2022, based on ACS 2016-2020.
-#'
+#' 
 #'  \preformatted{
-#'
+#' 
 #'   This data was created by downloading and calculating
 #'   DETAILED RACE ETHNICITY SUBGROUP VARIABLES THAT ARE NOT IN EJSCREEN
 #'   (the subgroups within "minority" or "people of color").
@@ -21,12 +21,12 @@
 #'  }
 #' @details
 #' \preformatted{
-#'
+#' 
 #'  EJScreen 2.1 was released circa August 2022.
 #'    EJScreen 2.1 uses ACS2020, which is from 2016-2020 (released March 17 2022, delayed from Dec 2021).
 #'    It was to be called the 2022 version of EJScreen, and
 #'    here is called bg22.
-#'
+#' 
 #'  EJScreen 2.0 was released by EPA 2022-02-18 (delayed from mid/late 2021).
 #'    EJScreen 2.0 used ACS2019, which is from 2015-2019 (released Dec 2020).
 #'    It was to be called the 2021 version, and here is called bg21 as it was to be a late 2021 version.
@@ -35,8 +35,8 @@
 #'  \cr
 #'   This will give a quick look at some key stats: \cr
 #'     # round(data.frame(cbind(  \cr
-#'     # subgroups=unlist(ustotals(bg21DemographicSubgroups2015to2019)), \cr
-#'     # maingroups = unlist(ustotals(subset(bg21, bg21$ST !='PR')))  \cr
+#'     # subgroups=unlist(ustotals(bg22DemographicSubgroups2016to2020)), \cr
+#'     # maingroups = unlist(ustotals(subset(bg22, bg22$ST !='PR')))  \cr
 #'     # ),2) \cr
 #'  \cr
 #'
@@ -56,20 +56,31 @@
 #'
 #'     # Check if Puerto Rico is missing from this ACS dataset.
 #'     # while bg22 has PR, so when merged, the PR rows would be NA for pcthisp, etc.
-#'     # setdiff(substr(bg21$FIPS, 1,2), substr(bg22DemographicSubgroups2016to2020$FIPS,1,2))
+#'     # setdiff(substr(bg22$FIPS, 1,2), substr(bg22DemographicSubgroups2016to2020$FIPS,1,2))
 #'     #   "72" which is the FIPS code for Puerto Rico.
 #'
 #'         subset.data.frame(x = names(bg22plus), subset =  !(names(bg22plus) %in% names(bg22)) )
-#'
-#'     ######################################################################################
-#'     # SUMMARY STATS ON DISPARITY BY GROUP BY ENVT ISSUE
-#'     #  See help for RR.table() in ejanalysis package
-#'     # (This is very slow right now)
-#'     bg=bg22plus
-#'     Ratios <- ejanalysis::RR.table(bg, Enames = names.e, Dnames = c(names.d, names.d.subgroups), popcolname = 'pop', digits = 2)
-#'     MeansByGroup_and_Ratios <- ejanalysis::RR.means(subset(bg, select=names.e), subset(bg, select = c(names.d, names.d.subgroups)), bg$pop)
-#'     MeansByGroup_and_Ratios
-#'     Ratios
 #'     }
+#'   \preformatted{
 #'
+#'   ######################################################################################
+#'   How dataset was created:
+#'   ######################################################################################
+#'
+#'     # DOWNLOAD ACS TABLE WITH RACE ETHNICITY BY BLOCK GROUP
+#'     # AND CREATE PERCENT VARIABLES LIKE PERCENT HISPANIC, ETC. - but missing PR
+#'
+#'     # These are created: (count and percent hispanic or latino, nonhispanic white alone i.e. single race,
+#'   # nonhispanic black or african american alone, Not Hispanic or Latino American Indian and Alaska Native alone,
+#'   # Not Hispanic or Latino Native Hawaiian and Other Pacific Islander alone,
+#'   # and nh some other race alone, and nh two or more races)
+#'   # "hisp"            "nhwa"            "nhba"            "nhaiana"         "nhaa"            "nhnhpia"
+#'   # "nhotheralone"    "nhmulti"         "nonmins"         "pcthisp"         "pctnhwa"         "pctnhba"
+#'   # "pctnhaiana"      "pctnhaa"         "pctnhnhpia"      "pctnhotheralone" "pctnhmulti"
+#'   
+#'   # See in this package inst folder, the SCRIPT for how this was created.
+#'   
+#'
+#'     }
+#'     
 NULL

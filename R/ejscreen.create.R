@@ -139,8 +139,8 @@ ejscreen.create <-
     #   - Assigns bins (map color bin number) using make.bin.cols()
     #  This originally was done by Calculate_BG_BinsPercentiles-2014-05.R
     #
-    # POPUP TEXT ****  NOT DONE HERE AT LEAST NOT YET AS OF 4/2022
-    #  Should be possible via
+    # POPUP TEXT ****  
+    #    added optionally, via
     # ejscreen::make.popup.d, ejscreen::make.popup.e, ejscreen::make.popup.ej
     # - Create text popup versions of all raw scores and percentiles for display:
     #     -limited significant digits for environmental indicators
