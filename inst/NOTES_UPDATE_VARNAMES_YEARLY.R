@@ -39,11 +39,19 @@
 ##################################### #
 #  - ejscreenformulas -
 #    ** needs ACS variable numbers details for unemployed and unemployedbase
+#
+#
 #    ** need new formulas for EJ Index = E * D
 #  - ejscreenformulasnoej - same
 #  - vars.ejscreen.acs  - not sure needed, but check and update
 #  - needed.ejscreen.acs ? need this at all?
 #  - FILE .csv ??
+
+
+##################################### #
+## new linguistic / language table ####
+# # C16002 replaced B16004 that was older ACS source for what had been called linguistic isolation, now called limited English speaking households.
+
 
 
 
@@ -115,18 +123,26 @@ new.d.info <- data.frame(
     "unemployed",
     "pctunemployed",
     "pctile.pctunemployed",
-    "bin.unemployed",
-    "pctile.text.unemployed"
+    "bin.pctunemployed",  # fixed
+    "pctile.text.pctunemployed" # fixed
   ),
-  acsfieldname = rep(NA_character_, 6),
+  acsfieldname = c(
+    'B23025.003',
+    'B23025.005',
+    NA,
+    NA,
+    NA,
+    NA
+  ),
+    # rep(NA_character_, 6),
   type = rep('Demographic Supplementary', 6),
   glossaryfieldname = c(
-    "Count of denominator for percent unemployed",
+    "Count of denominator for % unemployed",
     "Count of people unemployed",
-    "Percent Unemployed",
+    "% Unemployed",
     "Percentile for % unemployed",
-    "Map color bin for percent unemployed",
-    "Map popup text for percent unemployed"
+    "Map color bin for % unemployed",
+    "Map popup text for % unemployed"
   ),
   formula = c(
     NA,
@@ -136,8 +152,17 @@ new.d.info <- data.frame(
     NA,
     NA
   ),
-  acsfieldnamelong = rep(NA_character_, 6),
-  universe = rep(NA_character_, 6)
+  acsfieldnamelong = c(
+    'Civilian labor force|EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER',
+    'Unemployed|EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER',
+    NA,
+    NA,
+    NA,
+    NA
+  ),
+  #rep(NA_character_, 6),
+  universe = rep('Universe:  Population 16 years and over',6)
+    #rep(NA_character_, 6)
 )
 # DEMOG INFO for the ejscreenformulas table:
 #     "gdbfieldname"          "Rfieldname" "acsfieldname"      "type"              "glossaryfieldname"       "formula"           "acsfieldnamelong"  "universe"
@@ -148,6 +173,10 @@ new.d.info <- data.frame(
 # 610    P_UNEMPPCT   pctile.pctunemployed         <NA> Demographic Supplementary                 Percentile for % unemployed
 # 910    B_UNEMPPCT         bin.unemployed         <NA> Demographic Supplementary        Map color bin for percent unemployed
 # 1210   T_UNEMPPCT pctile.text.unemployed         <NA> Demographic Supplementary       Map popup text for percent unemployed
+
+# LINGUISTIC HAS CHANGED ####
+
+# manually fixed info about this table in ejscreenformulas and noej version
 
 
 
@@ -174,7 +203,7 @@ use_data(esigfigs, overwrite=TRUE)
 ###################################################################### #
 # names.d.nice - nice name to use on graph labels etc. for new indicator  ####
 ###################################################################### #
-
+# names.d.nice  provides very very short but clear names like Demog.Ind.
 names.d.nice <- union(names.d.nice, new.d.nice)
 use_data(names.d.nice, overwrite=TRUE)
 # These were similar but not identical:
@@ -187,6 +216,7 @@ use_data(names.d.nice, overwrite=TRUE)
 # [5] "% of households (interpreted as individuals) in linguistic isolation"
 # [6] "% under age 5"
 # [7] "% over age 64"
+# [8] "Percent Unemployed"
 
 # > cbind(names.d.nice)  #  THESE ARE VERY SHORT - USEFUL ON GRAPHICS
 # names.d.nice
@@ -197,7 +227,7 @@ use_data(names.d.nice, overwrite=TRUE)
 # [5,] "% Linguistic Isol."
 # [6,] "% < age 5"
 # [7,] "% > age 64"
-
+# [8,] "% Unemployed"
 ###################################################################### #
 # DEMOG  lists of variables related to the new DEMOG indicator  ####
 ###################################################################### #

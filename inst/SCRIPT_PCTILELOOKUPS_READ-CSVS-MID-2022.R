@@ -10,6 +10,7 @@ read_to_save_as_data <- function(myname, mydir=getwd(), justread=TRUE, rename=FA
     cat('rename columns \n')
   }
   attributes(x) <- c(attributes(x), attributelist_to_add)
+  # BUT THAT APPENDS EVEN IF WANT TO REPLACE WITH UPDATED INFO
   if (!justread) {
     assign(myname, x)  # lookupUSA <- x
     save(list = myname, file = paste0(file.path(mydir, 'data', myname), '.rda'))
@@ -35,7 +36,15 @@ stop('here')
 # LOOKUP TABLES OF PERCENTILES
 
 # "2022 version" (EJScreen version 2.1, bg22, ACS2020, after 7/2022)
-metadata <- list(releasedate = 'late 2022', ejscreen_version = '2.1', ACS_version = '2016-2020')
+# metadata <- list(
+#   census_version = 2020,
+#   acs_version = '2016-2020',
+#   acs_releasedate = '3/17/2022',
+#   ejscreen_version = '2.1',
+#   ejscreen_releasedate = 'October 2022',
+#   ejscreen_pkg_data = 'bg22'
+# )
+# for (i in seq_along(metadata)) {attr(x, which = names(metadata)[i]) <- metadata[i]}
 USA_2022_LOOKUP <- NULL; States_2022_LOOKUP <- NULL
 USA_2022_LOOKUP <-    read_to_save_as_data(   'USA_2022_LOOKUP', mydir=mydir, rename = FALSE, attributelist_to_add = metadata)
 States_2022_LOOKUP <- read_to_save_as_data('States_2022_LOOKUP', mydir=mydir, rename = FALSE, attributelist_to_add = metadata)

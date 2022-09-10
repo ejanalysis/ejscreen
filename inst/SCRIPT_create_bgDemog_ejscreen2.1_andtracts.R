@@ -7,7 +7,7 @@ library(ejscreen); library(ejanalysis); library(analyze.stuff); require(ACSdownl
 ##################################################################### #
 # specify file directory
 #
-mydir <- './acstest' 
+mydir <- './acstest'
 if (!dir.exists(mydir)) dir.create(mydir) # and the ejscreen.acsget will create subfolders by default
 
 ##################################################################### #
@@ -18,7 +18,7 @@ metadata <- list(
   acs_version = '2016-2020',
   acs_releasedate = '3/17/2022',
   ejscreen_version = '2.1',
-  ejscreen_releasedate = 'September 2022',
+  ejscreen_releasedate = 'October 2022',
   ejscreen_pkg_data = 'bg22'
 )
 addmeta <- function(x, meta) {attributes(x) <- c(attributes(x), meta); return(x)}
@@ -30,7 +30,7 @@ acsdata_B03002 <- ejscreen::ejscreen.acsget(tables = 'B03002',
                                   end.year = 2020,
                                   base.path = mydir, sumlevel = 'both' )
 # 6 minutes (or up to 10 minutes?) slow - downloads each state
-names(acsdata_B03002) # "bg"      "tracts"  "headers" "info"    
+names(acsdata_B03002) # "bg"      "tracts"  "headers" "info"
 acsdata_B03002 <- addmeta(acsdata_B03002, metadata)
 
 ##################################################################### #

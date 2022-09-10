@@ -5,15 +5,34 @@
 #
 #   #2022# ejscreentables <- c("B01001", "B03002", "B15002", "B16002", "C17002", "B25034", 'B23025')
 #   # all are in NHGIS except: b16004 not 16002 ?.
-# C16002 replaced B16004 that was older ACS source for what had been called linguistic isolation, now called limited English speaking households.
+# C16002 replaced B16004 that was older ACS source for what had been called linguistic isolation,
+# now called limited English speaking households.
 #   # and added B23025 unemployement
 #
 #   us totals for ACS 2016-2020
 #
 # C16002  LINGUISTIC ISOLATION
 # C16002 replaced B16004 that was older ACS source for what had been called linguistic isolation.
+#  A "limited English speaking household" is one in which no member 14 years old and over
+#  (1) speaks only English or (2) speaks a non-English language and speaks English "very well."
+#  In other words, all members 14 years old and over have at least some difficulty with English.
+#  By definition, English-only households cannot belong to this group.
+#  Previous Census Bureau data products have referred to these households as "linguistically isolated"
+# and "Households in which no one 14 and over speaks English only or speaks a
+# language other than English at home and speaks English 'very well'."
+#  This table is directly comparable to tables from earlier years that used these labels.
 #
+#  The household language assigned to the housing unit is the non-English language spoken by
+# the first person with a non-English language in the following order:
+#  reference person, spouse, parent, sibling, child, grandchild, in-law, other relative,
+#  unmarried partner, housemate/roommate, roomer/boarder, foster child, or other nonrelative.
+# If no member of the household age 5 and over speaks a language other than English at home
+# then the household language is English only.
+
 # B23025 UNEMPLOYMENT
+# browseURL('https://data.census.gov/cedsci/table?g=0100000US&y=2020&tid=ACSDT5Y2020.B23025')
+#  B23025.004              Employed
+#  B23025.003 Civilian labor force
 #
 # B01001  SEX BY AGE
 #   https://data.census.gov/cedsci/table?g=0100000US&d=ACS%205-Year%20Estimates%20Detailed%20Tables&tid=ACSDT5Y2020.B01001
