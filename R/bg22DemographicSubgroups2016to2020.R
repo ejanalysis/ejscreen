@@ -7,11 +7,11 @@
 #'   such as Hispanic or Latino, Non-Hispanic Black Alone, etc.
 #' @details
 #' \preformatted{
-#'   This dataset is a companion to the block grroup data from EJScreen.
+#'   This dataset is a companion to the block group data from EJScreen.
 #'   EJScreen and therefore bg22 lack table B03002 (race ethnicity) so that table
 #'   is obtained as bg22DemographicSubgroups
-#'
-#'  Note: As of 9/12/22 this also includes race/ethnicity data for Puerto Rico.
+#'  
+#'  This also includes race/ethnicity data for Puerto Rico, but not GU/AS/VI/MP.
 #'
 #'    EJScreen 2.1 uses ACS2020, which is from 2016-2020 (released March 17 2022, delayed from Dec 2021).
 #'    It was to be called the 2022 version of EJScreen, and
@@ -48,7 +48,11 @@
 #'   How dataset was created:
 #'   ######################################################################################
 #'
-#'     # DOWNLOAD ACS TABLE WITH RACE ETHNICITY BY BLOCK GROUP
+#'     # see  ejscreen/inst/SCRIPT_create_bgDemog_ejscreen2.1_andtracts.R 
+#'     # the SCRIPT for how this was created
+#'     # and  ejscreen/inst/SCRIPT_ADD_PUERTORICO_DEMOG_SUBGROUPS.R for the PR part.
+#'     
+#'     # DOWNLOADED ACS TABLE WITH RACE ETHNICITY BY BLOCK GROUP
 #'     # AND CREATE PERCENT VARIABLES LIKE PERCENT HISPANIC, ETC.
 #'
 #'     # These are created: (count and percent hispanic or latino, nonhispanic white alone i.e. single race,
@@ -60,49 +64,6 @@
 #'   # "nhotheralone"    "nhmulti"         "nonmins"         "pcthisp"         "pctnhwa"         "pctnhba"
 #'   # "pctnhaiana"      "pctnhaa"         "pctnhnhpia"      "pctnhotheralone" "pctnhmulti"
 #'
-#'   # See in this package inst folder, the SCRIPT for how this was created.
 #'   }
-#'   \preformatted{
-#'     ######################################################################################
-#'     # How to add Puerto Rico demographic subgroup info:
-#'     ######################################################################################
-#'
-#'     # For all block groups in US other than in PR,
-#'     #  bg22DemographicSubgroups got B03002 using the script
-#'     # but that did not include PR. Puerto Rico was missing if using ACSDownload package code.
-#'     #   setdiff(substr(bg22$FIPS, 1,2), substr(bg22DemographicSubgroups2016to2020$FIPS,1,2))
-#'     #   # "72" which is the FIPS code for Puerto Rico.
-#'
-#'     # PR table B03002 from ACS2016-2020 block groups was obtained from
-#'     # browseURL('https://data.census.gov/cedsci/table?g=0100000US_0400000US72%241500000&y=2020&tid=ACSDT5Y2020.B03002')
-#'
-#'     # Get Puerto Rico table B03002
-#'     prsub <- read.csv('')
-#'     # rename headers
-#'     # calculated variables
-#'     # etc.
-#'
-#'     # Merge prsub into bg22DemographicSubgroups
-#'     bg22DemographicSubgroups <- merge(bg22DemographicSubgroups, prsub, by='FIPS', all=TRUE)
-#'     # check it
-#'   }
-#'   \preformatted{
-#'     ######################################################################################
-#'     # How to merge demographic subgroup info into the basic EJSCREEN bg dataset:
-#'     ######################################################################################
-#'
-#'     d <- bg22DemographicSubgroups2016to2020
-#'     d <- subset.data.frame(x = d, subset = !(names(d) %in% c('pop', 'mins', 'pctmin')) )
-#'
-#'     # Once bg22DemographicSubgroups has PR table B03002, merge that into complete dataset:
-#'
-#'     bg22plus <- merge(bg22, d, by = 'FIPS', all.x = TRUE)
-#'      usethis::use_data(bg22plus)
-#'     ## save(bg22plus, file = 'bg22plus EJSCREEN dataset plus race ethnic subgroups.rdata')
-#'     ## write.csv(bg22plus, file = 'bg22plus EJSCREEN dataset plus race ethnic subgroups.csv')
-#'     ##########################################
-#'
-#'         subset.data.frame(x = names(bg22plus), subset =  !(names(bg22plus) %in% names(bg22)) )
-#'     }
-#'
+#'     
 NULL
