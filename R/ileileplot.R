@@ -28,7 +28,7 @@ ileile_plot <- function(x_demog_percentile, y_envt_percentile, xlab='Demographic
   yp <- y_envt_percentile
   xp <- round(x_demog_percentile, 0)
   dt <- data.table::data.table(xp=xp, yp=yp)
-  xyplot <- dt[ , median(yp, na.rm = TRUE), by=xp]
+  xyplot <- dt[ , stats::median(yp, na.rm = TRUE), by=xp]
   colnames(xyplot) <- c('x','y')
   plot(xyplot$x, xyplot$y,  main=main, xlab=xlab, ylab=ylab, ...)
 }
