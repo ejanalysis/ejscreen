@@ -14,7 +14,15 @@
 #'
 #' @examples
 #'   x <- data.frame(a=1:10,b=1001:1010)
-#'   x <- add_metadata(x, list(year_created=1984, status='draft', owner='orwell'))
+#'   metadata <- list(
+#'   census_version = 2020,
+#'   acs_version = '2016-2020',
+#'   acs_releasedate = '3/17/2022',
+#'   ejscreen_version = '2.1',
+#'   ejscreen_releasedate = 'October 2022',
+#'   ejscreen_pkg_data = 'bg22'
+#'   )
+#'   x <- add_metadata(x, metadata)
 #'   attributes(x)
 #'   x <- add_metadata(x, list(status='final'))
 #'   attr(x,'status')

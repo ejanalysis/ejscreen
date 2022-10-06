@@ -25,6 +25,7 @@
 #' @references
 #'
 #' \url{http://www.epa.gov/ejscreen} \cr
+#' \url{https://github.com/ejanalysis/ejscreen} \cr
 #' \url{http://ejanalysis.github.io} \cr
 #' \url{http://www.ejanalysis.com/} \cr
 NULL
