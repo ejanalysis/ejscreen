@@ -11,9 +11,9 @@
 # ejscreen::add_metadata()
 
 #
-# add_metadata(usastats)
-# add_metadata(regionstats)
-# add_metadata(statestats)
+# usastats    <- add_metadata(usastats)
+# regionstats <- add_metadata(regionstats)
+# statestats  <- add_metadata(statestats)
 #
 
   rdattr()
