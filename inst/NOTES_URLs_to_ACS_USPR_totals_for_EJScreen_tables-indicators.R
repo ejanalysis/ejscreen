@@ -10,8 +10,12 @@ c(
 'https://data.census.gov/cedsci/table?g=0100000US_0400000US72&y=2020&moe=false&tid=ACSDT5Y2020.B01001',
 'https://data.census.gov/cedsci/table?g=0100000US_0400000US72&y=2020&moe=false&tid=ACSDT5Y2020.B03002',
 'https://data.census.gov/cedsci/table?g=0100000US_0400000US72&y=2020&moe=false&tid=ACSDT5Y2020.B15002',
+
 # C16002 replaced B16004 that was older ACS source for what had been called linguistic isolation, now called limited English speaking households.
-'https://data.census.gov/cedsci/table?g=0100000US_0400000US72&y=2020&moe=false&tid=ACSDT5Y2020.B16004',
+# 'https://data.census.gov/cedsci/table?g=0100000US_0400000US72&y=2020&moe=false&tid=ACSDT5Y2020.B16004',
+'https://data.census.gov/cedsci/table?g=0100000US_0400000US72&y=2020&moe=false&tid=ACSDT5Y2020.C16002',
+
+
 'https://data.census.gov/cedsci/table?g=0100000US_0400000US72&y=2020&moe=false&tid=ACSDT5Y2020.C17002',
 'https://data.census.gov/cedsci/table?g=0100000US_0400000US72&y=2020&moe=false&tid=ACSDT5Y2020.B23025',
 'https://data.census.gov/cedsci/table?g=0100000US_0400000US72&y=2020&moe=false&tid=ACSDT5Y2020.B25034'
