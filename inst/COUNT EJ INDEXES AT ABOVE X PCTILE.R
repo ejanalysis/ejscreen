@@ -33,7 +33,7 @@ a3
 # 
 # colcounter is like analyze.stuff::colcounter   or    analyze.stuff::cols.above.count # but they may not be identical anymore 
 
-# colcounter <- function(x, cutoff, or.tied=TRUE, na.rm=TRUE, below=FALSE, one.cut.per.col=FALSE) {
+colcounter <- function(x, cutoff, or.tied=TRUE, na.rm=TRUE, below=FALSE, one.cut.per.col=FALSE) {
   if (is.null(dim(x))) {numcols <- 1; stop('expected data.frame as x but has only 1 dimension')} else {numcols <- dim(x)[2]}
   if (missing(cutoff)) {
     if (one.cut.per.col) {
