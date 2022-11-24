@@ -51,10 +51,7 @@
 
 # ejscreen::ejscreen.lookuptables		Create EJSCREEN Lookup Tables of Pop. Percentiles by Zone - but see ejscreen::write.wtd.pctiles.by.zone()
 
-# EJAM::lookup.pctile.US		  look up in a table to find percentile that a raw score is at within USA
-# EJAM::lookup.pctile.State		look up table to find percentile that a raw score is at within given US State
-# EJAM::lookup.pctile.Region	look up table to find percentile that a raw score is at within EPA Region
-
+# EJAM::lookup_pctile 		  look up in a table to find percentile that a raw score is at within USA, or states 
 
 # USE LOOKUPS ####
 

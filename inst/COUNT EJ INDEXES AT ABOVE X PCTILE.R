@@ -22,9 +22,7 @@ bench <- 5 * (0:20)
 a3 <- colcounter_summary_all(df, bench)
 a3
 
-
-# see EJAM::lookfun to look up value in lookup table
-
+ 
 #  NOTE:  THE MEAN (AVERAGE) IN EJSCREEN LOOKUP TABLES IS NOW THE BLOCKGROUP MEAN 
 # NOT THE POPULATION MEAN, SO IT IS NOT THE AVG RESIDENT. IT IS THE AVERAGE BLOCKGROUP.
 
@@ -188,11 +186,13 @@ round(keystats_e, 2)
 ############################################################################# #
 # AS PERCENTILES ####
 # CONVERT TO PERCENTILES
-# see EJAM::lookfun() 
+# see EJAM::lookup_pctile
 library(EJAM)
+
+# or this simplified version:
 lookfun <- function(myvector, varname.in.lookup.table, lookup) {
  # CONVERT raw scores TO PERCENTILES by looking them up in a lookup table of percentiles 0-100
-  # simplified version of ejscreen::lookup.pctile.US
+  # simplified version of ejanalysis::lookup.pctile 
   lookup <- lookup[lookup$PCTILE != "std.dev", ] # drop this row if it is there
   lookup <- lookup[lookup$PCTILE != "mean", ] # drop this row if it is there
   whichinterval <- findInterval(myvector, lookup[ , varname.in.lookup.table])
