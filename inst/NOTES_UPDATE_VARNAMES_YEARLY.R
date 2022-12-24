@@ -1,6 +1,9 @@
 # Update now and yearly
 # updating ejscreen-related packages for EJScreen 2.0 or 2.1
 
+# May shift to EJAM:: and related packages at some point.
+
+
 #'  EJScreen 2.1 was released circa August 2022.
 #'    EJScreen 2.1 uses ACS2020, which is from 2016-2020 (released March 17 2022, delayed from Dec 2021).
 #'    It was to be called the 2022 version of EJScreen, and
@@ -223,7 +226,7 @@ use_data(names.d.nice, overwrite=TRUE)
 # [1,] "Demog.Ind."
 # [2,] "% Low-inc."
 # [3,] "% Minority"
-# [4,] "% <High School"
+# [4,] "% < High School"
 # [5,] "% Linguistic Isol."
 # [6,] "% < age 5"
 # [7,] "% > age 64"
