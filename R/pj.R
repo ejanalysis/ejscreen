@@ -3,12 +3,12 @@
 #' @param enum which of the envt indicators to use, such as 1
 #' @param dnum which of the demog indicators to use, such as 3
 #' @param dat data.frame of ejscreen data
-#'
+#' @param ... passed to ileile_plot()
 #' @export
 #'
 #' @examples
 #'   pj(1,3)
-#'   pj(1,6, col='blue', main='My Graphic')
+#'   pj(1,6, col="blue", main="My Graphic")
 #'
 pj <- function(enum, dnum, dat=ejscreen::bg22, ...) {
 
@@ -20,7 +20,7 @@ pj <- function(enum, dnum, dat=ejscreen::bg22, ...) {
   EVARS_NICE <- ejscreen::names.e.nice
   DVARS_NICE <- ejscreen::names.d.nice
 
-  ileile_plot(
+  ejscreen::ileile_plot(
     dat[ , DVARS_ILE[dnum]],
     dat[ , EVARS_ILE[enum]],
     xlab = paste0(DVARS_NICE[dnum], ' (percentile)'),
