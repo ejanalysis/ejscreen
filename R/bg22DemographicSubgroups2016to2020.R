@@ -8,9 +8,9 @@
 #' @details
 #' \preformatted{
 #'   This dataset is a companion to the block group data from EJScreen.
-#'   EJScreen and therefore bg22 lack table B03002 (race ethnicity) so that table
+#'   EJScreen and therefore bg22 would have lacked table B03002 (race ethnicity) so that table
 #'   is obtained as bg22DemographicSubgroups
-#'  
+#'
 #'  This also includes race/ethnicity data for Puerto Rico, but not GU/AS/VI/MP.
 #'
 #'    EJScreen 2.1 uses ACS2020, which is from 2016-2020 (released March 17 2022, delayed from Dec 2021).
@@ -48,10 +48,10 @@
 #'   How dataset was created:
 #'   ######################################################################################
 #'
-#'     # see  ejscreen/inst/SCRIPT_create_bgDemog_ejscreen2.1_andtracts.R 
+#'     # see  ejscreen/inst/SCRIPT_create_bgDemog_ejscreen2.1_andtracts.R
 #'     # the SCRIPT for how this was created
 #'     # and  ejscreen/inst/SCRIPT_ADD_PUERTORICO_DEMOG_SUBGROUPS.R for the PR part.
-#'     
+#'
 #'     # DOWNLOADED ACS TABLE WITH RACE ETHNICITY BY BLOCK GROUP
 #'     # AND CREATE PERCENT VARIABLES LIKE PERCENT HISPANIC, ETC.
 #'
@@ -65,5 +65,5 @@
 #'   # "pctnhaiana"      "pctnhaa"         "pctnhnhpia"      "pctnhotheralone" "pctnhmulti"
 #'
 #'   }
-#'     
+#'
 NULL

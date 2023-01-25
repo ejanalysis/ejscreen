@@ -1,11 +1,11 @@
-# maybe add demog subgp pctiles cols to blockgroupstats or bg or bg22plus, 
+# maybe add demog subgp pctiles cols to blockgroupstats and/or  bg22
 # for demographic subgroups or user-specified indicators
 
-# noting that version 2.1 EJScreen uses blockgroup not population percentiles now, 
-# and resolves ties by reporting the lower edge of range - 
+# noting that version 2.1 EJScreen uses blockgroup not population percentiles now,
+# and resolves ties by reporting the lower edge of range -
 # but may be implementing that via the floor() function? will clarify details of their algo/script
 
-bg <- bg22plus 
+bg <- bg22 #plus
 
 # test / check
   x <- 100 * make.pctile.cols(bg[ , names.e])

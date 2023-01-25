@@ -18,7 +18,7 @@ Depends:
     R (>= 3.5.0)
 URL: http://ejanalysis.github.io, https://github.com/ejanalysis/ejscreen, http://www.ejanalysis.com/
 BugReports: https://github.com/ejanalysis/ejscreen/issues
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 License: MIT + file LICENSE
 Repository: GitHub
 Author: info@ejanalysis.com

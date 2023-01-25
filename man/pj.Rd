@@ -12,12 +12,14 @@ pj(enum, dnum, dat = ejscreen::bg22, ...)
 \item{dnum}{which of the demog indicators to use, such as 3}
 
 \item{dat}{data.frame of ejscreen data}
+
+\item{...}{passed to ileile_plot()}
 }
 \description{
 plot ej percentiles vs percentiles from EJSCREEN data
 }
 \examples{
   pj(1,3)
-  pj(1,6, col='blue', main='My Graphic')
+  pj(1,6, col="blue", main="My Graphic")
 
 }

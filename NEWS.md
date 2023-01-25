@@ -1,6 +1,12 @@
+# ejscreen 2.1.1 (1/23/23)
+
+* Renamed bg22plus as bg22, to avoid duplication of large dataset, to have bg22 include the demographic subgroup data. 
+* Removed bg22plus
+* Removed bg21 and related files
+
 # ejscreen 2.1.1 (9/12/22)
 
-* Add Puerto Rico's demographic subgoup data from Census table B03002 (% non-Hispanic black alone, etc.). See bg22DemographicSubgroups and bg22plus 
+* Add Puerto Rico's demographic subgoup data from Census table B03002 (% non-Hispanic black alone, etc.). See bg22DemographicSubgroups and bg22  
 * Added a `NEWS.md` file to track changes to the package.
 * Fixed ejscreenformulas info about percent unemployment, and new limited english speaking table
 

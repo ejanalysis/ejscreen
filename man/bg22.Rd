@@ -3,77 +3,34 @@
 \docType{data}
 \name{bg22}
 \alias{bg22}
-\title{ACS blockgroup data for EJScreen dataset, from ACS 2016-2020 summary file.}
+\title{blockgroup data from EPA's EJScreen dataset (including ACS 2016-2020)}
 \format{
-data.frame with 242335 rows (block groups) and 153 columns
+data.frame with 242335 rows (block groups) and approx 175 columns
 }
 \description{
 \preformatted{
+ This is the EPA EJScreen dataset version 2.1 with some additional columns added.
+ See also the EJAMejscreendata and EJAM packages once available.
 
- VINTAGE
+ Contents
 
- - EJScreen 2.1 was released by EPA in September 2022. It is called bg22 here.
+  Columns are added for bg22 that are not in the EPA version on the FTP site:
+    - lat lon for bg centroids
+    - state name and state abbrev, county name, and FIPS for tract, county, state
+    - demographic subgroups (percent Hispanic, etc.)
+      Detailed info on demog subgroups was in \link{bg22DemographicSubgroups2016to2020}
+  Column renamed to friendlier variable names than the ones on the FTP site.
+
+ Vintage
+
+   - EJScreen 2.1 was released by EPA in October 2022. It is called bg22 here.
    It uses ACS 2016-2020, which the Census Bureau released March 17, 2022 (delayed from Dec 2021).
 
- - EJScreen 2.0 was released by EPA February 18, 2022. It was called bg21 here.
-   It uses ACS 2015-2019, which the Census Bureau released December, 2020.
+   - EJScreen 2.0 was released by EPA February 18, 2022. It was called bg21 here.
+   It used ACS 2015-2019, which the Census Bureau released December, 2020.
    (EJScreen 2.0 was called the "2021 version" and bg21 here
    because it would have been called the late 2021 version but was delayed).
 
-  Columns may be added here, not in ftp version:
-    - lat lon for bg centroids
-    - state name and state abbrev, county name, and FIPS for tract, county, state
-    - demographic subgroups
-    Detailed info on demog subgroups was in \link{bg22DemographicSubgroups2016to2020}
-  Column names may be renamed to friendlier variable names than the ones on the FTP site.
-
  }
-}
-\details{
-Note Puerto Rico may not be in demographic subgroup data yet but this may change.
-
-  The data could be created for this package as follows: \cr\cr
-    \code{require(ejscreen); require(ACSdownload)} \cr
-    \code{require(proxistat) # for adding the lat lon of each block group }\cr
-    \code{require(analyze.stuff); require(ejanalysis); require(readr)} \cr
-     \cr
-  \code{
-  ## bg22 <- as.data.frame(data.table::fread('~/../EJ 2021/EJSCREEN 2022 2.1 DATA late2022/EJSCREEN_2022_USPR.csv'))
-  # might handle FIPS better:
-    bg22  <- as.data.frame(readr::read_csv("~/../EJ 2021/EJSCREEN 2022 2.1 DATA late2022/EJSCREEN_2022_USPR.csv"))
-  names(bg22) <- ejscreen::change.fieldnames.ejscreen.csv(names(bg22))
-  bg22 <- ejanalysis::addFIPScomponents(bg22, clean=FALSE)
-  # ejscreen.download() adds fields called FIPS.TRACT, FIPS.COUNTY, FIPS.ST, countyname. \cr
-  # or ejanalysis::addFIPScomponents() does that \cr 
-  # or....
-  #  bg <- ejscreen::ejscreen.download(yr=2022) # to be confirmed later  ------------------   \cr
-
-    } \cr\cr
-  
-  # and used to add lat, lon fields for block group centroids, via \link[proxistat]{bg.pts} from proxistat package\cr
-  \code{# plot(bg$lon[bg$lon < -50], bg$lat[bg$lon < -50], pch = '.')} \cr\cr
-  # but that bg.pts has not been updated.
-  
-  
-  # \code{sum(is.na(bg$FIPS.ST)) # check if any are NA} \cr
-
-  # THEN USE A NAME SPECIFIC TO THE YEAR and add metadata: \cr
-
-  \code{bg22 <- bg; rm(bg)} \cr
-  # "2022 version" (EJScreen version 2.1, bg22, ACS2020, after 7/2022)
-   
-set attributes to store metadata on vintage
-metadata <- list(
-  census_version = 2020,
-  acs_version = '2016-2020',
-  acs_releasedate = '3/17/2022',
-  ejscreen_version = '2.1',
-  ejscreen_releasedate = 'September 2022',
-  ejscreen_pkg_data = 'bg22'
-)
-  attributes(bg22) <- c(attributes(bg22), metadata)
-   usethis::use_data(bg22, overwrite = TRUE)
-  # or
-  # \code{save(bg22, file = 'bg22.rdata')} \cr \cr
 }
 \concept{datasets}
