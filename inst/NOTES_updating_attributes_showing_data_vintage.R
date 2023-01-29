@@ -57,8 +57,8 @@
 # names_ej_pctile         NULL           NULL        NULL            NULL        NULL             NULL                 NULL              NULL NULL
 # names_ej_state_pctile   NULL           NULL        NULL            NULL        NULL             NULL                 NULL              NULL NULL
 # names_other             NULL           NULL        NULL            NULL        NULL             NULL                 NULL              NULL NULL
-# points1000example       NULL           NULL        NULL            NULL        NULL             NULL                 NULL              NULL NULL
-# points100example        NULL           NULL        NULL            NULL        NULL             NULL                 NULL              NULL NULL
+# testpoints_1000      NULL           NULL        NULL            NULL        NULL             NULL                 NULL              NULL NULL
+# testpoints_100         NULL           NULL        NULL            NULL        NULL             NULL                 NULL              NULL NULL
 # regionstats             NULL           NULL        NULL            "2015-2019" "2.0"            NULL                 NULL              NULL 2022
 # sites2blocks_example    NULL           NULL        NULL            NULL        NULL             NULL                 NULL              NULL NULL
 # stateinfo               NULL           NULL        NULL            NULL        NULL             NULL                 NULL              NULL NULL
