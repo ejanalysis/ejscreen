@@ -1,9 +1,9 @@
 #' plot ej percentiles vs percentiles from EJSCREEN data
-#'
 #' @param enum which of the envt indicators to use, such as 1
 #' @param dnum which of the demog indicators to use, such as 3
 #' @param dat data.frame of ejscreen data
 #' @param ... passed to ileile_plot()
+#' @seealso ileile_plot()
 #' @export
 #'
 #' @examples
@@ -24,6 +24,7 @@ pj <- function(enum, dnum, dat=ejscreen::bg22, ...) {
     dat[ , DVARS_ILE[dnum]],
     dat[ , EVARS_ILE[enum]],
     xlab = paste0(DVARS_NICE[dnum], ' (percentile)'),
-    ylab = paste0(EVARS_NICE[enum], ' (median of percentiles)'), ...)
+    ylab = paste0(EVARS_NICE[enum], ' (median of percentiles)'),
+    ...)
 }
 
