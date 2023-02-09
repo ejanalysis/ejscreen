@@ -9,7 +9,7 @@
 #'   If 'ejscreen' it specifies using the default settings described below in details,
 #'   in which case all colnames(dat) must be among (but in any order) defaultcolnames below.
 #' @return Returns dat, but with numbers rounded based on digits parameter.
-#' @seealso \code{\link{esigfigs}} \code{\link[analyze.stuff]{signifarray}} \code{\link{signif}}
+#' @seealso \code{\link{esigfigs}} analyze.stuff::signifarray() \code{\link{signif}}
 #' @details  Sig figs used if digits specified as 'ejscreen' are those stored in data(esigfigs)
 #' @export
 ejscreensignifarray <- function(dat, digits = 'ejscreen') {

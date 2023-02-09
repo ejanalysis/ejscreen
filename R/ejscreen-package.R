@@ -15,6 +15,8 @@
 #'  The dataset has one row per spatial location (e.g., Census block group).
 #'
 #' @details
+#' Key datasets are bg22, ejscreenformulas, and the percentile lookup tables
+#' 
 #' Key functions include
 #' \itemize{
 #' \item \code{\link{ejscreen.download}} To download the raw data from the FTP site.

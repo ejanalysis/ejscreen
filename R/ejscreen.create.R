@@ -23,11 +23,11 @@
 #'   Use ejscreen.lookuptables() to create those lookup tables of 100 population weighted percentiles and mean, for US and each EPA Region and each State; for each raw score.
 #' @param e Data.frame of raw data for environmental indicators, one row per block group, one column per indicator.
 #' @param acsraw Optional data.frame of raw demographic indicators. Downloaded if not provided as parameter.
-#' @param folder Optional, default is getwd(). Passed to \code{\link[ACSdownload]{get.acs}} if demog data must be downloaded.
-#'   Passed to but not currently used by ejscreen.acs.rename which uses \code{\link[analyze.stuff]{change.fieldnames}} in \pkg{analyze.stuff} package.
-#'   Not currently passed to ejscreen.acs.calc which uses \code{\link[analyze.stuff]{calc.fields}} in \pkg{analyze.stuff} package.
+#' @param folder Optional, default is getwd(). Passed to ACSdownload::get.acs() if demog data must be downloaded.
+#'   Passed to but not currently used by ejscreen.acs.rename which uses analyze.stuff::change.fieldnames() in \pkg{analyze.stuff} package.
+#'   Not currently passed to ejscreen.acs.calc which uses analyze.stuff::calc.fields() in \pkg{analyze.stuff} package.
 #' @param keep.old optional vector of colnames from e that are to be used/returned. For nondefault colnames, this must be used.
-#' @param end.year optional to pass to \code{\link[ACSdownload]{get.acs}} (such as end.year='2013' -- otherwise uses default year used by \code{\link[ACSdownload]{get.acs}})
+#' @param end.year optional to pass to ACSdownload::get.acs() such as end.year='2013' -- otherwise uses default year used by ACSdownload::get.acs()
 #' @param mystates optional vector of 2-letter state abbreviations. Default is "all" which specifies all states plus DC (BUT NOT PR - we exclude PR so that calculating US percentiles works right)
 #' @param popup optional, default is FALSE, whether to add columns of text that can be used for popup info on maps, with raw value and percentile and units for each envt, demog, and EJ indicator (US Percentiles only?)
 #' @param write.lookup.us whether to save file with lookup table of US percentiles and means
@@ -42,16 +42,16 @@
 #' @param EJprefix2 optional, default is NULL, none used (old way was 'EJ.PCT' - specifies prefix for colnames of Alternative 2 version of EJ Indexes, with a period separating prefix from body of colname)
 #' @param formulas optional, see \code{\link{ejscreen.acs.calc}} for details. Defaults are in \code{\link{ejscreenformulas}}$formula
 #'   Note that if formulas is specified, ejformulasfromcode is ignored.
-#' @param ejtype optional, default is 1, defines which formula to use for ejindex if not using ejscreenformulas. See \code{\link{ej.indexes}} But note alt1 and alt2 still use type 5 and 6 ignoring ejtype.
+#' @param ejtype optional, default is 1, defines which formula to use for ejindex if not using ejscreenformulas. See ejanalysis::ej.indexes But note alt1 and alt2 still use type 5 and 6 ignoring ejtype.
 #' @param checkfips optional, default is TRUE. If TRUE, function checks to verify all FIPS codes appear to be valid US FIPS
 #'   (correct number of characters, adding any leading zero needed, and checking the first five to ensure valid county). To use something other than actual US FIPS codes, set this to FALSE.
 #' @param threshold optional, default is FALSE. Set to TRUE to add a column (called 'flagged') to results that is TRUE when one or more of certain percentiles (US EJ Index) in a block group (row) exceed cutoff.
-#'   A field called flagged can also be added via \link[ejanalysis]{flagged} ejanalysis::flagged() or via \link{ejscreen.download}( addflag = TRUE )
+#'   A field called flagged can also be added via ejanalysis::flagged() ejanalysis::flagged() or via \link{ejscreen.download}( addflag = TRUE )
 #' @param cutoff optional, default is 0.80 (80th percentile). If threshold=TRUE, then cutoff defines the threshold against which percentiles are compared.
 #' @param thresholdfieldnames optional, default is standard EJSCREEN EJ Indexes built into code. Otherwise, vector of character class fieldnames, specifying which fields to compare to cutoff if threshold=TRUE.
 #' @param ejformulasfromcode optional, default is FALSE. If TRUE, use EJ Index formulas built into this function instead of the EJ Index formulas in ejscreenformulas.
 #'   The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE. Note that if formulas is specified, ejformulasfromcode is ignored.
-#' @param ... optional extra parameters passed only to \code{\link[ACSdownload]{get.acs}} such as new.geo = FALSE, save.files = TRUE, write.files = TRUE
+#' @param ... optional extra parameters passed only to ACSdownload::get.acs such as new.geo = FALSE, save.files = TRUE, write.files = TRUE
 #' @return Returns a data.frame with full ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
 #'   as raw values, US percentiles,
 #'   but not actually the text for map popups. Output has one row per block group.

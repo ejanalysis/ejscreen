@@ -23,3 +23,6 @@ plot ej percentiles vs percentiles from EJSCREEN data
   pj(1,6, col="blue", main="My Graphic")
 
 }
+\seealso{
+ileile_plot()
+}

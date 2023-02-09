@@ -22,5 +22,5 @@ Start with raw counts from demographic survey data, and environmental data,
   and rename fields to use friendly variable names.
 }
 \seealso{
-\code{\link{ejscreenformulas}} \code{\link{change.fieldnames.ejscreen.csv}} \code{\link[analyze.stuff]{change.fieldnames}}
+\code{\link{ejscreenformulas}} \code{\link{change.fieldnames.ejscreen.csv}} analyze.stuff::change.fieldnames()
 }

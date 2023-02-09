@@ -2,7 +2,7 @@
 #'
 #' @description
 #'   Use specified formulas to create calculated, derived variables such as percent low income.
-#'   Relies upon \code{\link[analyze.stuff]{calc.fields}} from \pkg{analyze.stuff} package.
+#'   Relies upon analyze.stuff::calc.fields() from \pkg{analyze.stuff} package.
 #' @param bg Data.frame of raw demographic data counts, and environmental indicators, for each block group, such as population or number of Hispanics.
 #' @param folder Default is getwd(). Specifies path for where to read from (if formulafile specified) and write to.
 #' @param formulafile Name of optional csv file with column called formula, providing R syntax formulas as character fields.
@@ -130,7 +130,7 @@ ejscreen.acs.calc <-
 
     keep.new <- c(keep.new, ejfields)
   }
-    # if any of these are not successfully created by calc.fields(), they just won't be returned by that function.
+    # if any of these are not successfully created by analyze.stuff::calc.fields(), they just won't be returned by that function.
     if (keep.new[1] == 'all') {
       # all the new ones (calc.fields returns all new and none of old by default)
       newfieldsonly <-

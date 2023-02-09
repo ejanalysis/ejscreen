@@ -39,7 +39,7 @@ Returns a data.frame with some or all of input fields (those in keep.old), plus 
 }
 \description{
 Use specified formulas to create calculated, derived variables such as percent low income.
-  Relies upon \code{\link[analyze.stuff]{calc.fields}} from \pkg{analyze.stuff} package.
+  Relies upon analyze.stuff::calc.fields() from \pkg{analyze.stuff} package.
 }
 \examples{
  set.seed(99)

@@ -45,32 +45,37 @@ Download EJSCREEN dataset from FTP site, unzip if necessary,
   import to R as data.table,
   renaming fields with friendly colnames,
   optionally adding a flag field (see parameter called \code{addflag}).
-  Note that since 2020v, State percentiles are also available in a separate zipped csv.
+  Note that since 2020v, State percentiles are also available in 
+  a separate zipped csv.
 }
 \details{
 Not fully tested. \cr
   \preformatted{
-  Each version of EJSCREEN uses updated environmental data and updated 5-year summary file estimates from the American Community Survey (ACS).
+  Each version of EJSCREEN uses updated environmental data and updated 5-year 
+  summary file estimates from the American Community Survey (ACS).
 
-  The 2017-2021 American Community Survey 5-year estimates are scheduled to be released on Thursday, December 8, 2022.
+  The 2017-2021 American Community Survey 5-year estimates are scheduled to 
+  be released on Thursday, December 8, 2022.
   The 2016-2020 ACS 5-year estimates were released Dec 2021.
 
   EJScreen 2.0 (released February 2022),
-    actually uses ACS2019 5-year summary file data, which is from 2015-2019 (released Dec 2020).
+    actually uses ACS2019 5-year summary file data, which is from 2015-2019
+     (released Dec 2020).
     It is avail as data in \link{bg21}
-    (EJScreen 2.0 would have been called the 2021 version in old naming scheme).
-    \url{https://www.census.gov/programs-surveys/acs/news/data-releases/2019/release-schedule.html}
+  (EJScreen 2.0 would have been called the 2021 version in old naming scheme).
 
-  Note the 2020 version of EJSCREEN (confusingly released early/mid 2021 not late 2020)
+ Note the 2020 version of EJSCREEN 
+ (confusingly released early/mid 2021 not late 2020)
     actually used ACS2018, which is from 2014-2018 (released late 2019).
     It had been called bg20
 
        TO JUST READ THE EJSCREEN DATA ONCE DOWNLOADED FROM THE FTP SITE:
 
-       # may recode ejscreen.download to split out just the part that downloads, unzips, reads into R verbatim.
+      May recode ejscreen.download to split out just the part that 
+       downloads, unzips, reads into R verbatim.
 
-       x <- readr::read_csv('~/Downloads/EJSCREEN_2020_USPR.csv',  na = 'None')
-       x <- data.frame(x, stringsAsFactors = FALSE) # if you want a data.frame not a data.table
+ x <- readr::read_csv('~/Downloads/EJSCREEN_2020_USPR.csv', na = 'None')
+ x <- data.frame(x, stringsAsFactors=FALSE) #if want data.frame not data.table
 
        TO JUST RENAME COLUMNS TO FRIENDLY NAMES USED IN THIS PACKAGE:
 

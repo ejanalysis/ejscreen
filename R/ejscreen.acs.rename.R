@@ -9,7 +9,7 @@
 #' @param formulafile Default if this is blank is to use data('ejscreenformulas'). Otherwise filename must be specified.
 #'   If not specified, function loads this as data().
 #' @return Returns a data.frame with some or all of input fields, plus calculated new fields.
-#' @seealso  \code{\link{ejscreenformulas}} \code{\link{change.fieldnames.ejscreen.csv}} \code{\link[analyze.stuff]{change.fieldnames}}
+#' @seealso  \code{\link{ejscreenformulas}} \code{\link{change.fieldnames.ejscreen.csv}} analyze.stuff::change.fieldnames()
 #' @export
 ejscreen.acs.rename <-
   function(acsraw, folder = getwd(), formulafile) {

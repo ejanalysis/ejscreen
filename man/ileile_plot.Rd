@@ -2,7 +2,18 @@
 % Please edit documentation in R/ileileplot.R
 \name{ileile_plot}
 \alias{ileile_plot}
-\title{Scatter plot of median of Environmental score percentiles for each Demographic score percentile}
+\alias{qq}
+\alias{Shows}
+\alias{median}
+\alias{envt}
+\alias{percentile}
+\alias{of}
+\alias{places}
+\alias{within}
+\alias{each}
+\alias{demog}
+\title{Scatter plot of median of Environmental score percentiles for each Demographic score percentile
+Does Environmental score tend to be higher where Demographic percent is higher?}
 \usage{
 ileile_plot(
   x_demog_percentile,
@@ -27,7 +38,8 @@ ileile_plot(
 \item{...}{passed to plot(), such as col='red'}
 }
 \description{
-Shows median envt percentile of places within each percentile of demog
+Scatter plot of median of Environmental score percentiles for each Demographic score percentile
+Does Environmental score tend to be higher where Demographic percent is higher?
 }
 \examples{
 bg <- bg22
@@ -37,6 +49,8 @@ ileile_plot(
   xlab='low income percentile',
   ylab='median pctile of environmental score at that level of \% Demographics'
  )
+ # also see 
+ # cars::qqPlot(  something_like_pctile.proximity.rmp_at_some_sites, main="How close to US distribution of scores are scores at these sites?", ylab="RMP proximity scores at these sites (as US \%ile)", xlab = "Normal quantiles")
 
  pj(1,3)
 

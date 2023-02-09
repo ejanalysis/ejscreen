@@ -36,9 +36,9 @@ ejscreen.create(
 
 \item{acsraw}{Optional data.frame of raw demographic indicators. Downloaded if not provided as parameter.}
 
-\item{folder}{Optional, default is getwd(). Passed to \code{\link[ACSdownload]{get.acs}} if demog data must be downloaded.
-Passed to but not currently used by ejscreen.acs.rename which uses \code{\link[analyze.stuff]{change.fieldnames}} in \pkg{analyze.stuff} package.
-Not currently passed to ejscreen.acs.calc which uses \code{\link[analyze.stuff]{calc.fields}} in \pkg{analyze.stuff} package.}
+\item{folder}{Optional, default is getwd(). Passed to ACSdownload::get.acs() if demog data must be downloaded.
+Passed to but not currently used by ejscreen.acs.rename which uses analyze.stuff::change.fieldnames() in \pkg{analyze.stuff} package.
+Not currently passed to ejscreen.acs.calc which uses analyze.stuff::calc.fields() in \pkg{analyze.stuff} package.}
 
 \item{keep.old}{optional vector of colnames from e that are to be used/returned. For nondefault colnames, this must be used.}
 
@@ -71,20 +71,20 @@ Note that if formulas is specified, ejformulasfromcode is ignored.}
 \item{ejformulasfromcode}{optional, default is FALSE. If TRUE, use EJ Index formulas built into this function instead of the EJ Index formulas in ejscreenformulas.
 The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE. Note that if formulas is specified, ejformulasfromcode is ignored.}
 
-\item{ejtype}{optional, default is 1, defines which formula to use for ejindex if not using ejscreenformulas. See \code{\link{ej.indexes}} But note alt1 and alt2 still use type 5 and 6 ignoring ejtype.}
+\item{ejtype}{optional, default is 1, defines which formula to use for ejindex if not using ejscreenformulas. See ejanalysis::ej.indexes But note alt1 and alt2 still use type 5 and 6 ignoring ejtype.}
 
 \item{demogvarname0suffix}{optional, default is 'eo' - specifies suffix for colnames of EJ Indexes based on demogvarname0, with a period separating body of colname from suffix}
 
-\item{end.year}{optional to pass to \code{\link[ACSdownload]{get.acs}} (such as end.year='2013' -- otherwise uses default year used by \code{\link[ACSdownload]{get.acs}})}
+\item{end.year}{optional to pass to ACSdownload::get.acs() such as end.year='2013' -- otherwise uses default year used by ACSdownload::get.acs()}
 
 \item{threshold}{optional, default is FALSE. Set to TRUE to add a column (called 'flagged') to results that is TRUE when one or more of certain percentiles (US EJ Index) in a block group (row) exceed cutoff.
-A field called flagged can also be added via \link[ejanalysis]{flagged} ejanalysis::flagged() or via \link{ejscreen.download}( addflag = TRUE )}
+A field called flagged can also be added via ejanalysis::flagged() ejanalysis::flagged() or via \link{ejscreen.download}( addflag = TRUE )}
 
 \item{cutoff}{optional, default is 0.80 (80th percentile). If threshold=TRUE, then cutoff defines the threshold against which percentiles are compared.}
 
 \item{thresholdfieldnames}{optional, default is standard EJSCREEN EJ Indexes built into code. Otherwise, vector of character class fieldnames, specifying which fields to compare to cutoff if threshold=TRUE.}
 
-\item{...}{optional extra parameters passed only to \code{\link[ACSdownload]{get.acs}} such as new.geo = FALSE, save.files = TRUE, write.files = TRUE}
+\item{...}{optional extra parameters passed only to ACSdownload::get.acs such as new.geo = FALSE, save.files = TRUE, write.files = TRUE}
 }
 \value{
 Returns a data.frame with full ejscreen dataset of environmental and demographics indicators, and EJ Indexes,

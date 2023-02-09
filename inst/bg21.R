@@ -8,7 +8,7 @@
 #'  *VINTAGE*
 #'
 #'  - EJScreen 2.1 was released by EPA in August 2022. It is called bg22 here.
-#'    It uses ACS 2016-2020, which the Census Bureau released March 17, 2022 (delayed from Dec 2021).
+#'  It uses ACS 2016-2020, which the Census Bureau released March 17, 2022 (delayed from Dec 2021)
 #'
 #'  - EJScreen 2.0 was released by EPA February 18, 2022. It was called bg21 here.
 #'    It uses ACS 2015-2019, which the Census Bureau released December, 2020.
@@ -20,7 +20,8 @@
 #'   fields renamed for easier use in the ejscreen package,
 #'   Columns dropped from ftp version, not included here:
 #'     - text fields about percentiles, used as popup text on maps
-#'     - any obsolete columns related to the 2 alternative versions of an EJ Index phased out (except VNI.eo and VSI.eo are kept)
+#'     - any obsolete columns related to the 2 alternative versions of an EJ Index phased out
+#'       (except VNI.eo and VSI.eo are kept)
 #'     - any obsolete columns related to using 6 instead of 2 demographic variables (svi6)
 #'   Columns added here, not in ftp version:
 #'     - lat lon for bg centroids
@@ -40,8 +41,10 @@
 #' Note that unlike bg21DemographicSubgroups2015to2019,
 #'    bg21 has PR, and will need to add PR to ACS demog subgroup data
 #'
-#'   Lookup tables are not yet included here: lookup tables of percentiles for USA, Regions, States are on EJSCREEN FTP site.
-#'   For that information, see ejscreen::lookupUSA, lookupRegions, lookupStates, and ejscreen::ejscreen.lookuptables
+#'   Lookup tables are not yet included here: 
+#'     tables of percentiles for USA, Regions, States are on EJScreen FTP site.
+#'   For that information, see ejscreen::lookupUSA, lookupRegions, lookupStates, 
+#'     and ejscreen::ejscreen.lookuptables
 #'
 #'   Definitions of column names here vs in the gdb or csv on the FTP site files
 #'   are in data(ejscreenformulas)
@@ -52,33 +55,36 @@
 #' ############################################################################### #
 #' ##  Notes on vintage: 2010 vs 2020 Census block boundaries and FIPS ####
 #' #
-#' # *** PROBLEM trying to use Census 2020 dataset before EJSCREEN adopts it:
-#' # Not exactly right to use Census 2020 weights and lat/lon for buffering unless EJSCREEN does too.
+#' # *** PROBLEM trying to use Census 2020 dataset before EJScreen adopts it:
+#' # Not exactly right to use Census 2020 weights and lat/lon 
+#'   for buffering unless EJScreen does too.
 #' # Many of the CENSUS 2020 GEOGRAPHIC boundaries and also a few FIPS
-#' # do not match those in EJSCREEN through Jan 2022; same with EJSCREEN 2.0 released Feb 2022. bg20, bg21.
+#' # do not match those in EJSCREEN through Jan 2022; 
+#'   same with EJSCREEN 2.0 released Feb 2022. bg20, bg21.
 #' #
 #' # Boundaries changed:
-#' #   Census 2020 more accurately reflects where people now live,
-#' #   and EPA FTP site EJScreen dataset uses latest FIPS and boundaries I think (e.g. as in 2015-2019 ACS)?
+#' #   Census 2020 more accurately reflects where people now live
 #' #   The FTP site "2021" dataset, EJScreen 2.0, using ACS 2015-2019, as in bg21,
 #' #   has 11 blockgroups where FIPS is not in Census 2010 FIPS list, it appears.
 #' #   The old boundaries of a bg and can differ from new ones.
 #' #   Census 2010 vs 2020 boundaries are documented here:
-#' #   https://www.census.gov/geographies/reference-files/time-series/geo/relationship-files.html#blkgrp
-#' #   https://www.census.gov/geographies/reference-files/time-series/geo/relationship-files.html#t10t20
+#' #www.census.gov/geographies/reference-files/time-series/geo/relationship-files.html#blkgrp
+#' #www.census.gov/geographies/reference-files/time-series/geo/relationship-files.html#t10t20
 #' #
 #' # FIPS changed in Alaska:
 #' #   Small problem in part of Alaska where buffering and/or getting blockgroupstats
-#' #   would fail using census 2020. EJScreen 2.0 as of March/April 2022 used Census 2010 not 2020 geographies.
-#' #   ****  One Alaska county FIPS (containing 11 blockgroups) in EJSCREEN through March 2022,
-#' #   is not in Census 2020: Valdez-Cordova Census Area, Alaska     bg20$FIPS.COUNTY == '02261'
+#' #   would fail using census 2020. EJScreen 2.0 as of March/April 2022
+#' #    used Census 2010 not 2020 geographies.
+#' #   ****  One Alaska county FIPS (containing 11 blockgroups) in EJScreen through March 2022,
+#' #is not in Census 2020: Valdez-Cordova Census Area, Alaska     bg20$FIPS.COUNTY == '02261'
 #' #   population 9,301 per ACS 2014-2018
 #' #   **** TWO NEW Alaska COUNTIES with NINE blockgroups with 1,533 blocks
 #' #   population 9,719 per Census 2020
-#' #   are in Census 2020  not in EJSCREEN through March 2022.
+#' #   are in Census 2020  not in EJScreen through March 2022.
 #' #   c("02063", "02066")
 #' #  bg21$FIPS[is.na(bg21$ST)]
-#' #   c("020630002001", "020630002002", "020630003001", "020630003002", "020630003003", "020630003004", "020630003005", "020660001001", "020660001002")
+#' #   c("020630002001", "020630002002", "020630003001", "020630003002", "020630003003",
+#'   "020630003004", "020630003005", "020660001001", "020660001002")
 #' ############################################################################### #
 #'
 #'   *TO GET/CREATE THIS DATASET IN R FROM THE EPA FTP SITE VERSION*\cr\cr
@@ -96,7 +102,8 @@
 #'   #  justreadname = 'EJSCREEN_2021_USPR.csv' )} \cr\cr
 #'
 #'   \cr  or maybe should just do (instead of using ejscreen.download() to do this...)
-#'     # EJSCREEN_2021_USPR <- as.data.frame(readr::read_csv('./ejscreen2.1 july2022/EJSCREEN_2021_USPR.csv'))
+#'     # EJSCREEN_2021_USPR <- as.data.frame(readr::read_csv(
+#'       './ejscreen2.1 july2022/EJSCREEN_2021_USPR.csv'))
 #'     bg <- as.data.frame(readr::read_csv('EJSCREEN_2021_USPR.csv'))
 #'
 #'     names(bg) <- ejscreen::change.fieldnames.ejscreen.csv(names(bg))
@@ -111,14 +118,16 @@
 #'
 #'   \cr
 #'   #  \link{ejscreen.download} renames fields, drops an ID field, \cr
-#'   # and adds fields called FIPS.TRACT, FIPS.COUNTY, FIPS.ST, countyname, and (optionally) flagged. \cr\cr
+#'   # and adds fields called FIPS.TRACT, FIPS.COUNTY, FIPS.ST, countyname,\cr
+#'      and (optionally) flagged. \cr\cr
 #'   \code{bg <- bg[ , !grepl(pattern = 'pctile\\\\.text', x = names(bg))]} \cr
 #'   \code{bg <- bg[ , names(bg) != 'Shape_Length'] } \cr
 #'
-#'   # Then added lat, lon fields for block group centroids, via \link[proxistat]{bg.pts} from proxistat package:\cr
+#'   # Then added lat, lon fields for block group centroids, via proxistat::bg.pts() \cr
+#'     # from proxistat package:\cr
 #'   # for 2010 boundaries that was like this:\cr
-#'   \code{bg <- merge(bg, proxistat::bg.pts[ , c('FIPS', 'lat')], by.x = 'FIPS', by.y = 'FIPS', all.x = TRUE, all.y = FALSE)} \cr
-#'   \code{bg <- merge(bg, proxistat::bg.pts[ , c('FIPS', 'lon')], by.x = 'FIPS', by.y = 'FIPS', all.x = TRUE, all.y = FALSE)} \cr\cr
+#'  \code{bg <- merge(bg, proxistat::bg.pts[ , c('FIPS', 'lat')], by.x = 'FIPS', by.y = 'FIPS', all.x = TRUE, all.y = FALSE)} \cr
+#'  \code{bg <- merge(bg, proxistat::bg.pts[ , c('FIPS', 'lon')], by.x = 'FIPS', by.y = 'FIPS', all.x = TRUE, all.y = FALSE)} \cr\cr
 #'   # for 2020 boundaries it is like this: \cr
 #'   # ... ...
 #'

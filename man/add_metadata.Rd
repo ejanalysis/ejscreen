@@ -9,8 +9,7 @@ add_metadata(x, metadata)
 \arguments{
 \item{x}{dataset (or any object) whose metadata you want to update or create}
 
-\item{metadata}{must be a named list, so that the function can do this for each i:
-attr(x, which=names(metadata)[i]) <- metadata[[i]]}
+\item{metadata}{must be a named list, so that the function can do this for each i: attr(x, which=names(metadata)[i]) <- metadata[[i]]}
 }
 \value{
 returns x but with new or altered attributes

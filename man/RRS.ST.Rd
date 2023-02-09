@@ -7,5 +7,5 @@
 \description{
 Based on the latest EJSCREEN dataset
 
-    See \code{\link[ejanalysis]{RR.table}} for how this was created and can be used.
+    See ejanalysis::RR.table() for how this was created and can be used.
 }

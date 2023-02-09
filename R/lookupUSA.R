@@ -64,7 +64,7 @@
 #'  # [1] 33.36371
 #'  # also see ejanalysis::assign.pctiles
 #'  }
-#' @seealso   lookupUSA lookupRegions lookupStates ejscreen.lookuptables \code{\link[ejanalysis]{lookup.pctile}}
+#' @seealso   lookupUSA lookupRegions lookupStates ejscreen.lookuptables ejanalysis::lookup.pctile()
 #' @details
 #'   The EJScreen 2.1 version
 #'   could be replicated for this package via \code{x <- ejscreen::ejscreen.lookuptables(bg22)}

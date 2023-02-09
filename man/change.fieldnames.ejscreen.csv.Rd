@@ -14,7 +14,7 @@ Returns a character vector of colnames, same length as input parameter
 }
 \description{
 Just a wrapper to help easily change colnames used in csv file on EJSCREEN FTP site
-  into friendlier, preferred colnames for work in R. Uses \code{\link[analyze.stuff]{change.fieldnames}}
+  into friendlier, preferred colnames for work in R. Uses analyze.stuff::change.fieldnames()
 }
 \examples{
  \dontrun{
@@ -23,5 +23,5 @@ Just a wrapper to help easily change colnames used in csv file on EJSCREEN FTP s
  }
 }
 \seealso{
-\code{\link{ejscreenformulas}} \code{\link{ejscreen.acs.rename}} \code{\link[analyze.stuff]{change.fieldnames}}
+\code{\link{ejscreenformulas}} \code{\link{ejscreen.acs.rename}} analyze.stuff::change.fieldnames()
 }

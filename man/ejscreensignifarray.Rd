@@ -26,5 +26,5 @@ Given a matrix or numeric data.frame, round each column to a specified column-sp
 Sig figs used if digits specified as 'ejscreen' are those stored in data(esigfigs)
 }
 \seealso{
-\code{\link{esigfigs}} \code{\link[analyze.stuff]{signifarray}} \code{\link{signif}}
+\code{\link{esigfigs}} analyze.stuff::signifarray() \code{\link{signif}}
 }

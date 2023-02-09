@@ -80,6 +80,6 @@ ejanalysis::lookup.pctile(1000, varname.in.lookup.table = 'traffic.score',  look
  }
 }
 \seealso{
-lookupUSA lookupRegions lookupStates ejscreen.lookuptables \code{\link[ejanalysis]{lookup.pctile}}
+lookupUSA lookupRegions lookupStates ejscreen.lookuptables ejanalysis::lookup.pctile()
 }
 \concept{datasets}
