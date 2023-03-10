@@ -186,7 +186,7 @@ round(keystats_e, 2)
 ############################################################################# #
 # AS PERCENTILES ####
 # CONVERT TO PERCENTILES
-# see EJAM::lookup_pctile
+# see EJAM::pctile_from_raw_lookup
 library(EJAM)
 
 # or this simplified version:
