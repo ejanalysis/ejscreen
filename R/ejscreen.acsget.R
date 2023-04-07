@@ -17,7 +17,7 @@
 #'  myurl <- paste0('https://data.census.gov/cedsci/table?q=acs%20', 
 #'    paste(mytables, collapse= '%20'), '&y=2020')
 #'  browseURL(myurl)
-#'  # [https://data.census.gov/cedsci/table?q=acs%20B01001%20B03002%20B15002%20B23025%20B25034%20C16002%20C17002&y=2020]
+#'  # <https://data.census.gov/cedsci/table?q=acs%20B01001%20B03002%20B15002%20B23025%20B25034%20C16002%20C17002&y=2020>
 #'  \preformatted{
 #'  ACSdownload::get.field.info(mytables, table.info.only = TRUE)[ , 1:2]
 #'           ID                                                          title
@@ -32,9 +32,12 @@
 #'  }
 #'  # C16002 replaced B16004 that was older ACS source for what had been called 
 #'  linguistic isolation, now called limited English speaking households.
+#'  
 #'   Details on language spoken: 
+#'   
 #'  [www2.census.gov/topics/language-use/acs/acs_tabulations-language-list.pdf]
-#'    [https://data.census.gov/cedsci/table?q=acs%20c16002&y=2020]
+#'  
+#'    <https://data.census.gov/cedsci/table?q=acs%20c16002&y=2020>
 #'
 #' @param end.year optional character year like 2020 specifying last of 5 years of ACS summary file
 #' @param base.path optional, default is working directory; folder in which data.path and output.path subfolders are or will be created
