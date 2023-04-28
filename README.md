@@ -2,7 +2,7 @@
 
 ## This [ejscreen package](https://ejanalysis.github.io/ejscreen/) provides tools for R related to environmental justice (EJ) analysis, specifically related to the United States Environmental Protection Agency (EPA) screening and mapping/GIS tool called EJSCREEN.
 
-For details on the EJSCREEN tool itself, see \url{http://www.epa.gov/ejscreen}. This R package -- "ejscreen" -- facilitates development of a dataset in the EJSCREEN format, based on user-provided environmental indicators.
+For details on the EJScreen tool itself, see [the EJScreen website](https://www.epa.gov/ejscreen). This R package -- "ejscreen" -- facilitates development of a dataset in the EJSCREEN format, based on user-provided environmental indicators.
 
 The resulting dataset is a data.frame that contains data on demographics (e.g., percent of residents who are low-income) and user-provided local environmental indicators (e.g., an air quality index), and calculated indicators called EJ Indexes, which combine environmental and demographic indicators. The dataset also provides each key indicator as a national population-percentile that represents what percentage of the US population have equal or lower raw values for the given indicator. The dataset has one row per spatial location (e.g., Census block group).
 
