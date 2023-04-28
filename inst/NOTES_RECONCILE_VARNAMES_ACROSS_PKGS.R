@@ -10,6 +10,10 @@
 
 # Check what API provides versus old batch tool provided - did counts get created that we need for aggregating by GIS toolbox code but not by API??
 
+#  A June 2023 release?
+
+#  2.11?
+
 #'  EJScreen 2.1 was released circa August 2022.
 #'    EJScreen 2.1 uses ACS2020, which is from 2016-2020 (released March 17 2022, delayed from Dec 2021).
 #'    It was to be called the 2022 version of EJScreen, and
