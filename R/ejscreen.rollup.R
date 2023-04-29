@@ -61,7 +61,7 @@ ejscreen.rollup <- function(bg, fipsname = 'FIPS.TRACT', scalename = 'tracts', e
   ##################################### #
   # Get packages (available via http://www.ejanalysis.com)
   # require(analyze.stuff); require(ejanalysis); require(ejscreen)
-  #data(names.dvars)
+
 
   ##################################### #
   # Get the wtd.mean for E (and other maybe some other fields?)

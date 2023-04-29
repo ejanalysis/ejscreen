@@ -139,7 +139,7 @@ ejscreen.create <-
     #   - Assigns bins (map color bin number) using make.bin.cols()
     #  This originally was done by Calculate_BG_BinsPercentiles-2014-05.R
     #
-    # POPUP TEXT ****  
+    # POPUP TEXT ****
     #    added optionally, via
     # ejscreen::make.popup.d, ejscreen::make.popup.e, ejscreen::make.popup.ej
     # - Create text popup versions of all raw scores and percentiles for display:
@@ -476,7 +476,7 @@ ejscreen.create <-
       # later could allow user specified fields to be applied to threshold cutoff
 
       if (missing(thresholdfieldnames)) {
-        #data(names.ejvars, package = 'ejanalysis', envir = environment())
+
         thresholdfieldnames <- names.ej.pctile
       }
 

@@ -104,18 +104,18 @@
 
 #   list.files('./data')  # in ejscreen package
 #
-#   bg21plus which combines these 2: "bg21.rdata"   "bg21DemographicSubgroups2015to2019.rdata"
-#      THESE WERE REMOVED: "lookupRegions20.rdata"   "lookupStates20.rdata"    "lookupUSA20.rdata"
+#   bg212 which combines these 2: "bg21.rda"   "bg22DemographicSubgroups2016to2020.rda"
+#      THESE WERE REMOVED: "lookupRegions20.rda"   "lookupStates20.rdata"    "lookupUSA20.rda"
 #      REPLACED WITH JUST lookupStates  and  lookupUSA
 #
 #   "ejscreenformulas.rda"  "ejscreenformulasnoej.rda"
 #
-#   "esigfigs.RData"  "popupunits.RData"
+#   "esigfigs.rda"  "popupunits.rda"
 # "vars.ejscreen.acs.RData"
 #
-# [11] "names.d.nice.rdata", &  "names.dvars.RData" # now just names.d.rda
-# [13] "names.e.nice.RData",  & "names.evars.RData" # now just names.e.rda
-# [15] "names.ejvars.RData"      # now just names.ej.rda
+#  names.d.nice.rda  &   names.d.rda
+#  names.e.nice.rda  &   names.e.rda
+#  names.ej.rda
 
 # "RRS.county20.rdata"   "RRS.REGIONS20.rdata"  "RRS.ST20.rdata"  "RRS.US20.rdata"
 

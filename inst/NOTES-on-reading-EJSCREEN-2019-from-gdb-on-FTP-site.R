@@ -71,7 +71,6 @@ if (1==0) {
 # see  ACS_US_TOTALS_2014-2018.R in batch.summarizer package
 # see NOTES-on-reading-EJSCREEN-2019-from-gdb-on-FTP-site.R
 # see updating EJSCREEN tech doc 2019.R
-# see notes-on-how-names-e-RData-and-names-ejvars-updated-to-2016.R
 
 # Be clear on diff between EJSCREEN vs ACS extra fields & other extra fields in this pkg:
 #

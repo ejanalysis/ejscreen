@@ -245,11 +245,11 @@ names.d.eo <- c("pctmin", "pctlowinc")  # ok.  ############## #
 names.d.eo.bin     <- paste0('bin.',       names.d.eo)
 names.d.eo.pctile  <- paste0('pctile.',    names.d.eo)
 
-names.d.subgroups.count <- c("nhwa", "hisp", "nhba", "nhaa", "nhaiana", "nhnhpia", "nhotheralone", "nhmulti") # done (names.dvars)
-names.d.subgroups.pct  <- paste0('pct', names.d.subgroups.count) # done (names.dvars)
-names.d.subgroups <- names.d.subgroups.pct  # done (names.dvars)
+names.d.subgroups.count <- c("nhwa", "hisp", "nhba", "nhaa", "nhaiana", "nhnhpia", "nhotheralone", "nhmulti") # done
+names.d.subgroups.pct  <- paste0('pct', names.d.subgroups.count) # done
+names.d.subgroups <- names.d.subgroups.pct  # done
 
-# (names.dvars)   : *************************************************************************
+#  *************************************************************************
 usethis::use_data( # done ################################ #
   names.d ,
   names.d.bin ,
@@ -268,7 +268,7 @@ usethis::use_data( # done ################################ #
 ###################################################################### #
 # ENVT & EJ lists of variable namess ####
 # related to the new ENVT indicator  ### #
-# had been saved in names.evars.RData and names.ejvars.RData
+# had been saved in names.e.rda and names.ej.rda
 # now each is in its own .rda file
 ###################################################################### #
 
@@ -317,7 +317,7 @@ names.e        <- union(names.e, new.e) # done ########## ######################
 names.e.bin    <- paste0('bin.',    names.e)
 names.e.pctile <- paste0('pctile.', names.e)
 Elist <- as.list(names.e)
-# names.ejvars
+#
 usethis::use_data( # done ################################ #
   names.e ,
   names.e.bin ,
@@ -334,13 +334,14 @@ usethis::use_data( # done ################################ #
 names.ej <- paste0('EJ.DISPARITY.',   names.e, '.eo')
 names.ej.bin     <- paste0('bin.',    names.ej)
 names.ej.pctile  <- paste0('pctile.', names.ej)
+
 ## obsolete:
-names.ej.burden.eo <- gsub('DISPARITY', 'BURDEN', names.ej)    # obsolete (names.ejvars)
-names.ej.burden.eo.bin <- paste0('bin.', names.ej.burden.eo)    # obsolete (names.ejvars)
-names.ej.burden.eo.pctile    # obsolete (names.ejvars)
-names.ej.pct.eo <- gsub('DISPARITY', 'PCT', names.ej)   # obsolete (names.ejvars)
-names.ej.pct.eo.bin <- paste0('bin.', names.ej.pct.eo)   # obsolete (names.ejvars)
-names.ej.pct.eo.pctile   <- paste0('pctile.', names.ej.pct.eo)  # obsolete (names.ejvars)
+names.ej.burden.eo <- gsub('DISPARITY', 'BURDEN', names.ej)    # obsolete
+names.ej.burden.eo.bin <- paste0('bin.', names.ej.burden.eo)    # obsolete
+names.ej.burden.eo.pctile    # obsolete
+names.ej.pct.eo <- gsub('DISPARITY', 'PCT', names.ej)   # obsolete
+names.ej.pct.eo.bin <- paste0('bin.', names.ej.pct.eo)   # obsolete
+names.ej.pct.eo.pctile   <- paste0('pctile.', names.ej.pct.eo)  # obsolete
 namesall.ej <- c(names.ej, names.ej.burden.eo, names.ej.pct.eo)  # obsolete
 namesall.ej.bin <- paste0('bin.', namesall.ej)  # obsolete
 namesall.ej.pctile <- paste0('pctile.', namesall.ej)  # obsolete
