@@ -35,8 +35,8 @@
 
 ##################################################################
 # EJAM and related packages
-
-# EJAM::metadata_check(packages = c('EJAM', 'EJAMejscreendata', 'EJAMfrsdata', 'EJAMblockdata'))
+# 'EJAMfrsdata',
+# EJAM::metadata_check(packages = c('EJAM', 'EJAMejscreendata',  'EJAMblockdata'))
 #
 # $EJAM
 #               census_version acs_version acs_releasedate ACS         ejscreen_version ejscreen_releasedate ejscreen_pkg_data year released
@@ -74,7 +74,7 @@
 # States_2022                          2020           "2016-2020" "3/17/2022"     NULL "2.1"            "October 2022"       "bg22"            NULL NULL
 # USA_2022                             2020           "2016-2020" "3/17/2022"     NULL "2.1"            "October 2022"       "bg22"            NULL NULL
 #
-# $EJAMfrsdata
+# $EJAMfrsdata - these were moved to EJAM pkg though
 #        census_version acs_version acs_releasedate ACS  ejscreen_version ejscreen_releasedate ejscreen_pkg_data year released
 # frs              NULL           NULL        NULL            NULL NULL             NULL                 NULL              NULL "2022-10-11"
 # frs_by_naics     NULL           NULL        NULL            NULL NULL             NULL                 NULL              NULL "2022-10-11"
