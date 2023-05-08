@@ -85,8 +85,7 @@
 # bgid2fips     2020           "2016-2020" NULL            NULL "2.1"            "September 2022"     NULL              NULL NULL
 # blockid2fips  2020           "2016-2020" NULL            NULL "2.1"            "September 2022"     NULL              NULL NULL
 # blockpoints   2020           "2016-2020" NULL            NULL "2.1"            "September 2022"     NULL              NULL NULL
-# blockquadtree 2020           "2016-2020" NULL            NULL "2.1"            "September 2022"     NULL              NULL NULL
-# blockwts      2020           "2016-2020" NULL            NULL "2.1"            "September 2022"     NULL              NULL NULL
+ # blockwts      2020           "2016-2020" NULL            NULL "2.1"            "September 2022"     NULL              NULL NULL
 # lookup_states NULL           NULL        NULL            NULL NULL             NULL                 NULL              NULL NULL
 # quaddata      2020           "2016-2020" NULL            NULL "2.1"            "September 2022"     NULL              NULL NULL
 
