@@ -46,9 +46,9 @@
 #' @param yr Default is latest available year found as a folder on the FTP site.
 #'   Optional numeric year designating EJSCREEN version such as 2015, 2016, 2017, 2018, 2019, 2020, etc.
 #' @param ftpurlbase Optional. where to find the zipped data.
-#' @param addflag Optional. Default is FALSE. If TRUE, it adds a field called flagged, which is TRUE if 1 or more of the EJ Indexes is at/above the cutoff US percentile.
-#' @param cutoff Optional. Default is 80. See addflag parameter.
-#' @param or.tied Optional. Default is TRUE, meaning at or above the cutoff. FALSE means above only. See addflag parameter.
+#' @param addflag Optional. Default is FALSE. If TRUE, it adds a field called flagged, which is TRUE if 1 or more of the EJ Indexes is at/above the threshold US percentile.
+#' @param threshold Optional. Default is 80. See addflag parameter.
+#' @param or.tied Optional. Default is TRUE, meaning at or above the threshold FALSE means above only. See addflag parameter.
 #' @param justreadname Optional character file name - if specified, skips downloading and just tries to read previously-downloaded csv found in \code{folder}.
 #' @param statepctiles Optional, default FALSE. If TRUE, gets State Percentiles csv instead of the USPR file.
 #' @return Returns a data.frame with ejscreen dataset of environmental and demographics indicators, and EJ Indexes,
@@ -72,7 +72,7 @@ ejscreen.download <-
            justreadname = NULL,
            statepctiles = FALSE,
            addflag = FALSE,
-           cutoff = 80,
+           threshold = 80,
            or.tied = TRUE) {
 
     ######################################################################################## #
@@ -287,7 +287,7 @@ ejscreen.download <-
     # Add a flag column if needed ---------------------------------------------------------
     ############################# #
     # ADD FLAG COLUMN for EJ80th threshold approach
-    # FLAG ROWS WHERE AT LEAST ONE OF A FEW INDICATORS IS ABOVE GIVEN CUTOFF THRESHOLD
+    # FLAG ROWS WHERE AT LEAST ONE OF A FEW INDICATORS IS ABOVE GIVEN  THRESHOLD
     ############################# #
     #
     ## See which block groups are flagged as having one or more of 12 EJ indexes >= 80th US pctile
@@ -295,7 +295,7 @@ ejscreen.download <-
 
     if (addflag) {
       warning('The flagged field may not work for state percentiles file yet')
-      bg$flagged <- ejanalysis::flagged(bg[, names.ej.pctile], cutoff = cutoff, or.tied = or.tied)
+      bg$flagged <- ejanalysis::flagged(bg[, names.ej.pctile], threshold = threshold, or.tied = or.tied)
     }
 
     ############################# #

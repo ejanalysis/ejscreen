@@ -41,7 +41,7 @@ if (1==0) {
   # from ejscreen.create() use these snippets:
   # e$FIPS <- ejanalysis::clean.fips(e$FIPS)
   # bg$flagged <-
-  #   ejanalysis::flagged(bg[, thresholdfieldnames] / 100, cutoff = cutoff)
+  #   ejanalysis::flagged(bg[, thresholdfieldnames] / 100, threshold = threshold)
   # # Add FIPS, countyname, statename, State etc --------
   # add the other FIPS components as individual columns
   # bg <- ejanalysis::addFIPScomponents(bg)

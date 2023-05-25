@@ -7,7 +7,7 @@
 
 # C16002 now has the info on "Households in which no one 14 and over speaks English only
 # or speaks a language other than English at home and speaks English 'very well'."
-# B16004 now has details on certain age groups but no cutoff at age 14.
+# B16004 now has details on certain age groups but no cutpoint at age 14.
 
 # Survey/Program:American Community Survey
 # Universe:Households

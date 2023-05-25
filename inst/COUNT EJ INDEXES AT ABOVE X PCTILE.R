@@ -1,4 +1,4 @@
-# COUNT ENVT, DEMOG, and EJ INDEXES AT/ABOVE X PCTILE or Raw Cutoffs ####
+# COUNT ENVT, DEMOG, and EJ INDEXES AT/ABOVE X PCTILE or Raw cutpoints ####
 #    COUNT EJ INDEXES AT ABOVE X PCTILE.R
 # maybe Add these useful summary stats to ejscreen block group dataset
 # or just calculate them in batch.summarize() code
@@ -31,27 +31,27 @@ a3
 #
 # colcounter is like analyze.stuff::colcounter   or    analyze.stuff::cols.above.count # but they may not be identical anymore
 
-colcounter <- function(x, cutoff, or.tied=TRUE, na.rm=TRUE, below=FALSE, one.cut.per.col=FALSE) {
+colcounter <- function(x, threshold, or.tied=TRUE, na.rm=TRUE, below=FALSE, one.cut.per.col=FALSE) {
   if (is.null(dim(x))) {numcols <- 1; stop('expected data.frame as x but has only 1 dimension')} else {numcols <- dim(x)[2]}
-  if (missing(cutoff)) {
+  if (missing(threshold)) {
     if (one.cut.per.col) {
-      cutoff <- colMeans(x, na.rm = na.rm)
+      threshold <- colMeans(x, na.rm = na.rm)
     } else {
-      cutoff <- rowMeans(x, na.rm = na.rm)
+      threshold <- rowMeans(x, na.rm = na.rm)
     }
   }
   if (one.cut.per.col) {
-    if (length(cutoff) != NCOL(x)) {stop('length of cutoff should be same as number of columns in x if one.cut.per.col=T')}
-    x <- t(as.matrix(x)) # this allows it to compare vector of N cutoffs to N columns
+    if (length(threshold) != NCOL(x)) {stop('length of threshold should be same as number of columns in x if one.cut.per.col=T')}
+    x <- t(as.matrix(x)) # this allows it to compare vector of N cutpoints to N columns
   } else {
-    if (length(cutoff) != NROW(x) & length(cutoff) != 1) {stop('length of cutoff should be 1 or same as number of columns in x, if one.cut.per.col=F')}
+    if (length(threshold) != NROW(x) & length(threshold) != 1) {stop('length of threshold should be 1 or same as number of columns in x, if one.cut.per.col=F')}
   }
   if (below) {
-    if  (or.tied) { y <- ( x <= cutoff) }
-    if (!or.tied) { y <- ( x <  cutoff) }
+    if  (or.tied) { y <- ( x <= threshold) }
+    if (!or.tied) { y <- ( x <  threshold) }
   } else {
-    if  (or.tied) { y <- ( x >= cutoff) }
-    if (!or.tied) { y <- ( x >  cutoff) }
+    if  (or.tied) { y <- ( x >= threshold) }
+    if (!or.tied) { y <- ( x >  threshold) }
   }
   if (one.cut.per.col) {y <- t(y)}
   count.per.row <- rowSums(y, na.rm = na.rm)

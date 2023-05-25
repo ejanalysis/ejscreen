@@ -14,7 +14,7 @@ ejscreen.download(
   justreadname = NULL,
   statepctiles = FALSE,
   addflag = FALSE,
-  cutoff = 80,
+  threshold = 80,
   or.tied = TRUE
 )
 }
@@ -30,11 +30,11 @@ Optional numeric year designating EJSCREEN version such as 2015, 2016, 2017, 201
 
 \item{statepctiles}{Optional, default FALSE. If TRUE, gets State Percentiles csv instead of the USPR file.}
 
-\item{addflag}{Optional. Default is FALSE. If TRUE, it adds a field called flagged, which is TRUE if 1 or more of the EJ Indexes is at/above the cutoff US percentile.}
+\item{addflag}{Optional. Default is FALSE. If TRUE, it adds a field called flagged, which is TRUE if 1 or more of the EJ Indexes is at/above the threshold US percentile.}
 
-\item{cutoff}{Optional. Default is 80. See addflag parameter.}
+\item{threshold}{Optional. Default is 80. See addflag parameter.}
 
-\item{or.tied}{Optional. Default is TRUE, meaning at or above the cutoff. FALSE means above only. See addflag parameter.}
+\item{or.tied}{Optional. Default is TRUE, meaning at or above the threshold FALSE means above only. See addflag parameter.}
 }
 \value{
 Returns a data.frame with ejscreen dataset of environmental and demographics indicators, and EJ Indexes,

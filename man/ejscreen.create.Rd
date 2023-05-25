@@ -25,8 +25,8 @@ ejscreen.create(
   ejtype = 1,
   demogvarname0suffix = "eo",
   end.year,
-  threshold = FALSE,
-  cutoff = 0.8,
+  addflag = FALSE,
+  threshold = 0.8,
   thresholdfieldnames,
   ...
 )
@@ -55,34 +55,34 @@ Note that if formulas is specified, ejformulasfromcode is ignored.}
 
 \item{write.lookup.states}{whether to save file with lookup table of State percentiles and means}
 
-\item{demogvarname0}{optional, default is 'VSI.eo' used as demographic indicator for EJ Indexes. Must be a colname in acsraw or created and kept by formulas.}
+\item{demogvarname0}{optional, default is "VSI.eo" used as demographic indicator for EJ Indexes. Must be a colname in acsraw or created and kept by formulas.}
 
-\item{wtsvarname}{optional, default is 'pop' used for weighted percentiles, etc. Must be a colname in acsraw or created and kept by formulas.}
+\item{wtsvarname}{optional, default is "pop" used for weighted percentiles, etc. Must be a colname in acsraw or created and kept by formulas.}
 
 \item{checkfips}{optional, default is TRUE. If TRUE, function checks to verify all FIPS codes appear to be valid US FIPS
 (correct number of characters, adding any leading zero needed, and checking the first five to ensure valid county). To use something other than actual US FIPS codes, set this to FALSE.}
 
-\item{EJprefix0}{optional, default is 'EJ.DISPARITY' - specifies prefix for colnames of main EJ Indexes, with a period separating prefix from body of colname}
+\item{EJprefix0}{optional, default is "EJ.DISPARITY" - specifies prefix for colnames of main EJ Indexes, with a period separating prefix from body of colname}
 
-\item{EJprefix1}{optional, default is NULL, none used (old way was 'EJ.BURDEN' - specifies prefix for colnames of Alternative 1 version of EJ Indexes, with a period separating prefix from body of colname)}
+\item{EJprefix1}{optional, default is NULL, none used (old way was "EJ.BURDEN" - specifies prefix for colnames of Alternative 1 version of EJ Indexes, with a period separating prefix from body of colname)}
 
-\item{EJprefix2}{optional, default is NULL, none used (old way was 'EJ.PCT' - specifies prefix for colnames of Alternative 2 version of EJ Indexes, with a period separating prefix from body of colname)}
+\item{EJprefix2}{optional, default is NULL, none used (old way was "EJ.PCT" - specifies prefix for colnames of Alternative 2 version of EJ Indexes, with a period separating prefix from body of colname)}
 
 \item{ejformulasfromcode}{optional, default is FALSE. If TRUE, use EJ Index formulas built into this function instead of the EJ Index formulas in ejscreenformulas.
 The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE. Note that if formulas is specified, ejformulasfromcode is ignored.}
 
 \item{ejtype}{optional, default is 1, defines which formula to use for ejindex if not using ejscreenformulas. See ejanalysis::ej.indexes But note alt1 and alt2 still use type 5 and 6 ignoring ejtype.}
 
-\item{demogvarname0suffix}{optional, default is 'eo' - specifies suffix for colnames of EJ Indexes based on demogvarname0, with a period separating body of colname from suffix}
+\item{demogvarname0suffix}{optional, default is "eo" - specifies suffix for colnames of EJ Indexes based on demogvarname0, with a period separating body of colname from suffix}
 
-\item{end.year}{optional to pass to ACSdownload::get.acs() such as end.year='2013' -- otherwise uses default year used by ACSdownload::get.acs()}
+\item{end.year}{optional to pass to ACSdownload::get.acs() such as end.year="2013" -- otherwise uses default year used by ACSdownload::get.acs()}
 
-\item{threshold}{optional, default is FALSE. Set to TRUE to add a column (called 'flagged') to results that is TRUE when one or more of certain percentiles (US EJ Index) in a block group (row) exceed cutoff.
+\item{addflag}{optional, default is FALSE. Set to TRUE to add a column (called "flagged") to results that is TRUE when one or more of certain percentiles (US EJ Index) in a block group (row) exceed cutpoint.
 A field called flagged can also be added via ejanalysis::flagged() ejanalysis::flagged() or via \link{ejscreen.download}( addflag = TRUE )}
 
-\item{cutoff}{optional, default is 0.80 (80th percentile). If threshold=TRUE, then cutoff defines the threshold against which percentiles are compared.}
+\item{threshold}{optional, default is 0.80 (80th percentile). If addflag == TRUE, then threshold defines the threshold against which percentiles are compared.}
 
-\item{thresholdfieldnames}{optional, default is standard EJSCREEN EJ Indexes built into code. Otherwise, vector of character class fieldnames, specifying which fields to compare to cutoff if threshold=TRUE.}
+\item{thresholdfieldnames}{optional, default is standard EJSCREEN EJ Indexes built into code. Otherwise, vector of character class fieldnames, specifying which fields to compare to threshold if addflag is TRUE.}
 
 \item{...}{optional extra parameters passed only to ACSdownload::get.acs such as new.geo = FALSE, save.files = TRUE, write.files = TRUE}
 }
@@ -122,12 +122,12 @@ NOTE : does not include demographic subgroups yet  see  names.d.subgroups
    num2pov=runif(1000, 0,500), stringsAsFactors=FALSE)
  demogdata$povknownratio <- demogdata$pop
  # downloads ACS demographics and combines with user provided envirodata:
- # bg1=ejscreen.create(envirodata, mystates=c('de','dc'))
+ # bg1=ejscreen.create(envirodata, mystates=c("de","dc"))
  # currently does not work for nonstandard colnames
  #  unless keep.old used as follows (work in progress):
  y=ejscreen.create(e=envirodata, acsraw=demogdata,
    keep.old = c(names(envirodata), names(demogdata)),
-   demogvarname0 = 'pctmin',wtsvarname = 'pop' )
+   demogvarname0 = "pctmin",wtsvarname = "pop" )
 
  }
 }

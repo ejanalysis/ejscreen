@@ -27,28 +27,28 @@
 #'   Passed to but not currently used by ejscreen.acs.rename which uses analyze.stuff::change.fieldnames() in \pkg{analyze.stuff} package.
 #'   Not currently passed to ejscreen.acs.calc which uses analyze.stuff::calc.fields() in \pkg{analyze.stuff} package.
 #' @param keep.old optional vector of colnames from e that are to be used/returned. For nondefault colnames, this must be used.
-#' @param end.year optional to pass to ACSdownload::get.acs() such as end.year='2013' -- otherwise uses default year used by ACSdownload::get.acs()
+#' @param end.year optional to pass to ACSdownload::get.acs() such as end.year="2013" -- otherwise uses default year used by ACSdownload::get.acs()
 #' @param mystates optional vector of 2-letter state abbreviations. Default is "all" which specifies all states plus DC (BUT NOT PR - we exclude PR so that calculating US percentiles works right)
 #' @param popup optional, default is FALSE, whether to add columns of text that can be used for popup info on maps, with raw value and percentile and units for each envt, demog, and EJ indicator (US Percentiles only?)
 #' @param write.lookup.us whether to save file with lookup table of US percentiles and means
 #' @param write.lookup.regions whether to save file with lookup table of REGION percentiles and means
 #' @param write.lookup.states whether to save file with lookup table of State percentiles and means
 #'
-#' @param demogvarname0 optional, default is 'VSI.eo' used as demographic indicator for EJ Indexes. Must be a colname in acsraw or created and kept by formulas.
-#' @param wtsvarname optional, default is 'pop' used for weighted percentiles, etc. Must be a colname in acsraw or created and kept by formulas.
-#' @param demogvarname0suffix optional, default is 'eo' - specifies suffix for colnames of EJ Indexes based on demogvarname0, with a period separating body of colname from suffix
-#' @param EJprefix0 optional, default is 'EJ.DISPARITY' - specifies prefix for colnames of main EJ Indexes, with a period separating prefix from body of colname
-#' @param EJprefix1 optional, default is NULL, none used (old way was 'EJ.BURDEN' - specifies prefix for colnames of Alternative 1 version of EJ Indexes, with a period separating prefix from body of colname)
-#' @param EJprefix2 optional, default is NULL, none used (old way was 'EJ.PCT' - specifies prefix for colnames of Alternative 2 version of EJ Indexes, with a period separating prefix from body of colname)
+#' @param demogvarname0 optional, default is "VSI.eo" used as demographic indicator for EJ Indexes. Must be a colname in acsraw or created and kept by formulas.
+#' @param wtsvarname optional, default is "pop" used for weighted percentiles, etc. Must be a colname in acsraw or created and kept by formulas.
+#' @param demogvarname0suffix optional, default is "eo" - specifies suffix for colnames of EJ Indexes based on demogvarname0, with a period separating body of colname from suffix
+#' @param EJprefix0 optional, default is "EJ.DISPARITY" - specifies prefix for colnames of main EJ Indexes, with a period separating prefix from body of colname
+#' @param EJprefix1 optional, default is NULL, none used (old way was "EJ.BURDEN" - specifies prefix for colnames of Alternative 1 version of EJ Indexes, with a period separating prefix from body of colname)
+#' @param EJprefix2 optional, default is NULL, none used (old way was "EJ.PCT" - specifies prefix for colnames of Alternative 2 version of EJ Indexes, with a period separating prefix from body of colname)
 #' @param formulas optional, see \code{\link{ejscreen.acs.calc}} for details. Defaults are in \code{\link{ejscreenformulas}}$formula
 #'   Note that if formulas is specified, ejformulasfromcode is ignored.
 #' @param ejtype optional, default is 1, defines which formula to use for ejindex if not using ejscreenformulas. See ejanalysis::ej.indexes But note alt1 and alt2 still use type 5 and 6 ignoring ejtype.
 #' @param checkfips optional, default is TRUE. If TRUE, function checks to verify all FIPS codes appear to be valid US FIPS
 #'   (correct number of characters, adding any leading zero needed, and checking the first five to ensure valid county). To use something other than actual US FIPS codes, set this to FALSE.
-#' @param threshold optional, default is FALSE. Set to TRUE to add a column (called 'flagged') to results that is TRUE when one or more of certain percentiles (US EJ Index) in a block group (row) exceed cutoff.
+#' @param addflag optional, default is FALSE. Set to TRUE to add a column (called "flagged") to results that is TRUE when one or more of certain percentiles (US EJ Index) in a block group (row) exceed cutpoint.
 #'   A field called flagged can also be added via ejanalysis::flagged() ejanalysis::flagged() or via \link{ejscreen.download}( addflag = TRUE )
-#' @param cutoff optional, default is 0.80 (80th percentile). If threshold=TRUE, then cutoff defines the threshold against which percentiles are compared.
-#' @param thresholdfieldnames optional, default is standard EJSCREEN EJ Indexes built into code. Otherwise, vector of character class fieldnames, specifying which fields to compare to cutoff if threshold=TRUE.
+#' @param threshold optional, default is 0.80 (80th percentile). If addflag == TRUE, then threshold defines the threshold against which percentiles are compared.
+#' @param thresholdfieldnames optional, default is standard EJSCREEN EJ Indexes built into code. Otherwise, vector of character class fieldnames, specifying which fields to compare to threshold if addflag is TRUE.
 #' @param ejformulasfromcode optional, default is FALSE. If TRUE, use EJ Index formulas built into this function instead of the EJ Index formulas in ejscreenformulas.
 #'   The parameters such as demogvarname0 are only used if ejformulasfromcode=TRUE. Note that if formulas is specified, ejformulasfromcode is ignored.
 #' @param ... optional extra parameters passed only to ACSdownload::get.acs such as new.geo = FALSE, save.files = TRUE, write.files = TRUE
@@ -67,12 +67,12 @@
 #'    num2pov=runif(1000, 0,500), stringsAsFactors=FALSE)
 #'  demogdata$povknownratio <- demogdata$pop
 #'  # downloads ACS demographics and combines with user provided envirodata:
-#'  # bg1=ejscreen.create(envirodata, mystates=c('de','dc'))
+#'  # bg1=ejscreen.create(envirodata, mystates=c("de","dc"))
 #'  # currently does not work for nonstandard colnames
 #'  #  unless keep.old used as follows (work in progress):
 #'  y=ejscreen.create(e=envirodata, acsraw=demogdata,
 #'    keep.old = c(names(envirodata), names(demogdata)),
-#'    demogvarname0 = 'pctmin',wtsvarname = 'pop' )
+#'    demogvarname0 = "pctmin",wtsvarname = "pop" )
 #'
 #'  }
 #' @export
@@ -88,19 +88,19 @@ ejscreen.create <-
            write.lookup.regions = FALSE,
            write.lookup.states = FALSE,
            demogvarname0 = 'VSI.eo',
-           # demogvarname1 = NULL, #'VSI.svi6',
+           # demogvarname1 = NULL, # "VSI.svi6",
            wtsvarname = 'pop',
            checkfips = TRUE,
            EJprefix0 = 'EJ.DISPARITY',
-           EJprefix1 = NULL, #'EJ.BURDEN',
-           EJprefix2 = NULL, #'EJ.PCT',
+           EJprefix1 = NULL, # "EJ.BURDEN",
+           EJprefix2 = NULL, # "EJ.PCT",
            ejformulasfromcode = FALSE,
            ejtype = 1,
            demogvarname0suffix = 'eo',
-           # demogvarname1suffix = NULL, #'svi6',
+           # demogvarname1suffix = NULL, # "svi6",
            end.year,
-           threshold = FALSE,
-           cutoff = 0.80,
+           addflag = FALSE,
+           threshold = 0.80,
            thresholdfieldnames,
            ...) {
     ##################################################################################### #
@@ -177,11 +177,11 @@ ejscreen.create <-
     ########################################################################################################## #
 
     mystates <- ACSdownload::clean.mystates(mystates = mystates)
-    # *** note that if mystates = 'all', this no longer returns 'pr' (Puerto Rico) as one of the states,
+    # *** note that if mystates = "all", this no longer returns "pr" (Puerto Rico) as one of the states,
     # since that should be excluded to do percentiles on US without PR.
 
     # Created file called "variables needed.csv" specific to EJSCREEN
-    # and now that is in  data(vars.ejscreen.acs) from ejscreen package as default list of acs variables like 'B01001.001'
+    # and now that is in  data(vars.ejscreen.acs) from ejscreen package as default list of acs variables like B01001.001
     # but vars.ejscreen.acs probably has way more than are really needed...
     #   not all of those are in ejscreen::ejscreenformulas$acsfieldname
     if (missing(acsraw)) {
@@ -215,11 +215,11 @@ ejscreen.create <-
 
     if (1 == 0) {
       # older examples:
-      # load(file.path(mypath, 'ACS - download and parse/ACS DOWNLOADED/FTP raw 20135 ACS', 'ACS 2009-2013 EJSCREEN BG w calc vars via FTP.RData'))
-      # load(file='8D-2014-06.RData')
-      #		 load(file.path(mypath, 'ACS - download and parse/ACS DATA/FTP as source/20125 ACS', 'ACS 2008-2012 EJSCREEN BG w calc vars via FTP.RData'))
-      #    load(file.path(mypath, 'bg EJSCREEN plus race eth subgrps ACS0812.RData'))
-      # bg.d <- read.csv(file='8D-2014-06.csv', as.is=TRUE)
+      # load(file.path(mypath, "ACS - download and parse/ACS DOWNLOADED/FTP raw 20135 ACS", "ACS 2009-2013 EJSCREEN BG w calc vars via FTP.RData"))
+      # load(file= "8D-2014-06.RData")
+      #		 load(file.path(mypath, "ACS - download and parse/ACS DATA/FTP as source/20125 ACS", "ACS 2008-2012 EJSCREEN BG w calc vars via FTP.RData"))
+      #    load(file.path(mypath, "bg EJSCREEN plus race eth subgrps ACS0812.RData"))
+      # bg.d <- read.csv(file="8D-2014-06.csv", as.is=TRUE)
     }
 
     # could allow user to pass formulafile here but would need to ensure correctly treated as missing if left out
@@ -309,10 +309,10 @@ ejscreen.create <-
     #  add US percentile and map color bin cols
     ########################################################################################################## #
 
-    # cat('\n')
-    # print('mynames.d');print(mynames.d);cat('\n')
-    # print('mynames.e');print(mynames.e);cat('\n')
-    # print('names(bg)');print(names(bg));cat('\n')
+    # cat("\n")
+    # print("mynames.d");print(mynames.d);cat("\n")
+    # print("mynames.e");print(mynames.e);cat("\n")
+    # print("names(bg)");print(names(bg));cat("\n")
 
     #	DEMOG
     # (if EJ Index formulas were in ejscreen::ejscreenformulas variable lazy loaded from data, or specified by user formulas,
@@ -371,7 +371,7 @@ ejscreen.create <-
       #       stringsAsFactors = FALSE
       #     ) # note this calculates overall VSI.svi6.US on the fly
       #   names(EJ.basic.svi6) <-
-      #     paste(EJprefix0, mynames.e, demogvarname1suffix, sep = '.')
+      #     paste(EJprefix0, mynames.e, demogvarname1suffix, sep = ".")
       # }
 
       # add to bg
@@ -422,7 +422,7 @@ ejscreen.create <-
       #     type = 5
       #   )
       # names(EJ.alt1.svi6) <-
-      #   paste(EJprefix1, mynames.e, demogvarname1suffix, sep = '.')
+      #   paste(EJprefix1, mynames.e, demogvarname1suffix, sep = ".")
 
       # Supplementary/ alt2 EJ Indexes raw values cols
       #EJ.alt2.eo   <- sapply(bg[ , mynames.e], function(x) {x * bg[ , demogvarname0]  })
@@ -438,7 +438,7 @@ ejscreen.create <-
       #                          demog = bg[, demogvarname1],
       #                          type = 6)
       # names(EJ.alt2.svi6) <-
-      #   paste(EJprefix2, mynames.e, demogvarname1suffix, sep = '.')
+      #   paste(EJprefix2, mynames.e, demogvarname1suffix, sep = ".")
 
       # add alt raw EJ cols to bg
       bg <-
@@ -471,9 +471,9 @@ ejscreen.create <-
 
     # Add threshold flag if requested -----------------------------------------
     # The field called flagged can also be added via ejanalysis::flagged() or via ejscreen.download( addflag = TRUE )
-    if (threshold) {
+    if (addflag) {
       #  add threshold flag if requested
-      # later could allow user specified fields to be applied to threshold cutoff
+      # later could allow user specified fields to be applied to threshold 
 
       if (missing(thresholdfieldnames)) {
 
@@ -482,7 +482,7 @@ ejscreen.create <-
 
       if (all(thresholdfieldnames %in% names(bg))) {
         bg$flagged <-
-          ejanalysis::flagged(bg[, thresholdfieldnames] / 100, cutoff = cutoff)
+          ejanalysis::flagged(bg[, thresholdfieldnames] / 100, threshold = threshold)
       } else {
         warning(
           'threshold field requested but thresholdfieldnames are not all found in the dataset'
@@ -494,7 +494,7 @@ ejscreen.create <-
     # add the other FIPS components as individual columns
     bg <- ejanalysis::addFIPScomponents(bg)
     # or if func rewritten to use fips not whole bg, then need to call like this:
-    #  bg <- cbind(addFIPSparts(bg$FIPS), bg[ , names(bg)[names(bg) != 'FIPS']])
+    #  bg <- cbind(addFIPSparts(bg$FIPS), bg[ , names(bg)[names(bg) != "FIPS"]])
 
     if (popups) {
       bg <- cbind(bg, ejscreen::make.popup.d(d = bg[ , names.d], pctile = bg[ , names.d.pctile]))

@@ -58,7 +58,7 @@ Tables can include the EJScreen 2.1 tables:
  myurl <- paste0('https://data.census.gov/cedsci/table?q=acs%20', 
    paste(mytables, collapse= '%20'), '&y=2020')
  browseURL(myurl)
- # [https://data.census.gov/cedsci/table?q=acs%20B01001%20B03002%20B15002%20B23025%20B25034%20C16002%20C17002&y=2020]
+ # <https://data.census.gov/cedsci/table?q=acs%20B01001%20B03002%20B15002%20B23025%20B25034%20C16002%20C17002&y=2020>
  \preformatted{
  ACSdownload::get.field.info(mytables, table.info.only = TRUE)[ , 1:2]
           ID                                                          title
@@ -73,9 +73,12 @@ Tables can include the EJScreen 2.1 tables:
  }
  # C16002 replaced B16004 that was older ACS source for what had been called 
  linguistic isolation, now called limited English speaking households.
+ 
   Details on language spoken: 
+  
  [www2.census.gov/topics/language-use/acs/acs_tabulations-language-list.pdf]
-   [https://data.census.gov/cedsci/table?q=acs%20c16002&y=2020]
+ 
+   <https://data.census.gov/cedsci/table?q=acs%20c16002&y=2020>
 }
 \examples{
  mytables <- c("B01001", "B03002", "B15002", 'B23025', "B25034", "C16002", "C17002")
