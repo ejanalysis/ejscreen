@@ -15,7 +15,7 @@
 #'  The dataset has one row per spatial location (e.g., Census block group).
 #'
 #' @details
-#' Key datasets are bg22, ejscreenformulas, and the percentile lookup tables
+#' Key datasets are [bg22], [ejscreenformulas], and the percentile lookup tables
 #' 
 #' Key functions include
 #' \itemize{
@@ -30,4 +30,4 @@
 #' \url{https://github.com/ejanalysis/ejscreen} \cr
 #' \url{http://ejanalysis.github.io} \cr
 #' \url{http://www.ejanalysis.com/} \cr
-NULL
+"_PACKAGE"
