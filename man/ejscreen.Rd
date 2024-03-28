@@ -3,6 +3,7 @@
 \docType{package}
 \name{ejscreen}
 \alias{ejscreen}
+\alias{_PACKAGE}
 \alias{ejscreen-package}
 \title{Tools for EJSCREEN, US EPA's Environmental Justice (EJ) Screening and Mapping Tool}
 \description{
@@ -18,7 +19,7 @@ This R package provides tools related to environmental justice (EJ) analysis,
  The dataset has one row per spatial location (e.g., Census block group).
 }
 \details{
-Key datasets are bg22, ejscreenformulas, and the percentile lookup tables
+Key datasets are [bg22], [ejscreenformulas], and the percentile lookup tables
 
 Key functions include
 \itemize{
@@ -33,5 +34,15 @@ Key functions include
 \url{https://github.com/ejanalysis/ejscreen} \cr
 \url{http://ejanalysis.github.io} \cr
 \url{http://www.ejanalysis.com/} \cr
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{http://ejanalysis.github.io}
+  \item \url{https://github.com/ejanalysis/ejscreen}
+  \item \url{http://www.ejanalysis.com/}
+  \item Report bugs at \url{https://github.com/ejanalysis/ejscreen/issues}
+}
+
 }
 \concept{justice EJ demographic}
