@@ -3,7 +3,6 @@
 \docType{package}
 \name{ejscreen}
 \alias{ejscreen}
-\alias{_PACKAGE}
 \alias{ejscreen-package}
 \title{Tools for EJSCREEN, US EPA's Environmental Justice (EJ) Screening and Mapping Tool}
 \description{
