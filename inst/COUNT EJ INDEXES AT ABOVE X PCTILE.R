@@ -1,7 +1,6 @@
 # COUNT ENVT, DEMOG, and EJ INDEXES AT/ABOVE X PCTILE or Raw cutpoints ####
 #    COUNT EJ INDEXES AT ABOVE X PCTILE.R
 # maybe Add these useful summary stats to ejscreen block group dataset
-# or just calculate them in batch.summarize() code
 
 ############################################################################# #
 # **** for USEFUL BENCHMARKS SUMMARY see  ####

@@ -68,7 +68,6 @@ if (1==0) {
 
 # See the help file for bg21 or bg22 e.g., help(bg22, package = 'ejscreen')
 # ************* and
-# see  ACS_US_TOTALS_2014-2018.R in batch.summarizer package
 # see NOTES-on-reading-EJSCREEN-2019-from-gdb-on-FTP-site.R
 # see updating EJSCREEN tech doc 2019.R
 
