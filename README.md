@@ -2,6 +2,11 @@
 
 ## Currently Obsolete way to Create an EJSCREEN-style dataset
 
+As of 1/2025, see https://usepa.github.io/EJAM/index.html for related data and tools.
+
+As of 1/2025, content below is obsolete, but it may be updated at some point.
+
+
 ## This [ejscreen package](https://ejanalysis.github.io/ejscreen/) provides tools for R related to environmental justice (EJ) analysis, specifically related to the United States Environmental Protection Agency (EPA) screening and mapping/GIS tool called EJSCREEN.
 
 For details on the EJScreen tool itself, see [the EJScreen website](https://www.epa.gov/ejscreen). This R package -- "ejscreen" -- facilitates development of a dataset in the EJSCREEN format, based on user-provided environmental indicators.
@@ -16,11 +21,6 @@ This package is not on CRAN yet, but you can install it from Github (if it has b
 if (!require('devtools')) install.packages('devtools')
 devtools::install_github('ejanalysis/ejscreen')
 ```
-
-## Documentation
-
-In addition to documentation in the package, the help in pdf format is here:
-[http://ejanalysis.github.io/ejscreen/ejscreen.pdf](http://ejanalysis.github.io/ejscreen/ejscreen.pdf)
 
 ## Related Packages
 
