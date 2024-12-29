@@ -1,5 +1,7 @@
 # ejscreen package
 
+## Currently Obsolete way to Create an EJSCREEN-style dataset
+
 ## This [ejscreen package](https://ejanalysis.github.io/ejscreen/) provides tools for R related to environmental justice (EJ) analysis, specifically related to the United States Environmental Protection Agency (EPA) screening and mapping/GIS tool called EJSCREEN.
 
 For details on the EJScreen tool itself, see [the EJScreen website](https://www.epa.gov/ejscreen). This R package -- "ejscreen" -- facilitates development of a dataset in the EJSCREEN format, based on user-provided environmental indicators.
